@@ -50,9 +50,10 @@ group :test do
      gem 'launchy'
      gem 'rspec-rails'
      gem 'simplecov'
+     gem 'haml-rails'
 end
 
 #DevelopmentMode
 group :development do
-      
+      gem 'haml-rails'
 end

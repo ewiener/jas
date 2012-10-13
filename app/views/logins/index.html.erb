@@ -1,0 +1,12 @@
+-# This file is app/views/logins/index.html.haml
+%h1 PTA Session Tracker
+%h2
+{@banner_message}
+= form_tag logins_path, :method => :get, :id=> 'login_form' do
+  Include:
+    %label Username:
+    %input{:type => "text", :name => "username", class => "text"}
+    %label Password:
+    %input{:type => "password", :name -> "password"}
+
+    

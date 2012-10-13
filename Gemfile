@@ -9,6 +9,14 @@ group :production do
   gem 'pg'
 end
 group :development, :test do
+  gem 'cucumber-rails'
+  gem 'cucumber-rails-training-wheels'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec-rails'
+  gem 'simplecov'
+  gem 'haml-rails'
   gem 'sqlite3'
 end
 
@@ -40,20 +48,3 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-
-#DebugMode
-group :test do
-     gem 'cucumber-rails'
-     gem 'cucumber-rails-training-wheels'
-     gem 'database_cleaner'
-     gem 'capybara'
-     gem 'launchy'
-     gem 'rspec-rails'
-     gem 'simplecov'
-     gem 'haml-rails'
-end
-
-#DevelopmentMode
-group :development do
-      gem 'haml-rails'
-end

@@ -1,4 +1,4 @@
-def StudentsController < ApplicationController
+class StudentsController < ApplicationController
   protect_from_forgery
   def show
     id = params[:id]

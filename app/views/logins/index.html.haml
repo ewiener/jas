@@ -1,13 +1,85 @@
 -# This file is app/views/logins/index.html.haml
-%h1 PTA Session Tracker
-%h2
-#{@banner_message}
-= form_tag logins_path, :method => :post, :id=> 'login_form' do
-  %label Username:
-  %input{:type => "text", :name => "username", :class => "text"}
-  %br
-  %label Password:
-  %input{:type => "password", :name => "password"}
-  = submit_tag 'Login', :id => 'login_submit'
+!!! 5
 
-    
+%html
+  %head
+    %link{:rel=>"stylesheet", :href=>"http://www.byteclothing.com/bootstrap/css/bootstrap.min.css"}
+    = stylesheet_link_tag("frontpage")
+    %script{:src=>"http://www.byteclothing.com/bootstrap/js/bootstrap.min.js"}
+  %body
+    %div#container
+      %div.hero-unit.section
+        %h1
+          PTA Scheduler
+        %p
+          This is an app being built for Jefferson Elementary School to coordinate/manage their afterschool program.
+          %br
+          %br
+          %div.align-right
+            %a.btn.btn-large.btn-warning{:href=>"http://cs169-fa12-project.herokuapp.com/projects/9"}
+              Project Description &raquo;
+            %a.btn.btn-large.btn-info{:href=>"https://github.com/eddieberklee/cs160-pp2"}
+              Github &raquo;
+            %a.btn.btn-large.btn-inverse{:href=>"https://www.pivotaltracker.com/projects/650345"}
+              Pivotal Tracker &raquo;
+      %div.hero-unit.section
+        %h1
+          Progress
+        %p
+          Deadlines for different parts of our project.
+          %br
+          %br
+          %div.bar-titles
+          %div.bar-object.progress.progress-striped.active
+            %div.bar{:style=>"width: 12.5%"}
+          %div.bar-dates
+            %span
+              %i.icon-ok
+              10/14/12
+            %span
+              10/21/12
+            %span
+              10/28/12
+            %span
+              11/04/12
+            %span
+              11/11/12
+            %span
+              11/18/12
+            %span
+              11/28/12
+            %span
+              12/05/12
+      %div.hero-unit.section
+        %h1
+          Team
+        %p
+          %ul
+            %li
+              %h3
+                Lauren Fratamico
+            %li
+              %h3
+                Eric Horton
+            %li
+              %h3
+                Ray Kyaw
+            %li
+              %h3
+                Edward Lee
+            %li
+              %h3
+                Brian Prike
+
+-# %h1 PTA Session Tracker
+-# %h2
+-# #{@banner_message}
+-# = form_tag logins_path, :method => :post, :id=> 'login_form' do
+-#   %label Username:
+-#   %input{:type => "text", :name => "username", :class => "text"}
+-#   %br
+-#   %label Password:
+-#   %input{:type => "password", :name => "password"}
+-#   = submit_tag 'Login', :id => 'login_submit'
+
+

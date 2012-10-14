@@ -1,0 +1,23 @@
+.clear {
+  clear: both; }
+
+#container {
+  width: 940px;
+  margin: 0 auto; }
+
+.section {
+  width: 700px;
+  margin: 10px auto; }
+
+.align-right {
+  text-align: right; }
+
+.hero-unit p {
+  padding-top: 10px; }
+.hero-unit .btn {
+  margin-right: 6px; }
+
+.bar-dates {
+  text-align: right; }
+  .bar-dates span {
+    margin-left: 10px; }

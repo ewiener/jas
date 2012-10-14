@@ -18,10 +18,23 @@
           %div.align-right
             %a.btn.btn-large.btn-warning{:href=>"http://cs169-fa12-project.herokuapp.com/projects/9"}
               Project Description &raquo;
-            %a.btn.btn-large.btn-info{:href=>"https://github.com/eddieberklee/cs160-pp2"}
+            %a.btn.btn-large.btn-info{:href=>"https://github.com/eddieberklee/cs169-group29"}
               Github &raquo;
             %a.btn.btn-large.btn-inverse{:href=>"https://www.pivotaltracker.com/projects/650345"}
               Pivotal Tracker &raquo;
+
+      %div.hero-unit.section
+        %h1 PTA Session Tracker
+        %h2
+          #{@banner_message}
+        = form_tag logins_path, :method => :post, :id=> 'login_form' do
+          %label Username:
+          %input{:type => "text", :name => "username", :class => "text"}
+          %br
+          %label Password:
+          %input{:type => "password", :name => "password"}
+          = submit_tag 'Login', :id => 'login_submit'
+
       %div.hero-unit.section
         %h1
           Progress
@@ -70,16 +83,5 @@
             %li
               %h3
                 Brian Prike
-
--# %h1 PTA Session Tracker
--# %h2
--# #{@banner_message}
--# = form_tag logins_path, :method => :post, :id=> 'login_form' do
--#   %label Username:
--#   %input{:type => "text", :name => "username", :class => "text"}
--#   %br
--#   %label Password:
--#   %input{:type => "password", :name => "password"}
--#   = submit_tag 'Login', :id => 'login_submit'
 
 

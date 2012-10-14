@@ -12040,3 +12040,401 @@ Completed 200 OK in 100ms (Views: 99.2ms | ActiveRecord: 0.0ms)
 
 Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 07:57:56 -0700
 Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:01:06 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.7ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:01:06 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:01:59 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (3.2ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:01:59 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:02:51 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (38ms)  (pid 6001)
+  Rendered logins/index.html.haml (45.3ms)
+Completed 200 OK in 47ms (Views: 47.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:02:51 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:01 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (11.3ms)
+Completed 200 OK in 13ms (Views: 12.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:01 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:08 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (5ms)  (pid 6001)
+  Rendered logins/index.html.haml (13.3ms)
+Completed 200 OK in 15ms (Views: 14.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:08 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:16 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (5ms)  (pid 6001)
+  Rendered logins/index.html.haml (11.2ms)
+Completed 200 OK in 13ms (Views: 12.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:16 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:23 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (7ms)  (pid 6001)
+  Rendered logins/index.html.haml (15.1ms)
+Completed 200 OK in 17ms (Views: 16.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:23 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:24 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (1.9ms)
+Completed 200 OK in 5ms (Views: 4.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:24 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:27 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (11ms)  (pid 6001)
+  Rendered logins/index.html.haml (18.8ms)
+Completed 200 OK in 21ms (Views: 20.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:27 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:27 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.9ms)
+Completed 200 OK in 2ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:27 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:31 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (13.0ms)
+Completed 200 OK in 15ms (Views: 15.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:31 -0700
+Served asset /frontpage.css - 200 OK (2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:32 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (1.0ms)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:32 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:32 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (1.0ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:32 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:36 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (9ms)  (pid 6001)
+  Rendered logins/index.html.haml (17.8ms)
+Completed 200 OK in 21ms (Views: 20.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:36 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:37 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.6ms)
+Completed 200 OK in 2ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:37 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:03:37 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.7ms)
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:03:37 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:04 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (11.0ms)
+Completed 200 OK in 13ms (Views: 12.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:04 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:04 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.8ms)
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:04 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:08 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (12.7ms)
+Completed 200 OK in 14ms (Views: 14.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:08 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:08 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.8ms)
+Completed 200 OK in 2ms (Views: 2.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:08 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:12 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (7ms)  (pid 6001)
+  Rendered logins/index.html.haml (15.0ms)
+Completed 200 OK in 18ms (Views: 17.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:12 -0700
+Served asset /frontpage.css - 200 OK (4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:13 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.6ms)
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:13 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:16 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (12.7ms)
+Completed 200 OK in 16ms (Views: 15.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:16 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:29 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (11.2ms)
+Completed 200 OK in 13ms (Views: 12.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:29 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:29 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.7ms)
+Completed 200 OK in 2ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:29 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:39 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (5ms)  (pid 6001)
+  Rendered logins/index.html.haml (11.0ms)
+Completed 200 OK in 13ms (Views: 12.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:39 -0700
+Served asset /frontpage.css - 200 OK (29ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:40 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (1.6ms)
+Completed 200 OK in 5ms (Views: 4.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:40 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:44 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (6ms)  (pid 6001)
+  Rendered logins/index.html.haml (15.1ms)
+Completed 200 OK in 19ms (Views: 18.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:44 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:44 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (1.3ms)
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:44 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:50 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (8ms)  (pid 6001)
+  Rendered logins/index.html.haml (12.9ms)
+Completed 200 OK in 15ms (Views: 14.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:50 -0700
+Served asset /frontpage.css - 200 OK (2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:51 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.6ms)
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:51 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:51 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.4ms)
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:51 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:56 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (5ms)  (pid 6001)
+  Rendered logins/index.html.haml (10.6ms)
+Completed 200 OK in 12ms (Views: 11.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:56 -0700
+Served asset /frontpage.css - 200 OK (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:56 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.6ms)
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:56 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:57 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.6ms)
+Completed 200 OK in 2ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:57 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:04:57 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (0.8ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:04:57 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:05:03 -0700
+Processing by LoginsController#index as HTML
+Compiled frontpage.css  (7ms)  (pid 6001)
+  Rendered logins/index.html.haml (14.2ms)
+Completed 200 OK in 17ms (Views: 16.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:05:03 -0700
+Served asset /frontpage.css - 200 OK (2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-14 08:05:04 -0700
+Processing by LoginsController#index as HTML
+  Rendered logins/index.html.haml (1.1ms)
+Completed 200 OK in 3ms (Views: 3.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/frontpage.css?body=1" for 127.0.0.1 at 2012-10-14 08:05:04 -0700
+Served asset /frontpage.css - 304 Not Modified (0ms)

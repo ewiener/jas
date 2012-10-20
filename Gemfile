@@ -15,6 +15,7 @@ gem 'rdoc'
 
 group :production do
   gem 'pg'
+  gem 'authlogic'
 end
 group :development, :test do
   gem 'cucumber-rails'
@@ -25,6 +26,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'sqlite3'
+  gem 'authlogic'
 end
 
 # Gems used only for assets and not required

@@ -7,14 +7,14 @@ class Semester < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  validates :valid_start_date
-  validates :valid_end_date
-  validates :start_date_before_end_date
+  validate :valid_start_date
+  validate :valid_end_date
+  validate :start_date_before_end_date
 
-  validates :dates_with_no_classes_in_session
+  validate :dates_with_no_classes_in_session
 
-  validates :valid_lottery_date
-  validates :valid_registration_date
+  validate :valid_lottery_date
+  validate :valid_registration_date
 
   has_many :courses
   has_many :students, :through => :courses

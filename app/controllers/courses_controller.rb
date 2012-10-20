@@ -7,7 +7,7 @@ class CoursesController  < ValidateLoginController
   def index
     #redirect to the semester homepage
     @semester = Semester.find params[:semester_id]
-    redirect_to #semester page
+    redirect_to # semester page
   end
   
   def new

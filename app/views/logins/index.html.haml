@@ -3,11 +3,28 @@
 
 %html
   %head
-    %link{:rel=>"stylesheet", :href=>"http://www.byteclothing.com/bootstrap/css/bootstrap.min.css"}
     = stylesheet_link_tag("frontpage")
-    %script{:src=>"http://www.byteclothing.com/bootstrap/js/bootstrap.min.js"}
+    = javascript_include_tag("application")
   %body
+    = render "topbar"
     %div#container
+
+
+      %div.hero-unit.section#login
+        %h1 PTA Scheduler
+        %h2
+          #{@banner_message}
+        .vspace20
+        = form_tag logins_path, :method => :post, :id=> 'login_form' do
+          %label Username:
+          %input{:type => "text", :name => "username", :class => "text"}
+          %br
+          %label Password:
+          %input{:type => "password", :name => "password"}
+          .vspace30
+          = submit_tag 'Login', :id => 'login_submit'
+
+    /
       %div.hero-unit.section
         %h1
           PTA Scheduler
@@ -24,18 +41,6 @@
               Pivotal Tracker &raquo;
 
       %div.hero-unit.section
-        %h1 PTA Session Tracker
-        %h2
-          #{@banner_message}
-        = form_tag logins_path, :method => :post, :id=> 'login_form' do
-          %label Username:
-          %input{:type => "text", :name => "username", :class => "text"}
-          %br
-          %label Password:
-          %input{:type => "password", :name => "password"}
-          = submit_tag 'Login', :id => 'login_submit'
-
-      %div.hero-unit.section
         %h1
           Progress
         %p
@@ -47,7 +52,6 @@
             %div.bar{:style=>"width: 12.5%"}
           %div.bar-dates
             %span
-              %i.icon-ok
               10/14/12
             %span
               10/21/12
@@ -83,5 +87,9 @@
             %li
               %h3
                 Brian Prike
+    :javascript
+      // $("input[type='password']").keyup(function() {
+      //   $("h1").text($(this).attr('value').length);
+      // });
 
 

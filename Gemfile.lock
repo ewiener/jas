@@ -192,6 +192,7 @@ DEPENDENCIES
   launchy
   pg
   rails (= 3.2.7)
+  rdoc
   rspec-rails
   sass-rails (~> 3.2.3)
   simplecov

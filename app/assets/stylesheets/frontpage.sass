@@ -1,5 +1,15 @@
+@import "bootstrap"
+
 .clear
   clear: both
+
+#topbar
+  color: #fff
+  background-color: #000
+  height: 50px
+  line-height: 50px
+  margin-bottom: 20px
+  padding-left: 10px
 
 #container
   width: 940px
@@ -28,3 +38,32 @@ $section-width: 700px
     border: 1px dashed #aaa
     background-color: #f8f8f8
     border-radius: 3px
+
+.vspace10
+  height: 10px
+.vspace20
+  height: 20px
+.vspace30
+  height: 30px
+
+#login
+  h1
+    text-align: center
+  label
+    font-size: 1.3em
+    text-align: center
+  input[type="text"], input[type="password"]
+    width: 70%
+    font-size: 1.8em
+    height: 40px
+    text-align: center
+    display: block
+    margin: 0 auto
+  #login_submit
+    @extend .btn
+    @extend .btn-primary
+    font-size: 1.5em
+    width: 150px
+    height: 50px
+    display: block
+    margin: 0 auto

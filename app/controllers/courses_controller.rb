@@ -1,4 +1,4 @@
-class ClassesController  < ValidateLoginController
+class CoursesController  < ValidateLoginController
   protect_from_forgery
   def show
     id = params[:id]

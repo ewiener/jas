@@ -1,4 +1,4 @@
-# PTA Course held within a specific Semester.
+# PTA Course held within a specific Semester. PTA Instructors and Students belong to a Course.
 class Course < ActiveRecord::Base
   require 'time'
   serialize :days_of_week
@@ -6,7 +6,22 @@ class Course < ActiveRecord::Base
   HOUR12 = Array(1..12)
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
-  attr_accessor :name, :description, :days_of_week, :number_of_classes, :start_time_hour, :start_time_minute, :start_time_type, :end_time_hour, :end_time_minute, :end_time_type, :class_min, :class_max, :grade_range, :fee_per_meeting, :fee_for_additional_materials, :total_fee
+  attr_accessor :name,
+                :description,
+                :days_of_week,
+                :number_of_classes,
+                :start_time_hour,
+                :start_time_minute,
+                :start_time_type,
+                :end_time_hour,
+                :end_time_minute,
+                :end_time_type,
+                :class_min,
+                :class_max,
+                :grade_range,
+                :fee_per_meeting,
+                :fee_for_additional_materials,
+                :total_fee
 
   #has location through teacher
 

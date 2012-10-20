@@ -3,10 +3,12 @@
 
 %html
   %head
+    %title
+      Logins
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render "topbar"
+    = render :partial => "partials/topbar"
     %div#container
 
 

@@ -7,7 +7,7 @@ class CoursesController  < ValidateLoginController
   def index
     #redirect to the semester homepage
     @semester = Semester.find params[:semester_id]
-    redirect_to #semester page
+    redirect_to # semester page
   end
   
   def new
@@ -30,7 +30,7 @@ class CoursesController  < ValidateLoginController
     @semester = Semester.find params[:semester_id]
     #not sure what to call update_attributes with
     @course.update_attributes!(params[:course_id])
-    flash[:notice] = "#{@course.name, @semester.name} was successfully updated."
+    flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
     redirect_to #semester page
   end
 

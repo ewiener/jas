@@ -10,38 +10,38 @@ Background: populate db with a single class session
   | Fall 2011   |
 
 Scenario: Create New Class
-  Given I am on the Home Page
-  And I click "Fall 2012"
+  Given I am on the home page
+  And I follow "Fall 2012"
   Then I should be on the Session Name Page
-  And the Session Name should be "Fall 2012"
-  When I follow "Add New"
+  And the "Session Name" field should contain "Fall 2012"
+  When I press "Add New"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"
-  And I select "Create"
+  And I press "Create"
   Then I should be on the Session Name Page
-  And I should see the class "Math"
+  And I should see "Math"
   
 Scenario: Cancel Create New Class
-  Given I am on the Home Page
-  And I click "Fall 2012"
+  Given I am on the home page
+  And I follow "Fall 2012"
   Then I should be on the Session Name Page
-  And the "Session Name" should be "Fall 2012"
-  When I follow "Add New"
+  And the "Session Name" field should contain "Fall 2012"
+  When I press "Add New"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"
-  And I select "Cancel"
+  And I press "Cancel"
   Then I should be on the Are You Sure? Page
-  When I click "Yes"
+  When I press "Yes"
   Then I should be on the Session Name Page
   And no new classes should be added
 
 Scenario: Recover From Clicking Cancel
   Given I am on the Create Class Page
   When I fill in "Class Name" with "Math"
-  And I select "Cancel"
+  And I press "Cancel"
   Then I should be on the Are You Sure? Page
-  When I click "No"
+  When I press "No"
   Then I should be on the Create Class Page
-  And "Class Name" should be "Math"
+  And the "Class Name" field should contain "Math"
   
   

@@ -31,6 +31,40 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+
+Given /^the following sessions exist:$/ do |table|
+  table.hashes.each do |session|
+    Article.create(session)
+  end
+end
+    
+Given /^the following courses have been added:$/ do |table|
+  table.hashes.each do |course|
+    Article.create(course)
+  end
+end
+
+Given /^the following usernames and passwords exist:$/ do |table|
+  table.hashes.each do |user|
+    User.create(user)
+  end
+end
+
+Then /I should see no populated courses/ do
+  on_page_len = page.body.scan(/\/courses\/\d+/).length
+  if on_page_len != 0
+    flunk "Number of courses on page is not 0"
+  end
+end
+
+Given /^I am an admin$/ do
+  pending
+end
+
+Then /^no new classes should be added$/ do
+  pending
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }

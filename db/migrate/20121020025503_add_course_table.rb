@@ -6,6 +6,7 @@ class AddCourseTable < ActiveRecord::Migration
       t.text    'days_of_week'
       t.text    'number_of_classes'
       t.text    'start_time'
+      t.text    'start_time_type'
       t.text    'end_time'
       t.integer 'class_min'
       t.integer 'class_max'
@@ -13,6 +14,7 @@ class AddCourseTable < ActiveRecord::Migration
       t.float   'fee_per_meeting'
       t.float   'fee_for_additional_materials'
       t.float   'total_fee'
+      t.references 'semester'
     end
   end
 

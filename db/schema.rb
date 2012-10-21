@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020025503) do
+ActiveRecord::Schema.define(:version => 20121021041637) do
 
   create_table "courses", :force => true do |t|
     t.text    "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20121020025503) do
     t.text    "days_of_week"
     t.text    "number_of_classes"
     t.text    "start_time"
+    t.text    "start_time_type"
     t.text    "end_time"
     t.integer "class_min"
     t.integer "class_max"
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20121020025503) do
     t.float   "fee_per_meeting"
     t.float   "fee_for_additional_materials"
     t.float   "total_fee"
+    t.integer "semester_id"
   end
 
   create_table "semesters", :force => true do |t|
@@ -35,6 +37,12 @@ ActiveRecord::Schema.define(:version => 20121020025503) do
     t.text "dates_with_no_classes"
     t.text "lottery_deadline"
     t.text "registration_deadline"
+  end
+
+  create_table "users", :force => true do |t|
+    t.text "username"
+    t.text "email"
+    t.text "password"
   end
 
 end

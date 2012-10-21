@@ -7,9 +7,9 @@ Feature: Adding/Editing a session
 Background: previous sessions have been added to the database
   
   Given the following sessions exist:
-    | name        |
-    | Fall 2011   |
-    | Spring 2012 |
+    | name        | start_date    | end_date  | lottery_deadline  | registration_deadline |
+    | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            |
+    | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            |
   
   Given the following courses have been added:
     | name    | session       |

@@ -22,6 +22,23 @@ class Course < ActiveRecord::Base
                 :fee_per_meeting,
                 :fee_for_additional_materials,
                 :total_fee
+                
+  attr_accessible :name,
+                :description,
+                :days_of_week,
+                :number_of_classes,
+                :start_time_hour,
+                :start_time_minute,
+                :start_time_type,
+                :end_time_hour,
+                :end_time_minute,
+                :end_time_type,
+                :class_min,
+                :class_max,
+                :grade_range,
+                :fee_per_meeting,
+                :fee_for_additional_materials,
+                :total_fee
 
   #has location through teacher
 

@@ -22,31 +22,63 @@ class CoursesController  < ValidateLoginController
   end
 
   def create
-    @course = Course.new(params[:course])
-    if not @course
-      flash[:warning] = "Unable to create a new course due to the following errors:\n" + errors_string(@course)
-      redirect "new"
-    end
     @semester = Semester.find params[:semester_id]
+    return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
+    @course = @semester.Course.build(params[:course])
+    if not @course
+      flash[:warning] =  "Error: Unable to create a new course due to the following errors:\n" + errors_string(@course)
+      redirect "new"
+      return
+    end
+    flash[:notice] = "Successfully created #{@course.name}."
+    redirect_to semester_show @semester.id
   end
 
   def edit
-    @course = Course.find params[:course_id]
     @semester = Semester.find params[:semester_id]
+    return unless semester_is_valid(@semester)
+    @course = Course.find params[:course_id]
+    if not @course
+      flash[:warning] = "Error: Unable to locate the course given for modification."
+      redirect_to semester_show @semester.id
+      return
+    end
   end
 
   def update
-    @course = Course.find params[:course_id]
     @semester = Semester.find params[:semester_id]
+    return unless semester_is_valid(@semester)
+
+    @course = Course.find params[:course_id]
+    if not @course
+      flash[:warning] = "Error: The given course for updating could not be found."
+      redirect_to semester_show @semester.id
+      return
+    end
+
     #not sure what to call update_attributes with
-    @course.update_attributes!(params[:course_id])
-    flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
-    redirect_to semester_index #semester page
+    if @course.update_attributes(params[:course_id]) then
+      flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
+      redirect_to semester_show @semester.id
+    else
+      flash[:warning] = "#{@course.name} could not be updated because of the following errors:\n" + errors_string(course)
+      redirect 'edit'
+    end
   end
 
   def destroy
     @course = Course.find(params[:course_id])
-    @course.destroy
+    if not @course
+      flash[:warning] = "Error: Could not find the course to be destroyed."
+      redirect_to semester_index
+      return
+    end
+    course_name = @course.name
+    if @course.destroy
+      flash[:notice] = "#{course_name} was successfully removed from the database."
+    else
+      flash[:warning] = "#{course_name} could not be removed from the database beause of the following errors:\n" + errors_string(@course)
+    end
     redirect_to semester_index #semester page
   end
 
@@ -55,6 +87,16 @@ class CoursesController  < ValidateLoginController
     error_messages = ""
     course.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
     return error_messages
+  end
+
+  private
+  def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
+    if not semester
+      flash[:warning] = message
+      redirect_to semester_index
+      return false
+    end
+    return true
   end
 
 

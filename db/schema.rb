@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20121021041637) do
     t.float   "fee_per_meeting"
     t.float   "fee_for_additional_materials"
     t.float   "total_fee"
+    t.integer "semester_id"
   end
 
   create_table "semesters", :force => true do |t|
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20121021041637) do
 
   create_table "users", :force => true do |t|
     t.text "username"
+    t.text "email"
     t.text "password"
   end
 

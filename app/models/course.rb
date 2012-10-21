@@ -6,26 +6,26 @@ class Course < ActiveRecord::Base
   HOUR12 = Array(1..12)
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
-  attr_accessor :name,
-                :description,
-                :days_of_week,
-                :number_of_classes,
-                :start_time_hour,
-                :start_time_minute,
-                :start_time_type,
-                :end_time_hour,
-                :end_time_minute,
-                :end_time_type,
-                :class_min,
-                :class_max,
-                :grade_range,
-                :fee_per_meeting,
-                :fee_for_additional_materials,
-                :total_fee
+  attr_accessible :name,
+                  :description,
+                  :days_of_week,
+                  :number_of_classes,
+                  :start_time_hour,
+                  :start_time_minute,
+                  :start_time_type,
+                  :end_time_hour,
+                  :end_time_minute,
+                  :end_time_type,
+                  :class_min,
+                  :class_max,
+                  :grade_range,
+                  :fee_per_meeting,
+                  :fee_for_additional_materials,
+                  :total_fee
 
   #has location through teacher
 
-  belongs_to :session
+  belongs_to :semester
   has_many :ptainstructors
   has_many :students
 
@@ -148,7 +148,7 @@ class Course < ActiveRecord::Base
   end
 
   def class_min_is_valid?
-    return self.class_min > 0 and self.class_max >= self.class_min
+    return ((self.class_min > 0) and (self.class_max >= self.class_min))
   end
 
   private
@@ -157,7 +157,7 @@ class Course < ActiveRecord::Base
   end
 
   def class_max_is_valid?
-    return self.class_max > 0 and self.class_max >= self.class_min
+    return ((self.class_max > 0) and (self.class_max >= self.class_min))
   end
 
   #TODO: Need to define :grade_range_is_valid

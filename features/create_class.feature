@@ -7,8 +7,8 @@ Feature: Add class to the session
 Background: populate db with a single class session
 
   Given the following sessions exist:
-  | name        |
-  | Fall 2011   |
+  | name        | start_date    | end_date  | dates_with_no_classes | lottery_deadline  | registration_deadline |
+  | Fall 2011   | 09/15/2011    | 12/15/2011| 11/12/2011            | 09/09/2011        | 09/14/2011            |
 
 Scenario: Create New Class
   Given I am on the home page

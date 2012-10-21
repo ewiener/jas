@@ -34,13 +34,13 @@ World(WithinHelpers)
 
 Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
-    Article.create(session)
+    Semester.create(session)
   end
 end
     
 Given /^the following courses have been added:$/ do |table|
   table.hashes.each do |course|
-    Article.create(course)
+    Course.create(course)
   end
 end
 

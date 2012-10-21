@@ -13,7 +13,7 @@ class AddCourseTable < ActiveRecord::Migration
       t.float   'fee_per_meeting'
       t.float   'fee_for_additional_materials'
       t.float   'total_fee'
-      t.references 'session'
+      t.references 'semester'
     end
   end
 

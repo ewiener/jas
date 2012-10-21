@@ -5,13 +5,16 @@ class Semester < ActiveRecord::Base
   serialize :dates_with_no_classes
   attr_accessor :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline
 
+  attr_accessible :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline
+
+
   validate :name_is_valid
 
   validate :valid_start_date
   validate :valid_end_date
   validate :start_date_before_end_date
 
-  validate :dates_with_no_classes_in_session
+  #validate :dates_with_no_classes_in_session
 
   validate :valid_lottery_date
   validate :valid_registration_date
@@ -77,6 +80,9 @@ class Semester < ActiveRecord::Base
   private
   # Verifies that the dates that there are no classes are within the session start date and session end date.
   def dates_with_no_classes_in_session
+    puts "#############################"
+    puts self.dates_with_no_classes
+    puts self.start_date
     begin
       begin_parse = USDateParse(self.start_date)
       end_parse = USDateParse(self.end_date)

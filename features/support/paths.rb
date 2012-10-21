@@ -17,10 +17,10 @@ module NavigationHelpers
       '/'
       
     when /^the Create Class Page$/
-      '/semester/:semester_id/course/new'
+      '/semesters/:semester_id/course/new'
     
     when /^the login page$/
-      '/login'
+      '/logins'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

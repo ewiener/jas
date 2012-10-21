@@ -36,12 +36,15 @@ Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
     #need to change the input so that field is not requited in this case
     #no_classes = Array.new
+    session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
     Semester.create(session)
   end
 end
     
 Given /^the following courses have been added:$/ do |table|
   table.hashes.each do |course|
+    course[:class_min] = Integer(course[:class_min])
+    course[:class_max] = Integer(course[:class_max])
     Course.create!(course)
   end
 end

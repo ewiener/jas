@@ -14,7 +14,7 @@ class Semester < ActiveRecord::Base
   validate :valid_end_date
   validate :start_date_before_end_date
 
-  #validate :dates_with_no_classes_in_session
+  validate :dates_with_no_classes_in_session
 
   validate :valid_lottery_date
   validate :valid_registration_date
@@ -80,9 +80,6 @@ class Semester < ActiveRecord::Base
   private
   # Verifies that the dates that there are no classes are within the session start date and session end date.
   def dates_with_no_classes_in_session
-    puts "#############################"
-    puts self.dates_with_no_classes
-    puts self.start_date
     begin
       begin_parse = USDateParse(self.start_date)
       end_parse = USDateParse(self.end_date)
@@ -96,7 +93,7 @@ class Semester < ActiveRecord::Base
       rescue
         errors.add(:dates_with_no_classes, 'The date, "#{date}", could not be parsed.')
       end
-      if date_parsed > end_parsed or date_parsed < start_parsed
+      if date_parsed > end_parse or date_parsed < begin_parse
         errors.add(:dates_with_no_classes, 'The date, "#{date}", does not reside within the semester.')
       end
     end

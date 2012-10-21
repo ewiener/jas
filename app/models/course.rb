@@ -56,8 +56,8 @@ class Course < ActiveRecord::Base
   validate :end_time_hour_is_valid
   validate :end_time_minute_is_valid
   validate :end_time_type_is_valid
-  validate :class_min_valid
-  validate :class_max_valid
+  #validate :class_min_valid
+  #validate :class_max_valid
   validate :grade_range_valid
   validate :fee_per_meeting_is_valid
   validate :fee_for_additional_materials_is_valid

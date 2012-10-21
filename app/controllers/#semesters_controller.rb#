@@ -78,4 +78,10 @@ class SemestersController  < ValidateLoginController
     end
     return false
   end
+
+  private
+  def errors_string(semester)
+    error_message = ""
+    semester.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
+  end
 end

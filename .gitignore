@@ -4,6 +4,7 @@
 tmp/*
 app/assets/stylesheets/.sass-cache
 log/development.log
+log/test.log
 coverage/
 db/development.sqlite3
 db/test.sqlite3

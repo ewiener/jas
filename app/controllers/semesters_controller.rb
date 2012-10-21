@@ -3,7 +3,7 @@ class SemestersController  < ValidateLoginController
   protect_from_forgery
 
   def show
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find params[:id]
   end
 
   def index
@@ -16,14 +16,16 @@ class SemestersController  < ValidateLoginController
   end
 
   def create
-    @semester = Semester.create(params[:semester])
+    puts params[:semester]
+    @semester = Semester.create!(params[:semester])
     if @semester.new_record?
       flash[:warning] = "Could not create the semester.  Encountered the following errors:\n" + errors_string(@semester)
-      redirect "new"
+      render "new"
       return
     else
       flash[:notice] = "#{@semester.name} was successfully created."
     end
+    puts @semester.name
     redirect_to :semesters
   end
 
@@ -78,7 +80,7 @@ class SemestersController  < ValidateLoginController
   private
   def errors_string(semester)
     error_messages = ""
-    semester.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
+    semester.errors.each{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
     return error_messages
   end
 end

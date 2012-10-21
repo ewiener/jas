@@ -18,9 +18,12 @@ ActiveRecord::Schema.define(:version => 20121021041637) do
     t.text    "description"
     t.text    "days_of_week"
     t.text    "number_of_classes"
-    t.text    "start_time"
-    t.text    "start_time_type"
-    t.text    "end_time"
+    t.integer "start_time_hour"
+    t.integer "start_time_minute"
+    t.integer "start_time_type"
+    t.integer "end_time_hour"
+    t.integer "end_time_minute"
+    t.integer "end_time_type"
     t.integer "class_min"
     t.integer "class_max"
     t.text    "grade_range"
@@ -31,12 +34,13 @@ ActiveRecord::Schema.define(:version => 20121021041637) do
   end
 
   create_table "semesters", :force => true do |t|
-    t.text "name"
-    t.text "start_date"
-    t.text "end_date"
-    t.text "dates_with_no_classes"
-    t.text "lottery_deadline"
-    t.text "registration_deadline"
+    t.text  "name"
+    t.text  "start_date"
+    t.text  "end_date"
+    t.text  "dates_with_no_classes"
+    t.text  "lottery_deadline"
+    t.text  "registration_deadline"
+    t.float "fee"
   end
 
   create_table "users", :force => true do |t|

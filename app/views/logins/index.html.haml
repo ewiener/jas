@@ -8,7 +8,7 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partials/topbar"
+    = #render :partial => "partials/topbar"
     %div#container
 
 
@@ -17,7 +17,7 @@
         %h2
           #{@banner_message}
         .vspace20
-        = form_tag logins_path, :method => :post, :id=> 'login_form' do
+        = form_tag semesters_path, :method => :get, :id=> 'login_form' do
           %label Username:
           %input{:type => "text", :name => "username", :class => "text"}
           %br
@@ -26,7 +26,7 @@
           .vspace30
           = submit_tag 'Login', :id => 'login_submit'
 
-    /
+    
       %div.hero-unit.section
         %h1
           PTA Scheduler

@@ -127,11 +127,12 @@ class Semester < ActiveRecord::Base
   # Verifies that the date can be parsed
   # It checks that the date is between January 1, 2000 and January 1, 2100
   def USDateParse(date)
-    date = Date.strptime(date,'%d/%m/%Y')
+    date = Date.strptime(date,'%m/%d/%Y')
     year_2000 = Date.new(2000,1,1)
     year_2100 = Date.new(2100,1,1)
     if date <= year_2000 or date >= year_2100
       raise "Invalid Date"
     end
+    return date
   end
 end

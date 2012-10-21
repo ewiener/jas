@@ -11,23 +11,24 @@ Background: previous sessions have been added to the database
   | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            |
     | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 04/14/2012            |
   
-  Given the following courses have been added:
-    | name    | semester      | description | days_of_week  | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  |
-    | Art     | Spring 2012   | art class   | M             | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            |
-    | Science | Spring 2012   | sci class   | W             | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             |
+  #Given the following courses have been added:
+  #  | name    | semester      | description | days_of_week  | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  |
+  #  | Art     | Spring 2012   | art class   | M             | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            |
+  #  | Science | Spring 2012   | sci class   | W             | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             |
   
   And I am on the home page
 
 
 Scenario: Create new session
-  Given I am an admin
-  When I press "Create New..."
+  #Given I am an admin
+  When I follow "Create New Session"
   Then I am on the Session Name Page
   And I should see no populated courses
   When I fill in "Session Name" with "Fall 2012"
   And I fill in "Start Date" with "09/21/2012"
   And I fill in "End Date" with "12/15/2012"
-  And I press "Add New"
+  And I fill in "Registration Fee" with "10"
+  And I press "Save Changes"
   Then I should be on the home page
   And I should see "Fall 2012"
   And I should see "Spring 2012"

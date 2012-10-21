@@ -22,3 +22,4 @@ describe LoginsController do
 
   end
 
+end

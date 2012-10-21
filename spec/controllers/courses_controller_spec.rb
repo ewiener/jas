@@ -88,3 +88,4 @@ describe CoursesController do
 
   end
 
+end

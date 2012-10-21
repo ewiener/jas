@@ -17,7 +17,7 @@ class SemestersController  < ValidateLoginController
 
   def create
     @semester = Semester.create(params[:semester])
-    if not @semester
+    if @semester.new_record?
       flash[:warning] = "Could not create the semester.  Encountered the following errors:\n" + errors_string(@semester)
       redirect "new"
       return

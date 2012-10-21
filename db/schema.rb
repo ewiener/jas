@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020025503) do
+ActiveRecord::Schema.define(:version => 20121021041637) do
 
   create_table "courses", :force => true do |t|
     t.text    "name"
@@ -35,6 +35,11 @@ ActiveRecord::Schema.define(:version => 20121020025503) do
     t.text "dates_with_no_classes"
     t.text "lottery_deadline"
     t.text "registration_deadline"
+  end
+
+  create_table "users", :force => true do |t|
+    t.text "username"
+    t.text "password"
   end
 
 end

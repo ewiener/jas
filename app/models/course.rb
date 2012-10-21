@@ -39,7 +39,8 @@ class Course < ActiveRecord::Base
                 :grade_range,
                 :fee_per_meeting,
                 :fee_for_additional_materials,
-                :total_fee
+                :total_fee,
+                :semester
 
   #has location through teacher
 

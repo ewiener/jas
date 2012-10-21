@@ -11,8 +11,9 @@ class AddCourseTable < ActiveRecord::Migration
       t.integer 'class_max'
       t.text    'grade_range'
       t.float   'fee_per_meeting'
-      t.float   'fee_for_additional_additional_materials'
+      t.float   'fee_for_additional_materials'
       t.float   'total_fee'
+    end
   end
 
   def down

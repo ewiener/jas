@@ -1,7 +1,7 @@
 class SemestersController  < ValidateLoginController
 
   protect_from_forgery
-  
+
   def show
     @semester = Semester.find params[:semester_id]
   end
@@ -10,9 +10,9 @@ class SemestersController  < ValidateLoginController
     #this should show the Jefferson PTA - Sessions home page, listing all semesters, and links to other things
     @semesters = Semester.all
   end
-  
+
   def new
-    
+
   end
 
   def create
@@ -31,7 +31,7 @@ class SemestersController  < ValidateLoginController
     flash[:notice] = "#{@semester.name} was successfully updated."
     redirect_to index
   end
-    
+
   def destroy
     @semester = Semester.find(params[:semester_id])
     @semester.destroy

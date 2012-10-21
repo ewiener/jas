@@ -39,24 +39,24 @@
 					%div.control-group
 						= label :semester, :start, 'Start Date', :class => "control-label"
 						%div.controls
-							= text_field :semester, :start, :placeholder => "e.g. 8/15/2012"
+							= text_field :semester, :start_date, :placeholder => "e.g. 8/15/2012"
 
 					%div.control-group
 						= label :semester, :end, 'End Date', :class => "control-label"
 						%div.controls
-							= text_field :semester, :end, :placeholder => "e.g. 12/21/2012"
+							= text_field :semester, :end_date, :placeholder => "e.g. 12/21/2012"
 
 					%div.control-group
 						%div.controls
 							= submit_tag 'Save Changes'
 				/
 					%div.control-group
-						= label :semester, :start, 'Start Date', :class => "control-label"
+						= label :semester, :start_label, 'Start Date', :class => "control-label"
 						%div.controls
 							= date_select :semester, :start,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
 		
 					%div.control-group
-						= label :semester, :end, 'End Date', :class => "control-label"
+						= label :semester, :end_label, 'End Date', :class => "control-label"
 						%div.controls
 							= date_select :semester, :end,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
 							

@@ -42,6 +42,10 @@ class Semester < ActiveRecord::Base
     begin
       date_start = USDateParse(self.start_date)
       date_end = USDateParse(self.end_date)
+    rescue
+      errors.add(:start_date, 'Could not verify that the start date is before the end date because the start and/or end dates are not parsable.')
+      return
+    end
     if date_start >= date_end
       errors.add(:start_date, "Start date must be before end date.")
     end
@@ -50,7 +54,7 @@ class Semester < ActiveRecord::Base
   private
   # Used by validation check to verify that the start date can be parsed
   def valid_start_date
-      errors.add(:start_date, 'The start date cannot be parsed.') unless start_date_is_valid?
+    errors.add(:start_date, 'The start date cannot be parsed.') unless start_date_is_valid?
   end
 
   # Verifies that the start date can be parsed
@@ -72,7 +76,7 @@ class Semester < ActiveRecord::Base
   # Verifies that the end date can be parsed
   def end_date_is_valid?
     begin
-       USDateParse(self.end_date)
+      USDateParse(self.end_date)
     rescue
       return false
     end
@@ -82,6 +86,10 @@ class Semester < ActiveRecord::Base
   private
   # Verifies that the dates that there are no classes are within the session start date and session end date.
   def dates_with_no_classes_in_session
+    if self.dates_with_no_classes == nil
+      # No dates that there aren't classes
+      return
+    end
     begin
       begin_parse = USDateParse(self.start_date)
       end_parse = USDateParse(self.end_date)
@@ -121,7 +129,7 @@ class Semester < ActiveRecord::Base
   # Verifies that the registration date can be parsed
   def registration_date_is_valid?
     begin
-         USDateParse(:registration_deadline)
+      USDateParse(:registration_deadline)
     rescue
       return false
     end
@@ -141,4 +149,6 @@ class Semester < ActiveRecord::Base
     end
     return date
   end
+
 end
+

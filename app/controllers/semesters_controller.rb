@@ -24,13 +24,13 @@ class SemestersController  < ValidateLoginController
     else
       flash[:notice] = "#{@semester.name} was successfully created."
     end
-    redirect_to semester_index
+    redirect_to :semesters
   end
 
   def edit
     @semester = Semester.find params[:semester_id]
     if semester_is_nil @semester
-      redirect_to semester_index
+      redirect_to :semesters
       return
     end
   end
@@ -38,13 +38,13 @@ class SemestersController  < ValidateLoginController
   def update
     @semester = Semester.find params[:semester_id]
     if semester_is_nil @semester
-      redirect_to semester_index
+      redirect_to :semesters
       return
     end
     #not sure what to call update_attributes with
     if @semester.update_attributes(params[:semester])
       flash[:notice] = "#{@semester.name} was successfully updated."
-      redirect_to semester_index
+      redirect_to :semesters
     else
       flash[:warning] = "{@semester.name} could not be updated.  The following errors occured:\n"  + errors_string(@semester)
       render 'edit'
@@ -54,7 +54,7 @@ class SemestersController  < ValidateLoginController
   def destroy
     @semester = Semester.find(params[:semester_id])
     if semester_is_nil @semester
-      redirect_to semester_index
+      redirect_to :semesters
       return
     end
     name = @semester.name
@@ -63,7 +63,7 @@ class SemestersController  < ValidateLoginController
     else
       flash[:warning] = "#{name} was not successfully deleted. The following errors occured:\n" + errors_string(@semester)
     end
-    redirect_to semester_index
+    redirect_to :semesters
   end
 
   private

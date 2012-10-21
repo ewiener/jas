@@ -3,9 +3,9 @@ class Semester < ActiveRecord::Base
   require 'date'
 
   serialize :dates_with_no_classes
-  attr_accessor :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline
+  attr_accessor :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline, :fee
 
-  attr_accessible :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline
+  attr_accessible :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline, :fee
 
 
   validate :name_is_valid
@@ -24,6 +24,7 @@ class Semester < ActiveRecord::Base
   has_many :ptainstructors, :through => :courses
   has_many :teachers, :through => :courses
 
+  #TODO Validate fee
   private
   # Used by validation check to verify that the name is valid
   def name_is_valid
@@ -38,8 +39,9 @@ class Semester < ActiveRecord::Base
   private
   # Verifies that the start date comes before the end date
   def start_date_before_end_date
-    date_start = USDateParse(self.start_date)
-    date_end = USDateParse(self.end_date)
+    begin
+      date_start = USDateParse(self.start_date)
+      date_end = USDateParse(self.end_date)
     if date_start >= date_end
       errors.add(:start_date, "Start date must be before end date.")
     end
@@ -130,6 +132,7 @@ class Semester < ActiveRecord::Base
   # Verifies that the date can be parsed
   # It checks that the date is between January 1, 2000 and January 1, 2100
   def USDateParse(date)
+    if (date == nil); raise 'Nil date'; end
     date = Date.strptime(date,'%m/%d/%Y')
     year_2000 = Date.new(2000,1,1)
     year_2100 = Date.new(2100,1,1)

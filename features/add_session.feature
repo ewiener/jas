@@ -7,12 +7,14 @@ Feature: Adding/Editing a session
 Background: previous sessions have been added to the database
   
   Given the following sessions exist:
-  | Fall 2011   |
-  | Spring 2012 |
+    | name        |
+    | Fall 2011   |
+    | Spring 2012 |
   
   Given the following courses have been added:
-  | Art     | Spring 2012   |
-  | Science | Spring 2012   |
+    | name    | session       |
+    | Art     | Spring 2012   |
+    | Science | Spring 2012   |
   
   And I am on the home page
 

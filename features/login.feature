@@ -7,8 +7,9 @@ Feature: Create Login to the PTA Database
 Background: Populate login with username and password
    
    Given the following usernames and passwords exist:
-   | admin         | admin_password |
-   | pta_instructor| pta_password   |
+   | username       | password          |
+   | admin          | admin_password    |
+   | pta_instructor | pta_password      |
 
 Scenario: Login as an administrator
    Given I am on the login page

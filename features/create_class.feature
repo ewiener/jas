@@ -7,6 +7,7 @@ Feature: Add class to the session
 Background: populate db with a single class session
 
   Given the following sessions exist:
+  | name        |
   | Fall 2011   |
 
 Scenario: Create New Class

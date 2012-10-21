@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   HOUR12 = Array(1..12)
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
+
   attr_accessor :name,
                 :description,
                 :days_of_week,
@@ -22,7 +23,7 @@ class Course < ActiveRecord::Base
                 :fee_per_meeting,
                 :fee_for_additional_materials,
                 :total_fee
-                
+
   attr_accessible :name,
                 :description,
                 :days_of_week,
@@ -42,9 +43,12 @@ class Course < ActiveRecord::Base
 
   #has location through teacher
 
-  belongs_to :session
+  belongs_to :semester
   has_many :ptainstructors
   has_many :students
+
+  validates :name, :presence => true
+  validates :number_of_classes, :presence => true
 
   validate :name_is_valid
   validates :description, :presence => true
@@ -56,9 +60,9 @@ class Course < ActiveRecord::Base
   validate :end_time_hour_is_valid
   validate :end_time_minute_is_valid
   validate :end_time_type_is_valid
-  #validate :class_min_valid
-  #validate :class_max_valid
-  validate :grade_range_valid
+  validate :class_min_is_valid
+  validate :class_max_is_valid
+  #validate :grade_range_is_valid
   validate :fee_per_meeting_is_valid
   validate :fee_for_additional_materials_is_valid
   validate :total_fee_is_valid
@@ -87,6 +91,7 @@ class Course < ActiveRecord::Base
   end
 
   def number_of_classes_is_valid?
+    if (self.number_of_classes == nil); return false; end
     return self.number_of_classes > 0
   end
 
@@ -113,7 +118,7 @@ class Course < ActiveRecord::Base
     errors.add(:end_time_hour, 'Invalid ending time hour.') unless end_time_hour_is_valid?
   end
 
-  def end_time_hour_minute_is_valid?
+  def end_time_hour_is_valid?
     return hour_valid?(self.end_time_hour)
   end
 
@@ -165,7 +170,8 @@ class Course < ActiveRecord::Base
   end
 
   def class_min_is_valid?
-    return self.class_min > 0 and self.class_max >= self.class_min
+    if (self.class_min == nil); return false; end
+    return ((self.class_min > 0) and (self.class_max >= self.class_min))
   end
 
   private
@@ -174,10 +180,21 @@ class Course < ActiveRecord::Base
   end
 
   def class_max_is_valid?
-    return self.class_max > 0 and self.class_max >= self.class_min
+    if (self.class_max == nil); return false; end
+    return ((self.class_max > 0) and (self.class_max >= self.class_min))
   end
 
   #TODO: Need to define :grade_range_is_valid
+
+  private
+  def fee_per_meeting_is_valid
+    errors.add(:fee_per_meeting, 'The fee per meeting is invalid.') unless fee_per_meeting_is_valid?
+  end
+
+  def fee_per_meeting_is_valid?
+    if (self.fee_per_meeting == nil); return false; end
+    return self.fee_per_meeting >= 0
+  end
 
   private
   def fee_for_additional_materials_is_valid
@@ -185,6 +202,7 @@ class Course < ActiveRecord::Base
   end
 
   def fee_for_additional_materials_is_valid?
+    if (self.fee_for_additional_materials == nil); return false; end
     return self.fee_for_addtional_materials >= 0
   end
 
@@ -194,6 +212,7 @@ class Course < ActiveRecord::Base
   end
 
   def total_fee_is_valid?
+    if (self.total_fee == nil); return false; end
     return self.total_fee >= 0
   end
 end

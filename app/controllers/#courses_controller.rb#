@@ -22,12 +22,13 @@ class CoursesController  < ValidateLoginController
   end
 
   def create
+    @semester = Semester.find params[:semester_id]
     @course = Course.new(params[:course])
     if not @course
       flash[:warning] = "Unable to create a new course due to the following errors:\n" + errors_string(@course)
       redirect "new"
     end
-    @semester = Semester.find params[:semester_id]
+    
   end
 
   def edit

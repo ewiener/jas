@@ -18,19 +18,19 @@ class SemestersController  < ValidateLoginController
   def create
     @semester = Semester.create(params[:semester])
     if not @semester
-      error_message = ""
-      @semester.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
-      flash[:warning] = "Could not create the semester.  Encountered the following errors:\n" + error_message
+      flash[:warning] = "Could not create the semester.  Encountered the following errors:\n" + errors_string(@semester)
+      redirect "new"
+      return
     else
       flash[:notice] = "#{@semester.name} was successfully created."
     end
-    redirect_to index
+    redirect_to semester_index
   end
 
   def edit
     @semester = Semester.find params[:semester_id]
     if semester_is_nil @semester
-      redirect_to index
+      redirect_to semester_index
       return
     end
   end
@@ -38,17 +38,15 @@ class SemestersController  < ValidateLoginController
   def update
     @semester = Semester.find params[:semester_id]
     if semester_is_nil @semester
-      redirect_to index
+      redirect_to semester_index
       return
     end
     #not sure what to call update_attributes with
     if @semester.update_attributes(params[:semester])
       flash[:notice] = "#{@semester.name} was successfully updated."
-      redirect_to index
+      redirect_to semester_index
     else
-      error_messages = ""
-      @semester.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
-      flash[:warning] = "{@semester.name} could not be updated.  The following errors occured:\n" + error_messages
+      flash[:warning] = "{@semester.name} could not be updated.  The following errors occured:\n"  + errors_string(@semester)
       render 'edit'
     end
   end
@@ -56,18 +54,16 @@ class SemestersController  < ValidateLoginController
   def destroy
     @semester = Semester.find(params[:semester_id])
     if semester_is_nil @semester
-      redirect_to index
+      redirect_to semester_index
       return
     end
     name = @semester.name
     if @semester.destroy
       flash[:notice] = "#{name} was successfully deleted."
     else
-      error_messsage = ""
-      @semester.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
-      flash[:warning] = "#{name} was not successfully deleted."
+      flash[:warning] = "#{name} was not successfully deleted. The following errors occured:\n" + errors_string(@semester)
     end
-    redirect_to index
+    redirect_to semester_index
   end
 
   private
@@ -77,5 +73,12 @@ class SemestersController  < ValidateLoginController
       return true
     end
     return false
+  end
+
+  private
+  def errors_string(semester)
+    error_messages = ""
+    semester.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
+    return error_messages
   end
 end

@@ -63,3 +63,14 @@ Scenario: View semester
   Then I should see "Art"
   And I should see "Science"
   
+Scenario: Add a semester with missing necessary fields
+  Given I am on the home page
+  When I follow "Create New Session"
+  Then I am on the Session Name Page
+  When I fill in "Session Name" with "Fall 2012"
+  And I fill in "Start Date" with "09/21/2012"
+  And I fill in "End Date" with "12/15/2012"
+  And I press "Save Changes"
+  Then I should be on the Session Name Page
+  And I should see "Error"
+  

@@ -3,10 +3,10 @@ require 'spec_helper'
 describe LoginsController do
   describe 'Logging in to the page with a admin username' do
     it 'When I go to the login page, the textboxes should be blank' do
-      end
+    end
 
     it 'When I fill in "Username" with "admin" and "Password" with "admin_password" and I click "Login", it should bring me to the "Jefferson PTA - Sessions" home page and I should see a "Create New Session" link' do
-      end
+    end
 
   end
 

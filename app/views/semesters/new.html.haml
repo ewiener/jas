@@ -1,0 +1,65 @@
+-# This file is app/views/semesters/new.html.haml
+!!! 5
+
+%html
+	%head
+		%title
+			New Session
+			= stylesheet_link_tag("frontpage")
+			= javascript_include_tag("application")
+	%body
+		%div#container
+			%ul.nav.nav-tabs
+				%li
+					= link_to "Home", new_semester_path
+				%li.active
+					= link_to "Sessions", semesters_path
+				%li
+					= link_to "Instructors", new_semester_path
+				%li
+					= link_to "Classes", new_semester_path
+				%li
+					= link_to "Students", new_semester_path
+				%li
+					= link_to "Classrooms", new_semester_path
+			%h1.span6.offset3
+				Create New Session
+			%div.span8.offset2
+				= form_tag semesters_path, :class =>"form-horizontal" do
+					%div.control-group 
+						= label :semester, :name, 'Session Name', :class => "control-label"
+						%div.controls
+							= text_field :semester, :name
+
+					%div.control-group
+						= label :semester, :fee, 'Registration Fee', :class => "control-label"
+						%div.controls
+							= text_field :semester, :fee
+
+					%div.control-group
+						= label :semester, :start, 'Start Date', :class => "control-label"
+						%div.controls
+							= text_field :semester, :start, :placeholder => "e.g. 8/15/2012"
+
+					%div.control-group
+						= label :semester, :end, 'End Date', :class => "control-label"
+						%div.controls
+							= text_field :semester, :end, :placeholder => "e.g. 12/21/2012"
+
+					%div.control-group
+						%div.controls
+							= submit_tag 'Save Changes'
+				/
+					%div.control-group
+						= label :semester, :start, 'Start Date', :class => "control-label"
+						%div.controls
+							= date_select :semester, :start,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
+		
+					%div.control-group
+						= label :semester, :end, 'End Date', :class => "control-label"
+						%div.controls
+							= date_select :semester, :end,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
+							
+					%div.control-group
+						%div.controls
+							= submit_tag 'Save Changes'

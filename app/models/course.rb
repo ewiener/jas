@@ -9,7 +9,13 @@ class Course < ActiveRecord::Base
 
   attr_accessible :name,
                 :description,
-                :days_of_week,
+                :sunday
+                :monday
+                :tuesday
+                :wednesday
+                :thursday
+                :friday
+                :saturday
                 :number_of_classes,
                 :start_time_hour,
                 :start_time_minute,
@@ -36,7 +42,7 @@ class Course < ActiveRecord::Base
 
   validate :name_is_valid
   validates :description, :presence => true
-  validate :days_of_week_is_valid
+  validate :days_of_week_are_valid
   validate :number_of_classes_is_valid
   validate :start_time_hour_is_valid
   validate :start_time_minute_is_valid
@@ -57,16 +63,8 @@ class Course < ActiveRecord::Base
   end
 
   def name_is_valid?
+    if(self.name == nil); return false; end
     return self.name.length > 0
-  end
-
-  private
-  def days_of_week_is_valid
-
-  end
-
-  def days_of_week_is_valid?
-
   end
 
   private
@@ -77,6 +75,30 @@ class Course < ActiveRecord::Base
   def number_of_classes_is_valid?
     if (self.number_of_classes == nil); return false; end
     return self.number_of_classes > 0
+  end
+
+  private
+  def days_of_week_are_valid
+    errors.add(:days_of_week, "The days of the week are invalid.") unless days_of_week_are_valid?
+  end
+
+  def days_of_week_are_valid?
+    if (self.sunday == nil); return false; end
+    if (self.monday == nil); return false; end
+    if (self.tuesday == nil); return false; end
+    if (self.wednesday == nil); return false; end
+    if (self.thursday == nil); return false; end
+    if (self.friday == nil); return false; end
+    if (self.saturday == nil); return false; end
+
+    if ((self.sunday != true) and (self.sunday != false)); return false; end
+    if ((self.monday != true) and (self.monday != false)); return false; end
+    if ((self.tuesday != true) and (self.tuesday != false)); return false; end
+    if ((self.wednesday != true) and (self.wednesday != false)); return false; end
+    if ((self.thursday != true) and (self.thursday != false)); return false; end
+    if ((self.friday != true) and (self.friday != false)); return false; end
+    if ((self.saturday != true) and (self.saturday != false)); return false; end
+    return true
   end
 
   private

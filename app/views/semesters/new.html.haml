@@ -10,19 +10,6 @@
   %body
     = render :partial => "partial/topbar"
     %div#container
-      %ul.nav.nav-tabs
-        %li
-          = link_to "Home", semesters_path
-        %li.active
-          = link_to "Sessions", new_semester_path
-        %li
-          = link_to "Instructors", new_semester_path
-        %li
-          = link_to "Classes", new_semester_path
-        %li
-          = link_to "Students", new_semester_path
-        %li
-          = link_to "Classrooms", new_semester_path
       %h1.span6.offset3
         Create New Session
       / %h3.span8.offset3

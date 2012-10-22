@@ -25,7 +25,7 @@
 			%h1.span6.offset3
 				Create New Course
 			%div.span8.offset2
-				= form_tag show_semester_path(@semester.id), :class =>"form-horizontal" do
+				= form_tag semester_path(@semester.id), :class =>"form-horizontal" do
 					%div.control-group 
 						= label :course, :name, 'Course Name', :class => "control-label"
 						%div.controls
@@ -101,20 +101,6 @@
 						%div.controls
 							= text_field :course, :price
 
-					%div.control-group
-						%div.controls
-							= submit_tag 'Save Changes'
-				/
-					%div.control-group
-						= label :semester, :start, 'Start Date', :class => "control-label"
-						%div.controls
-							= date_select :semester, :start,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
-		
-					%div.control-group
-						= label :semester, :end, 'End Date', :class => "control-label"
-						%div.controls
-							= date_select :semester, :end,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
-							
 					%div.control-group
 						%div.controls
 							= submit_tag 'Save Changes'

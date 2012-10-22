@@ -2,6 +2,7 @@ class AddSemesterTable < ActiveRecord::Migration
   def up
     create_table 'semesters' do |t|
       t.text   'name'
+      t.text   'semester_name'
       t.text   'start_date'
       t.text   'end_date'
       t.text   'dates_with_no_classes'

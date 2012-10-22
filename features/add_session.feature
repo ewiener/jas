@@ -23,11 +23,12 @@ Scenario: Create new session
   #Given I am an admin
   When I follow "Create New Session"
   Then I am on the Session Name Page
-  And I should see no populated courses
   When I fill in "Session Name" with "Fall 2012"
   And I fill in "Start Date" with "09/21/2012"
   And I fill in "End Date" with "12/15/2012"
   And I fill in "Registration Fee" with "10"
+  And I fill in "Lottery Deadline" with "09/10/2012"
+  And I fill in "Registration Deadline" with "09/15/2012"
   And I press "Save Changes"
   Then I should be on the home page
   And I should see "Fall 2012"
@@ -74,3 +75,20 @@ Scenario: Add a semester with missing necessary fields
   Then I should be on the Session Name Page
   And I should see "Error"
   
+Scenario: Access a semester not in the database
+  Given I am on the "Fall 1990" Session Name Page
+  Then I should be on the home page
+  And I should see "Could not find the corresponding semester"
+  
+Scenario: Entering invalidly formatted start date
+  When I follow "Create New Session"
+  Then I am on the Session Name Page
+  When I fill in "Session Name" with "Fall 2012"
+  And I fill in "Start Date" with "09/21/12"
+  And I fill in "End Date" with "12/15/2012"
+  And I fill in "Registration Fee" with "10"
+  And I fill in "Lottery Deadline" with "09/10/2012"
+  And I fill in "Registration Deadline" with "09/15/2012"
+  And I press "Save Changes"
+  Then I should be on the Session Name Page
+  And I should see "not parsable"

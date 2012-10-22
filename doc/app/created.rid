@@ -1,18 +1,18 @@
-Sun, 21 Oct 2012 21:07:51 -0700
+Sun, 21 Oct 2012 22:31:53 -0700
 doc/README_FOR_APP	Sun, 21 Oct 2012 16:45:44 -0700
 app/models/semester.rb	Sun, 21 Oct 2012 21:07:36 -0700
 app/models/login.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/models/teacher.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/models/ptainstructor.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/models/user_session.rb	Sun, 21 Oct 2012 16:45:44 -0700
-app/models/course.rb	Sun, 21 Oct 2012 20:06:57 -0700
+app/models/course.rb	Sun, 21 Oct 2012 22:31:49 -0700
 app/models/user.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/models/student.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/helpers/application_helper.rb	Sun, 21 Oct 2012 16:45:44 -0700
-app/controllers/courses_controller.rb	Sun, 21 Oct 2012 20:50:34 -0700
+app/controllers/courses_controller.rb	Sun, 21 Oct 2012 22:04:11 -0700
 app/controllers/validate_login_controller.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/controllers/logins_controller.rb	Sun, 21 Oct 2012 16:45:44 -0700
-app/controllers/semesters_controller.rb	Sun, 21 Oct 2012 18:23:34 -0700
+app/controllers/semesters_controller.rb	Sun, 21 Oct 2012 22:04:11 -0700
 app/controllers/user_sessions_controller.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/controllers/students_controller.rb	Sun, 21 Oct 2012 16:45:44 -0700
 app/controllers/application_controller.rb	Sun, 21 Oct 2012 16:45:44 -0700

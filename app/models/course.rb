@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
 
+  # Attributes
   attr_accessible :name,
                   :description,
                   :sunday,

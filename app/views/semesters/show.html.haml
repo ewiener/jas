@@ -31,6 +31,13 @@
               %td Enrolled
               %td Edit
               %td Delete
+            - if @courses
+              %tr
+              - @courses.each do |course|
+                %td #{course.name}
+                %td Teacher
+                %td #{course.monday} #{course.tuesday} #{course.wednesday}
+                %td #{course.start_time}
           .vspace10
           .center-right
             %button.btn.btn-info

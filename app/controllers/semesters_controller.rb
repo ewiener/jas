@@ -17,7 +17,7 @@ class SemestersController  < ValidateLoginController
 
   def create
     puts params[:semester]
-    @semester = Semester.create!(params[:semester])
+    @semester = Semester.create(params[:semester])
     if @semester.new_record?
       flash[:warning] = "Could not create the semester.  Encountered the following errors:\n" + errors_string(@semester)
       render "new"
@@ -52,7 +52,7 @@ class SemestersController  < ValidateLoginController
       render 'edit'
     end
   end
-  
+
 =begin
   def destroy
     @semester = Semester.find(params[:semester_id])

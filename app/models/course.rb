@@ -119,7 +119,7 @@ class Course < ActiveRecord::Base
 
   public
   def start_time_minute_is_valid?
-    return minute_valid?(self.end_time_minute)
+    return minute_valid?(self.start_time_minute)
   end
 
   private
@@ -139,7 +139,7 @@ class Course < ActiveRecord::Base
 
   public
   def end_time_minute_is_valid?
-    return minute_valid?(self.end_time_hour)
+    return minute_valid?(self.end_time_minute)
   end
 
   private

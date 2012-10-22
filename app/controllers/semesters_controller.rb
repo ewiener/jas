@@ -16,7 +16,6 @@ class SemestersController  < ValidateLoginController
   end
 
   def create
-    puts params[:semester]
     @semester = Semester.create(params[:semester])
     if @semester.new_record?
       flash[:warning] = "Could not create the semester.  Encountered the following errors:\n" + errors_string(@semester)
@@ -25,7 +24,6 @@ class SemestersController  < ValidateLoginController
     else
       flash[:notice] = "#{@semester.name} was successfully created."
     end
-    puts @semester.name
     redirect_to :semesters
   end
 

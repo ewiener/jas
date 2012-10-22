@@ -8,33 +8,33 @@ class Course < ActiveRecord::Base
   MINUTE = Array(0..59)
 
   attr_accessible :name,
-                :description,
-                :sunday
-                :monday
-                :tuesday
-                :wednesday
-                :thursday
-                :friday
-                :saturday
-                :number_of_classes,
-                :start_time_hour,
-                :start_time_minute,
-                :start_time_type,
-                :end_time_hour,
-                :end_time_minute,
-                :end_time_type,
-                :class_min,
-                :class_max,
-                :grade_range,
-                :fee_per_meeting,
-                :fee_for_additional_materials,
-                :total_fee,
-                :semester
+                  :description,
+                  :sunday,
+                  :monday,
+                  :tuesday,
+                  :wednesday,
+                  :thursday,
+                  :friday,
+                  :saturday,
+                  :number_of_classes,
+                  :start_time_hour,
+                  :start_time_minute,
+                  :start_time_type,
+                  :end_time_hour,
+                  :end_time_minute,
+                  :end_time_type,
+                  :class_min,
+                  :class_max,
+                  :grade_range,
+                  :fee_per_meeting,
+                  :fee_for_additional_materials,
+                  :total_fee,
+                  :semester
 
   #has location through teacher
 
   belongs_to :semester
-  has_many :ptainstructors
+  belongs_to :ptainstructors
   has_many :students
 
   validates :name, :presence => true

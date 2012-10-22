@@ -14,22 +14,23 @@ Scenario: Create New Class
   Given I am on the home page
   And I follow "Fall 2011"
   Then I should be on the "Fall 2011" Session Name Page
-  And the "Session Name" field should contain "Fall 2011"
   When I follow "Add +"
   Then I should be on the Create Class Page
-  When I fill in "Class Name" with "Math"
-  And I fill in "Class Description" with "A class about numbers"
+  When I fill in "Course Name" with "Math"
+  And I fill in "PTA Instructor" with "Mary"
+  And I fill in "Description" with "A class about numbers"
   And I check "Monday"
+  And I fill in "Location" with "Room 10"
   And I fill in "Start Time Hour" with "2"
   And I fill in "Start Time Minute" with "10"
   And I fill in "End Time Hour" with "3"
   And I fill in "End Time Minute" with "30"
-  And I fill in "Class Min" with "1"
-  And I fill in "Class Max" with "20"
-  And I fill in "Grade Range" with "1-5"
-  And I fill in "Fee Per Meeting" with "10"
+  And I fill in "Minimum Students" with "1"
+  And I fill in "Maximum Students" with "20"
+  And I fill in "Eligible Grades" with "1-5"
+  And I fill in "Price Per Student Per Meeting" with "10"
   And I fill in "Fee For Additional Materials" with "15"
-  And I press "Create"
+  And I press "Save Changes"
   Then I should be on the Session Name Page
   And I should see "Math"
   
@@ -37,10 +38,9 @@ Scenario: Cancel Create New Class
   Given I am on the home page
   And I follow "Fall 2011"
   Then I should be on the "Fall 2011" Session Name Page
-  And the "Session Name" field should contain "Fall 2011"
   When I follow "Add +"
-  Then I should be on the Create Class Page
-  When I fill in "Class Name" with "Math"
+  Then I should be on the "Fall 2011" Create Class Page
+  When I fill in "Course Name" with "Math"
   And I press "Cancel"
   Then I should be on the Are You Sure? Page
   When I press "Yes"
@@ -48,33 +48,33 @@ Scenario: Cancel Create New Class
   And no new classes should be added
 
 Scenario: Recover From Clicking Cancel
-  Given I am on the Create Class Page
-  When I fill in "Class Name" with "Math"
+  Given I am on the "Fall 2011" Create Class Page
+  When I fill in "Course Name" with "Math"
   And I press "Cancel"
   Then I should be on the Are You Sure? Page
   When I press "No"
-  Then I should be on the Create Class Page
+  Then I should be on the "Fall 2011" Create Class Page
   And the "Class Name" field should contain "Math"
   
 Scenario: Invalid class min/max
   Given I am on the "Fall 2011" Session Name Page
-  And I press "Add +"
-  And I fill in "Class Min" with "20"
-  And I fill in "Class Max" with "1"
-  And I press "Create"
+  And I follow "Add +"
+  And I fill in "Minimum Students" with "20"
+  And I fill in "Maximum Students" with "1"
+  And I press "Save Changes"
   Then I should see "error"
   
 Scenario: Invalid course fee
   Given I am on the "Fall 2011" Session Name Page
-  And I press "Add +"
-  And I fill in "Fee Per Meeting" with "0"
-  And I press "Create"
+  And I follow "Add +"
+  And I fill in "Price Per Student Per Meeting" with "0"
+  And I press "Save Changes"
   Then I should see "The fee per meeting is invalid"
   
 Scenario: Invalid course start/end time
   Given I am on the "Fall 2011" Session Name Page
-  And I press "Add +"
+  And I follow "Add +"
   And I fill in "Start Time Hour" with "1.5"
   And I fill in "End Time Hour" with "1.5"
-  And I press "Create"
+  And I press "Save Changes"
   Then I should see "Invalid"

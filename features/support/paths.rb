@@ -16,8 +16,9 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/semesters'
       
-    when /^the Create Class Page$/
-      '/semesters/:semester_id/course/new'
+    when /^the "(.+)" Create Class Page$/
+      semester_id = Semester.find_by_name($1).id
+      "/semesters/#{semester_id}/courses/new"
     
     when /^the login page$/
       '/logins'

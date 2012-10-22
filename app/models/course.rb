@@ -38,7 +38,6 @@ class Course < ActiveRecord::Base
   has_many :students
 
   validates :name, :presence => true
-  validates :number_of_classes, :presence => true
 
   validate :name_is_valid
   validates :description, :presence => true

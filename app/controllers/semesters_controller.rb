@@ -4,6 +4,7 @@ class SemestersController  < ValidateLoginController
 
   def show
     @semester = Semester.find params[:id]
+    @courses = @semester.courses
   end
 
   def index

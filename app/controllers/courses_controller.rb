@@ -11,7 +11,7 @@ class CoursesController  < ValidateLoginController
   def index
     #redirect to the semester homepage
     if params[:semester_id]
-      redirect_to semester_show params[:semester_id] # semester page
+      redirect_to semester_path( params[:semester_id] )# semester page
     else
       redirect_to semester_index
     end
@@ -31,7 +31,7 @@ class CoursesController  < ValidateLoginController
       return
     end
     flash[:notice] = "Successfully created #{@course.name}."
-    redirect_to semester_show @semester.id
+    redirect_to semester_path( @semester.id )
   end
 
   def edit
@@ -40,7 +40,7 @@ class CoursesController  < ValidateLoginController
     @course = Course.find params[:course_id]
     if not @course
       flash[:warning] = "Error: Unable to locate the course given for modification."
-      redirect_to semester_show @semester.id
+      redirect_to semester_path(@semester.id)
       return
     end
   end
@@ -52,20 +52,21 @@ class CoursesController  < ValidateLoginController
     @course = Course.find params[:course_id]
     if not @course
       flash[:warning] = "Error: The given course for updating could not be found."
-      redirect_to semester_show @semester.id
+      redirect_to semester_path( @semester.id )
       return
     end
 
     #not sure what to call update_attributes with
     if @course.update_attributes(params[:course_id]) then
       flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
-      redirect_to semester_show @semester.id
+      redirect_to semester_path( @semester.id )
     else
       flash[:warning] = "#{@course.name} could not be updated because of the following errors:\n" + errors_string(course)
       render 'edit'
     end
   end
 =end
+=begin
   def destroy
     @course = Course.find(params[:course_id])
     if not @course
@@ -81,7 +82,7 @@ class CoursesController  < ValidateLoginController
     end
     redirect_to semester_index #semester page
   end
-
+=end
   private
   def errors_string(course)
     error_messages = ""

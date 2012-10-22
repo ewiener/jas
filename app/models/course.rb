@@ -74,7 +74,7 @@ class Course < ActiveRecord::Base
   public
   def number_of_classes_is_valid?
     if (self.number_of_classes == nil); return false; end
-    return self.number_of_classes > 0
+    return self.number_of_classes.to_i > 0
   end
 
   private

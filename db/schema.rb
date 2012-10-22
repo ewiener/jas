@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20121021041637) do
 
   create_table "semesters", :force => true do |t|
     t.text  "name"
+    t.text  "semester_name"
     t.text  "start_date"
     t.text  "end_date"
     t.text  "dates_with_no_classes"

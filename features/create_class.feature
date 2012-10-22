@@ -15,23 +15,21 @@ Scenario: Create New Class
   And I follow "Fall 2011"
   Then I should be on the "Fall 2011" Session Name Page
   When I follow "Add +"
-  Then I should be on the Create Class Page
+  Then I should be on the "Fall 2011" Create Class Page
   When I fill in "Course Name" with "Math"
-  And I fill in "PTA Instructor" with "Mary"
   And I fill in "Description" with "A class about numbers"
-  And I check "Monday"
-  And I fill in "Location" with "Room 10"
-  And I fill in "Start Time Hour" with "2"
-  And I fill in "Start Time Minute" with "10"
-  And I fill in "End Time Hour" with "3"
-  And I fill in "End Time Minute" with "30"
+  And I check "Wednesday"
+  #And I fill in "Start Time Hour" with "2"
+  #And I fill in "Start Time Minute" with "10"
+  #And I fill in "End Time Hour" with "3"
+  #And I fill in "End Time Minute" with "30"
   And I fill in "Minimum Students" with "1"
   And I fill in "Maximum Students" with "20"
   And I fill in "Eligible Grades" with "1-5"
   And I fill in "Price Per Student Per Meeting" with "10"
-  And I fill in "Fee For Additional Materials" with "15"
+  And I fill in "Fee for Additional Materials" with "15"
   And I press "Save Changes"
-  Then I should be on the Session Name Page
+  Then I should be on the "Fall 2011" Session Name Page
   And I should see "Math"
   
 Scenario: Cancel Create New Class
@@ -44,7 +42,7 @@ Scenario: Cancel Create New Class
   And I press "Cancel"
   Then I should be on the Are You Sure? Page
   When I press "Yes"
-  Then I should be on the Session Name Page
+  Then I should be on the "Fall 2011" Session Name Page
   And no new classes should be added
 
 Scenario: Recover From Clicking Cancel

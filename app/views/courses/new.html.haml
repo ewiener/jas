@@ -5,8 +5,8 @@
   %head
     %title
       New Course
-      = stylesheet_link_tag("frontpage")
-      = javascript_include_tag("application")
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
   %body
     %div#container
       %ul.nav.nav-tabs
@@ -24,12 +24,13 @@
           = link_to "Classrooms", new_semester_path
       %h1.span6.offset3
         Create New Course
+      .vspace20
       - if flash[:notice]
         .alert.alert-error
           #{flash[:notice]}
       / %h3.span8.offset3
       - if flash[:warning]
-        - @semester.errors.each do |attr, msg|
+        - @course.errors.each do |attr, msg|
           .alert.alert-error
             = msg
       %div.span8.offset2

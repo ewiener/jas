@@ -12,9 +12,9 @@ Background: previous sessions have been added to the database
     | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 04/14/2012            |
   
   Given the following courses have been added:
-    | name    | semester      | description | days_of_week  | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  |
-    | Art     | Spring 2012   | art class   | M             | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            |
-    | Science | Spring 2012   | sci class   | W             | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             |
+    | name    | semester      | description | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    |
+    | Art     | Spring 2012   | art class   | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            | true      | false     | false     | false     | false     |
+    | Science | Spring 2012   | sci class   | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             | true      | false     | false     | false     | false     |
   
   And I am on the home page
 

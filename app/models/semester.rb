@@ -4,7 +4,15 @@ class Semester < ActiveRecord::Base
 
   serialize :dates_with_no_classes
 
-  attr_accessible :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline, :fee
+  # Attributes
+  # :name, :start_date
+  attr_accessible :name,
+                  :start_date,
+                  :end_date,
+                  :dates_with_no_classes,
+                  :lottery_deadline,
+                  :registration_deadline,
+                  :fee
 
   validate :name_is_valid
 

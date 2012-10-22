@@ -2,105 +2,159 @@
 !!! 5
 
 %html
-	%head
-		%title
-			New Course
-			= stylesheet_link_tag("frontpage")
-			= javascript_include_tag("application")
-	%body
-		%div#container
-			%ul.nav.nav-tabs
-				%li
-					= link_to "Home", semesters_path
-				%li.active
-					= link_to "Sessions", semesters_path
-				%li
-					= link_to "Instructors", new_semester_path
-				%li
-					= link_to "Classes", new_semester_path
-				%li
-					= link_to "Students", new_semester_path
-				%li
-					= link_to "Classrooms", new_semester_path
-			%h1.span6.offset3
-				Create New Course
-			%div.span8.offset2
-				= form_tag semester_courses_path(@semester.id), :class =>"form-horizontal" do
-					%div.control-group 
-						= label :course, :name, 'Course Name', :class => "control-label"
-						%div.controls
-							= text_field :course, :name
+  %head
+    %title
+      New Course
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    %div#container
+      %ul.nav.nav-tabs
+        %li
+          = link_to "Home", semesters_path
+        %li.active
+          = link_to "Sessions", semesters_path
+        %li
+          = link_to "Instructors", new_semester_path
+        %li
+          = link_to "Classes", new_semester_path
+        %li
+          = link_to "Students", new_semester_path
+        %li
+          = link_to "Classrooms", new_semester_path
+      %h1.span6.offset3
+        Create New Course
+      .vspace20
+      - if flash[:notice]
+        .alert.alert-error
+          #{flash[:notice]}
+      / %h3.span8.offset3
+      - if flash[:warning]
+        - @course.errors.each do |attr, msg|
+          .alert.alert-error
+            = msg
+      %div.span8.offset2
+        = form_tag semester_courses_path(@semester.id), :class =>"form-horizontal" do
+          %div.control-group 
+            = label :course, :name, 'Course Name', :class => "control-label"
+            %div.controls
+              = text_field :course, :name
 
-					%div.control-group
-						= label :course, :instructor, 'PTA Instructor', :class => "control-label"
-						%div.controls
-							= text_field :course, :instructor
+          %div.control-group
+            = label :temp, :instructor, 'PTA Instructor', :class => "control-label"
+            %div.controls
+              = text_field :temp, :instructor
 
-					%div.control-group
-						= label :course, :description, 'Description', :class => "control-label"
-						%div.controls
-							= text_area :course, :description, :rows => 5
+          %div.control-group
+            = label :course, :description, 'Description', :class => "control-label"
+            %div.controls
+              = text_area :course, :description, :rows => 5
 
-					%div.control-group
-						= label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :sunday, :id => "inlineCheckbox1"
+          %div.control-group
+            = label :course, :start_time_hour, 'Start Hour', :class => "control-label"
+            %div.controls
+              = text_field :course, :start_time_hour
 
-					%div.control-group
-						= label :course, :monday, 'Monday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :monday,  :id => "inlineCheckbox2"
+          %div.control-group
+            = label :course, :start_time_minute, 'Start Minute', :class => "control-label"
+            %div.controls
+              = text_field :course, :start_time_minute
 
-					%div.control-group
-						= label :course, :tuesday, 'Tuesday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :tuesday
+          %div.control-group
+            = label :course, :start_type, 'AM/PM', :class => "control-label"
+            %div.controls
+              = text_field :course, :start_time_type
 
-					%div.control-group
-						= label :course, :wednesday, 'Wednesday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :wednesday
+          %div.control-group
+            = label :course, :end_time_hour, 'End Hour', :class => "control-label"
+            %div.controls
+              = text_field :course, :end_time_hour
 
-					%div.control-group
-						= label :course, :thursday, 'Thorsday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :thursday
+          %div.control-group
+            = label :course, :end_time_minute, 'End Minute', :class => "control-label"
+            %div.controls
+              = text_field :course, :end_time_minute
 
-					%div.control-group
-						= label :course, :friday, 'Friday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :friday
+          %div.control-group
+            = label :course, :end_time_type, 'AM/PM', :class => "control-label"
+            %div.controls
+              = text_field :course, :end_time_type
+          
+          %div.control-group
+            = label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :sunday
 
-					%div.control-group
-						= label :course, :saturday, 'Saturday', :class => "control-label checkbox inline"
-						%div.controls
-							= check_box :course, :saturday
+          %div.control-group
+            = label :course, :monday, 'Monday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :monday
 
-					%div.control-group
-						= label :course, :location, 'Location', :class => "control-label"
-						%div.controls
-							= text_field :course, :location
+          %div.control-group
+            = label :course, :tuesday, 'Tuesday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :tuesday
 
-					%div.control-group
-						= label :course, :grades, 'Eligible Grades', :class => "control-label"
-						%div.controls
-							= text_field :course, :grades
+          %div.control-group
+            = label :course, :wednesday, 'Wednesday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :wednesday
 
-					%div.control-group
-						= label :course, :min_students, 'Minimum Students', :class => "control-label"
-						%div.controls
-							= text_field :course, :min_students
+          %div.control-group
+            = label :course, :thursday, 'Thorsday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :thursday
 
-					%div.control-group
-						= label :course, :max_students, 'Maximum Students', :class => "control-label"
-						%div.controls
-							= text_field :course, :max_students
+          %div.control-group
+            = label :course, :friday, 'Friday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :friday
 
-					%div.control-group
-						= label :course, :price, 'Price Per Student Per Meeting', :class => "control-label"
-						%div.controls
-							= text_field :course, :price
+          %div.control-group
+            = label :course, :saturday, 'Saturday', :class => "control-label checkbox inline"
+            %div.controls
+              = check_box :course, :saturday
 
-					%div.control-group
-						%div.controls
-							= submit_tag 'Save Changes'
+          %div.control-group
+            = label :temp, :location, 'Location', :class => "control-label"
+            %div.controls
+              = text_field :temp, :location
+
+          %div.control-group
+            = label :course, :grade_range, 'Eligible Grades', :class => "control-label"
+            %div.controls
+              = text_field :course, :grade_range
+
+          %div.control-group
+            = label :course, :class_min, 'Minimum Students', :class => "control-label"
+            %div.controls
+              = text_field :course, :class_min
+
+          %div.control-group
+            = label :course, :class_max, 'Maximum Students', :class => "control-label"
+            %div.controls
+              = text_field :course, :class_max
+
+          %div.control-group
+            = label :course, :fee_per_meeting, 'Price Per Student Per Meeting', :class => "control-label"
+            %div.controls
+              = text_field :course, :fee_per_meeting
+
+          %div.control-group
+            = label :course, :number_of_classes, 'Number of Classes', :class => "control-label"
+            %div.controls
+              = text_field :course, :number_of_classes
+
+          %div.control-group
+            = label :course, :fee_for_additional_materials, 'Fee for Additional Materials', :class => "control-label"
+            %div.controls
+              = text_field :course, :fee_for_additional_materials
+
+          %div.control-group
+            = label :course, :total_fee, 'Total Fee', :class => "control-label"
+            %div.controls
+              = text_field :course, :total_fee
+
+          %div.control-group
+            %div.controls
+              = submit_tag 'Save Changes'

@@ -5,8 +5,8 @@
   %head
     %title
       New Session
-      = stylesheet_link_tag("frontpage")
-      = javascript_include_tag("application")
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
   %body
     = render :partial => "partial/topbar"
     %div#container
@@ -31,15 +31,6 @@
               %td Enrolled
               %td Edit
               %td Delete
-            %tr
-              %td Ex Class
-              %td Ex Teacher
-              %td Ex Days
-              %td Ex Time
-              %td Ex Room
-              %td Ex Enrolled
-              %td Ex Edit
-              %td Ex Delete
           .vspace10
           .center-right
             %button.btn.btn-info

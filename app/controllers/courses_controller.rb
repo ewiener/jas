@@ -44,7 +44,7 @@ class CoursesController  < ValidateLoginController
       return
     end
   end
-
+=begin
   def update
     @semester = Semester.find params[:semester_id]
     return unless semester_is_valid(@semester)
@@ -65,7 +65,7 @@ class CoursesController  < ValidateLoginController
       render 'edit'
     end
   end
-
+=end
   def destroy
     @course = Course.find(params[:course_id])
     if not @course

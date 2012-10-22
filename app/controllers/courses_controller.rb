@@ -24,10 +24,10 @@ class CoursesController  < ValidateLoginController
   def create
     @semester = Semester.find params[:semester_id]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
-    @course = @semester.Course.build(params[:course])
+    @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] =  "Error: Unable to create a new course due to the following errors:\n" + errors_string(@course)
-      redirect "new"
+      render "new"
       return
     end
     flash[:notice] = "Successfully created #{@course.name}."
@@ -62,7 +62,7 @@ class CoursesController  < ValidateLoginController
       redirect_to semester_show @semester.id
     else
       flash[:warning] = "#{@course.name} could not be updated because of the following errors:\n" + errors_string(course)
-      redirect 'edit'
+      render 'edit'
     end
   end
 

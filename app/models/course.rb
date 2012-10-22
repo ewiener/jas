@@ -72,6 +72,7 @@ class Course < ActiveRecord::Base
     errors.add(:number_of_classes, 'Invalid number of classes') unless number_of_classes_is_valid?
   end
 
+  public
   def number_of_classes_is_valid?
     if (self.number_of_classes == nil); return false; end
     return self.number_of_classes > 0
@@ -106,6 +107,7 @@ class Course < ActiveRecord::Base
     errors.add(:start_time_hour, 'Invalid starting time hour.') unless start_time_hour_is_valid?
   end
 
+  public
   def start_time_hour_is_valid?
       return hour_valid?(self.start_time_hour, self.start_time_type)
   end
@@ -115,6 +117,7 @@ class Course < ActiveRecord::Base
     errors.add(:start_time_minute,'Invalid starting time minute.') unless start_time_minute_is_valid?
   end
 
+  public
   def start_time_minute_is_valid?
     return minute_valid?(self.end_time_minute)
   end
@@ -124,6 +127,7 @@ class Course < ActiveRecord::Base
     errors.add(:end_time_hour, 'Invalid ending time hour.') unless end_time_hour_is_valid?
   end
 
+  public
   def end_time_hour_is_valid?
     return hour_valid?(self.end_time_hour, self.end_time_type)
   end
@@ -133,6 +137,7 @@ class Course < ActiveRecord::Base
     errors.add(:end_time_minute, 'Invalid ending time minute.') unless end_time_minute_is_valid?
   end
 
+  public
   def end_time_minute_is_valid?
     return minute_valid?(self.end_time_hour)
   end
@@ -158,6 +163,7 @@ class Course < ActiveRecord::Base
     errors.add(:start_time_type, 'Invalid start time type.  Should be AM, PM, or 24HR.') unless start_time_type_is_valid?
   end
 
+  public
   def start_time_type_is_valid?
     return TIME_TYPE.include? self.start_time_type
   end
@@ -167,6 +173,7 @@ class Course < ActiveRecord::Base
     errors.add(:end_time_type,'Invalid end time type.  Should be AM, PM, or 24HR.') unless end_time_type_is_valid?
   end
 
+  public
   def end_time_type_is_valid?
     return TIME_TYPE.include? self.end_time_type
   end
@@ -176,6 +183,7 @@ class Course < ActiveRecord::Base
     errors.add(:class_min,'Invalid class min value.') unless class_min_is_valid?
   end
 
+  public
   def class_min_is_valid?
     if (self.class_min == nil); return false; end
     return ((self.class_min > 0) and (self.class_max >= self.class_min))
@@ -198,6 +206,7 @@ class Course < ActiveRecord::Base
     errors.add(:fee_per_meeting, 'The fee per meeting is invalid.') unless fee_per_meeting_is_valid?
   end
 
+  public
   def fee_per_meeting_is_valid?
     if (self.fee_per_meeting == nil); return false; end
     return self.fee_per_meeting >= 0
@@ -208,6 +217,7 @@ class Course < ActiveRecord::Base
     errors.add(:fee_for_additional_materials, 'The fee for additional materials is invalid.') unless fee_for_additional_materials_is_valid?
   end
 
+  public
   def fee_for_additional_materials_is_valid?
     if (self.fee_for_additional_materials == nil); return false; end
     return self.fee_for_additional_materials >= 0
@@ -218,6 +228,7 @@ class Course < ActiveRecord::Base
     errors.add(:total_fee,'The total fee is invalid.') unless total_fee_is_valid?
   end
 
+  public
   def total_fee_is_valid?
     if (self.total_fee == nil); return false; end
     return self.total_fee >= 0

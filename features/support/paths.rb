@@ -25,10 +25,10 @@ module NavigationHelpers
     when /^the Session Name Page$/
       '/semesters/new'
     
-    #when /^the (.+) Session Name Page$/ do |semester_name|
-    #  semester_id = Semester.where(:name => semester_name).id
-    #  'semesters/#{semester_id}'
-    #end
+    when /^the "(.+)" Session Name Page$/
+      #semester_id = Semester.where(:name => $1).id
+      semester_id = Semester.find_by_name($1).id
+      '/semesters/#{semester_id}'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -31,6 +31,7 @@ class Semester < ActiveRecord::Base
     errors.add(:name,"Invalid empty string for name.") unless name_is_valid?
   end
 
+  public
   # Verifies that the name is valid
   def name_is_valid?
     return self.name.length > 0
@@ -57,6 +58,7 @@ class Semester < ActiveRecord::Base
     errors.add(:start_date, 'The start date cannot be parsed.') unless start_date_is_valid?
   end
 
+  public
   # Verifies that the start date can be parsed
   def start_date_is_valid?
     begin
@@ -73,6 +75,7 @@ class Semester < ActiveRecord::Base
     errors.add(:end_date, 'The end date cannot be parsed.') unless end_date_is_valid?
   end
 
+  public
   # Verifies that the end date can be parsed
   def end_date_is_valid?
     begin
@@ -126,6 +129,7 @@ class Semester < ActiveRecord::Base
     errors.add(:registration_deadline, 'The registration deadline could not be parsed.') unless registration_date_is_valid?
   end
 
+  public
   # Verifies that the registration date can be parsed
   def registration_date_is_valid?
     begin

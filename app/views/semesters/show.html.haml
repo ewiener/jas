@@ -1,0 +1,89 @@
+-# This file is app/views/semesters/new.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      New Session
+      = stylesheet_link_tag("frontpage")
+      = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar"
+    %div#container
+      / %h1.span6.offset3
+      .center
+        %h1 Semester: #{@semester.name}
+      %h3.span8.offset3
+        #{flash[:notice]}
+      %h3.span8.offset3
+        #{flash[:warning]}
+      %div.span8.offset2
+        .hero-unit
+          %h2
+            Classes
+          %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+            %thead{:style=>"text-decoration:underline;"}
+              %td Class
+              %td Teacher
+              %td Days
+              %td Time
+              %td Room
+              %td Enrolled
+              %td Edit
+              %td Delete
+            %tr
+              %td Ex Class
+              %td Ex Teacher
+              %td Ex Days
+              %td Ex Time
+              %td Ex Room
+              %td Ex Enrolled
+              %td Ex Edit
+              %td Ex Delete
+          .vspace10
+          .center-right
+            %button.btn.btn-info
+              Import
+            %a{:href=>new_semester_course_path(@semester.id)}
+              %button.btn.btn-info#new_semester_course
+                Add +
+          .vspace30
+
+        .hero-unit
+          %h2
+            Schedule
+          .horizontal-form
+            = label :semester, :start_date, 'Start Date:', :class=>"control-label"
+            = text_field :semester, :start_date
+            .hspace15
+            = label :semester, :end_date, 'End Date:', :class=>"control-label"
+            = text_field :semester, :end_date
+            .hspace15
+          .center-right
+            %button.btn.btn-info
+              Update
+          .vspace30
+
+        .hero-unit
+          %h2
+            Days Class Won't Meet
+          %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+            %thead{:style=>"text-decoration:underline;"}
+              %td Label
+              %td Day or Span
+              %td Remove
+            %tr
+              %td Class
+              %td Teacher
+              %td Days
+            %tr
+              %td Class
+              %td Teacher
+              %td Days
+          .vspace10
+          .center-right
+            %button.btn.btn-info
+              Add Days Off
+          .vspace30
+
+

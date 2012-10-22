@@ -16,8 +16,9 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/semesters'
       
-    when /^the Create Class Page$/
-      '/semesters/:semester_id/course/new'
+    when /^the "(.+)" Create Class Page$/
+      semester_id = Semester.find_by_name($1).id
+      "/semesters/#{semester_id}/courses/new"
     
     when /^the login page$/
       '/logins'
@@ -28,7 +29,7 @@ module NavigationHelpers
     when /^the "(.+)" Session Name Page$/
       #semester_id = Semester.where(:name => $1).id
       semester_id = Semester.find_by_name($1).id
-      '/semesters/#{semester_id}'
+      "/semesters/#{semester_id}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

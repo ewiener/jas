@@ -35,7 +35,7 @@ class SemestersController  < ValidateLoginController
       return
     end
   end
-
+=begin
   def update
     @semester = Semester.find params[:semester_id]
     if semester_is_nil @semester
@@ -51,7 +51,7 @@ class SemestersController  < ValidateLoginController
       render 'edit'
     end
   end
-
+=end
 =begin
   def destroy
     @semester = Semester.find(params[:semester_id])

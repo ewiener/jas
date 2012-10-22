@@ -91,7 +91,7 @@ Scenario: Entering invalidly formatted start date
   And I fill in "Registration Deadline" with "09/15/2012"
   And I press "Save Changes"
   Then I should be on the Session Name Page
-  And I should see "not parsable"
+  And I should see "The start date cannot be parsed"
   
 Scenario: Entering start date after end date
   When I follow "Create New Session"

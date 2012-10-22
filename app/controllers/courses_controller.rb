@@ -66,6 +66,7 @@ class CoursesController  < ValidateLoginController
     end
   end
 =end
+=begin
   def destroy
     @course = Course.find(params[:course_id])
     if not @course
@@ -81,7 +82,7 @@ class CoursesController  < ValidateLoginController
     end
     redirect_to semester_index #semester page
   end
-
+=end
   private
   def errors_string(course)
     error_messages = ""

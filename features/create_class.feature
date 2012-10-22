@@ -13,9 +13,9 @@ Background: populate db with a single class session
 Scenario: Create New Class
   Given I am on the home page
   And I follow "Fall 2011"
-  Then I should be on the Session Name Page
+  Then I should be on the "Fall 2011" Session Name Page
   And the "Session Name" field should contain "Fall 2011"
-  When I press "Add New"
+  When I follow "Add +"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"
   And I fill in "Class Description" with "A class about numbers"
@@ -24,7 +24,7 @@ Scenario: Create New Class
   And I fill in "Start Time Minute" with "10"
   And I fill in "End Time Hour" with "3"
   And I fill in "End Time Minute" with "30"
-  And I fill in "Class Min" with "0"
+  And I fill in "Class Min" with "1"
   And I fill in "Class Max" with "20"
   And I fill in "Grade Range" with "1-5"
   And I fill in "Fee Per Meeting" with "10"
@@ -36,9 +36,9 @@ Scenario: Create New Class
 Scenario: Cancel Create New Class
   Given I am on the home page
   And I follow "Fall 2011"
-  Then I should be on the Session Name Page
+  Then I should be on the "Fall 2011" Session Name Page
   And the "Session Name" field should contain "Fall 2011"
-  When I press "Add New"
+  When I follow "Add +"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"
   And I press "Cancel"
@@ -56,4 +56,25 @@ Scenario: Recover From Clicking Cancel
   Then I should be on the Create Class Page
   And the "Class Name" field should contain "Math"
   
-Scenario:   
+Scenario: Invalid class min/max
+  Given I am on the "Fall 2011" Session Name Page
+  And I press "Add +"
+  And I fill in "Class Min" with "20"
+  And I fill in "Class Max" with "1"
+  And I press "Create"
+  Then I should see "error"
+  
+Scenario: Invalid course fee
+  Given I am on the "Fall 2011" Session Name Page
+  And I press "Add +"
+  And I fill in "Fee Per Meeting" with "0"
+  And I press "Create"
+  Then I should see "The fee per meeting is invalid"
+  
+Scenario: Invalid course start/end time
+  Given I am on the "Fall 2011" Session Name Page
+  And I press "Add +"
+  And I fill in "Start Time Hour" with "1.5"
+  And I fill in "End Time Hour" with "1.5"
+  And I press "Create"
+  Then I should see "Invalid"

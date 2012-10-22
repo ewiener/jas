@@ -8,6 +8,7 @@
       = stylesheet_link_tag("frontpage")
       = javascript_include_tag("application")
   %body
+    = render :partial => "partial/topbar"
     %div#container
       %ul.nav.nav-tabs
         %li
@@ -31,8 +32,9 @@
           #{flash[:notice]}
       / %h3.span8.offset3
       - if flash[:warning]
-        .alert.alert-error
-          #{flash[:warning]}
+        - @semester.errors.each do |attr, msg|
+          .alert.alert-error
+            = msg
       %div.span8.offset2
         = form_tag semesters_path, :class =>"form-horizontal" do
           %div.control-group 

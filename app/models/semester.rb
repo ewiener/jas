@@ -7,7 +7,7 @@ class Semester < ActiveRecord::Base
 
   attr_accessible :name, :start_date, :end_date, :dates_with_no_classes, :lottery_deadline, :registration_deadline, :fee
 
-
+=begin
   validate :name_is_valid
 
   validate :valid_start_date
@@ -18,6 +18,8 @@ class Semester < ActiveRecord::Base
 
   validate :valid_lottery_date
   validate :valid_registration_date
+=end
+
 
   has_many :courses
   has_many :students, :through => :courses
@@ -113,7 +115,7 @@ class Semester < ActiveRecord::Base
   # Verifies that the lottery date can be parsed
   def valid_lottery_date
     begin
-      USDateParse(:lottery_deadline)
+      USDateParse(self.lottery_deadline)
     rescue
       errors.add(:lottery_deadline, 'The lottery deadline could not be parsed.')
     end
@@ -123,13 +125,13 @@ class Semester < ActiveRecord::Base
 
   # Used by the validation check to make sure that the registration date can be parsed.
   def valid_registration_date
-    errors.add(:registration_deadline, 'The registration deadline could not be parsed.')
+    errors.add(:registration_deadline, 'The registration deadline could not be parsed.') unless registration_date_is_valid?
   end
 
   # Verifies that the registration date can be parsed
   def registration_date_is_valid?
     begin
-      USDateParse(:registration_deadline)
+      USDateParse(self.registration_deadline)
     rescue
       return false
     end
@@ -140,11 +142,14 @@ class Semester < ActiveRecord::Base
   # Verifies that the date can be parsed
   # It checks that the date is between January 1, 2000 and January 1, 2100
   def USDateParse(date)
+    puts 'Got the following date string:'
+    puts date
     if (date == nil); raise 'Nil date'; end
     date = Date.strptime(date,'%m/%d/%Y')
     year_2000 = Date.new(2000,1,1)
     year_2100 = Date.new(2100,1,1)
     if date <= year_2000 or date >= year_2100
+      puts 'Invalid date'
       raise "Invalid Date"
     end
     return date

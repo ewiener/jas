@@ -107,7 +107,7 @@ class Course < ActiveRecord::Base
   end
 
   def start_time_hour_is_valid?
-      return hour_valid?(self.start_time_hour)
+      return hour_valid?(self.start_time_hour, self.start_time_type)
   end
 
   private
@@ -125,7 +125,7 @@ class Course < ActiveRecord::Base
   end
 
   def end_time_hour_is_valid?
-    return hour_valid?(self.end_time_hour)
+    return hour_valid?(self.end_time_hour, self.end_time_type)
   end
 
   private
@@ -138,13 +138,14 @@ class Course < ActiveRecord::Base
   end
 
   private
-  def hour_valid?(hour)
-    case hour
+  def hour_valid?(hour,type)
+    case type
     when 0..1
       return HOUR12.include? hour
     when 2
       return HOUR24.include? hour
     end
+    return false
   end
 
   private
@@ -209,7 +210,7 @@ class Course < ActiveRecord::Base
 
   def fee_for_additional_materials_is_valid?
     if (self.fee_for_additional_materials == nil); return false; end
-    return self.fee_for_addtional_materials >= 0
+    return self.fee_for_additional_materials >= 0
   end
 
   private

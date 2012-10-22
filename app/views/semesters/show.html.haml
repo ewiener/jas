@@ -36,8 +36,39 @@
               - @courses.each do |course|
                 %td #{course.name}
                 %td Teacher
-                %td #{course.monday} #{course.tuesday} #{course.wednesday}
-                %td #{course.start_time}
+                %td
+                  - if course.sunday
+                    Su
+                  - if course.monday
+                    M
+                  - if course.tuesday
+                    Tu
+                  - if course.wednesday
+                    W
+                  - if course.thursday
+                    Th
+                  - if course.friday
+                    F
+                  - if course.saturday
+                    Sa
+                / Need to refactor into model/controller.
+                - start_time_hour = course.start_time_hour.to_s.length == 1 ? '0' + course.start_time_hour.to_s : course.start_time_hour
+                - start_time_minute = course.start_time_minute.to_s.length == 1 ? '0' + course.start_time_minute.to_s : course.start_time_minute
+                - end_time_hour = course.end_time_hour.to_s.length == 1 ? '0' + course.end_time_hour.to_s : course.end_time_hour
+                - end_time_minute = course.end_time_minute.to_s.length == 1 ? '0' + course.end_time_minute.to_s : course.end_time_minute
+                - start_time_type = case (course.start_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
+                - end_time_type = case (course.end_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
+                %td #{start_time_hour}:#{start_time_minute} #{start_time_type} - #{end_time_hour}:#{end_time_minute} #{end_time_type}
+                %td
+                  TODO
+                %td
+                  TODO
+                %td
+                  %a
+                    edit
+                %td
+                  %a
+                    delete
           .vspace10
           .center-right
             %button.btn.btn-info

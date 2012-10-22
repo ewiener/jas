@@ -51,7 +51,7 @@
           %div.control-group
             = label :course, :start_type, 'AM/PM', :class => "control-label"
             %div.controls
-              = text_field :course, :start_time_type
+              = text_field :course, :start_time_type, :value=>"0 for AM, 1 for PM"
 
           %div.control-group
             = label :course, :end_time_hour, 'End Hour', :class => "control-label"
@@ -66,7 +66,7 @@
           %div.control-group
             = label :course, :end_time_type, 'AM/PM', :class => "control-label"
             %div.controls
-              = text_field :course, :end_time_type
+              = text_field :course, :end_time_type, :value=>"0 for AM, 1 for PM"
           
           %div.control-group
             = label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"

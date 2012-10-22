@@ -32,9 +32,9 @@
 							= text_field :course, :name
 
 					%div.control-group
-						= label :course, :instructor, 'PTA Instructor', :class => "control-label"
+						= label :temp, :instructor, 'PTA Instructor', :class => "control-label"
 						%div.controls
-							= text_field :course, :instructor
+							= text_field :temp, :instructor
 
 					%div.control-group
 						= label :course, :description, 'Description', :class => "control-label"
@@ -44,7 +44,7 @@
 					%div.control-group
 						= label :course, :start_time_hour, 'Start Hour', :class => "control-label"
 						%div.controls
-							= text_field :course, :start_hour
+							= text_field :course, :start_time_hour
 
 					%div.control-group
 						= label :course, :start_time_minute, 'Start Minute', :class => "control-label"
@@ -107,9 +107,9 @@
 							= check_box :course, :saturday
 
 					%div.control-group
-						= label :course, :location, 'Location', :class => "control-label"
+						= label :temp, :location, 'Location', :class => "control-label"
 						%div.controls
-							= text_field :course, :location
+							= text_field :temp, :location
 
 					%div.control-group
 						= label :course, :grade_range, 'Eligible Grades', :class => "control-label"

@@ -8,3 +8,4 @@ log/test.log
 coverage/
 db/development.sqlite3
 db/test.sqlite3
+#*

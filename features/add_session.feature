@@ -8,13 +8,13 @@ Background: previous sessions have been added to the database
   
   Given the following sessions exist:
     | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | dates_with_no_classes |
-  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            |
+    | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            |
     | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 04/14/2012            |
   
-  #Given the following courses have been added:
-  #  | name    | semester      | description | days_of_week  | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  |
-  #  | Art     | Spring 2012   | art class   | M             | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            |
-  #  | Science | Spring 2012   | sci class   | W             | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             |
+  Given the following courses have been added:
+    | name    | semester      | description | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    |
+    | Art     | Spring 2012   | art class   | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            | true      | false     | false     | false     | false     |
+    | Science | Spring 2012   | sci class   | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             | true      | false     | false     | false     | false     |
   
   And I am on the home page
 
@@ -23,11 +23,12 @@ Scenario: Create new session
   #Given I am an admin
   When I follow "Create New Session"
   Then I am on the Session Name Page
-  And I should see no populated courses
   When I fill in "Session Name" with "Fall 2012"
   And I fill in "Start Date" with "09/21/2012"
   And I fill in "End Date" with "12/15/2012"
   And I fill in "Registration Fee" with "10"
+  And I fill in "Lottery Deadline" with "09/10/2012"
+  And I fill in "Registration Deadline" with "09/15/2012"
   And I press "Save Changes"
   Then I should be on the home page
   And I should see "Fall 2012"
@@ -74,3 +75,33 @@ Scenario: Add a semester with missing necessary fields
   Then I should be on the Session Name Page
   And I should see "Error"
   
+Scenario: Access a semester not in the database
+  Given I am on the "Fall 1990" Session Name Page
+  Then I should be on the home page
+  And I should see "Could not find the corresponding semester"
+  
+Scenario: Entering invalidly formatted start date
+  When I follow "Create New Session"
+  Then I am on the Session Name Page
+  When I fill in "Session Name" with "Fall 2012"
+  And I fill in "Start Date" with "09/21/12"
+  And I fill in "End Date" with "12/15/2012"
+  And I fill in "Registration Fee" with "10"
+  And I fill in "Lottery Deadline" with "09/10/2012"
+  And I fill in "Registration Deadline" with "09/15/2012"
+  And I press "Save Changes"
+  Then I should be on the Session Name Page
+  And I should see "not parsable"
+  
+Scenario: Entering start date after end date
+  When I follow "Create New Session"
+  Then I am on the Session Name Page
+  When I fill in "Session Name" with "Fall 2012"
+  And I fill in "Start Date" with "12/15/2012"
+  And I fill in "End Date" with "09/21/2012"
+  And I fill in "Registration Fee" with "10"
+  And I fill in "Lottery Deadline" with "09/10/2012"
+  And I fill in "Registration Deadline" with "09/15/2012"
+  And I press "Save Changes"
+  Then I should be on the Session Name Page
+  And I should see "Start date must be before end date"

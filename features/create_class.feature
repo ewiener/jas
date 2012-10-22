@@ -12,9 +12,9 @@ Background: populate db with a single class session
 
 Scenario: Create New Class
   Given I am on the home page
-  And I follow "Fall 2012"
+  And I follow "Fall 2011"
   Then I should be on the Session Name Page
-  And the "Session Name" field should contain "Fall 2012"
+  And the "Session Name" field should contain "Fall 2011"
   When I press "Add New"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"
@@ -24,9 +24,9 @@ Scenario: Create New Class
   
 Scenario: Cancel Create New Class
   Given I am on the home page
-  And I follow "Fall 2012"
+  And I follow "Fall 2011"
   Then I should be on the Session Name Page
-  And the "Session Name" field should contain "Fall 2012"
+  And the "Session Name" field should contain "Fall 2011"
   When I press "Add New"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"

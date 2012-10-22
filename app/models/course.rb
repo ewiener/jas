@@ -7,45 +7,34 @@ class Course < ActiveRecord::Base
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
 
-  attr_accessor :name,
-                :description,
-                :days_of_week,
-                :number_of_classes,
-                :start_time_hour,
-                :start_time_minute,
-                :start_time_type,
-                :end_time_hour,
-                :end_time_minute,
-                :end_time_type,
-                :class_min,
-                :class_max,
-                :grade_range,
-                :fee_per_meeting,
-                :fee_for_additional_materials,
-                :total_fee
-
   attr_accessible :name,
-                :description,
-                :days_of_week,
-                :number_of_classes,
-                :start_time_hour,
-                :start_time_minute,
-                :start_time_type,
-                :end_time_hour,
-                :end_time_minute,
-                :end_time_type,
-                :class_min,
-                :class_max,
-                :grade_range,
-                :fee_per_meeting,
-                :fee_for_additional_materials,
-                :total_fee,
-                :semester
+                  :description,
+                  :sunday,
+                  :monday,
+                  :tuesday,
+                  :wednesday,
+                  :thursday,
+                  :friday,
+                  :saturday,
+                  :number_of_classes,
+                  :start_time_hour,
+                  :start_time_minute,
+                  :start_time_type,
+                  :end_time_hour,
+                  :end_time_minute,
+                  :end_time_type,
+                  :class_min,
+                  :class_max,
+                  :grade_range,
+                  :fee_per_meeting,
+                  :fee_for_additional_materials,
+                  :total_fee,
+                  :semester
 
   #has location through teacher
 
   belongs_to :semester
-  has_many :ptainstructors
+  belongs_to :ptainstructors
   has_many :students
 
   validates :name, :presence => true
@@ -53,7 +42,7 @@ class Course < ActiveRecord::Base
 
   validate :name_is_valid
   validates :description, :presence => true
-  validate :days_of_week_is_valid
+  validate :days_of_week_are_valid
   validate :number_of_classes_is_valid
   validate :start_time_hour_is_valid
   validate :start_time_minute_is_valid
@@ -74,16 +63,8 @@ class Course < ActiveRecord::Base
   end
 
   def name_is_valid?
+    if(self.name == nil); return false; end
     return self.name.length > 0
-  end
-
-  private
-  def days_of_week_is_valid
-
-  end
-
-  def days_of_week_is_valid?
-
   end
 
   private
@@ -98,13 +79,37 @@ class Course < ActiveRecord::Base
   end
 
   private
+  def days_of_week_are_valid
+    errors.add(:days_of_week, "The days of the week are invalid.") unless days_of_week_are_valid?
+  end
+
+  def days_of_week_are_valid?
+    if (self.sunday == nil); return false; end
+    if (self.monday == nil); return false; end
+    if (self.tuesday == nil); return false; end
+    if (self.wednesday == nil); return false; end
+    if (self.thursday == nil); return false; end
+    if (self.friday == nil); return false; end
+    if (self.saturday == nil); return false; end
+
+    if ((self.sunday != true) and (self.sunday != false)); return false; end
+    if ((self.monday != true) and (self.monday != false)); return false; end
+    if ((self.tuesday != true) and (self.tuesday != false)); return false; end
+    if ((self.wednesday != true) and (self.wednesday != false)); return false; end
+    if ((self.thursday != true) and (self.thursday != false)); return false; end
+    if ((self.friday != true) and (self.friday != false)); return false; end
+    if ((self.saturday != true) and (self.saturday != false)); return false; end
+    return true
+  end
+
+  private
   def start_time_hour_is_valid
     errors.add(:start_time_hour, 'Invalid starting time hour.') unless start_time_hour_is_valid?
   end
 
   public
   def start_time_hour_is_valid?
-      return hour_valid?(self.start_time_hour)
+      return hour_valid?(self.start_time_hour, self.start_time_type)
   end
 
   private
@@ -124,7 +129,7 @@ class Course < ActiveRecord::Base
 
   public
   def end_time_hour_is_valid?
-    return hour_valid?(self.end_time_hour)
+    return hour_valid?(self.end_time_hour, self.end_time_type)
   end
 
   private
@@ -138,13 +143,14 @@ class Course < ActiveRecord::Base
   end
 
   private
-  def hour_valid?(hour)
-    case hour
+  def hour_valid?(hour,type)
+    case type
     when 0..1
       return HOUR12.include? hour
     when 2
       return HOUR24.include? hour
     end
+    return false
   end
 
   private
@@ -214,7 +220,7 @@ class Course < ActiveRecord::Base
   public
   def fee_for_additional_materials_is_valid?
     if (self.fee_for_additional_materials == nil); return false; end
-    return self.fee_for_addtional_materials >= 0
+    return self.fee_for_additional_materials >= 0
   end
 
   private

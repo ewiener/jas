@@ -1,7 +1,7 @@
 -# This file is app/views/semesters/index.html.haml
 !!! 5
 
-%html
+%html{:lang => "en"}
   %head
     %title
       Session List
@@ -29,7 +29,8 @@
           %thead
             %tr
               %td Current and Previous Sessions:
-              %td.cell_right 
+              %td.cell_right#create_new_semester
+
                 = link_to "Create New Session", new_semester_path
           %tbody
             - @semesters.each do |semester|

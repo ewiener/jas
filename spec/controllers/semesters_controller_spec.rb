@@ -4,7 +4,7 @@ describe SemestersController do
   describe 'Create a new Session' do
     it 'When I go to the home page, and I click on "Create New Session", it should be on the New Session page' do
       Semester.should_receive(:new) #dont know if it is supposed to return something
-      put :new
+
     end
 
     it 'And I fill in all the data forms for the new session and I click "Create", it should save the session' do

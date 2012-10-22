@@ -37,7 +37,7 @@ Scenario: Login with wrong password
    And the "password" field should contain ""
 
 Scenario: Login with wrong username
-   Given I am an admin
+   #Given I am an admin
    And I am on the login page
    When I fill in "username" with "random"
    And I fill in "password" with "admin_password"

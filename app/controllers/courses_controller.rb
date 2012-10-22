@@ -85,7 +85,7 @@ class CoursesController  < ValidateLoginController
   private
   def errors_string(course)
     error_messages = ""
-    course.errors.each_full{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
+    course.errors.each{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
     return error_messages
   end
 

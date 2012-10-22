@@ -42,6 +42,36 @@
 							= text_area :course, :description, :rows => 5
 
 					%div.control-group
+						= label :course, :start_time_hour, 'Start Hour', :class => "control-label"
+						%div.controls
+							= text_field :course, :start_hour
+
+					%div.control-group
+						= label :course, :start_time_minute, 'Start Minute', :class => "control-label"
+						%div.controls
+							= text_field :course, :start_time_minute
+
+					%div.control-group
+						= label :course, :start_type, 'AM/PM', :class => "control-label"
+						%div.controls
+							= text_field :course, :start_time_type
+
+					%div.control-group
+						= label :course, :end_time_hour, 'End Hour', :class => "control-label"
+						%div.controls
+							= text_field :course, :end_time_hour
+
+					%div.control-group
+						= label :course, :end_time_minute, 'End Minute', :class => "control-label"
+						%div.controls
+							= text_field :course, :end_time_minute
+
+					%div.control-group
+						= label :course, :end_time_type, 'AM/PM', :class => "control-label"
+						%div.controls
+							= text_field :course, :end_time_type
+					
+					%div.control-group
 						= label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"
 						%div.controls
 							= check_box :course, :sunday, :id => "inlineCheckbox1"
@@ -82,24 +112,34 @@
 							= text_field :course, :location
 
 					%div.control-group
-						= label :course, :grades, 'Eligible Grades', :class => "control-label"
+						= label :course, :grade_range, 'Eligible Grades', :class => "control-label"
 						%div.controls
-							= text_field :course, :grades
+							= text_field :course, :grade_range
 
 					%div.control-group
-						= label :course, :min_students, 'Minimum Students', :class => "control-label"
+						= label :course, :class_min, 'Minimum Students', :class => "control-label"
 						%div.controls
-							= text_field :course, :min_students
+							= text_field :course, :class_min
 
 					%div.control-group
-						= label :course, :max_students, 'Maximum Students', :class => "control-label"
+						= label :course, :class_max, 'Maximum Students', :class => "control-label"
 						%div.controls
-							= text_field :course, :max_students
+							= text_field :course, :class_max
 
 					%div.control-group
-						= label :course, :price, 'Price Per Student Per Meeting', :class => "control-label"
+						= label :course, :fee_per_meeting, 'Price Per Student Per Meeting', :class => "control-label"
 						%div.controls
-							= text_field :course, :price
+							= text_field :course, :fee_per_meeting
+
+					%div.control-group
+						= label :course, :fee_for_additional_materials, 'Fee for Additional Materials', :class => "control-label"
+						%div.controls
+							= text_field :course, :fee_for_additional_materials
+
+					%div.control-group
+						= label :course, :total_fee, 'Total Fee', :class => "control-label"
+						%div.controls
+							= text_field :course, :total_fee
 
 					%div.control-group
 						%div.controls

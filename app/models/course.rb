@@ -83,6 +83,7 @@ class Course < ActiveRecord::Base
     errors.add(:days_of_week, "The days of the week are invalid.") unless days_of_week_are_valid?
   end
 
+  public
   def days_of_week_are_valid?
     if (self.sunday == nil); return false; end
     if (self.monday == nil); return false; end
@@ -194,6 +195,7 @@ class Course < ActiveRecord::Base
     errors.add(:class_max,'Invalid class max value.') unless class_max_is_valid?
   end
 
+  public
   def class_max_is_valid?
     if (self.class_max == nil); return false; end
     return ((self.class_max > 0) and (self.class_max >= self.class_min))

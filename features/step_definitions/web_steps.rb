@@ -45,25 +45,9 @@ Given /^the following courses have been added:$/ do |table|
   table.hashes.each do |course|
     course[:class_min] = Integer(course[:class_min])
     course[:class_max] = Integer(course[:class_max])
-    #sem_id = Semester.where(:name => course[:semester])
-    #sem_id = Semester.where(":name = ?", course[:semester])
-    puts course[:semester]
     sem_id = Semester.find_by_name(course[:semester])
-    puts "start"
-    Semester.all.each do |sem|
-      puts sem.name
-    end
-    puts "end list"
-    puts sem_id
-    puts sem_id.id
-    #puts sem_id[0].name
-    #puts sem_id[0].id
-    #puts Semester.where(":name = ?", course[:semester]).id
     course[:semester] = sem_id
-    #course.delete(:semester)
     Course.create(course)
-    #sem_id.Course.build(course)
-    #Course.create!(course)
   end
 end
 

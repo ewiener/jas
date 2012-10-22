@@ -18,6 +18,17 @@ Scenario: Create New Class
   When I press "Add New"
   Then I should be on the Create Class Page
   When I fill in "Class Name" with "Math"
+  And I fill in "Class Description" with "A class about numbers"
+  And I check "Monday"
+  And I fill in "Start Time Hour" with "2"
+  And I fill in "Start Time Minute" with "10"
+  And I fill in "End Time Hour" with "3"
+  And I fill in "End Time Minute" with "30"
+  And I fill in "Class Min" with "0"
+  And I fill in "Class Max" with "20"
+  And I fill in "Grade Range" with "1-5"
+  And I fill in "Fee Per Meeting" with "10"
+  And I fill in "Fee For Additional Materials" with "15"
   And I press "Create"
   Then I should be on the Session Name Page
   And I should see "Math"
@@ -45,4 +56,4 @@ Scenario: Recover From Clicking Cancel
   Then I should be on the Create Class Page
   And the "Class Name" field should contain "Math"
   
-  
+Scenario:   

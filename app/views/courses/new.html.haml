@@ -1,10 +1,10 @@
--# This file is app/views/semesters/new.html.haml
+-# This file is app/views/courses/new.html.haml
 !!! 5
 
 %html
 	%head
 		%title
-			New Session
+			New Course
 			= stylesheet_link_tag("frontpage")
 			= javascript_include_tag("application")
 	%body
@@ -23,28 +23,83 @@
 				%li
 					= link_to "Classrooms", new_semester_path
 			%h1.span6.offset3
-				Create New Session
+				Create New Course
 			%div.span8.offset2
-				= form_tag semesters_path, :class =>"form-horizontal" do
+				= form_tag show_semester_path(@semester.id), :class =>"form-horizontal" do
 					%div.control-group 
-						= label :semester, :name, 'Session Name', :class => "control-label"
+						= label :course, :name, 'Course Name', :class => "control-label"
 						%div.controls
-							= text_field :semester, :name
+							= text_field :course, :name
 
 					%div.control-group
-						= label :semester, :fee, 'Registration Fee', :class => "control-label"
+						= label :course, :instructor, 'PTA Instructor', :class => "control-label"
 						%div.controls
-							= text_field :semester, :fee
+							= text_field :course, :instructor
 
 					%div.control-group
-						= label :semester, :start, 'Start Date', :class => "control-label"
+						= label :course, :description, 'Description', :class => "control-label"
 						%div.controls
-							= text_field :semester, :start, :placeholder => "e.g. 8/15/2012"
+							= text_area :course, :description, :rows => 5
 
 					%div.control-group
-						= label :semester, :end, 'End Date', :class => "control-label"
+						= label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"
 						%div.controls
-							= text_field :semester, :end, :placeholder => "e.g. 12/21/2012"
+							= check_box :course, :sunday, :id => "inlineCheckbox1"
+
+					%div.control-group
+						= label :course, :monday, 'Monday', :class => "control-label checkbox inline"
+						%div.controls
+							= check_box :course, :monday,  :id => "inlineCheckbox2"
+
+					%div.control-group
+						= label :course, :tuesday, 'Tuesday', :class => "control-label checkbox inline"
+						%div.controls
+							= check_box :course, :tuesday
+
+					%div.control-group
+						= label :course, :wednesday, 'Wednesday', :class => "control-label checkbox inline"
+						%div.controls
+							= check_box :course, :wednesday
+
+					%div.control-group
+						= label :course, :thursday, 'Thorsday', :class => "control-label checkbox inline"
+						%div.controls
+							= check_box :course, :thursday
+
+					%div.control-group
+						= label :course, :friday, 'Friday', :class => "control-label checkbox inline"
+						%div.controls
+							= check_box :course, :friday
+
+					%div.control-group
+						= label :course, :saturday, 'Saturday', :class => "control-label checkbox inline"
+						%div.controls
+							= check_box :course, :saturday
+
+					%div.control-group
+						= label :course, :location, 'Location', :class => "control-label"
+						%div.controls
+							= text_field :course, :location
+
+					%div.control-group
+						= label :course, :grades, 'Eligible Grades', :class => "control-label"
+						%div.controls
+							= text_field :course, :grades
+
+					%div.control-group
+						= label :course, :min_students, 'Minimum Students', :class => "control-label"
+						%div.controls
+							= text_field :course, :min_students
+
+					%div.control-group
+						= label :course, :max_students, 'Maximum Students', :class => "control-label"
+						%div.controls
+							= text_field :course, :max_students
+
+					%div.control-group
+						= label :course, :price, 'Price Per Student Per Meeting', :class => "control-label"
+						%div.controls
+							= text_field :course, :price
 
 					%div.control-group
 						%div.controls

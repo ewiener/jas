@@ -13,10 +13,7 @@
       / %h1.span6.offset3
       .center
         %h1 Semester: #{@semester.name}
-      %h3.span8.offset3
-        #{flash[:notice]}
-      %h3.span8.offset3
-        #{flash[:warning]}
+      = render :partial => "partial/errors", :flash => flash
       %div.span8.offset2
         .hero-unit
           %h2

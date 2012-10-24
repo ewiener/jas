@@ -14,7 +14,7 @@ Ruby on Rails app for Jefferson Elementary School's PTA Program
 
 ### Tips
 
-render :json => @movies (calls <pre>to_json</pre>)
+render :json => @movies (calls `to_json`)
 
 render :layout => false
 

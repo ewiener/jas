@@ -10,10 +10,11 @@
   %body
     = render :partial => "partial/topbar"
     %div#container
+      = render :partial => "partial/course_error", :locals => {:course => @course}
+      .clear
       %h1.span6.offset3
         Create New Course
       .vspace20
-      = render :partial => "partial/course_error"
       %div.span8.offset2
         = form_tag semester_courses_path(@semester.id), :class =>"form-horizontal" do
           %div.control-group 
@@ -34,61 +35,63 @@
           %div.control-group
             = label :course, :start_time, 'Start Time', :class => "control-label"
             %div.controls
-              = text_field :course, :start_time_hour, :class => "time"
-              = ":"
-              = text_field :course, :start_time_minute, :class => "time"
-
-          %div.control-group
-            = label :course, :start_type, 'AM/PM', :class => "control-label"
-            %div.controls
-              = text_field :course, :start_time_type, :value=>"0 for AM, 1 for PM"
+              = text_field :course, :start_time_hour, :class => "time time-input"
+              %span{:class => "time-input-colon"}
+                =":"
+              = text_field :course, :start_time_minute, :class => "time time-input"
+              = select :course, :start_time_type, %w[AM PM 24HR]
+              .clear
 
           %div.control-group
             = label :course, :end_time, 'End Time', :class => "control-label"
             %div.controls
-              = text_field :course, :end_time_hour, :class => "time"
-              = ":"
-              = text_field :course, :end_time_minute, :class => "time"
+              = text_field :course, :end_time_hour, :class => "time time-input"
+              %span{:class => "time-input-colon"}
+                =":"
+              = text_field :course, :end_time_minute, :class => "time time-input"
+              = select :course, :end_time_type, %w[AM PM 24HR]
+              .clear
+
+          // start of DAYS
 
           %div.control-group
-            = label :course, :end_time_type, 'AM/PM', :class => "control-label"
-            %div.controls
-              = text_field :course, :end_time_type, :value=>"0 for AM, 1 for PM"
-          
-          %div.control-group
-            = label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :sunday
+            .days
+              = label :course, :sunday, 'Sun', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :sunday
 
-          %div.control-group
-            = label :course, :monday, 'Monday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :monday
+            .days
+              = label :course, :monday, 'Mon', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :monday
 
-          %div.control-group
-            = label :course, :tuesday, 'Tuesday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :tuesday
+            .days
+              = label :course, :tuesday, 'Tue', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :tuesday
 
-          %div.control-group
-            = label :course, :wednesday, 'Wednesday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :wednesday
+            .days
+              = label :course, :wednesday, 'Wed', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :wednesday
 
-          %div.control-group
-            = label :course, :thursday, 'Thorsday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :thursday
+            .days
+              = label :course, :thursday, 'Thu', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :thursday
 
-          %div.control-group
-            = label :course, :friday, 'Friday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :friday
+            .days
+              = label :course, :friday, 'Fri', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :friday
 
-          %div.control-group
-            = label :course, :saturday, 'Saturday', :class => "control-label checkbox inline"
-            %div.controls
-              = check_box :course, :saturday
+            .days
+              = label :course, :saturday, 'Sat', :class => "control-label checkbox inline"
+              %div.controls
+                = check_box :course, :saturday
+              .clear
+
+          // end of DAYS
 
           %div.control-group
             = label :temp, :location, 'Location', :class => "control-label"

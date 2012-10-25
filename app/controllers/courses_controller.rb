@@ -61,6 +61,23 @@ class CoursesController  < ValidateLoginController
       return
     end
   end
+
+  def destroy
+    @semester = Semester.find params[:semester_id]
+    @course = Course.find(params[:id])
+    if not @course
+      flash[:warning] = "Error: Could not find the course to be destroyed."
+      redirect_to semester_path @semester.id
+      return
+    end
+    course_name = @course.name
+    if @course.destroy
+      flash[:notice] = "#{course_name} was successfully removed from the database."
+    else
+      flash[:warning] = "#{course_name} could not be removed from the database because of the following errors:\n" + errors_string(@course)
+    end
+    redirect_to semester_path @semester.id
+  end
 =begin
   def update
     @semester = Semester.find params[:semester_id]
@@ -100,6 +117,7 @@ class CoursesController  < ValidateLoginController
     redirect_to semester_index #semester page
   end
 =end
+
   private
   def errors_string(course)
     error_messages = ""

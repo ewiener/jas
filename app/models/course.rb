@@ -234,4 +234,12 @@ class Course < ActiveRecord::Base
     if (self.total_fee == nil); return false; end
     return self.total_fee >= 0
   end
+
+################################## VALIDATION METHODS END ###########################################
+
+  public
+  def class_how_full?
+    return [self.students.count, self.class_max]
+  end
+
 end

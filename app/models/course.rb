@@ -41,7 +41,6 @@ class Course < ActiveRecord::Base
   validates :name, :presence => true
 
   validate :name_is_valid
-  validates :description, :presence => true
   validate :days_of_week_are_valid
   validate :number_of_classes_is_valid
   validate :start_time_hour_is_valid

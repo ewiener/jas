@@ -23,6 +23,7 @@ class CoursesController  < ValidateLoginController
 
   def create
     @semester = Semester.find params[:semester_id]
+    puts params[:course]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
     @course = @semester.courses.create(params[:course])
     if @course.new_record?

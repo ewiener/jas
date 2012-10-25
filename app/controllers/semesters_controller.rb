@@ -24,7 +24,7 @@ class SemestersController  < ValidateLoginController
       render "new"
       return
     else
-      flash[:notice] = "#{@semester.name} was successfully created."
+      flash[:notice] = "Successfully created #{@semester.name}."
     end
     redirect_to :semesters
   end

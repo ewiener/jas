@@ -184,7 +184,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 18</span>
+            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:semester</span>])
   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester</span>]
@@ -223,7 +223,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 31</span>
+            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">semester_is_nil</span> <span class="ruby-ivar">@semester</span>
@@ -257,7 +257,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-comment">#this should show the Jefferson PTA - Sessions home page, listing all semesters, and links to other things</span>
   <span class="ruby-ivar">@semesters</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">all</span>
@@ -288,7 +288,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
 
 <span class="ruby-keyword">end</span></pre>
@@ -321,6 +321,7 @@
             <pre><span class="ruby-comment"># File app/controllers/semesters_controller.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-ivar">@courses</span> = <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">courses</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           

@@ -21,10 +21,26 @@ class CoursesController  < ValidateLoginController
     @semester = Semester.find params[:semester_id]
   end
 
+  def special_time_parsing_helper
+    start_time_hour = params[:start_time_hour]
+    start_time_minute = params[:start_time_minute]
+    start_time_type = params[:start_time_type]
+    end_time_hour = params[:end_time_hour]
+    end_time_minute = params[:end_time_minute]
+    end_time_type = params[:end_time_type]
+    params[:start_time_hour] = start_time_hour.to_s.length == 1 ? '0' + start_time_hour.to_s : start_time_hour
+    params[:start_time_minute] = start_time_minute.to_s.length == 1 ? '0' + start_time_minute.to_s : start_time_minute
+    params[:end_time_hour] = end_time_hour.to_s.length == 1 ? '0' + end_time_hour.to_s : end_time_hour
+    params[:end_time_minute] = end_time_minute.to_s.length == 1 ? '0' + end_time_minute.to_s : end_time_minute
+    params[:start_time_type] = case (start_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
+    params[:end_time_type] = case (end_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
+  end
+
   def create
     @semester = Semester.find params[:semester_id]
     puts params[:course]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
+    special_time_parsing_helper
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] =  "Error: Unable to create a new course due to the following errors:\n" + errors_string(@course)

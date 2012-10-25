@@ -17,8 +17,12 @@ group :production do
   gem 'pg'
   gem 'authlogic'
 end
-group :development, :test do
+
+group :test do
   gem 'cucumber-rails'
+end
+
+group :development, :test do
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'

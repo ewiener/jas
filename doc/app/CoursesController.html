@@ -72,9 +72,9 @@
     
     <li><a href="#method-i-create">#create</a>
     
-    <li><a href="#method-i-destroy">#destroy</a>
-    
     <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-hi">#hi</a>
     
     <li><a href="#method-i-index">#index</a>
     
@@ -186,10 +186,12 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/courses_controller.rb, line 24</span>
+            <pre><span class="ruby-comment"># File app/controllers/courses_controller.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:course</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>,<span class="ruby-string">&quot;Error: Unable to find a semester to associated with the class.&quot;</span>)
+  <span class="ruby-identifier">hi</span>
   <span class="ruby-ivar">@course</span> = <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">courses</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:course</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@course</span>.<span class="ruby-identifier">new_record?</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] =  <span class="ruby-string">&quot;Error: Unable to create a new course due to the following errors:\n&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors_string</span>(<span class="ruby-ivar">@course</span>)
@@ -197,7 +199,7 @@
     <span class="ruby-keyword">return</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Successfully created #{@course.name}.&quot;</span>
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_show</span> <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_path</span>( <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span> )
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
           
@@ -207,69 +209,6 @@
 
         
       </div><!-- create-method -->
-
-    
-      <div id="method-i-destroy" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">destroy</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>def update</p>
-
-<pre>@semester = Semester.find params[:semester_id]
-return unless semester_is_valid(@semester)
-
-@course = Course.find params[:course_id]
-if not @course
-  flash[:warning] = &quot;Error: The given course for updating could not be found.&quot;
-  redirect_to semester_show @semester.id
-  return
-end
-
-#not sure what to call update_attributes with
-if @course.update_attributes(params[:course_id]) then
-  flash[:notice] = &quot;#{@course.name} #{@semester.name} was successfully updated.&quot;
-  redirect_to semester_show @semester.id
-else
-  flash[:warning] = &quot;#{@course.name} could not be updated because of the following errors:\n&quot; + errors_string(course)
-  render 'edit'
-end</pre>
-
-<p>end</p>
-          
-
-          
-          <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/courses_controller.rb, line 69</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-ivar">@course</span> = <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:course_id</span>])
-  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@course</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-string">&quot;Error: Could not find the course to be destroyed.&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_index</span>
-    <span class="ruby-keyword">return</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">course_name</span> = <span class="ruby-ivar">@course</span>.<span class="ruby-identifier">name</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@course</span>.<span class="ruby-identifier">destroy</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;#{course_name} was successfully removed from the database.&quot;</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-node">&quot;#{course_name} could not be removed from the database beause of the following errors:\n&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors_string</span>(<span class="ruby-ivar">@course</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_index</span> <span class="ruby-comment">#semester page</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- destroy-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- destroy-method -->
 
     
       <div id="method-i-edit" class="method-detail ">
@@ -288,14 +227,14 @@ end</pre>
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/courses_controller.rb, line 37</span>
+            <pre><span class="ruby-comment"># File app/controllers/courses_controller.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
   <span class="ruby-ivar">@course</span> = <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:course_id</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@course</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-string">&quot;Error: Unable to locate the course given for modification.&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_show</span> <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_path</span>(<span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>)
     <span class="ruby-keyword">return</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -307,6 +246,41 @@ end</pre>
 
         
       </div><!-- edit-method -->
+
+    
+      <div id="method-i-hi" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">hi</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="hi-source">
+            <pre><span class="ruby-comment"># File app/controllers/courses_controller.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">hi</span>
+  <span class="ruby-identifier">start_time_hour</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_time_hour</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-string">'0'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tart_time_hour</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_time_hour</span>]
+  <span class="ruby-identifier">start_time_minute</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_time_minute</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-string">'0'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_time_minute</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_time_minute</span>]
+  <span class="ruby-identifier">end_time_hour</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_hour</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-string">'0'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_hour</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_hour</span>]
+  <span class="ruby-identifier">end_time_minute</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_minute</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-string">'0'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_minute</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_minute</span>]
+  <span class="ruby-identifier">start_time_type</span> = <span class="ruby-keyword">case</span> (<span class="ruby-identifier">params</span>[<span class="ruby-value">:start_time_type</span>]); <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>; <span class="ruby-string">'AM'</span>; <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>; <span class="ruby-string">'PM'</span>; <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>; <span class="ruby-string">'24HR'</span> <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">end_time_type</span> = <span class="ruby-keyword">case</span> (<span class="ruby-identifier">params</span>[<span class="ruby-value">:end_time_type</span>]); <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>; <span class="ruby-string">'AM'</span>; <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>; <span class="ruby-string">'PM'</span>; <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>; <span class="ruby-string">'24HR'</span> <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- hi-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- hi-method -->
 
     
       <div id="method-i-index" class="method-detail ">
@@ -329,7 +303,7 @@ end</pre>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-comment">#redirect to the semester homepage</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_show</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>] <span class="ruby-comment"># semester page</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_path</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>] )<span class="ruby-comment"># semester page</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_index</span>
   <span class="ruby-keyword">end</span>

@@ -32,34 +32,28 @@
               = text_area :course, :description, :rows => 5
 
           %div.control-group
-            = label :course, :start_time_hour, 'Start Hour', :class => "control-label"
+            = label :course, :start_time, 'Start Time', :class => "control-label"
             %div.controls
-              = text_field :course, :start_time_hour
-
-          %div.control-group
-            = label :course, :start_time_minute, 'Start Minute', :class => "control-label"
-            %div.controls
-              = text_field :course, :start_time_minute
+              = text_field :course, :start_time_hour, :class => "time"
+              = ":"
+              = text_field :course, :start_time_minute, :class => "time"
 
           %div.control-group
             = label :course, :start_type, 'AM/PM', :class => "control-label"
             %div.controls
-              = text_field :course, :start_time_type
+              = text_field :course, :start_time_type, :value=>"0 for AM, 1 for PM"
 
           %div.control-group
-            = label :course, :end_time_hour, 'End Hour', :class => "control-label"
+            = label :course, :end_time, 'End Time', :class => "control-label"
             %div.controls
-              = text_field :course, :end_time_hour
-
-          %div.control-group
-            = label :course, :end_time_minute, 'End Minute', :class => "control-label"
-            %div.controls
-              = text_field :course, :end_time_minute
+              = text_field :course, :end_time_hour, :class => "time"
+              = ":"
+              = text_field :course, :end_time_minute, :class => "time"
 
           %div.control-group
             = label :course, :end_time_type, 'AM/PM', :class => "control-label"
             %div.controls
-              = text_field :course, :end_time_type
+              = text_field :course, :end_time_type, :value=>"0 for AM, 1 for PM"
           
           %div.control-group
             = label :course, :sunday, 'Sunday', :class => "control-label checkbox inline"

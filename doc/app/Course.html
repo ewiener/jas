@@ -70,7 +70,11 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-class_max_is_valid-3F">#class_max_is_valid?</a>
+    
     <li><a href="#method-i-class_min_is_valid-3F">#class_min_is_valid?</a>
+    
+    <li><a href="#method-i-days_of_week_are_valid-3F">#days_of_week_are_valid?</a>
     
     <li><a href="#method-i-end_time_hour_is_valid-3F">#end_time_hour_is_valid?</a>
     
@@ -212,6 +216,37 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-class_max_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">class_max_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="class_max_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 198</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">class_max_is_valid?</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_min</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- class_max_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- class_max_is_valid-3F-method -->
+
+    
       <div id="method-i-class_min_is_valid-3F" class="method-detail ">
         
         <div class="method-heading">
@@ -241,6 +276,51 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
 
         
       </div><!-- class_min_is_valid-3F-method -->
+
+    
+      <div id="method-i-days_of_week_are_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">days_of_week_are_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="days_of_week_are_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">days_of_week_are_valid?</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sunday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">monday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">tuesday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">wednesday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">thursday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">friday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">saturday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sunday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sunday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">monday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">monday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">tuesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">tuesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">wednesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">wednesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">thursday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">thursday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">friday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">friday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">saturday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">saturday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- days_of_week_are_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- days_of_week_are_valid-3F-method -->
 
     
       <div id="method-i-end_time_hour_is_valid-3F" class="method-detail ">
@@ -291,7 +371,7 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
           <div class="method-source-code" id="end_time_minute_is_valid-3F-source">
             <pre><span class="ruby-comment"># File app/models/course.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">end_time_minute_is_valid?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">minute_valid?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_time_hour</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">minute_valid?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_time_minute</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- end_time_minute_is_valid-3F-source -->
           
@@ -349,7 +429,7 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
 
           
           <div class="method-source-code" id="fee_for_additional_materials_is_valid-3F-source">
-            <pre><span class="ruby-comment"># File app/models/course.rb, line 221</span>
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 222</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fee_for_additional_materials_is_valid?</span>
   <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_for_additional_materials</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_for_additional_materials</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
@@ -380,7 +460,7 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
 
           
           <div class="method-source-code" id="fee_per_meeting_is_valid-3F-source">
-            <pre><span class="ruby-comment"># File app/models/course.rb, line 210</span>
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 211</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fee_per_meeting_is_valid?</span>
   <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_per_meeting</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_per_meeting</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
@@ -411,10 +491,10 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
 
           
           <div class="method-source-code" id="number_of_classes_is_valid-3F-source">
-            <pre><span class="ruby-comment"># File app/models/course.rb, line 76</span>
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">number_of_classes_is_valid?</span>
   <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">number_of_classes</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">number_of_classes</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">number_of_classes</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- number_of_classes_is_valid-3F-source -->
           
@@ -474,7 +554,7 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
           <div class="method-source-code" id="start_time_minute_is_valid-3F-source">
             <pre><span class="ruby-comment"># File app/models/course.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">start_time_minute_is_valid?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">minute_valid?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_time_minute</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">minute_valid?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_time_minute</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- start_time_minute_is_valid-3F-source -->
           
@@ -532,7 +612,7 @@ href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
 
           
           <div class="method-source-code" id="total_fee_is_valid-3F-source">
-            <pre><span class="ruby-comment"># File app/models/course.rb, line 232</span>
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 233</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">total_fee_is_valid?</span>
   <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_fee</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_fee</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>

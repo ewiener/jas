@@ -12,9 +12,9 @@ Background: previous sessions have been added to the database
     | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 04/14/2012            |
   
   Given the following courses have been added:
-    | name    | semester      | description | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    |
-    | Art     | Spring 2012   | art class   | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            | true      | false     | false     | false     | false     |
-    | Science | Spring 2012   | sci class   | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                             | true      | false     | false     | false     | false     |
+    | name    | semester      | description | start_time_hour   | start_time_minute | start_time_type   | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time_hour | end_time_minute   | end_time_type |
+    | Art     | Spring 2012   | art class   | 2                 | 10                | PM                | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3          | 10 | PM    |
+    | Science | Spring 2012   | sci class   | 3                 | 00                | PM                | 10         | 20        | K            | 15                | 5                              | true      | false     | false     | false     | false     | 3          | 10 | PM    |
   
   And I am on the home page
 
@@ -91,7 +91,7 @@ Scenario: Entering invalidly formatted start date
   And I fill in "Registration Deadline" with "09/15/2012"
   And I press "Save Changes"
   Then I should be on the Session Name Page
-  And I should see "not parsable"
+  And I should see "The start date cannot be parsed"
   
 Scenario: Entering start date after end date
   When I follow "Create New Session"

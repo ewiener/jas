@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
 
+  # Attributes
   attr_accessible :name,
                   :description,
                   :sunday,
@@ -17,12 +18,16 @@ class Course < ActiveRecord::Base
                   :friday,
                   :saturday,
                   :number_of_classes,
+                  :start_time,
+                  :end_time,
+=begin
                   :start_time_hour,
                   :start_time_minute,
                   :start_time_type,
                   :end_time_hour,
                   :end_time_minute,
                   :end_time_type,
+=end
                   :class_min,
                   :class_max,
                   :grade_range,
@@ -38,18 +43,20 @@ class Course < ActiveRecord::Base
   has_many :students
 
   validates :name, :presence => true
-  validates :number_of_classes, :presence => true
+  validates :start_time, :presence => true
+  validates :end_time, :presence => true
 
   validate :name_is_valid
-  validates :description, :presence => true
   validate :days_of_week_are_valid
   validate :number_of_classes_is_valid
+=begin
   validate :start_time_hour_is_valid
   validate :start_time_minute_is_valid
   validate :start_time_type_is_valid
   validate :end_time_hour_is_valid
   validate :end_time_minute_is_valid
   validate :end_time_type_is_valid
+=end
   validate :class_min_is_valid
   validate :class_max_is_valid
   #validate :grade_range_is_valid
@@ -235,4 +242,12 @@ class Course < ActiveRecord::Base
     if (self.total_fee == nil); return false; end
     return self.total_fee >= 0
   end
+
+################################## VALIDATION METHODS END ###########################################
+
+  public
+  def class_how_full?
+    return [self.students.count, self.class_max]
+  end
+
 end

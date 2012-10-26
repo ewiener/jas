@@ -11,12 +11,16 @@ class AddCourseTable < ActiveRecord::Migration
       t.boolean    'thursday'
       t.boolean    'friday'
       t.boolean    'saturday'
+      t.text       'start_time'
+      t.text       'end_time'
+=begin
       t.integer    'start_time_hour'
       t.integer    'start_time_minute'
       t.integer    'start_time_type'
       t.integer    'end_time_hour'
       t.integer    'end_time_minute'
       t.integer    'end_time_type'
+=end
       t.integer    'class_min'
       t.integer    'class_max'
       t.text       'grade_range'

@@ -19,10 +19,10 @@ Scenario: Create New Class
   When I fill in "Course Name" with "Math"
   And I fill in "Description" with "A class about numbers"
   And I check "Wednesday"
-  #And I fill in "Start Time Hour" with "2"
-  #And I fill in "Start Time Minute" with "10"
-  #And I fill in "End Time Hour" with "3"
-  #And I fill in "End Time Minute" with "30"
+  #And I fill in "Start Hour" with "2"
+  #And I fill in "Start Minute" with "10"
+  #And I fill in "End Hour" with "3"
+  #And I fill in "End Minute" with "30"
   And I fill in "Minimum Students" with "1"
   And I fill in "Maximum Students" with "20"
   And I fill in "Eligible Grades" with "1-5"
@@ -60,7 +60,8 @@ Scenario: Invalid class min/max
   And I fill in "Minimum Students" with "20"
   And I fill in "Maximum Students" with "1"
   And I press "Save Changes"
-  Then I should see "error"
+  Then I should see "Invalid class min value"
+  Then I should see "Invalid class max value"
   
 Scenario: Invalid course fee
   Given I am on the "Fall 2011" Session Name Page
@@ -72,7 +73,7 @@ Scenario: Invalid course fee
 Scenario: Invalid course start/end time
   Given I am on the "Fall 2011" Session Name Page
   And I follow "Add +"
-  And I fill in "Start Time Hour" with "1.5"
-  And I fill in "End Time Hour" with "1.5"
+  And I fill in "Start Hour" with "1.5"
+  And I fill in "End Hour" with "1.5"
   And I press "Save Changes"
   Then I should see "Invalid"

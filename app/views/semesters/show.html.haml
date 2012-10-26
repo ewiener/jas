@@ -12,11 +12,8 @@
     %div#container
       / %h1.span6.offset3
       .center
-        %h1 Semester: #{@semester.name}
-      %h3.span8.offset3
-        #{flash[:notice]}
-      %h3.span8.offset3
-        #{flash[:warning]}
+        %h1 Session: #{@semester.name}
+      = render :partial => "partial/semester_error"
       %div.span8.offset2
         .hero-unit
           %h2
@@ -31,6 +28,37 @@
               %td Enrolled
               %td Edit
               %td Delete
+            - if @courses
+              - @courses.each do |course|
+                %tr
+                  %td #{course.name}
+                  %td Teacher
+                  %td
+                    - if course.sunday
+                      Su
+                    - if course.monday
+                      M
+                    - if course.tuesday
+                      Tu
+                    - if course.wednesday
+                      W
+                    - if course.thursday
+                      Th
+                    - if course.friday
+                      F
+                    - if course.saturday
+                      Sa
+                  %td #{course.start_time} - #{course.end_time}
+                  %td
+                    TODO
+                  %td
+                    TODO
+                  %td
+                    %a
+                      edit
+                  %td
+                    / %a{:href=>semester_course_path(@semester.id,params[:id])}
+                    = button_to "Delete", semester_course_path(@semester.id,course.id), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
           .vspace10
           .center-right
             %button.btn.btn-info
@@ -41,15 +69,11 @@
           .vspace30
 
         .hero-unit
-          %h2
-            Schedule
+          %h2 
+            Fees
           .horizontal-form
-            = label :semester, :start_date, 'Start Date:', :class=>"control-label"
-            = text_field :semester, :start_date
-            .hspace15
-            = label :semester, :end_date, 'End Date:', :class=>"control-label"
-            = text_field :semester, :end_date
-            .hspace15
+            = label :semester, :fee, 'Registration Fee: $', :class => "control-label"
+            = text_field :semester, :fee
           .center-right
             %button.btn.btn-info
               Update
@@ -57,7 +81,18 @@
 
         .hero-unit
           %h2
-            Days Class Won't Meet
+            Schedule
+          .horizontal-form
+            = label :semester, :start_date, 'Start Date:', :class => "control-label"
+            = text_field :semester, :start_date
+            .hspace15
+            = label :semester, :end_date, 'End Date:', :class => "control-label"
+            = text_field :semester, :end_date
+            .hspace15
+          .center-right
+            %button.btn.btn-info
+              Update
+          .vspace30
           %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
             %thead{:style=>"text-decoration:underline;"}
               %td Label
@@ -76,5 +111,3 @@
             %button.btn.btn-info
               Add Days Off
           .vspace30
-
-

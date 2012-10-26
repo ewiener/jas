@@ -11,7 +11,7 @@ class CoursesController  < ValidateLoginController
   def index
     #redirect to the semester homepage
     if params[:semester_id]
-      redirect_to semester_show params[:semester_id] # semester page
+      redirect_to semester_path( params[:semester_id] )# semester page
     else
       redirect_to semester_index
     end
@@ -21,9 +21,26 @@ class CoursesController  < ValidateLoginController
     @semester = Semester.find params[:semester_id]
   end
 
+  def special_time_parsing_helper
+    start_time_hour = params[:start_time_hour]
+    start_time_minute = params[:start_time_minute]
+    start_time_type = params[:start_time_type]
+    end_time_hour = params[:end_time_hour]
+    end_time_minute = params[:end_time_minute]
+    end_time_type = params[:end_time_type]
+    params[:start_time_hour] = start_time_hour.to_s.length == 1 ? '0' + start_time_hour.to_s : start_time_hour
+    params[:start_time_minute] = start_time_minute.to_s.length == 1 ? '0' + start_time_minute.to_s : start_time_minute
+    params[:end_time_hour] = end_time_hour.to_s.length == 1 ? '0' + end_time_hour.to_s : end_time_hour
+    params[:end_time_minute] = end_time_minute.to_s.length == 1 ? '0' + end_time_minute.to_s : end_time_minute
+    params[:start_time_type] = case (start_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
+    params[:end_time_type] = case (end_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
+  end
+
   def create
     @semester = Semester.find params[:semester_id]
+    puts params[:course]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
+    special_time_parsing_helper
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] =  "Error: Unable to create a new course due to the following errors:\n" + errors_string(@course)
@@ -31,7 +48,7 @@ class CoursesController  < ValidateLoginController
       return
     end
     flash[:notice] = "Successfully created #{@course.name}."
-    redirect_to semester_show @semester.id
+    redirect_to semester_path( @semester.id )
   end
 
   def edit
@@ -40,9 +57,26 @@ class CoursesController  < ValidateLoginController
     @course = Course.find params[:course_id]
     if not @course
       flash[:warning] = "Error: Unable to locate the course given for modification."
-      redirect_to semester_show @semester.id
+      redirect_to semester_path(@semester.id)
       return
     end
+  end
+
+  def destroy
+    @semester = Semester.find params[:semester_id]
+    @course = Course.find(params[:id])
+    if not @course
+      flash[:warning] = "Error: Could not find the course to be destroyed."
+      redirect_to semester_path @semester.id
+      return
+    end
+    course_name = @course.name
+    if @course.destroy
+      flash[:notice] = "#{course_name} was successfully removed from the database."
+    else
+      flash[:warning] = "#{course_name} could not be removed from the database because of the following errors:\n" + errors_string(@course)
+    end
+    redirect_to semester_path @semester.id
   end
 =begin
   def update
@@ -52,20 +86,21 @@ class CoursesController  < ValidateLoginController
     @course = Course.find params[:course_id]
     if not @course
       flash[:warning] = "Error: The given course for updating could not be found."
-      redirect_to semester_show @semester.id
+      redirect_to semester_path( @semester.id )
       return
     end
 
     #not sure what to call update_attributes with
     if @course.update_attributes(params[:course_id]) then
       flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
-      redirect_to semester_show @semester.id
+      redirect_to semester_path( @semester.id )
     else
       flash[:warning] = "#{@course.name} could not be updated because of the following errors:\n" + errors_string(course)
       render 'edit'
     end
   end
 =end
+=begin
   def destroy
     @course = Course.find(params[:course_id])
     if not @course
@@ -81,6 +116,7 @@ class CoursesController  < ValidateLoginController
     end
     redirect_to semester_index #semester page
   end
+=end
 
   private
   def errors_string(course)

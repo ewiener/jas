@@ -64,17 +64,7 @@
 </nav>
 
     
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
     
-    <li><a href="#method-i-set_current_user">#set_current_user</a>
-    
-  </ul>
-</nav>
-
   </div>
 
   <div id="project-metadata">
@@ -161,43 +151,6 @@ user</p>
 
     <!-- Methods -->
     
-     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Protected Instance Methods</h3>
-
-    
-      <div id="method-i-set_current_user" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">set_current_user</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="set_current_user-source">
-            <pre><span class="ruby-comment"># File app/controllers/validate_login_controller.rb, line 6</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_current_user</span>
-  <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Login</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">session</span>[<span class="ruby-value">:user_id</span>])
-  <span class="ruby-identifier">redirect_to</span>  <span class="ruby-identifier">login_path</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_user</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- set_current_user-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- set_current_user-method -->
-
-    
-    </section><!-- protected-instance-method-details -->
-  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

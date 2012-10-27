@@ -186,6 +186,7 @@ class Course < ActiveRecord::Base
   def end_time_type_is_valid?
     return TIME_TYPE.include? self.end_time_type
   end
+=end
 
   private
   def class_min_is_valid

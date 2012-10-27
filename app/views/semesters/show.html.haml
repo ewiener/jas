@@ -54,8 +54,7 @@
                   %td
                     TODO
                   %td
-                    %a
-                      edit
+                    = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :class => "btn btn-warning"
                   %td
                     / %a{:href=>semester_course_path(@semester.id,params[:id])}
                     = button_to "Delete", semester_course_path(@semester.id,course.id), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"

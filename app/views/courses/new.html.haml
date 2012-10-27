@@ -63,6 +63,8 @@
 
           // start of DAYS
 
+          .vspace20
+
           %div.control-group
             .days
               = label :course, :sunday, 'Sun', :class => "control-label checkbox inline"
@@ -99,6 +101,9 @@
               %div.controls
                 = check_box :course, :saturday
               .clear
+            .clear
+            
+            .vspace20
 
           // end of DAYS
 
@@ -144,5 +149,11 @@
 
           %div.control-group
             %div.controls
-              = submit_tag 'Save Changes'
-              = link_to 'Cancel', semester_path(@semester)
+              = submit_tag 'Save Changes', :class => "btn btn-info"
+              %a{:href => "semester_path(@semester)"}
+                %button{:class => "btn"}
+                  Cancel
+          .clear
+          .vspace80
+
+

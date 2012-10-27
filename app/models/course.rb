@@ -110,6 +110,7 @@ class Course < ActiveRecord::Base
     return true
   end
 
+=begin
   private
   def start_time_hour_is_valid
     errors.add(:start_time_hour, 'Invalid starting time hour.') unless start_time_hour_is_valid?
@@ -165,6 +166,7 @@ class Course < ActiveRecord::Base
   def minute_valid?(minute)
     return MINUTE.include?(minute)
   end
+=end
 
   private
   def start_time_type_is_valid

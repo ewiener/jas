@@ -22,9 +22,10 @@
           %input{:type => "text", :name => "username", :class => "text"}
           %br
           %label Password:
+          %div
           %input{:type => "password", :name => "password"}
           .vspace30
-          = submit_tag 'Login', :id => 'login_submit'
+          = submit_tag 'Login', :id => 'login_submit', :class => 'btn btn-info'
 
     /
       %div.hero-unit.section

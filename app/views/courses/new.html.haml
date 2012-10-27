@@ -18,27 +18,27 @@
       %div.span8.offset2
         = form_tag semester_courses_path(@semester.id), :class =>"form-horizontal" do
           %div.control-group 
-            = label :course, :name, 'Course Name', :class => "control-label"
+            = label :course, :name, 'Course Name:', :class => "control-label"
             %div.controls
               = text_field :course, :name
 
           %div.control-group
-            = label :temp, :instructor, 'PTA Instructor', :class => "control-label"
+            = label :temp, :instructor, 'PTA Instructor:', :class => "control-label"
             %div.controls
               = text_field :temp, :instructor
 
           %div.control-group
-            = label :course, :description, 'Description', :class => "control-label"
+            = label :course, :description, 'Description:', :class => "control-label"
             %div.controls
               = text_area :course, :description, :rows => 5
 
           %div.control-group
-            = label :course, :start_time, 'Start Time', :class => "control-label"
+            = label :course, :start_time, 'Start Time:', :class => "control-label"
             %div.controls
               = text_field :course, :start_time, :placeholder => "e.g. 3:00PM"
           
           %div.control-group
-            = label :course, :end_time, 'End Time', :class => "control-label"
+            = label :course, :end_time, 'End Time:', :class => "control-label"
             %div.controls
               = text_field :course, :end_time, :placeholder => "e.g.  5:00PM"
           // %div.control-group
@@ -67,37 +67,37 @@
 
           %div.control-group
             .days
-              = label :course, 'Sun', :class => "control-label checkbox inline"
+              = label :course, 'Sun:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :sunday
 
             .days
-              = label :course, 'Mon', :class => "control-label checkbox inline"
+              = label :course, 'Mon:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :monday
 
             .days
-              = label :course, 'Tue', :class => "control-label checkbox inline"
+              = label :course, 'Tue:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :tuesday
 
             .days
-              = label :course, 'Wed', :class => "control-label checkbox inline"
+              = label :course, 'Wed:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :wednesday
 
             .days
-              = label :course, 'Thu', :class => "control-label checkbox inline"
+              = label :course, 'Thu:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :thursday
 
             .days
-              = label :course, 'Fri', :class => "control-label checkbox inline"
+              = label :course, 'Fri:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :friday
 
             .days
-              = label :course, 'Sat', :class => "control-label checkbox inline"
+              = label :course, 'Sat:', :class => "control-label checkbox inline"
               %div.controls
                 = check_box :course, :saturday
               .clear
@@ -108,49 +108,50 @@
           // end of DAYS
 
           %div.control-group
-            = label :temp, :location, 'Location', :class => "control-label"
+            = label :temp, :location, 'Location:', :class => "control-label"
             %div.controls
               = text_field :temp, :location
 
           %div.control-group
-            = label :course, :grade_range, 'Eligible Grades', :class => "control-label"
+            = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"
             %div.controls
               = text_field :course, :grade_range
 
-          %div.control-group
-            = label :course, :class_min, 'Minimum Students', :class => "control-label"
+          %div.control-group{:style=>"width:200px;"}
+            = label :course, :class_min, 'Min. Class Size:', :class => "control-label"
             %div.controls
-              = text_field :course, :class_min
+              = text_field :course, :class_min, :class => "span1"
+
+          %div.control-group{:style=>"width:200px;"}
+            = label :course, :class_max, 'Max. Class Size:', :class => "control-label"
+            %div.controls
+              = text_field :course, :class_max, :class => "span1"
+          .clear
 
           %div.control-group
-            = label :course, :class_max, 'Maximum Students', :class => "control-label"
-            %div.controls
-              = text_field :course, :class_max
-
-          %div.control-group
-            = label :course, :fee_per_meeting, 'Price Per Student Per Meeting', :class => "control-label"
+            = label :course, :fee_per_meeting, 'Price Per Student Per Meeting:', :class => "control-label"
             %div.controls
               = text_field :course, :fee_per_meeting
 
           %div.control-group
-            = label :course, :number_of_classes, 'Number of Classes', :class => "control-label"
+            = label :course, :number_of_classes, 'Number of Meetings:', :class => "control-label"
             %div.controls
               = text_field :course, :number_of_classes
 
           %div.control-group
-            = label :course, :fee_for_additional_materials, 'Fee for Additional Materials', :class => "control-label"
+            = label :course, :fee_for_additional_materials, 'Fee for Additional Materials:', :class => "control-label"
             %div.controls
               = text_field :course, :fee_for_additional_materials
 
           %div.control-group
-            = label :course, :total_fee, 'Total Fee', :class => "control-label"
+            = label :course, :total_fee, 'Total Fee:', :class => "control-label"
             %div.controls
               = text_field :course, :total_fee
 
           %div.control-group
             %div.controls
-              = submit_tag 'Save Changes', :class => "btn btn-info"
-              %a{:href => "semester_path(@semester)"}
+              = submit_tag 'Add New Course', :class => "btn btn-info"
+              %a{:href => "#{semester_path(@semester)}"}
                 %button{:class => "btn"}
                   Cancel
           .clear

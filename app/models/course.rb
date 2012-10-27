@@ -166,7 +166,6 @@ class Course < ActiveRecord::Base
   def minute_valid?(minute)
     return MINUTE.include?(minute)
   end
-=end
 
   private
   def start_time_type_is_valid

@@ -77,6 +77,10 @@ $section-width: 800px
   height: 50px
 .vspace60
   height: 60px
+.vspace70
+  height: 70px
+.vspace80
+  height: 80px
 
 #login
   h1
@@ -92,8 +96,6 @@ $section-width: 800px
     display: block
     margin: 0 auto
   #login_submit
-    @extend .btn
-    @extend .btn-primary
     font-size: 1.5em
     width: 150px
     height: 50px
@@ -131,7 +133,14 @@ form
     margin-left: 5px
   .days
     float: left
-    width: 60px
+    width: 58px
+    &:first-of-type
+      margin-left: -55px
+    .controls
+      clear: left
+      position: relative
+      top: -7px
+      left: -18px
   .alert-error
     width: 600px
 

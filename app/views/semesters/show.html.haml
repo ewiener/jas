@@ -32,7 +32,7 @@
               - @courses.each do |course|
                 %tr
                   %td #{course.name}
-                  %td Teacher
+                  %td #{@ptainstructor_name || "--"}
                   %td
                     - if course.sunday
                       Su
@@ -54,16 +54,15 @@
                   %td
                     TODO
                   %td
-                    %a
-                      edit
+                    = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :method => :get, :class => "btn btn-warning"
                   %td
                     / %a{:href=>semester_course_path(@semester.id,params[:id])}
-                    = button_to "Delete", semester_course_path(@semester.id,course.id), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
+                    = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
           .vspace10
           .center-right
             %button.btn.btn-info
               Import
-            %a{:href=>new_semester_course_path(@semester.id)}
+            %a{:href=>new_semester_course_path(@semester)}
               %button.btn.btn-info#new_semester_course
                 Add +
           .vspace30
@@ -71,29 +70,29 @@
         .hero-unit
           %h2 
             Fees
-          .horizontal-form
-            = label :semester, :fee, 'Registration Fee: $', :class => "control-label"
-            = text_field :semester, :fee
-          .center-right
-            %button.btn.btn-info
-              Update
+          
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            %div{:style=>"float:left;"}
+              = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "with:auto;margin-right:10px;"
+              = text_field :semester, :fee, :class => "span2"
+            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:100px"
           .vspace30
 
         .hero-unit
           %h2
             Schedule
-          .horizontal-form
-            = label :semester, :start_date, 'Start Date:', :class => "control-label"
-            = text_field :semester, :start_date
-            .hspace15
-            = label :semester, :end_date, 'End Date:', :class => "control-label"
-            = text_field :semester, :end_date
-            .hspace15
-          .center-right
-            %button.btn.btn-info
-              Update
+          
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            %div{:style=>"float:left;"}
+              = label :semester, :start_date, 'Start Date:', :class => "control-label", :style => "width:auto;margin-right:10px;"
+              = text_field :semester, :start_date, :class => "span2"
+            %div{:style=>"float:left;"}
+              = label :semester, :end_date, 'End Date:', :class => "control-label", :style => "width:auto;margin-left:20px;margin-right:10px;"
+              = text_field :semester, :end_date, :class => "span2"
+            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px;"
+ 
           .vspace30
-          %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+          %table.table-striped.table-bordered.table-hover{:id=>"table_days_off",:style=>"width:100%;text-align:center;"}
             %thead{:style=>"text-decoration:underline;"}
               %td Label
               %td Day or Span
@@ -111,3 +110,4 @@
             %button.btn.btn-info
               Add Days Off
           .vspace30
+        = button_to "Delete #{@semester.name}", semester_path(@semester), :method => :delete, :style => "display:block;margin-left:auto;margin-right:auto;", :class => "btn btn-danger", :confirm => "Are you sure you want to delete the \"#{@semester.name}\" session from the database.  Specific information that is only associated with this semester will also be deleted.  Data deleted will not be recoverable.  Are you really sure you want to delete the \"#{@semester.name}\" from the database?"

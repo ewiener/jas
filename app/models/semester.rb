@@ -13,6 +13,7 @@ class Semester < ActiveRecord::Base
                   :lottery_deadline,
                   :registration_deadline,
                   :fee
+                  #:start_date_as_date
 
   validate :name_is_valid
 
@@ -157,10 +158,17 @@ class Semester < ActiveRecord::Base
     year_2000 = Date.new(2000,1,1)
     year_2100 = Date.new(2100,1,1)
     if date <= year_2000 or date >= year_2100
-      raise "Invalid Date"
+      date = date + 2000.years
+      if date <= year_2000 or date >= year_2100
+        raise "Invalid Date"
+      end
     end
     return date
   end
 
+  public
+  def start_date_as_date
+    return USDateParse(self.start_date)
+  end
 end
 

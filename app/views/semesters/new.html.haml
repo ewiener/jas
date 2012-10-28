@@ -19,32 +19,32 @@
       %div.span8.offset2
         = form_tag semesters_path, :class =>"form-horizontal" do
           %div.control-group 
-            = label :semester, :name, 'Session Name', :class => "control-label"
+            = label :semester, :name, 'Session Name:', :class => "control-label"
             %div.controls
               = text_field :semester, :name
 
           %div.control-group
-            = label :semester, :start_date, 'Start Date', :class => "control-label"
+            = label :semester, :start_date, 'Start Date:', :class => "control-label"
             %div.controls
               = text_field :semester, :start_date, :placeholder => "e.g. 8/15/2012"
 
           %div.control-group
-            = label :semester, :end_date, 'End Date', :class => "control-label"
+            = label :semester, :end_date, 'End Date:', :class => "control-label"
             %div.controls
               = text_field :semester, :end_date, :placeholder => "e.g. 12/21/2012"
 
           %div.control-group
-            = label :semester, :registration_deadline, 'Registration Deadline', :class => "control-label"
+            = label :semester, :registration_deadline, 'Registration Deadline:', :class => "control-label"
             %div.controls
               = text_field :semester, :registration_deadline, :placeholder => "e.g. 7/30/2012"
 
           %div.control-group
-            = label :semester, :lottery_deadline, 'Lottery Deadline', :class => "control-label"
+            = label :semester, :lottery_deadline, 'Lottery Deadline:', :class => "control-label"
             %div.controls
               = text_field :semester, :lottery_deadline, :placeholder => "e.g. 8/5/2012"
 
           %div.control-group
-            = label :semester, :fee, 'Registration Fee', :class => "control-label"
+            = label :semester, :fee, 'Registration Fee:', :class => "control-label"
             %div.controls
               = text_field :semester, :fee
 

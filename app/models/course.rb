@@ -42,13 +42,17 @@ class Course < ActiveRecord::Base
   belongs_to :ptainstructors
   has_many :students
 
+=begin
   validates :name, :presence => true
   validates :start_time, :presence => true
   validates :end_time, :presence => true
+=end
 
   validate :name_is_valid
   validate :days_of_week_are_valid
   validate :number_of_classes_is_valid
+  validate :start_time_is_valid
+  validate :end_time_is_valid
 =begin
   validate :start_time_hour_is_valid
   validate :start_time_minute_is_valid
@@ -69,9 +73,32 @@ class Course < ActiveRecord::Base
     errors.add(:name,'Invalid empty string for name.') unless name_is_valid?
   end
 
+  public
   def name_is_valid?
     if(self.name == nil); return false; end
     return self.name.length > 0
+  end
+
+  private
+  def start_time_is_valid
+    errors.add(:start_time,'Invalid empty string for start time.') unless start_time_is_valid?
+  end
+
+  public
+  def start_time_is_valid?
+    if(self.start_time == nil);return false; end
+    return self.start_time.length > 0
+  end
+
+ private
+  def end_time_is_valid
+    errors.add(:end_time,'Invalid empty string for end time.') unless end_time_is_valid?
+  end
+
+  public
+  def end_time_is_valid?
+    if(self.end_time == nil);return false; end
+    return self.end_time.length > 0
   end
 
   private

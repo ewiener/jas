@@ -58,7 +58,7 @@ class CoursesController  < ValidateLoginController
     @course = Course.find params[:id]
     if not @course
       flash[:warning] = "Error: Unable to locate the course given for modification."
-      redirect_to semester_path(@semester.id)
+      redirect_to semester_path(@semester)
       return
     end
   end

@@ -80,7 +80,7 @@ Scenario: Access a semester not in the database
   Then I should be on the home page
   And I should see "Could not find the corresponding semester"
   
-Scenario: Entering invalidly formatted start date
+Scenario: Entering differently formatted start date
   When I follow "Create New Session"
   Then I am on the Session Name Page
   When I fill in "Session Name" with "Fall 2012"
@@ -90,8 +90,7 @@ Scenario: Entering invalidly formatted start date
   And I fill in "Lottery Deadline" with "09/10/2012"
   And I fill in "Registration Deadline" with "09/15/2012"
   And I press "Save Changes"
-  Then I should be on the Session Name Page
-  And I should see "The start date cannot be parsed"
+  Then I should be on the home page
   
 Scenario: Entering start date after end date
   When I follow "Create New Session"

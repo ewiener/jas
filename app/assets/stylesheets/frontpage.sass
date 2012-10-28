@@ -15,6 +15,9 @@ $container_width: 940px
 #container
   width: $container_width
   margin: 0 auto
+ul.nav-tabs
+  width: $container_width
+  margin: 0 auto
 
 $section-width: 800px
 
@@ -26,10 +29,12 @@ $section-width: 800px
   text-align: right
 
 .hero-unit
+  display: block
+  width: 840px
+  margin: 0 auto
+  padding: 30px
   p
     padding-top: 10px
-  .btn
-    margin-right: 6px
 
 .content
   width: 85%
@@ -111,10 +116,6 @@ $section-width: 800px
   .shrink
     width: 20px
 
-table
-  td
-    width: auto
-
 .alert,.alert-error,.alert-warning,.alert-success
   width: $container_width
 
@@ -144,6 +145,18 @@ form
   .alert-error
     width: 600px
 
+table
+  td
+    width: auto
+    padding: 7px
+    form
+      div
+        text-align: center
+  .btn
+    margin: 0 auto
+    display: block
+    margin-top: 15px
+
 .form-horizontal
   width: 770px
 
@@ -156,6 +169,7 @@ form
   &:last-child
     border: 10px solid red
     margin-right: 0
+    margin-left: 7px
 
 #create_new_semester
   text-align: right

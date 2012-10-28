@@ -14,100 +14,113 @@
       .center
         %h1 Session: #{@semester.name}
       = render :partial => "partial/semester_error"
-      %div.span8.offset2
-        .hero-unit
-          %h2
-            Classes
-          %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
-            %thead{:style=>"text-decoration:underline;"}
-              %td Class
-              %td Teacher
-              %td Days
-              %td Time
-              %td Room
-              %td Enrolled
-              %td Edit
-              %td Delete
-            - if @courses
-              - @courses.each do |course|
-                %tr
-                  %td #{course.name}
-                  %td #{@ptainstructor_name || "--"}
-                  %td
-                    - if course.sunday
-                      Su
-                    - if course.monday
-                      M
-                    - if course.tuesday
-                      Tu
-                    - if course.wednesday
-                      W
-                    - if course.thursday
-                      Th
-                    - if course.friday
-                      F
-                    - if course.saturday
-                      Sa
-                  %td #{course.start_time} - #{course.end_time}
-                  %td
-                    TODO
-                  %td
-                    TODO
-                  %td
-                    = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :method => :get, :class => "btn btn-warning"
-                  %td
-                    / %a{:href=>semester_course_path(@semester.id,params[:id])}
-                    = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
-          .vspace10
-          .center-right
-            %button.btn.btn-info
-              Import
-            %a{:href=>new_semester_course_path(@semester)}
-              %button.btn.btn-info#new_semester_course
-                Add +
-          .vspace30
+      // hero-unit: _Classes_
+      .hero-unit
+        %h2
+          Classes
+        %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+          %thead{:style=>"text-decoration:underline;"}
+            %td Class
+            %td Teacher
+            %td Days
+            %td Time
+            %td Room
+            %td Enrolled
+            %td
+            %td
+          - if @courses
+            - @courses.each do |course|
+              %tr
+                %td #{course.name}
+                %td #{@ptainstructor_name || "--"}
+                %td
+                  - if course.sunday
+                    Su
+                  - if course.monday
+                    M
+                  - if course.tuesday
+                    Tu
+                  - if course.wednesday
+                    W
+                  - if course.thursday
+                    Th
+                  - if course.friday
+                    F
+                  - if course.saturday
+                    Sa
+                %td #{course.start_time} - #{course.end_time}
+                %td
+                  TODO
+                %td
+                  TODO
+                %td
+                  = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :method => :get, :class => "btn btn-warning"
+                %td
+                  / %a{:href=>semester_course_path(@semester.id,params[:id])}
+                  = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
+        .vspace10
+        .center-right
+          %button.btn.btn-info
+            Import
+          %a{:href=>new_semester_course_path(@semester)}
+            %button.btn.btn-info#new_semester_course
+              Add +
+        .vspace30
+      // END hero-unit: _Classes_
+      .vspace30
 
-        .hero-unit
-          %h2 
-            Fees
-          
-          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
-            %div{:style=>"float:left;"}
-              = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "with:auto;margin-right:10px;"
-              = text_field :semester, :fee, :class => "span2"
-            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:100px"
-          .vspace30
+      // hero-unit: _Fees_
+      .hero-unit
+        %h2 
+          Fees
+        = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+          %div{:style=>"float:left;"}
+            = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "width:auto;margin-right:10px;"
+            = text_field :semester, :fee, :class => "span2"
+          = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px"
+        .vspace30
+      // END hero-unit: _Fees_
+      .vspace30
 
-        .hero-unit
-          %h2
-            Schedule
-          
-          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
-            %div{:style=>"float:left;"}
-              = label :semester, :start_date, 'Start Date:', :class => "control-label", :style => "width:auto;margin-right:10px;"
-              = text_field :semester, :start_date, :class => "span2"
-            %div{:style=>"float:left;"}
-              = label :semester, :end_date, 'End Date:', :class => "control-label", :style => "width:auto;margin-left:20px;margin-right:10px;"
-              = text_field :semester, :end_date, :class => "span2"
-            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px;"
- 
-          .vspace30
-          %table.table-striped.table-bordered.table-hover{:id=>"table_days_off",:style=>"width:100%;text-align:center;"}
-            %thead{:style=>"text-decoration:underline;"}
-              %td Label
-              %td Day or Span
-              %td Remove
-            %tr
-              %td Class
-              %td Teacher
-              %td Days
-            %tr
-              %td Class
-              %td Teacher
-              %td Days
-          .vspace10
-          .center-right
-            %button.btn.btn-info
-              Add Days Off
-          .vspace30
+      // hero-unit: _Schedule_
+      .hero-unit
+        %h2
+          Schedule
+        = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+          %div{:style=>"float:left;"}
+            = label :semester, :start_date, 'Start Date:', :class => "control-label", :style => "width:auto;margin-right:10px;"
+            = text_field :semester, :start_date, :class => "span2"
+          %div{:style=>"float:left;"}
+            = label :semester, :end_date, 'End Date:', :class => "control-label", :style => "width:auto;margin-left:20px;margin-right:10px;"
+            = text_field :semester, :end_date, :class => "span2"
+          = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px;"
+        .vspace30
+        %table.table-striped.table-bordered.table-hover{:id=>"table_days_off",:style=>"width:100%;text-align:center;"}
+          %thead{:style=>"text-decoration:underline;"}
+            %td Label
+            %td Day or Span
+            %td Remove
+          %tr
+            %td Class
+            %td Teacher
+            %td Days
+          %tr
+            %td Class
+            %td Teacher
+            %td Days
+        .vspace10
+        .center-right
+          %button.btn.btn-info
+            Add Days Off
+        .vspace30
+      // END hero-unit: _Schedule_
+
+      // hero-unit: _Semester Admin_
+      .vspace30
+      .hero-unit
+        %h2 Semester Admin
+        .vspace10
         = button_to "Delete #{@semester.name}", semester_path(@semester), :method => :delete, :style => "display:block;margin-left:auto;margin-right:auto;", :class => "btn btn-danger", :confirm => "Are you sure you want to delete the \"#{@semester.name}\" session from the database.  Specific information that is only associated with this semester will also be deleted.  Data deleted will not be recoverable.  Are you really sure you want to delete the \"#{@semester.name}\" from the database?"
+        .vspace30
+      .vspace80
+      // END hero-unit: _Semester Admin_

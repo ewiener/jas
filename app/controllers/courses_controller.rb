@@ -52,6 +52,7 @@ class CoursesController  < ValidateLoginController
   end
 
   def edit
+    puts "HI"
     @semester = Semester.find params[:semester_id]
     return unless semester_is_valid(@semester)
     @course = Course.find params[:id]
@@ -78,12 +79,12 @@ class CoursesController  < ValidateLoginController
     end
     redirect_to semester_path @semester.id
   end
-=begin
+
   def update
     @semester = Semester.find params[:semester_id]
     return unless semester_is_valid(@semester)
 
-    @course = Course.find params[:course_id]
+    @course = Course.find params[:id]
     if not @course
       flash[:warning] = "Error: The given course for updating could not be found."
       redirect_to semester_path( @semester.id )
@@ -91,7 +92,7 @@ class CoursesController  < ValidateLoginController
     end
 
     #not sure what to call update_attributes with
-    if @course.update_attributes(params[:course_id]) then
+    if @course.update_attributes(params[:course]) then
       flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
       redirect_to semester_path( @semester.id )
     else
@@ -99,7 +100,7 @@ class CoursesController  < ValidateLoginController
       render 'edit'
     end
   end
-=end
+
 =begin
   def destroy
     @course = Course.find(params[:course_id])

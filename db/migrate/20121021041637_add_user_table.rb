@@ -2,8 +2,13 @@ class AddUserTable < ActiveRecord::Migration
   def up
     create_table 'users' do |t|
       t.text    'username'
+      t.text    'name'
       t.text    'email'
+      t.text    'phone'
+      t.text    'address'
+      t.text    'bio'
       t.text    'password'
+      t.integer 'type'
     end
   end
 

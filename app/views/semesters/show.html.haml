@@ -82,19 +82,16 @@
           %h2
             Schedule
           
-          .horizontal-form
-            = form_tag semester_path(@semester), :method => :put, :class =>"form-horizontal" do
-              .horizontal-form
-              = label :semester, :start_date, 'Start Date:', :class => "control-label"
-              = text_field :semester, :start_date
-              //.hspace10
-              = label :semester, :end_date, 'End Date:', :class => "control-label"
-              = text_field :semester, :end_date
-              //.hspace10
-              .center-right
-              = submit_tag 'Update', :class => "btn btn-info"
+          = form_tag semester_path(@semester), :method => :put, :class =>"form-horizontal" do
+            %div{:style=>"float:left;"}
+              = label :semester, :start_date, 'Start Date:', :class => "control-label", :style=>"width:auto;margin-right:10px;"
+              = text_field :semester, :start_date, :class => "span2"
+            %div{:style=>"float:left;"}
+              = label :semester, :end_date, 'End Date:', :class => "control-label", :style=>"width:auto;margin-left:20px;margin-right:10px;"
+              = text_field :semester, :end_date, :class => "span2"
+            = submit_tag 'Update', :class => "btn btn-info", :style=>"margin-left:10px;"
  
-            .vspace30
+          .vspace30
           %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
             %thead{:style=>"text-decoration:underline;"}
               %td Label

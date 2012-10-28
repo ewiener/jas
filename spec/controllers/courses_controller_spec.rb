@@ -3,15 +3,27 @@ require 'spec_helper'
 describe CoursesController do
   describe 'Create a new course' do
     it 'When I go to the "Fall 2012" session page and click "Add New", then I should be on the "Create Class" page' do
-      #mock = mock('Course')
+      mock = mock('Course')
       Course.should_receive(:new)
+      put :new,
       #Course.should_receive(:new)
       # @course = Course.new
     end
 
-    it 'When I fill in the course information and I fill in "Price per Meeting" of "Fees" with "12" and I fill in "Number of Meetings" with "15" and I fill "Additional Materials" with "25" and I click "Create", it should save the class' do
+    it 'When I fill in the course information and I fill in the table and I click "Create", it should save the class' do
       mock = mock ('Course')
-      Course.should_receive(:create).with({:name => "Music"}, {:description => "A music class that teaches children the fundamentals of music"}, {:days_of_week => "Monday, Wednesday"}, {:number_of_classes => 15}, {:start_time_hour => 3}, {:start_time_minute => 10}, {:start_time_type => "PM"}, {:end_time_hour => 5}, {:end_time_minute => 10}, {:end_time_type => "PM"}, {:class_min => 0}, {:class_max => 15}, {:grade_range => 1-5}, {:fee_per_meeting => 12}, {:fee_for_additional_materials => 25}).and_return(mock)
+      mock.stub!(:name)
+      mock.stub!(:description)
+      mock.stub!(:days_of_week)
+      mock.stub!(:number_of_classes)
+      mock.stub!(:start_time)
+      mock.stub!(:end_time)
+      mock.stub!(:class_min)
+      mock.stub!(:class_max)
+      mock.stub!(:grade_range)
+      mock.stub!(:fee_per_meeting)
+      mock.stub!(:fee_for_additional_materials)
+      Course.should_receive(:create).with({:name => "Music"}, {:description => "A music class that teaches children the fundamentals of music"}, {:days_of_week => "Monday, Wednesday"}, {:number_of_classes => 15}, {:start_time => "3:00"}, {:end_time => "5:00"}, {:class_min => 0}, {:class_max => 15}, {:grade_range => 1-5}, {:fee_per_meeting => 12}, {:fee_for_additional_materials => 25}).and_return(mock)
 
 =begin      @course.name.should == "Music"
       @course.description.should == "A music class that teaches children the fundamentals of music"

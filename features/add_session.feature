@@ -18,6 +18,9 @@ Background: previous sessions have been added to the database
   
   And I am on the home page
 
+Scenario: Displaying Sessions
+  Given I am on the home page
+  Then I should see "Spring 2012" before "Fall 2011"
 
 Scenario: Create new session
   #Given I am an admin

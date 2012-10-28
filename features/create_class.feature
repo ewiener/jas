@@ -36,17 +36,17 @@ Scenario: Cancel Create New Class
   Then I should be on the "Fall 2011" Session Name Page
   When I follow "Add +"
   Then I should be on the "Fall 2011" Create Class Page
-  When I fill in "Course Name" with "Math"
-  And I press "Cancel"
+  When I fill in "Course Name" with "Silly Science"
+  And I follow "Cancel"
   #Then I should be on the Are You Sure? Page
   #When I press "Yes"
   Then I should be on the "Fall 2011" Session Name Page
-  And no new classes should be added
+  And I should not see "Silly Science"
 
 #Scenario: Recover From Clicking Cancel
 #  Given I am on the "Fall 2011" Create Class Page
 #  When I fill in "Course Name" with "Math"
-#  And I press "Cancel"
+#  And I folow "Cancel"
 #  Then I should be on the Are You Sure? Page
 #  When I press "No"
 #  Then I should be on the "Fall 2011" Create Class Page

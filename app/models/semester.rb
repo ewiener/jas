@@ -13,6 +13,7 @@ class Semester < ActiveRecord::Base
                   :lottery_deadline,
                   :registration_deadline,
                   :fee
+                  #:start_date_as_date
 
   validate :name_is_valid
 
@@ -165,5 +166,9 @@ class Semester < ActiveRecord::Base
     return date
   end
 
+  public
+  def start_date_as_date
+    return USDateParse(self.start_date)
+  end
 end
 

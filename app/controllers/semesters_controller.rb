@@ -1,5 +1,4 @@
 class SemestersController  < ValidateLoginController
-
   protect_from_forgery
 
   def show
@@ -9,7 +8,7 @@ class SemestersController  < ValidateLoginController
 
   def index
     #this should show the Jefferson PTA - Sessions home page, listing all semesters, and links to other things
-    @semesters = Semester.all
+    @semesters = Semester.all.sort_by{|semester| semester.start_date_as_date}.reverse
   end
 
   def new

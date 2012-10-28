@@ -50,9 +50,9 @@ class SemestersController  < ValidateLoginController
       render 'edit'
     end
   end
-=begin
+
   def destroy
-    @semester = Semester.find(params[:semester_id])
+    @semester = Semester.find(params[:id])
     if semester_is_nil @semester
       redirect_to :semesters
       return
@@ -65,7 +65,6 @@ class SemestersController  < ValidateLoginController
     end
     redirect_to :semesters
   end
-=end
 
   private
   def semester_is_nil(semester)

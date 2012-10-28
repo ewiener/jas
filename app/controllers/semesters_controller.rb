@@ -36,9 +36,8 @@ class SemestersController  < ValidateLoginController
       return
     end
   end
-=begin
   def update
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find params[:id]
     if semester_is_nil @semester
       redirect_to :semesters
       return
@@ -46,13 +45,12 @@ class SemestersController  < ValidateLoginController
     #not sure what to call update_attributes with
     if @semester.update_attributes(params[:semester])
       flash[:notice] = "#{@semester.name} was successfully updated."
-      redirect_to :semesters
+      redirect_to semester_path(@semester)
     else
       flash[:warning] = "{@semester.name} could not be updated.  The following errors occured:\n"  + errors_string(@semester)
       render 'edit'
     end
   end
-=end
 =begin
   def destroy
     @semester = Semester.find(params[:semester_id])

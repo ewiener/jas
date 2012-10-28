@@ -82,17 +82,20 @@
         .hero-unit
           %h2
             Schedule
+          
           .horizontal-form
-            = label :semester, :start_date, 'Start Date:', :class => "control-label"
-            = text_field :semester, :start_date
-            .hspace15
-            = label :semester, :end_date, 'End Date:', :class => "control-label"
-            = text_field :semester, :end_date
-            .hspace15
-          .center-right
-            %button.btn.btn-info
-              Update
-          .vspace30
+            = form_tag semester_path(@semester), :method => :put, :class =>"form-horizontal" do
+              .horizontal-form
+              = label :semester, :start_date, 'Start Date:', :class => "control-label"
+              = text_field :semester, :start_date
+              //.hspace10
+              = label :semester, :end_date, 'End Date:', :class => "control-label"
+              = text_field :semester, :end_date
+              //.hspace10
+              .center-right
+              = submit_tag 'Update', :class => "btn btn-info"
+ 
+            .vspace30
           %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
             %thead{:style=>"text-decoration:underline;"}
               %td Label

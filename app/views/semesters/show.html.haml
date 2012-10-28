@@ -70,26 +70,26 @@
         .hero-unit
           %h2 
             Fees
-          .horizontal-form
-            = label :semester, :fee, 'Registration Fee: $', :class => "control-label"
-            = text_field :semester, :fee
-          .center-right
-            %button.btn.btn-info
-              Update
+          
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            %div{:style=>"float:left;"}
+              = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "with:auto;margin-right:10px;"
+              = text_field :semester, :fee, :class => "span2"
+            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:100px"
           .vspace30
 
         .hero-unit
           %h2
             Schedule
           
-          = form_tag semester_path(@semester), :method => :put, :class =>"form-horizontal" do
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
             %div{:style=>"float:left;"}
-              = label :semester, :start_date, 'Start Date:', :class => "control-label", :style=>"width:auto;margin-right:10px;"
+              = label :semester, :start_date, 'Start Date:', :class => "control-label", :style => "width:auto;margin-right:10px;"
               = text_field :semester, :start_date, :class => "span2"
             %div{:style=>"float:left;"}
-              = label :semester, :end_date, 'End Date:', :class => "control-label", :style=>"width:auto;margin-left:20px;margin-right:10px;"
+              = label :semester, :end_date, 'End Date:', :class => "control-label", :style => "width:auto;margin-left:20px;margin-right:10px;"
               = text_field :semester, :end_date, :class => "span2"
-            = submit_tag 'Update', :class => "btn btn-info", :style=>"margin-left:10px;"
+            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px;"
  
           .vspace30
           %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}

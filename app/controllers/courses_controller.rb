@@ -68,7 +68,7 @@ class CoursesController  < ValidateLoginController
     @course = Course.find(params[:id])
     if not @course
       flash[:warning] = "Error: Could not find the course to be destroyed."
-      redirect_to semester_path @semester.id
+      redirect_to semester_path(@semester)
       return
     end
     course_name = @course.name
@@ -77,24 +77,27 @@ class CoursesController  < ValidateLoginController
     else
       flash[:warning] = "#{course_name} could not be removed from the database because of the following errors:\n" + errors_string(@course)
     end
-    redirect_to semester_path @semester.id
+    redirect_to semester_path(@semester)
   end
 
   def update
     @semester = Semester.find params[:semester_id]
+
     return unless semester_is_valid(@semester)
 
     @course = Course.find params[:id]
     if not @course
       flash[:warning] = "Error: The given course for updating could not be found."
-      redirect_to semester_path( @semester.id )
+      redirect_to semester_path(@semester, :method => :get)
       return
     end
 
     #not sure what to call update_attributes with
-    if @course.update_attributes(params[:course]) then
-      flash[:notice] = "#{@course.name} #{@semester.name} was successfully updated."
-      redirect_to semester_path( @semester.id )
+    if @course.update_attributes(params[:course])
+      if params[:course].length > 0
+          flash[:notice] = "#{@course.name} in #{@semester.name} was successfully updated."
+      end
+      redirect_to semester_path(@semester)
     else
       flash[:warning] = "#{@course.name} could not be updated because of the following errors:\n" + errors_string(course)
       render 'edit'
@@ -130,7 +133,7 @@ class CoursesController  < ValidateLoginController
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
     if not semester
       flash[:warning] = message
-      redirect_to semester_index
+      redirect_to semester_index, :method => :get
       return false
     end
     return true

@@ -104,3 +104,16 @@ Scenario: Entering start date after end date
   And I press "Save Changes"
   Then I should be on the Session Name Page
   And I should see "Start date must be before end date"
+  
+Scenario: Delete semester 
+  Given I am on the "Fall 2011" Session Name Page
+  And I press "Delete Fall 2011"
+  And I press "OK"
+  Then I should be on the home page
+  And I should not see "Fall 2012"
+  
+Scenario: Cancel deleted semester
+  Given I am on the "Spring 2012" Session Name Page
+  And I press "Delete Spring 2012"
+  And I press "Cancel"
+  Then I should be on the "Spring 2012" Session Name Page

@@ -38,19 +38,19 @@ Scenario: Cancel Create New Class
   Then I should be on the "Fall 2011" Create Class Page
   When I fill in "Course Name" with "Math"
   And I press "Cancel"
-  Then I should be on the Are You Sure? Page
-  When I press "Yes"
+  #Then I should be on the Are You Sure? Page
+  #When I press "Yes"
   Then I should be on the "Fall 2011" Session Name Page
   And no new classes should be added
 
-Scenario: Recover From Clicking Cancel
-  Given I am on the "Fall 2011" Create Class Page
-  When I fill in "Course Name" with "Math"
-  And I press "Cancel"
-  Then I should be on the Are You Sure? Page
-  When I press "No"
-  Then I should be on the "Fall 2011" Create Class Page
-  And the "Class Name" field should contain "Math"
+#Scenario: Recover From Clicking Cancel
+#  Given I am on the "Fall 2011" Create Class Page
+#  When I fill in "Course Name" with "Math"
+#  And I press "Cancel"
+#  Then I should be on the Are You Sure? Page
+#  When I press "No"
+#  Then I should be on the "Fall 2011" Create Class Page
+#  And the "Class Name" field should contain "Math"
   
 Scenario: Invalid class min/max
   Given I am on the "Fall 2011" Session Name Page
@@ -64,7 +64,7 @@ Scenario: Invalid class min/max
 Scenario: Invalid course fee
   Given I am on the "Fall 2011" Session Name Page
   And I follow "Add +"
-  And I fill in "Price Per Student Per Meeting" with "0"
+  And I fill in "Price Per Student Per Meeting" with "-10"
   And I press "Add New Course"
   Then I should see "The fee per meeting is invalid"
   

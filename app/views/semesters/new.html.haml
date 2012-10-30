@@ -50,7 +50,8 @@
 
           %div.control-group
             %div.controls
-              = submit_tag 'Save Changes'
+              = submit_tag 'Save Semester', :class => "btn btn-info"
+              = link_to 'Cancel', semesters_path, :class => "btn btn-info"
 
         
           /%div.control-group

@@ -44,7 +44,6 @@ Scenario: Delete a class
   And I press "Update Course"
   Then I should be on the "Fall 2011" Session Name Page
   Then I should see "Th"
-  And I should not see "M"
   
 
 Scenario: Create New Class

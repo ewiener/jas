@@ -1,4 +1,4 @@
-class PTAInstructor < ActiveRecord::Base
+class Ptainstructor < ActiveRecord::Base
 belongs_to :course
 
 end

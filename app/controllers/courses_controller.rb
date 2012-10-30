@@ -1,4 +1,4 @@
-class CoursesController  < ValidateLoginController
+class CoursesController  < ApplicationsController
   protect_from_forgery
   def show
     @course = Course.find_by_id params[:course_id]
@@ -82,11 +82,11 @@ class CoursesController  < ValidateLoginController
   end
 
   def update
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find_by_id params[:semester_id]
 
     return unless semester_is_valid(@semester)
 
-    @course = Course.find params[:id]
+    @course = Course.find_by_id params[:id]
     if not @course
       flash[:warning] = [[:id, "The given course for updating could not be found."]]
       redirect_to semester_path(@semester, :method => :get)

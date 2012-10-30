@@ -1,4 +1,4 @@
-class SemestersController  < ValidateLoginController
+class SemestersController < ApplicationController
   protect_from_forgery
 
   def show
@@ -29,12 +29,12 @@ class SemestersController  < ValidateLoginController
   end
 
   def edit
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
   end
 
   def update
-    @semester = Semester.find params[:id]
+    @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
 
     #not sure what to call update_attributes with
@@ -48,7 +48,7 @@ class SemestersController  < ValidateLoginController
   end
 
   def destroy
-    @semester = Semester.find(params[:id])
+    @semester = Semester.find_by_id(params[:id])
     return unless semester_is_valid(@semester)
 
     name = @semester.name

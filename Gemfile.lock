@@ -103,6 +103,8 @@ GEM
     nokogiri (1.5.5)
     pg (0.14.1)
     polyglot (0.3.3)
+    prickle (0.0.6)
+      capybara
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -195,6 +197,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg
+  prickle
   rails (= 3.2.7)
   rdoc
   rspec-rails

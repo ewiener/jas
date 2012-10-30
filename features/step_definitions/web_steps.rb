@@ -64,6 +64,37 @@ Then /I should see no populated courses/ do
   end
 end
 
+Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+  #  ensure that that e1 occurs before e2.
+  #  page.content  is the entire content of the page as a string.
+  match1 = /#{e1}/ =~ page.body
+  match2 = /#{e2}/ =~ page.body
+  if (match1 == nil)
+    flunk "#{e1} not found on page"
+  end
+  if (match2 == nil)
+    flunk "#{e2} not found on page"
+  end
+  if (match1 >= match2)
+    flunk "#{e1} does not occur before #{e2}"
+  end
+  #flunk "Unimplemented"
+end
+
+When /^I confirm popup$/ do
+  #page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click('OK')
+  page.driver.browser.switch_to.alert.accept
+  #popup.confirm 
+end
+
+When /^I dismiss popup$/ do
+  page.driver.browser.switch_to.alert.dismiss
+  #page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click('Cancel')
+  #popup.dismiss
+end
+
 Given /^I am an admin$/ do
   pending
 end

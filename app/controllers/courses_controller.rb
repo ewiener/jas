@@ -1,4 +1,4 @@
-class CoursesController  < ApplicationsController
+class CoursesController  < ApplicationController
   protect_from_forgery
   def show
     @course = Course.find_by_id params[:course_id]

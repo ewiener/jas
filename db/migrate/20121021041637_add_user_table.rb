@@ -7,7 +7,8 @@ class AddUserTable < ActiveRecord::Migration
       t.text    'phone'
       t.text    'address'
       t.text    'bio'
-      t.text    'password'
+      t.text    'password_hash'
+      t.text    'password_salt'
       t.integer 'type'
     end
   end

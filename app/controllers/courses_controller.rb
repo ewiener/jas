@@ -1,9 +1,9 @@
 class CoursesController  < ValidateLoginController
   protect_from_forgery
   def show
-    @course = Course.find params[:course_id]
+    @course = Course.find_by_id params[:course_id]
     if not @course
-      flash[:warning] = "Could not find the corresponding course due to the following errors:\n" + errors_string(@course)
+      flash[:warning] = @course.errors
       redirect_to semester_index
     end
   end
@@ -18,7 +18,8 @@ class CoursesController  < ValidateLoginController
   end
 
   def new
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
   end
 
   def special_time_parsing_helper
@@ -37,14 +38,14 @@ class CoursesController  < ValidateLoginController
   end
 
   def create
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find_by_id params[:semester_id]
     puts params[:course]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
     special_time_parsing_helper
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
-      flash[:warning] =  "Error: Unable to create a new course due to the following errors:\n" + errors_string(@course)
-      render "new"
+      flash[:warning] = @course.errors
+      redirect_to new_semester_course_path
       return
     end
     flash[:notice] = "Successfully created #{@course.name}."
@@ -52,22 +53,22 @@ class CoursesController  < ValidateLoginController
   end
 
   def edit
-    puts "HI"
-    @semester = Semester.find params[:semester_id]
+    @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @course = Course.find params[:id]
+    @course = Course.find_by_id params[:id]
     if not @course
-      flash[:warning] = "Error: Unable to locate the course given for modification."
+      flash[:warning] = [[:id, "Unable to locate the course given for modification."]]
       redirect_to semester_path(@semester)
       return
     end
   end
 
   def destroy
-    @semester = Semester.find params[:semester_id]
-    @course = Course.find(params[:id])
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+    @course = Course.find_by_id params[:id]
     if not @course
-      flash[:warning] = "Error: Could not find the course to be destroyed."
+      flash[:warning] = [[:id,"Could not find the course to be destroyed."]]
       redirect_to semester_path(@semester)
       return
     end
@@ -75,7 +76,7 @@ class CoursesController  < ValidateLoginController
     if @course.destroy
       flash[:notice] = "#{course_name} was successfully removed from the database."
     else
-      flash[:warning] = "#{course_name} could not be removed from the database because of the following errors:\n" + errors_string(@course)
+      flash[:warning] = @course.errors
     end
     redirect_to semester_path(@semester)
   end
@@ -87,7 +88,7 @@ class CoursesController  < ValidateLoginController
 
     @course = Course.find params[:id]
     if not @course
-      flash[:warning] = "Error: The given course for updating could not be found."
+      flash[:warning] = [[:id, "The given course for updating could not be found."]]
       redirect_to semester_path(@semester, :method => :get)
       return
     end
@@ -99,8 +100,8 @@ class CoursesController  < ValidateLoginController
       end
       redirect_to semester_path(@semester)
     else
-      flash[:warning] = "#{@course.name} could not be updated because of the following errors:\n" + errors_string(course)
-      render 'edit'
+      flash[:warning] = @course.errors
+      render edit_semester_course_path
     end
   end
 
@@ -121,19 +122,19 @@ class CoursesController  < ValidateLoginController
     redirect_to semester_index #semester page
   end
 =end
-
+=begin
   private
   def errors_string(course)
     error_messages = ""
     course.errors.each{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
     return error_messages
   end
-
+=end
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
     if not semester
-      flash[:warning] = message
-      redirect_to semester_index, :method => :get
+      flash[:warning] = [[:semester_id, message]]
+      redirect_to semesters_path, :method => :get
       return false
     end
     return true

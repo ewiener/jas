@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     end
   end
 =end
-  def user_is_valid(@user)
+  def user_is_valid(user)
     if(user == nil)
       flash[:warning] = [[:id, "Could not find the corresponding user."]]
       redirect_to users_path

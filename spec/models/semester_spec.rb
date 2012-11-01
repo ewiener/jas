@@ -104,6 +104,7 @@ describe Semester do
     end
   end
 
+
 =begin
   describe 'Check if valid_registration_date adds errors' do
     it 'I test if valid_registration_date with invalid registration deadline and it should add errors' do

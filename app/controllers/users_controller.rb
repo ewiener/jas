@@ -62,22 +62,24 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 =begin
-  def create
-    @user = User.new(params[:user])
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "Thanks for signing up! You are now logged in."
-      redirect_to root_url
-    else
-      render :action => 'new'
-    end
-  end
+     def create
+       @user = User.new(params[:user])
+       if @user.save
+         session[:user_id] = @user.id
+         flash[:notice] = "Thanks for signing up! You are now logged in."
+         redirect_to root_url
+       else
+         render :action => 'new'
+       end
+     end
 =end
-  def user_is_valid(user)
-    if(user == nil)
-      flash[:warning] = [[:id, "Could not find the corresponding user."]]
-      redirect_to users_path
-      return false
-    end
-    return true
-end
+   def user_is_valid(user)
+     if(user == nil)
+       flash[:warning] = [[:id, "Could not find the corresponding user."]]
+       redirect_to users_path
+       return false
+     end
+     return true
+   end
+ end
+

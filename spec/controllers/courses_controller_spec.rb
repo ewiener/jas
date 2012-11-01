@@ -24,6 +24,8 @@ describe CoursesController do
       mock.stub!(:fee_per_meeting)
       mock.stub!(:fee_for_additional_materials)
       Course.should_receive(:create).with({:name => "Music"}, {:description => "A music class that teaches children the fundamentals of music"}, {:days_of_week => "Monday, Wednesday"}, {:number_of_classes => 15}, {:start_time => "3:00"}, {:end_time => "5:00"}, {:class_min => 0}, {:class_max => 15}, {:grade_range => 1-5}, {:fee_per_meeting => 12}, {:fee_for_additional_materials => 25}).and_return(mock)
+      post :create, :name => "Music"
+      response.should be_success
 
 =begin      @course.name.should == "Music"
       @course.description.should == "A music class that teaches children the fundamentals of music"

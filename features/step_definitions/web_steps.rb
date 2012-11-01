@@ -40,7 +40,7 @@ Given /^the following sessions exist:$/ do |table|
     Semester.create(session)
   end
 end
-    
+
 Given /^the following courses have been added:$/ do |table|
   table.hashes.each do |course|
     course[:class_min] = Integer(course[:class_min])
@@ -62,6 +62,37 @@ Then /I should see no populated courses/ do
   if on_page_len != 0
     flunk "Number of courses on page is not 0"
   end
+end
+
+Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+  #  ensure that that e1 occurs before e2.
+  #  page.content  is the entire content of the page as a string.
+  match1 = /#{e1}/ =~ page.body
+  match2 = /#{e2}/ =~ page.body
+  if (match1 == nil)
+    flunk "#{e1} not found on page"
+  end
+  if (match2 == nil)
+    flunk "#{e2} not found on page"
+  end
+  if (match1 >= match2)
+    flunk "#{e1} does not occur before #{e2}"
+  end
+  #flunk "Unimplemented"
+end
+
+When /^I confirm popup$/ do
+  #page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click('OK')
+  page.driver.browser.switch_to.alert.accept
+  #popup.confirm
+end
+
+When /^I dismiss popup$/ do
+  page.driver.browser.switch_to.alert.dismiss
+  #page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click('Cancel')
+  #popup.dismiss
 end
 
 Given /^I am an admin$/ do
@@ -143,6 +174,10 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
+When /^I wait for (\d+) seconds$/ do |time|
+  sleep time.to_f
+end
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)
@@ -169,6 +204,7 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   end
 end
 
+# Are the supposed to be two of theses?  This one and the one above. -------------------------------------------------------------
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
 
@@ -178,6 +214,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
     assert page.has_no_xpath?('//*', :text => regexp)
   end
 end
+
 
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
@@ -267,7 +304,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -281,8 +318,8 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else

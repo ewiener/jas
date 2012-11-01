@@ -11,9 +11,12 @@
   margin-bottom: 20px
   padding-left: 10px
 
-$container_width: 940px
+$container_width: 900px
 #container
   width: $container_width
+  margin: 0 auto
+ul.nav-pills
+  width: $container_width + 15px
   margin: 0 auto
 
 $section-width: 800px
@@ -26,10 +29,12 @@ $section-width: 800px
   text-align: right
 
 .hero-unit
+  display: block
+  width: 840px
+  margin: 0 auto
+  padding: 30px
   p
     padding-top: 10px
-  .btn
-    margin-right: 6px
 
 .content
   width: 85%
@@ -81,6 +86,10 @@ $section-width: 800px
   height: 70px
 .vspace80
   height: 80px
+.vspace90
+  height: 90px
+.vspace100
+  height: 100px
 
 #login
   h1
@@ -111,12 +120,8 @@ $section-width: 800px
   .shrink
     width: 20px
 
-table
-  td
-    width: auto
-
 .alert,.alert-error,.alert-warning,.alert-success
-  width: $container_width
+  width: $container_width - 51px
 
 form
   .time
@@ -141,8 +146,18 @@ form
       position: relative
       top: -7px
       left: -18px
-  .alert-error
-    width: 600px
+
+table
+  td
+    width: auto
+    padding: 7px
+    form
+      div
+        text-align: center
+  .btn
+    margin: 0 auto
+    display: block
+    margin-top: 15px
 
 .form-horizontal
   width: 770px
@@ -156,6 +171,7 @@ form
   &:last-child
     border: 10px solid red
     margin-right: 0
+    margin-left: 7px
 
 #create_new_semester
   text-align: right

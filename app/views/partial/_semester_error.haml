@@ -3,6 +3,6 @@
     #{flash[:notice]}
 / %h3.span8.offset3
 - if flash[:warning]
-  - @semester.errors.each do |attr, msg|
+  - flash[:warning].each do |attr, msg|
     .alert.alert-error
       = msg

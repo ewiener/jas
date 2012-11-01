@@ -20,6 +20,7 @@ end
 
 group :test do
   gem 'cucumber-rails'
+  gem 'prickle'
 end
 
 group :development, :test do

@@ -11,7 +11,7 @@
     = #render :partial => "partials/topbar"
     %div#container
 
-
+      .vspace30
       %div.hero-unit.section#login
         %h1 PTA Scheduler
         %h2
@@ -26,6 +26,14 @@
           %input{:type => "password", :name => "password"}
           .vspace30
           = submit_tag 'Login', :id => 'login_submit', :class => 'btn btn-info'
+      .vspace30
+      %div.hero-unit
+        %h4{:style=>"float:left;"}
+          While in development, click the button below to bypass login.
+        %a.btn.btn-info{:href => "#{semesters_path}", :style=>"float:left;margin-left:25px;position:relative;top:2px;"}
+          Semesters &raquo;
+        .vspace10
+        .vspace30
 
     /
       %div.hero-unit.section

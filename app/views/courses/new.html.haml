@@ -151,9 +151,7 @@
           %div.control-group
             %div.controls
               = submit_tag 'Add New Course', :class => "btn btn-info"
-              %a{:href => "#{semester_path(@semester)}"}
-                %button{:class => "btn"}
-                  Cancel
+              = link_to 'Cancel', semester_path(@semester), :class => "btn btn-info"
           .clear
           .vspace80
 

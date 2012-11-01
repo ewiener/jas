@@ -4,7 +4,10 @@ class UsersController < ApplicationController
   def show
     #Need to check for admin
     @user = User.find_by_id params[:id]
-    return
+    return unless user_is_valid(@user)
+
+  end
+
   def new
     #@user = User.new
   end

@@ -1,0 +1,52 @@
+-# This file is app/views/courses/new.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      New PTA Instructor
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar"
+    %div#container
+      = render :partial => "partial/user_error"
+      .clear
+      %h1.span6.offset3
+        Add New PTA Instructor
+      .vspace20
+      %div.span8.offset2
+        = form_tag users_path, :class =>"form-horizontal" do
+          %div.control-group 
+            = label :user, :name, 'Instructor Name:', :class => "control-label"
+            %div.controls
+              = text_field :user, :name
+
+          %div.control-group
+            = label :user, :email, 'Email:', :class => "control-label"
+            %div.controls
+              = text_field :user, :email
+
+          %div.control-group
+            = label :user, :phone, 'Phone Number:', :class => "control-label"
+            %div.controls
+              = text_field :user, :phone
+
+          %div.control-group
+            = label :user, :address, 'Address:', :class => "control-label"
+            %div.controls
+              = text_area :user, :address, :rows => 5
+
+          %div.control-group
+            = label :user, :bio, 'Biography:', :class => "control-label"
+            %div.controls
+              = text_area :user, :bio, :rows => 5
+
+          %div.control-group
+            %div.controls
+              = submit_tag 'Add New PTA Instructor', :class => "btn btn-info"
+              = link_to 'Cancel', users_path, :class => "btn btn-info"
+          .clear
+          .vspace80
+
+

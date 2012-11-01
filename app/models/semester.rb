@@ -37,12 +37,13 @@ class Semester < ActiveRecord::Base
   private
   # Used by validation check to verify that the name is valid
   def name_is_valid
-    errors.add(:name,"Invalid empty string for name.") unless name_is_valid?
+    errors.add(:name,"Invalid string for name.") unless name_is_valid?
   end
 
   public
   # Verifies that the name is valid
   def name_is_valid?
+    return false unless not_nil_and_string(self.name)
     return self.name.length > 0
   end
 
@@ -169,6 +170,12 @@ class Semester < ActiveRecord::Base
   public
   def start_date_as_date
     return USDateParse(self.start_date)
+  end
+
+  private
+  def not_nil_and_string(str)
+    return true unless str == nil or not str.instance_of? String
+    return false
   end
 end
 

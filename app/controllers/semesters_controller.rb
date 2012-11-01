@@ -28,10 +28,12 @@ class SemestersController < ApplicationController
     redirect_to semesters_path
   end
 
+=begin
   def edit
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
   end
+=end
 
   def update
     @semester = Semester.find_by_id params[:id]

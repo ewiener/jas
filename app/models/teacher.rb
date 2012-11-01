@@ -36,16 +36,19 @@ class Teacher < ActiveRecord::Base
   public
   # Verifies that the name is valid
   def name_is_valid?
+    return false unless not_nil_and_string(self.name)
     return self.name.length > 0
   end
 
   # Verifies that the grade is valid
   def grade_is_valid?
+    return false unless not_nil_and_string(self.grade)
     return self.grade.length > 0
   end
 
   # Verifies that the classroom is valid
   def classroom_is_valid?
+    return false unless not_nil_and_string(self.classroom)
     return self.classroom.length > 0
   end
 

@@ -272,7 +272,7 @@ class Course < ActiveRecord::Base
 
   private
   def not_nil_and_string(str)
-    return true unless str == nil or not str.instance_of? String
+    return true unless ((str == nil) or (not str.instance_of? String))
     return false
   end
 

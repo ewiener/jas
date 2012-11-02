@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
-  #attr_accessible :username, :email, :password, :password_confirmation
-
+  #attr_accessible :username, :email,:password, :password_confirmation
+  attr_accessible :name, :email, :phone, :address, :bio
   #attr_accessor :password
   before_save :prepare_password
 
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   #validates_confirmation_of :password
   #validates_length_of :password, :minimum => 4, :allow_blank => true
 
-  validate :username_is_valid?
+  validate :username_is_valid
 
   def username_is_valid
     if self.username == nil; errors.add(:username, "The username was not set.");return; end

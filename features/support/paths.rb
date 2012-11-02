@@ -30,6 +30,12 @@ module NavigationHelpers
       #semester_id = Semester.where(:name => $1).id
       semester_id = Semester.find_by_name($1).id
       "/semesters/#{semester_id}"
+      
+    when /^the PTA Instructor home page$/
+      "/users"
+      
+    when /^the Add New PTA Teacher Page$/
+      "/users/new"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

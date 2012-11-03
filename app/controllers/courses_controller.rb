@@ -22,6 +22,7 @@ class CoursesController  < ApplicationController
     return unless semester_is_valid(@semester)
   end
 
+=begin
   def special_time_parsing_helper
     start_time_hour = params[:start_time_hour]
     start_time_minute = params[:start_time_minute]
@@ -36,12 +37,13 @@ class CoursesController  < ApplicationController
     params[:start_time_type] = case (start_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
     params[:end_time_type] = case (end_time_type); when 0; 'AM'; when 1; 'PM'; when 2; '24HR' end
   end
+=end
 
   def create
     @semester = Semester.find_by_id params[:semester_id]
     puts params[:course]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
-    special_time_parsing_helper
+    #special_time_parsing_helper
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] = @course.errors

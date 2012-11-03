@@ -8,6 +8,10 @@ class UsersController < ApplicationController
 
   end
 
+  def index
+    @users = User.all
+  end
+
   def new
     #@user = User.new
   end
@@ -19,6 +23,7 @@ class UsersController < ApplicationController
     if @user.new_record?
       flash[:warning] = @user.errors
       redirect_to new_user_path
+      return
     else
       flash[:notice] = "#{@user.name} was successfully added to the database."
     end

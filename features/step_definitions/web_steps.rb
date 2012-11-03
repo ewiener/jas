@@ -95,6 +95,19 @@ When /^I dismiss popup$/ do
   #popup.dismiss
 end
 
+When /^I fill in the new pta form correctly with name "(.*)"$/ do |name|
+  fill_in_new_pta_form_correcctly(name)
+end
+
+def fill_in_new_pta_form_correcctly(name)
+  fill_in("user_name", :with => name)
+  fill_in("user_email", :with => "michelle@gmail.com")
+  fill_in("user_phone", :with => "234-456-7890")
+  fill_in("user_address", :with => "1600 Pennsylvania Avenue")
+  fill_in("user_bio", :with => "Info about me")
+  #click_button("Add New PTA Instructor")
+end
+
 Given /^I am an admin$/ do
   pending
 end

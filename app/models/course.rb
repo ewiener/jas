@@ -1,4 +1,5 @@
 # PTA Course held within a specific Semester. PTA Instructors and Students belong to a Course.
+
 class Course < ActiveRecord::Base
   require 'time'
   serialize :days_of_week
@@ -41,6 +42,7 @@ class Course < ActiveRecord::Base
   belongs_to :semester
   belongs_to :ptainstructors
   has_many :students
+  belongs_to :teacher
 
 =begin
   validates :name, :presence => true
@@ -75,7 +77,7 @@ class Course < ActiveRecord::Base
 
   public
   def name_is_valid?
-    if(self.name == nil); return false; end
+    return false unless not_nil_and_string(self.name)
     return self.name.length > 0
   end
 
@@ -86,7 +88,7 @@ class Course < ActiveRecord::Base
 
   public
   def start_time_is_valid?
-    if(self.start_time == nil);return false; end
+    return false unless not_nil_and_string(self.start_time)
     return self.start_time.length > 0
   end
 
@@ -97,7 +99,7 @@ class Course < ActiveRecord::Base
 
   public
   def end_time_is_valid?
-    if(self.end_time == nil);return false; end
+    return false unless not_nil_and_string(self.end_time)
     return self.end_time.length > 0
   end
 
@@ -108,8 +110,7 @@ class Course < ActiveRecord::Base
 
   public
   def number_of_classes_is_valid?
-    if (self.number_of_classes == nil); return false; end
-    return self.number_of_classes.to_i > 0
+    return ((self.number_of_classes != nil) and (self.number_of_classes > 0))
   end
 
   private
@@ -246,8 +247,7 @@ class Course < ActiveRecord::Base
 
   public
   def fee_per_meeting_is_valid?
-    if (self.fee_per_meeting == nil); return false; end
-    return self.fee_per_meeting >= 0
+    return ((self.fee_per_meeting != nil) and (self.fee_per_meeting >= 0))
   end
 
   private
@@ -257,8 +257,7 @@ class Course < ActiveRecord::Base
 
   public
   def fee_for_additional_materials_is_valid?
-    if (self.fee_for_additional_materials == nil); return false; end
-    return self.fee_for_additional_materials >= 0
+    return ((self.fee_for_additional_materials != nil)  and (self.fee_for_additional_materials >= 0))
   end
 
   private
@@ -268,8 +267,13 @@ class Course < ActiveRecord::Base
 
   public
   def total_fee_is_valid?
-    if (self.total_fee == nil); return false; end
-    return self.total_fee >= 0
+    return ((self.total_fee != nil) and (self.total_fee >= 0))
+  end
+
+  private
+  def not_nil_and_string(str)
+    return true unless ((str == nil) or (not str.instance_of? String))
+    return false
   end
 
 ################################## VALIDATION METHODS END ###########################################

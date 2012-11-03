@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021041637) do
+ActiveRecord::Schema.define(:version => 20121101011010) do
 
   create_table "courses", :force => true do |t|
     t.text    "name"
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(:version => 20121021041637) do
     t.text  "lottery_deadline"
     t.text  "registration_deadline"
     t.float "fee"
+  end
+
+  create_table "teachers", :force => true do |t|
+    t.text "name"
+    t.text "grade"
+    t.text "classroom"
   end
 
   create_table "users", :force => true do |t|

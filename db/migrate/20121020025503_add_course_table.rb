@@ -3,7 +3,6 @@ class AddCourseTable < ActiveRecord::Migration
     create_table 'courses' do |t|
       t.text       'name'
       t.text       'description'
-      t.text       'number_of_classes'
       t.boolean    'sunday'
       t.boolean    'monday'
       t.boolean    'tuesday'
@@ -21,9 +20,10 @@ class AddCourseTable < ActiveRecord::Migration
       t.integer    'end_time_minute'
       t.integer    'end_time_type'
 =end
+      t.text       'grade_range'
       t.integer    'class_min'
       t.integer    'class_max'
-      t.text       'grade_range'
+      t.integer    'number_of_classes'
       t.float      'fee_per_meeting'
       t.float      'fee_for_additional_materials'
       t.float      'total_fee'

@@ -4,6 +4,7 @@ class AddTeacherTable < ActiveRecord::Migration
       t.text    'name'
       t.text    'grade'
       t.text    'classroom'
+    end
   end
 
   def down

@@ -28,16 +28,17 @@ class SemestersController < ApplicationController
     redirect_to semesters_path
   end
 
+=begin
   def edit
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
   end
+=end
 
   def update
     @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
 
-    #not sure what to call update_attributes with
     if @semester.update_attributes(params[:semester])
       flash[:notice] = "#{@semester.name} was successfully updated."
       redirect_to semester_path(@semester)
@@ -48,7 +49,7 @@ class SemestersController < ApplicationController
   end
 
   def destroy
-    @semester = Semester.find_by_id(params[:id])
+    @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
 
     name = @semester.name

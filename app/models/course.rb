@@ -35,7 +35,9 @@ class Course < ActiveRecord::Base
                   :fee_per_meeting,
                   :fee_for_additional_materials,
                   :total_fee,
-                  :semester
+                  :semester,
+                  :ptainstructor,
+                  :teacher
 
   #has location through teacher
 

@@ -47,6 +47,10 @@ Given /^the following courses have been added:$/ do |table|
     course[:class_max] = Integer(course[:class_max])
     sem_id = Semester.find_by_name(course[:semester])
     course[:semester] = sem_id
+    pta_id = Ptainstructor.find_by_name(course[:ptainstructor])
+    course[:ptainstructor] = pta_id
+    classroom_id = Teacher.find_by_classroom(course[:teacher])
+    course[:teacher] = classroom_id
     Course.create(course)
   end
 end

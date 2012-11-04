@@ -11,11 +11,21 @@ Background: previous sessions have been added to the database
     | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            | 35  |
     | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 04/14/2012            | 29  |
     | Fall 2012   | 09/15/2012    | 12/15/2012| 09/09/2012        | 09/14/2012            | 11/13/2012            | 31  |
+    
+  Given the following pta instructors exist:
+  | name    | email     | phone     | address       | bio       | semester  |
+  | teacher1| jim@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
+  | teacher2| amy@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
+  
+  Given the following classrooms are in the database:
+  | name    | grade | classroom | semester  |
+  | joe     | 1     | room1     | Spring 2012 |
+  | joe     | 1     | room2     | Spring 2012 |
   
   Given the following courses have been added:
-    | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee |
-    | Art     | Spring 2012   | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 |
-    | Science | Spring 2012   | sci class   | 2:15pm            | 10         | 20        | K            | 15                | 5                              | true      | false     | false     | false     | false     | 3:15pm     | false | false | 13 | 133 |
+    | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | ptainstructor | teacher   |
+    | Art     | Spring 2012   | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | teacher1 | room1 |
+    | Science | Spring 2012   | sci class   | 2:15pm            | 10         | 20        | K            | 15                | 5                              | true      | false     | false     | false     | false     | 3:15pm     | false | false | 13 | 133 | teacher2 | room2 |
   
   And I am on the home page
 

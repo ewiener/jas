@@ -50,13 +50,14 @@ class TeachersController < ApplicationController
 
   def edit
     @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
     @teacher = Teacher.find_by_id params[:id]
-    flash[:notice] = params[:id]
     return unless teacher_is_valid(@teacher)
   end
 
   def update
     @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
     @teacher = Teacher.find_by_id params[:id]
     return unless teacher_is_valid(@teacher)
 
@@ -81,7 +82,7 @@ class TeachersController < ApplicationController
       flash[:warning] = @teacher.errors
     end
 
-    redirect_to teachers_path
+    redirect_to semester_teachers_path
   end
 
   private

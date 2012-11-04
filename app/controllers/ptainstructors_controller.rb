@@ -26,20 +26,30 @@ class PtainstructorsController < ApplicationController
 
   def new
     @semester = Semester.find_by_id params[:semester_id]
-    #@ptainstructor = Ptainstructor.new
+    return unless semester_is_valid(@semester)
+    if flash.key? :ptainstructor
+      @ptainstructor = flash[:ptainstructor]
+      render 'new'
+      return
+    end
   end
 
   def create
     #check for admin
-    @ptainstructor = Ptainstructor.create(params[:ptainstructor])
+    #@ptainstructor = Ptainstructor.create(params[:ptainstructor])
     #@ptainstructor.update_attributes(params[:ptainstructor])
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+
+    @ptainstructor = @semester.ptainstructors.create(params[:ptainstructor])
     if @ptainstructor.new_record?
       flash[:warning] = @ptainstructor.errors
+      flash[:ptainstructor] = @ptainstructor
       redirect_to new_semester_ptainstructor_path
       return
     else
       flash[:notice] = "#{@ptainstructor.name} was successfully added to the database."
-      redirect_to semester_ptainstructors_path
+      redirect_to semester_ptainstructors_path(@semester)
     end
   end
 
@@ -49,11 +59,7 @@ class PtainstructorsController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
     @ptainstructor = Ptainstructor.find_by_id params[:id]
-    if not @ptainstructor
-      flash[:warning] = [[:id, "Unable to locate the course given for modification."]]
-      redirect_to semester_ptainstructors_path(@semester)
-      return
-    end
+    return unless ptainstructor_is_valid(@ptainstructor)
   end
 
   def update
@@ -84,13 +90,13 @@ class PtainstructorsController < ApplicationController
       flash[:warning] = @ptainstructor.errors
     end
 
-    redirect_to ptainstructors_path
+    redirect_to semester_ptainstructors_path
   end
 
   def ptainstructor_is_valid(user)
     if(user == nil)
       flash[:warning] = [[:id, "Could not find the corresponding PTA instructor."]]
-      redirect_to ptainstructors_path
+      redirect_to semester_ptainstructors_path
       return false
     end
     return true

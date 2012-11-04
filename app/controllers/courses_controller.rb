@@ -1,5 +1,6 @@
 class CoursesController  < ApplicationController
   protect_from_forgery
+=begin
   def show
     @course = Course.find_by_id params[:course_id]
     if not @course
@@ -7,7 +8,7 @@ class CoursesController  < ApplicationController
       redirect_to semesters_path
     end
   end
-
+=end
   def index
     #redirect to the semester homepage
     if params[:semester_id]

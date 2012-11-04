@@ -5,8 +5,9 @@ Ptast::Application.routes.draw do
   root :to => "logins#index"
   resources :semesters do
     resources :courses
+    resources :teachers
   end
-  resources :teachers
+  #resources :teachers
   resources :ptainstructors
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

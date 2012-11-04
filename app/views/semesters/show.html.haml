@@ -79,8 +79,7 @@
         %a
           Students
         %br
-        %a
-          Jefferson Classrooms
+          = link_to "Jefferson Classrooms", semester_teachers_path(@semester), :method => :get
         %br
         .vspace30
       // END hero-unit: _Manage_

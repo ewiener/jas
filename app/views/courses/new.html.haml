@@ -111,7 +111,7 @@
             = label :temp, :location, 'Location:', :class => "control-label"
             %div.controls
               = text_field :temp, :location
-
+          = link_to "Add New Location", new_semester_teacher_path(@semester)
           %div.control-group
             = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"
             %div.controls

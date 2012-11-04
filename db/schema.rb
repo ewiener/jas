@@ -55,9 +55,10 @@ ActiveRecord::Schema.define(:version => 20121104011445) do
   end
 
   create_table "teachers", :force => true do |t|
-    t.text "name"
-    t.text "grade"
-    t.text "classroom"
+    t.text    "name"
+    t.text    "grade"
+    t.text    "classroom"
+    t.integer "semester_id"
   end
 
   create_table "users", :force => true do |t|

@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(:version => 20121101011010) do
   create_table "courses", :force => true do |t|
     t.text    "name"
     t.text    "description"
-    t.text    "number_of_classes"
     t.boolean "sunday"
     t.boolean "monday"
     t.boolean "tuesday"
@@ -26,9 +25,10 @@ ActiveRecord::Schema.define(:version => 20121101011010) do
     t.boolean "saturday"
     t.text    "start_time"
     t.text    "end_time"
+    t.text    "grade_range"
     t.integer "class_min"
     t.integer "class_max"
-    t.text    "grade_range"
+    t.integer "number_of_classes"
     t.float   "fee_per_meeting"
     t.float   "fee_for_additional_materials"
     t.float   "total_fee"
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(:version => 20121101011010) do
   end
 
   create_table "teachers", :force => true do |t|
-    t.text "name"
-    t.text "grade"
-    t.text "classroom"
+    t.text    "name"
+    t.text    "grade"
+    t.text    "classroom"
+    t.integer "semester_id"
   end
 
   create_table "users", :force => true do |t|

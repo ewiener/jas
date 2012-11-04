@@ -20,6 +20,11 @@ class CoursesController  < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
+    if flash.key? :course
+      @course = flash[:course]
+      render 'new'
+      return
+    end
   end
 
 =begin
@@ -41,12 +46,12 @@ class CoursesController  < ApplicationController
 
   def create
     @semester = Semester.find_by_id params[:semester_id]
-    puts params[:course]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
     #special_time_parsing_helper
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] = @course.errors
+      flash[:course] = @course
       redirect_to new_semester_course_path
       return
     end

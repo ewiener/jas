@@ -21,13 +21,13 @@ class CoursesController  < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @teachers = Teacher.find_all_by_semester_id @semester
     if flash.key? :course
       @course = flash[:course]
       render 'new'
       return
     end
-    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
-    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
 =begin
@@ -51,6 +51,8 @@ class CoursesController  < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
     #special_time_parsing_helper
+    params[:course][:ptainstructor] = Ptainstructor.find_by_id params[:course][:ptainstructor]
+    params[:course][:teacher] = Teacher.find_by_id params[:course][:teacher]
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] = @course.errors

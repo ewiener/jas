@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+=begin
 describe UsersController do
   describe 'Create a new user' do
     it 'I put in username and password and click "Create"' do
@@ -7,6 +8,8 @@ describe UsersController do
     end
   end
 end
+
+=end
 
 
 

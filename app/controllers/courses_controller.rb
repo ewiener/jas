@@ -75,6 +75,11 @@ class CoursesController  < ApplicationController
     end
     @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
     @teachers = Teacher.find_all_by_semester_id @semester
+    if flash.key? :course
+      @course = flash[:course]
+      render 'edit'
+      return
+    end
   end
 
   def destroy
@@ -106,7 +111,8 @@ class CoursesController  < ApplicationController
       redirect_to semester_path(@semester, :method => :get)
       return
     end
-
+    params[:course][:ptainstructor] = Ptainstructor.find_by_id params[:course][:ptainstructor]
+    params[:course][:teacher] = Teacher.find_by_id params[:course][:teacher]
     #not sure what to call update_attributes with
     if @course.update_attributes(params[:course])
       if params[:course].length > 0
@@ -115,7 +121,8 @@ class CoursesController  < ApplicationController
       redirect_to semester_path(@semester)
     else
       flash[:warning] = @course.errors
-      render edit_semester_course_path
+      flash[:course] = @course
+      redirect_to edit_semester_course_path
     end
   end
 

@@ -225,7 +225,7 @@ class Course < ActiveRecord::Base
 
   public
   def class_min_is_valid?
-    if (self.class_min == nil); return false; end
+    if ((self.class_min == nil) or (self.class_max == nil)); return false; end
     return ((self.class_min > 0) and (self.class_max >= self.class_min))
   end
 
@@ -236,7 +236,7 @@ class Course < ActiveRecord::Base
 
   public
   def class_max_is_valid?
-    if (self.class_max == nil); return false; end
+    if ((self.class_max == nil) or (self.class_min == nil)); return false; end
     return ((self.class_max > 0) and (self.class_max >= self.class_min))
   end
 

@@ -41,7 +41,7 @@ class Ptainstructor < ActiveRecord::Base
   end
 
   def can_be_deleted?
-    courses = Courses.where(:semester => self.semester, :ptainstructor => self.id)
+    courses = Course.where(:semester_id => self.semester, :ptainstructor_id => self.id)
     return courses.length == 0
   end
 

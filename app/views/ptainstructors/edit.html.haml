@@ -1,0 +1,52 @@
+-# This file is app/views/courses/new.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      Edit PTA Instructor
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar"
+    %div#container
+      = render :partial => "partial/ptainstructor_error"
+      .clear
+      %h1.span6.offset3
+        Edit PTA Instructor
+      .vspace20
+      %div.span8.offset2
+        = form_tag semester_ptainstructor_path(@semester,@ptainstructor), :method => "put", :class =>"form-horizontal" do
+          %div.control-group 
+            = label :ptainstructor, :name, 'Instructor Name:', :class => "control-label"
+            %div.controls
+              = text_field :ptainstructor, :name
+
+          %div.control-group
+            = label :ptainstructor, :email, 'Email:', :class => "control-label"
+            %div.controls
+              = text_field :ptainstructor, :email
+
+          %div.control-group
+            = label :ptainstructor, :phone, 'Phone Number:', :class => "control-label"
+            %div.controls
+              = text_field :ptainstructor, :phone
+
+          %div.control-group
+            = label :ptainstructor, :address, 'Address:', :class => "control-label"
+            %div.controls
+              = text_area :ptainstructor, :address, :rows => 5
+
+          %div.control-group
+            = label :ptainstructor, :bio, 'Biography:', :class => "control-label"
+            %div.controls
+              = text_area :ptainstructor, :bio, :rows => 5
+
+          %div.control-group
+            %div.controls
+              = submit_tag 'Update PTA Instructor', :class => "btn btn-warning"
+              = link_to 'Cancel', semester_ptainstructors_path(@semester), :class => "btn btn-info"
+          .clear
+          .vspace80
+
+

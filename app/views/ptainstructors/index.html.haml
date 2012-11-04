@@ -24,5 +24,6 @@
           - @ptainstructors.each do |ptainstructor|
             %tr
               %td.cell_center{:colspan => "2"}
-                = ptainstructor.name
-                
+                %div{:style=>"float:left;"}
+                  = ptainstructor.name
+                = link_to "Edit", edit_semester_ptainstructor_path(@semester,ptainstructor), :class => "btn btn-warning span1", :style=>"float;left;margin:0;text-align:left;position:relative;left:450px;"

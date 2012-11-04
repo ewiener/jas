@@ -13,6 +13,11 @@ describe Semester do
       @semester.name = ""
       @semester.name_is_valid?.should == false
     end
+
+    it 'I test name_is_invalid? with invalid name nil' do
+      @semester = Semester.new
+      @semester.name_is_valid?.should == false
+    end
   end
 
 =begin
@@ -59,6 +64,17 @@ describe Semester do
       @semester.start_date = "10/32/2012"
       @semester.start_date_is_valid?.should == false
     end
+
+    it 'I test start_date_is_valid? with invalid date nil' do
+      @semester = Semester.new
+      @semester.start_date_is_valid?.should == false
+    end
+
+    it 'I test start_date_is_valid? with invalid date -1/12/2012' do
+      @semester = Semester.new
+      @semester.start_date = "-1/12/2012"
+      @semester.start_date_is_valid?.should == false
+    end
   end
 
   describe 'Check if end date is valid' do
@@ -71,6 +87,17 @@ describe Semester do
     it 'I test if invalid end date is valid and it should not be' do
       @semester = Semester.new
       @semester.end_date = "10/32/2012"
+      @semester.end_date_is_valid?.should == false
+    end
+
+    it 'I test end_date_is_valid? with invalid date nil' do
+      @semester = Semester.new
+      @semester.end_date_is_valid?.should == false
+    end
+
+    it 'I test end_date_is_valid? with invalid date -1/21/2012' do
+      @semester = Semester.new
+      @semester.end_date = "-1/21/2012"
       @semester.end_date_is_valid?.should == false
     end
   end
@@ -100,6 +127,17 @@ describe Semester do
     it 'I test if invalid registration deadline is valid and it should not be' do
       @semester = Semester.new
       @semester.registration_deadline = "10/32/2012"
+      @semester.registration_date_is_valid?.should == false
+    end
+
+    it 'I test registration_date_is_valid? with invalid date -1/21/2012' do
+      @semester = Semester.new
+      @semester.registration_deadline = "-1/21/2012"
+      @semester.registration_date_is_valid?.should == false
+    end
+
+    it 'I test registration_date_is_valid? with nil date' do
+      @semester = Semester.new
       @semester.registration_date_is_valid?.should == false
     end
   end

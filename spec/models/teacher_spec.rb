@@ -8,6 +8,18 @@ describe Teacher do
       @teacher.name_is_valid?.should == true
     end
 
+    it 'I test name_is_valid? with valid name J' do
+      @teacher = Teacher.new
+      @teacher.name = "J"
+      @teacher.name_is_valid?.should == true
+    end
+
+    it 'I test name_is_valid? with invalid name 13' do
+      @teacher = Teacher.new
+      @teacher.name = 13
+      @teacher.name_is_valid?.should == false
+    end
+
     it 'I test name_is_valid? with invalid name "" ' do
       @teacher = Teacher.new
       @teacher.name = ""
@@ -27,6 +39,12 @@ describe Teacher do
       @teacher.grade_is_valid?.should == true
     end
 
+    it 'I test grade_is_valid? with invalid name 3' do
+      @teacher = Teacher.new
+      @teacher.grade = 3
+      @teacher.grade_is_valid?.should == false
+    end
+
     it 'I test grade_is_valid? with invalid name "" ' do
       @teacher = Teacher.new
       @teacher.grade = ""
@@ -44,6 +62,18 @@ describe Teacher do
       @teacher = Teacher.new
       @teacher.classroom = "203"
       @teacher.classroom_is_valid?.should == true
+    end
+
+    it 'I test classroom_is_valid? with valid classroom S' do
+      @teacher = Teacher.new
+      @teacher.classroom = "S"
+      @teacher.classroom_is_valid?.should == true
+    end
+
+    it 'I test classroom_is_valid? with invalid classroom 303' do
+      @teacher = Teacher.new
+      @teacher.classroom = 303
+      @teacher.classroom_is_valid?.should == false
     end
 
     it 'I test classroom_is_valid? with invalid classroom "" ' do

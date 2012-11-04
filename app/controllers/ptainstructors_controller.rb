@@ -36,8 +36,6 @@ class PtainstructorsController < ApplicationController
 
   def create
     #check for admin
-    #@ptainstructor = Ptainstructor.create(params[:ptainstructor])
-    #@ptainstructor.update_attributes(params[:ptainstructor])
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
 

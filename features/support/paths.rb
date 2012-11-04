@@ -25,11 +25,69 @@ module NavigationHelpers
       
     when /^the Session Name Page$/
       '/semesters/new'
+      
+    when /^the "(.+)" Classroom Teachers home page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}/teachers"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}/teachers"
+      end
+      
+    when /^the "(.+)" Add New Classroom Page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}/teachers/new"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}/teachers/new"
+      end
     
     when /^the "(.+)" Session Name Page$/
       #semester_id = Semester.where(:name => $1).id
-      semester_id = Semester.find_by_name($1).id
-      "/semesters/#{semester_id}"
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}"
+      end
+      
+    when /^the "(.+)" new Course Name Page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}/courses/new"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}/courses/new"
+      end
+      
+    when /^the "(.+)" Course Page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}/courses"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}/courses"
+      end
+      
+    when /^the "(.+)" "(.+)" Course Edit Page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+        course_id = Course.find_by_name($2).id
+        "/semesters/#{semester_id}/courses/#{course_id}/edit"
+      rescue
+          begin
+            semester_id = Semester.find_by_name($1).id
+            course_id = Course.all.length + 1
+            "/semesters/#{semester_id}/courses/#{course_id}/edit"
+          rescue
+            semester_id = Semester.all.length + 1
+            course_id = Course.all.length + 1
+            "/semesters/#{semester_id}/courses/#{course_id}/edit"
+          end
+      end
       
     when /^the PTA Instructor home page$/
       "/users"

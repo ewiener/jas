@@ -108,6 +108,17 @@ def fill_in_new_pta_form_correcctly(name)
   #click_button("Add New PTA Instructor")
 end
 
+When /^I fill in the new classroom form correctly with classroom "(.*)"$/ do |location|
+  fill_in_new_classroom_form_correcctly(location)
+end
+
+def fill_in_new_classroom_form_correcctly(location)
+  fill_in("teacher_name", :with => "Mary")
+  fill_in("teacher_grade", :with => "5")
+  fill_in("teacher_classroom", :with => location)
+  #click_button("Add New PTA Instructor")
+end
+
 Given /^I am an admin$/ do
   pending
 end

@@ -38,28 +38,30 @@ Scenario: Create new session
   And I should see "Fall 2012"
   And I should see "Spring 2012"
   And I should see "Fall 2011"
-  
-Scenario: Import classes from last semester
-  Given I am on the "Fall 2012" Session Name Page
-  When I press "Import"
-  Then I should see "Art"
-  And I should see "Science"
-  When I check "Art"
-  And I check "Science"
-  And I press "Import"
-  Then I should be on the "Fall 2012" Session Name Page
-  And I should see "Art"
-  And I should see "Science"
 
-Scenario: Cancel import of classes from last semester
-  Given I am on the "Fall 2012" Session Name Page
-  When I press "Import"
-  Then I should see "Art"
-  And I should see "Science"
-  When I press "Cancel"
-  Then I should be on the "Fall 2012" Session Name Page
-  And I should not see "Science"
-  And I should not see "Art"
+##will implement import at a later date  
+#Scenario: Import classes from last semester
+#  Given I am on the "Fall 2012" Session Name Page
+#  When I press "Import"
+#  Then I should see "Art"
+#  And I should see "Science"
+#  When I check "Art"
+#  And I check "Science"
+#  And I press "Import"
+#  Then I should be on the "Fall 2012" Session Name Page
+#  And I should see "Art"
+#  And I should see "Science"
+
+##will implement import at a later date
+#Scenario: Cancel import of classes from last semester
+#  Given I am on the "Fall 2012" Session Name Page
+#  When I press "Import"
+#  Then I should see "Art"
+#  And I should see "Science"
+#  When I press "Cancel"
+#  Then I should be on the "Fall 2012" Session Name Page
+#  And I should not see "Science"
+#  And I should not see "Art"
   
 Scenario: View semester
   Given I am on the home page
@@ -73,12 +75,15 @@ Scenario: Add a semester with missing necessary fields
   When I follow "Create New Session"
   Then I am on the Session Name Page
   When I fill in "Session Name" with "Fall 2012"
-  And I fill in "Start Date" with "09/21/2012"
-  And I fill in "End Date" with "12/15/2012"
+  #And I fill in "Start Date" with "09/21/2012"
+  #And I fill in "End Date" with "12/15/2012"
   And I press "Save Semester"
   Then I should be on the Session Name Page
   And I should see "The lottery deadline could not be parsed"
   And I should see "The registration deadline could not be parsed."
+  And I should see "The start date cannot be parsed."
+  And I should see "Could not verify that the start date is before the end date"
+  And I should see "The end date cannot be parsed."
   
 Scenario: Access a semester not in the database
   Given I am on the "Fall 1990" Session Name Page

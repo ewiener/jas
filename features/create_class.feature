@@ -14,6 +14,32 @@ Given the following courses have been added:
     | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee |
     | Artistic Dance     | Fall 2011     | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 |
 
+Scenario: Attempt to delete a course that does not exist
+
+Scenario: Invalid Semester when trying to add a new course
+  Given I am on the "Fall 2112" new Course Name Page
+  Then I should be on the home page
+  And I should see "Error: Unable to find the semester for the course."
+
+Scenario: Edit Course
+  Given I am on the "Fall 2011" Session Name Page
+  And I press "Edit"
+  Then I should be on the "Fall 2011" "Artistic Dance" Course Edit Page
+  And I fill in "Start Time" with "6:45pm"
+  And I press "Update Course"
+  Then I should be on the "Fall 2011" Session Name Page
+  And I should see "Artistic Dance in Fall 2011 was successfully updated."
+  And I should see "6:45pm"
+  
+Scenario: Verify index redirects back to that semesters home page
+  Given I am on the "Fall 2011" Course Page
+  Then I should be on the "Fall 2011" Session Name Page
+  
+Scenario: Attempt to edit a course not in the database
+  Given I am on the "Fall 2011" "Drawing" Course Edit Page
+  Then I should be on the "Fall 2011" Session Name Page
+  And I should see "Unable to locate the course given for modification."
+
 @javascript
 Scenario: Delete a class
   Given I am on the "Fall 2011" Session Name Page
@@ -25,7 +51,7 @@ Scenario: Delete a class
   And I should not see "3:10pm"
 
 @javascript
-Scenario: Cancel elete a class
+Scenario: Cancel delete a class
   Given I am on the "Fall 2011" Session Name Page
   Then I should see "Artistic Dance"
   When I press "Delete"
@@ -56,7 +82,7 @@ Scenario: Create New Class
   And I fill in "Description" with "A class about numbers"
   And I check "course_wednesday"
   And I fill in "Start Time" with "2:10pm"
-  And I fill in "End Time" with "3:10pm"
+  And I fill in "End Time" with "5:10pm"
   And I fill in "Min. Class Size" with "1"
   And I fill in "Max. Class Size" with "20"
   And I fill in "Eligible Grades" with "1-5"
@@ -94,6 +120,7 @@ Scenario: Cancel Create New Class
 Scenario: Invalid class min/max
   Given I am on the "Fall 2011" Session Name Page
   And I follow "Add +"
+  Then I should be on the "Fall 2011" new Course Name Page 
   And I fill in "Min. Class Size" with "20"
   And I fill in "Max. Class Size" with "1"
   And I press "Add New Course"

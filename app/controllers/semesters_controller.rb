@@ -13,13 +13,18 @@ class SemestersController < ApplicationController
   end
 
   def new
-
+    if flash.key? :semester
+      @semester = flash[:semester]
+      render 'new'
+      return
+    end
   end
 
   def create
     @semester = Semester.create(params[:semester])
     if @semester.new_record?
       flash[:warning] = @semester.errors
+      flash[:semester] = @semester
       redirect_to new_semester_path
       return
     else

@@ -27,7 +27,7 @@ class TeachersController < ApplicationController
 
   def edit
     @teacher = Teacher.find_by_id params[:id]
-    return unless tecaher_is_valid(@teacher)
+    return unless teacher_is_valid(@teacher)
   end
 
   def update

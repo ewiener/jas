@@ -21,13 +21,13 @@ class CoursesController  < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @teachers = Teacher.find_all_by_semester_id @semester
     if flash.key? :course
       @course = flash[:course]
       render 'new'
       return
     end
-    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
-    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
 =begin

@@ -54,4 +54,15 @@ class Teacher < ActiveRecord::Base
     return self.classroom.length > 0
   end
 
+  def can_be_deleted?
+=begin
+    @semester = Semester.find_by_id self.semester
+    if @semester == nil
+      return true
+    end
+=end
+    courses = Courses.where(:semester => self.semester, :teacher => self.id)
+    return courses.length == 0
+  end
+
 end

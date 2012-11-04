@@ -40,6 +40,11 @@ class Ptainstructor < ActiveRecord::Base
     return self.address.length > 0
   end
 
+  def can_be_deleted?
+    courses = Courses.where(:semester => self.semester, :ptainstructor => self.id)
+    return courses.length == 0
+  end
+
   private
   def name_is_valid
     errors.add(:name, "Invalid string for name.") unless name_is_valid?

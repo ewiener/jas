@@ -13,6 +13,7 @@ class PtainstructorsController < ApplicationController
   end
 
   def new
+    @semester = Semester.find_by_id params[:semester_id]
     #@ptainstructor = Ptainstructor.new
   end
 

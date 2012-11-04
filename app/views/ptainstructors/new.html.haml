@@ -16,7 +16,7 @@
         Add New PTA Instructor
       .vspace20
       %div.span8.offset2
-        = form_tag ptainstructors_path, :class =>"form-horizontal" do
+        = form_tag semester_ptainstructors_path(@semester), :class =>"form-horizontal" do
           %div.control-group 
             = label :ptainstructor, :name, 'Instructor Name:', :class => "control-label"
             %div.controls

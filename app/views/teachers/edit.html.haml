@@ -1,0 +1,42 @@
+-# This file is app/views/teachers/edit.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      New Classroom Teacher
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar"
+    %div#container
+      = render :partial => "partial/user_error"
+      .clear
+      %h1.span8.offset2
+        Add New Classroom Teacher
+      .vspace20
+      %div.span8.offset2
+        = form_tag semester_teacher_path(@semester, @teacher),:method => :put, :class =>"form-horizontal" do
+          %div.control-group 
+            = label :teacher, :name, 'Teacher Name:', :class => "control-label"
+            %div.controls
+              = text_field :teacher, :name
+
+          %div.control-group
+            = label :teacher, :grade, 'Grade:', :class => "control-label"
+            %div.controls
+              = text_field :teacher, :grade
+
+          %div.control-group
+            = label :teacher, :classroom, 'Classroom:', :class => "control-label"
+            %div.controls
+              = text_field :teacher, :classroom
+
+          %div.control-group
+            %div.controls
+              = submit_tag 'Finish Editing Classroom Teacher', :class => "btn btn-warning"
+              = link_to 'Cancel', ".." , :class => "btn btn-info"
+          .clear
+          .vspace80
+
+

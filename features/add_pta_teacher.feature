@@ -15,10 +15,19 @@ Background:
   | Jim     | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   | Amy     | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
 
+Scenario: Invalid pta instructor to edit
+  Given I am on the "Fall 2011" "Henry" PTA Instructor Edit Page
+  Then I should be on the "Fall 2011" PTA Instructor home page
+  And I should see "Unable to locate the course given for modification."
+
+Scenario: Invalid semester
+  Given I am on the "Fall 2111" PTA Instructor home page
+  Then I should be on the home page
+  And I should see "Unable to locate the specified semester."
+
 Scenario: Edit PTA Instructor
   Given I am on the "Fall 2011" PTA Instructor home page
-  And I press "Edit"
-  Then I should be on the 
+  And I follow "Edit"
   And I fill in "Name" with "Mary"
   And I press "Update"
   Then I should be on the "Fall 2011" PTA Instructor home page

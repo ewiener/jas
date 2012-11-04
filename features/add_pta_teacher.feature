@@ -18,7 +18,7 @@ Background:
 Scenario: Invalid pta instructor to edit
   Given I am on the "Fall 2011" "Henry" PTA Instructor Edit Page
   Then I should be on the "Fall 2011" PTA Instructor home page
-  And I should see "Unable to locate the course given for modification."
+  And I should see "Could not find the corresponding PTA instructor."
 
 Scenario: Invalid semester
   Given I am on the "Fall 2111" PTA Instructor home page

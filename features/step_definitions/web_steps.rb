@@ -190,11 +190,13 @@ end
 #
 
 Then /^the "([^"]*)" drop-down should contain the option "([^"]*)"$/ do |id, value|
-  page.should.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
+  page.has_select?(id, :options => [value]).should == true
+  #page.should.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
 end
 
 Then /^the "([^"]*)" drop-down should not contain the option "([^"]*)"$/ do |id, value|
-  page.should_not.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
+  page.has_select?(id, :options => [value]).should == false
+  #page.should_not.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
 end
 
 When /^(?:|I )fill in the following:$/ do |fields|

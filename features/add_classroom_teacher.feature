@@ -68,6 +68,6 @@ Scenario: Cancel adding from the create class page
   And I follow "Add New Location"
   Then I should be on the "Fall 2011" Add New Classroom Page
   When I fill in the new classroom form correctly with classroom "Room 1"
-  And follow "cancel"
-  Then I should be on the "Create New Class" page
+  And follow "Cancel"
+  Then I should be on the "Fall 2011" new Course Name Page
   And the "locations" drop-down should not contain the option "Room 1"

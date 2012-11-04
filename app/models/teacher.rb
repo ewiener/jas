@@ -6,6 +6,7 @@ class Teacher < ActiveRecord::Base
                   :grade,
                   :classroom
 
+  belongs_to :semester
 
   validate :name_is_valid
   validate :grade_is_valid

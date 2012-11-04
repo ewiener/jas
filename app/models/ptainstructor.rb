@@ -9,7 +9,8 @@ class Ptainstructor < ActiveRecord::Base
                   :email,
                   :phone,
                   :address,
-                  :bio
+                  :bio,
+                  :semester
 
   validate :name_is_valid
   validate :email_is_valid

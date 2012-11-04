@@ -3,10 +3,16 @@ class Ptainstructor < ActiveRecord::Base
   has_many :courses, :through => :semesters
   #has_many :students, :through => :courses
 
-  validates :name_is_valid
-  validates :email_is_valid
-  validates :phone_is_valid
-  validates :address_is_valid
+  attr_accessible :name,
+                  :email,
+                  :phone,
+                  :address,
+                  :bio
+
+  validate :name_is_valid
+  validate :email_is_valid
+  validate :phone_is_valid
+  validate :address_is_valid
 
   public
   def name_is_valid?

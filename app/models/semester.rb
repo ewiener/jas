@@ -30,7 +30,7 @@ class Semester < ActiveRecord::Base
 
   has_many :courses
   has_many :students, :through => :courses
-  has_many :ptainstructors, :through => :courses
+  has_many :ptainstructors
   has_many :teachers#, :through => :courses
 
   #TODO Validate fee

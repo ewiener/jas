@@ -13,6 +13,18 @@ describe Course do
       @course.number_of_classes = -1
       @course.number_of_classes_is_valid?.should == false
     end
+
+    it 'I test number_of_classes_is_valid? with nil' do
+      @course = Course.new
+      @course.number_of_classes_is_valid?.should == false
+    end
+
+    it 'I test number_of_classes_is_valid? with 0' do
+      @course = Course.new
+      @course.number_of_classes = 0
+      @course.number_of_classes_is_valid?.should == false
+    end
+
   end
 
   describe 'Test if days of week are valid' do
@@ -26,6 +38,12 @@ describe Course do
       @course = Course.new
       @course.days_of_week_are_valid?.should == false
     end
+
+    it 'I test days_of_week_are_valid? with some nil days' do
+      @course = Course.new
+      @course.update_attributes(:monday => true, :tuesday => false, :wednesday => true, :thursday => false, :friday => false, :saturday => false)
+      @course.days_of_week_are_valid?.should == false
+    end
   end
 
   describe 'Test comparing class min and class max' do
@@ -34,6 +52,14 @@ describe Course do
       @course.class_min = 5
       @course.class_max = 2
       @course.class_min_is_valid?.should == false
+    end
+
+    it 'I test class_min_is_valid? and class_max_is_valid? with equal min and max' do
+      @course = Course.new
+      @course.class_min = 5
+      @course.class_max = 5
+      @course.class_min_is_valid?.should == true
+      @course.class_min_is_valid?.should == true
     end
 
     it 'I test class_max_is_valid? with larger class_min than class_max' do
@@ -49,6 +75,18 @@ describe Course do
       @course.class_max = 5
       @course.class_min_is_valid?.should == true
       @course.class_max_is_valid?.should == true
+    end
+
+    it 'I test class_min_is_valid? and class_max_is_valid? with nil min and max' do
+     @course = Course.new
+      @course.class_min_is_valid?.should == false
+      @course.class_max_is_valid?.should == false
+    end
+
+    it 'I test class_min_is_valid? with nil min' do
+      @course = Course.new
+      @course.class_max = 15
+      @course.class_min_is_valid?.should == false
     end
   end
 end

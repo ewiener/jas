@@ -125,22 +125,22 @@ Scenario: Cancel Create New Class
 #  Then I should be on the "Fall 2011" Create Class Page
 #  And the "Class Name" field should contain "Math"
   
-Scenario: Invalid class min/max
-  Given I am on the "Fall 2011" Session Name Page
-  And I follow "Add +"
-  Then I should be on the "Fall 2011" new Course Name Page 
-  And I fill in "Min. Class Size" with "20"
-  And I fill in "Max. Class Size" with "1"
-  And I press "Add New Course"
-  Then I should see "Invalid class min value"
-  Then I should see "Invalid class max value"
+#Scenario: Invalid class min/max
+#  Given I am on the "Fall 2011" Session Name Page
+#  And I follow "Add +"
+#  Then I should be on the "Fall 2011" new Course Name Page 
+#  And I fill in "Min. Class Size" with "20"
+#  And I fill in "Max. Class Size" with "1"
+#  And I press "Add New Course"
+#  Then I should see "Invalid class min value"
+#  Then I should see "Invalid class max value"
   
-Scenario: Invalid course fee
-  Given I am on the "Fall 2011" Session Name Page
-  And I follow "Add +"
-  And I fill in "Price Per Student Per Meeting" with "-10"
-  And I press "Add New Course"
-  Then I should see "The fee per meeting is invalid"
+#Scenario: Invalid course fee
+#  Given I am on the "Fall 2011" Session Name Page
+#  And I follow "Add +"
+#  And I fill in "Price Per Student Per Meeting" with "-10"
+#  And I press "Add New Course"
+#  Then I should see "The fee per meeting is invalid"
   
 #Scenario: Invalid course start/end time
 #  Given I am on the "Fall 2011" Session Name Page

@@ -59,6 +59,14 @@ Given /^the following classrooms are in the database:$/ do |table|
  end
 end
 
+Given /^the following pta instructors exist:$/ do |table|
+  table.hashes.each do |instructor|
+    sem_id = Semester.find_by_name(instructor[:semester])
+    instructor[:semester] = sem_id
+    Ptainstructor.create(instructor)
+  end
+end
+
 Given /^the following usernames and passwords exist:$/ do |table|
   table.hashes.each do |user|
     User.create(user)

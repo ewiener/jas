@@ -33,14 +33,17 @@ ActiveRecord::Schema.define(:version => 20121104011445) do
     t.float   "fee_for_additional_materials"
     t.float   "total_fee"
     t.integer "semester_id"
+    t.integer "ptainstructor_id"
+    t.integer "teacher_id"
   end
 
   create_table "ptainstructors", :force => true do |t|
-    t.text "name"
-    t.text "email"
-    t.text "phone"
-    t.text "address"
-    t.text "bio"
+    t.text    "name"
+    t.text    "email"
+    t.text    "phone"
+    t.text    "address"
+    t.text    "bio"
+    t.integer "semester_id"
   end
 
   create_table "semesters", :force => true do |t|

@@ -19,7 +19,7 @@ class TeachersController < ApplicationController
       redirect_to semesters_path
       return
     end
-    @teachers = Teacher.all
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
   def new

@@ -13,6 +13,7 @@ Background:
   Given the following pta instructors exist:
   | name    | email     | phone     | address       | bio       | semester  |
   | Jim     | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  | Amy     | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
 
 Scenario: Edit PTA Instructor
   Given I am on the "Fall 2011" PTA Instructor home page

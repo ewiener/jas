@@ -43,6 +43,12 @@ describe Ptainstructor do
       @ptainstructor.email = "john@gmail"
       @ptainstructor.email_is_valid?.should == false
     end
+
+    it 'I test email_is_valid? with invalid email john.com' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email = "john.com"
+      @ptainstructor.email_is_valid?.should == false
+    end
   end
 
   describe 'Test if phone is valid' do
@@ -56,6 +62,18 @@ describe Ptainstructor do
       @ptainstructor = Ptainstructor.new
       @ptainstructor.phone = "925-123-4567"
       @ptainstructor.phone_is_valid?.should == true
+    end
+
+    it 'I test phone_is_valid? with valid number with no spaces' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "9251234567"
+      @ptainstructor.phone_is_valid?.should == true
+    end
+
+    it 'I test phone_is_valid? with invalid number ---------' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "---------"
+      @ptainstructor.phone_is_valid?.should == false
     end
 
     it 'I test phone_is_valid? with invalid number with 1' do

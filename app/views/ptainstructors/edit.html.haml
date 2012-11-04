@@ -4,7 +4,7 @@
 %html
   %head
     %title
-      New PTA Instructor
+      Edit PTA Instructor
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
@@ -13,10 +13,10 @@
       = render :partial => "partial/ptainstructor_error"
       .clear
       %h1.span6.offset3
-        Add New PTA Instructor
+        Edit PTA Instructor
       .vspace20
       %div.span8.offset2
-        = form_tag semester_ptainstructors_path(@semester), :class =>"form-horizontal" do
+        = form_tag semester_ptainstructor_path(@semester,@ptainstructor), :method => "put", :class =>"form-horizontal" do
           %div.control-group 
             = label :ptainstructor, :name, 'Instructor Name:', :class => "control-label"
             %div.controls
@@ -44,8 +44,8 @@
 
           %div.control-group
             %div.controls
-              = submit_tag 'Add New PTA Instructor', :class => "btn btn-info"
-              = link_to 'Cancel', ptainstructors_path, :class => "btn btn-info"
+              = submit_tag 'Update PTA Instructor', :class => "btn btn-warning"
+              = link_to 'Cancel', semester_ptainstructors_path(@semester), :class => "btn btn-info"
           .clear
           .vspace80
 

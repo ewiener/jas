@@ -10,16 +10,16 @@ class TeachersController < ApplicationController
     if params[:semester_id]
       @semester = Semester.find_by_id params[:semester_id]
       if not @semester
-        flash[:warning] = "Unable to locate the specified semester."
-        redirect_to semester_index
+        flash[:warning] = [[:semester_id, "Unable to locate the specified semester."]]
+        redirect_to semesters_path
         return
       end
-      @teachers = Teacher.all
     else
-      flash[:warning] = "No semester was associated with the teachers."
-      redirect_to semester_index
+      flash[:warning] = [[:semester_id, "No semester was given."]]
+      redirect_to semesters_path
       return
     end
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
   def new

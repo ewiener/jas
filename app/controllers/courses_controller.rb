@@ -1,19 +1,20 @@
 class CoursesController  < ApplicationController
   protect_from_forgery
+=begin
   def show
     @course = Course.find_by_id params[:course_id]
     if not @course
       flash[:warning] = @course.errors
-      redirect_to semester_index
+      redirect_to semesters_path
     end
   end
-
+=end
   def index
     #redirect to the semester homepage
     if params[:semester_id]
       redirect_to semester_path( params[:semester_id] )# semester page
     else
-      redirect_to semester_index
+      redirect_to semesters_path
     end
   end
 
@@ -25,6 +26,8 @@ class CoursesController  < ApplicationController
       render 'new'
       return
     end
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
 =begin
@@ -68,6 +71,8 @@ class CoursesController  < ApplicationController
       redirect_to semester_path(@semester)
       return
     end
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
   def destroy

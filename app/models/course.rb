@@ -40,7 +40,7 @@ class Course < ActiveRecord::Base
   #has location through teacher
 
   belongs_to :semester
-  belongs_to :ptainstructors
+  belongs_to :ptainstructor
   has_many :students
   belongs_to :teacher
 

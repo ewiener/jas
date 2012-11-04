@@ -56,7 +56,7 @@ class CoursesController  < ApplicationController
       return
     end
     flash[:notice] = "Successfully created #{@course.name}."
-    redirect_to semester_path( @semester.id )
+    redirect_to semester_path(@semester)
   end
 
   def edit

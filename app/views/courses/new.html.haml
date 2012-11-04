@@ -16,7 +16,7 @@
         Create New Course
       .vspace20
       %div.span8.offset2
-        = form_tag semester_courses_path(@semester.id), :class =>"form-horizontal" do
+        = form_tag semester_courses_path(@semester), :class =>"form-horizontal" do
           %div.control-group 
             = label :course, :name, 'Course Name:', :class => "control-label"
             %div.controls

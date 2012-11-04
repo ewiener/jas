@@ -35,12 +35,12 @@ class PtainstructorsController < ApplicationController
     #@ptainstructor.update_attributes(params[:ptainstructor])
     if @ptainstructor.new_record?
       flash[:warning] = @ptainstructor.errors
-      redirect_to new_ptainstructor_path
+      redirect_to new_semester_ptainstructor_path
       return
     else
       flash[:notice] = "#{@ptainstructor.name} was successfully added to the database."
+      redirect_to semester_ptainstructors_path
     end
-    redirect_to ptainstructors_path
   end
 
   def edit

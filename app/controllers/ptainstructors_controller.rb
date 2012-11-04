@@ -31,11 +31,12 @@ class PtainstructorsController < ApplicationController
 
   def create
     #check for admin
+    @semester = Semester.find_by_id params[:semester_id]
     @ptainstructor = Ptainstructor.create(params[:ptainstructor])
     #@ptainstructor.update_attributes(params[:ptainstructor])
     if @ptainstructor.new_record?
       flash[:warning] = @ptainstructor.errors
-      redirect_to new_semester_ptainstructor_path
+      redirect_to new_semester_ptainstructor_path(@semester)
       return
     else
       flash[:notice] = "#{@ptainstructor.name} was successfully added to the database."

@@ -9,6 +9,18 @@ class PtainstructorsController < ApplicationController
   end
 
   def index
+    if params[:semester_id]
+      @semester = Semester.find_by_id params[:semester_id]
+      if not @semester
+        flash[:warning] = [[:semester_id, "Unable to locate the specified semester."]]
+        redirect_to semesters_path
+        return
+      end
+    else
+      flash[:warning] = [[:semester_id, "No semester was given."]]
+      redirect_to semesters_path
+      return
+    end
     @ptainstructors = Ptainstructor.all
   end
 

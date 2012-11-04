@@ -14,12 +14,12 @@ class TeachersController < ApplicationController
         redirect_to semesters_path
         return
       end
-      @teachers = Teacher.all
     else
       flash[:warning] = [[:semester_id, "No semester was given."]]
       redirect_to semesters_path
       return
     end
+    @teachers = Teacher.all
   end
 
   def new

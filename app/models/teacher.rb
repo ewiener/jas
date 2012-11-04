@@ -61,7 +61,7 @@ class Teacher < ActiveRecord::Base
       return true
     end
 =end
-    courses = Courses.where(:semester => self.semester, :teacher => self.id)
+    courses = Course.where(:semester_id => self.semester, :teacher_id => self.id)
     return courses.length == 0
   end
 

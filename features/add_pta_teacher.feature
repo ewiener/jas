@@ -18,7 +18,7 @@ Scenario: Edit PTA Instructor
   Given I am on the "Fall 2011" PTA Instructor home page
   And I press "Edit"
   Then I should be on the 
-  And I should fill in "Name" with "Mary"
+  And I fill in "Name" with "Mary"
   And I press "Update"
   Then I should be on the "Fall 2011" PTA Instructor home page
   And I should see "information was successfully updated."

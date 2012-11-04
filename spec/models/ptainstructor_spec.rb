@@ -1,0 +1,99 @@
+require 'spec_helper'
+
+describe Ptainstructor do
+  describe 'Test valid name of pta instructor' do
+    it 'I test name_is_valid? with valid name' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.name = "Jane Johnson"
+      @ptainstructor.name_is_valid?.should == true
+    end
+
+    it 'I test name_is_valid? with invalid name "" ' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.name = ""
+      @ptainstructor.name_is_valid?.should == false
+    end
+
+    it 'I test name_is_valid? with invalid name nil' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.name_is_valid?.should == false
+    end
+  end
+
+  describe 'Test valid email of pta instructor' do
+    it 'I test email_is_valid? with valid email' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email = "john@gmail.com"
+      @ptainstructor.email_is_valid?.should == true
+    end
+
+    it 'I test email_is_valid? with invalid email "" ' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email = ""
+      @ptainstructor.email_is_valid?.should == false
+    end
+
+    it 'I test email_is_valid? with invalid email nil' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email_is_valid?.should == false
+    end
+
+    it 'I test email_is_valid? with invalid email john@gmail' do #returns true but should return false
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email = "john@gmail"
+      @ptainstructor.email_is_valid?.should == false
+    end
+  end
+
+  describe 'Test if phone is valid' do
+    it 'I test phone_is_valid? with valid number' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "(925) 123-4567"
+      @ptainstructor.phone_is_valid?.should == true
+    end
+
+    it 'I test phone_is_valid? with valid number without ()' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "925-123-4567"
+      @ptainstructor.phone_is_valid?.should == true
+    end
+
+    it 'I test phone_is_valid? with invalid number with 1' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "1-925-123-4567"
+      @ptainstructor.phone_is_valid?.should == false
+    end
+
+    it 'I test phone_is_valid? with invalid number with less than 9 digits' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "(925) 123-456"
+      @ptainstructor.phone_is_valid?.should == false
+    end
+
+    it 'I test phone_is_valid? with invalid number with more than 10 digits' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.phone = "12 (925) 123-4567"
+      @ptainstructor.phone_is_valid?.should == false
+    end
+  end
+
+  describe 'Test valid address' do
+    it 'I test address_is_valid? with valid address' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.address = "700 Main St. SF, CA 94109"
+      @ptainstructor.address_is_valid?.should == true
+    end
+
+    it 'I test address_is_valid? with invalid address "" ' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.address = ""
+      @ptainstructor.address_is_valid?.should == false
+    end
+
+    it 'I test address_is_valid? with invalid address nil' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.address_is_valid?.should == false
+    end
+  end
+end
+

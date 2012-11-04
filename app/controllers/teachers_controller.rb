@@ -19,7 +19,7 @@ class TeachersController < ApplicationController
       redirect_to semesters_path
       return
     end
-    @teachers = Teacher.all
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
   def new
@@ -49,20 +49,24 @@ class TeachersController < ApplicationController
   end
 
   def edit
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
     @teacher = Teacher.find_by_id params[:id]
     return unless teacher_is_valid(@teacher)
   end
 
   def update
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
     @teacher = Teacher.find_by_id params[:id]
     return unless teacher_is_valid(@teacher)
 
-    if @teacher.update_attributes(params[:id])
-      flash[:notice] = "#{teacher.name}'s entry was successfully updated."
-      redirect_to teacher_path(@teacher)
+    if @teacher.update_attributes(params[:teacher])
+      flash[:notice] = "#{@teacher.name}'s entry was successfully updated."
+      redirect_to semester_teachers_path(@semester)
     else
       flash[:warning] = @teacher.errors
-      redirect_to edit_teacher_path(@teacher)
+      redirect_to edit_semester_teacher_path(@semester, @teacher)
     end
   end
 
@@ -78,14 +82,14 @@ class TeachersController < ApplicationController
       flash[:warning] = @teacher.errors
     end
 
-    redirect_to teachers_path
+    redirect_to semester_teachers_path
   end
 
   private
   def teacher_is_valid(teacher)
     if(teacher == nil)
       flash[:warning] = [[:id, "Could not find the corresponding teacher."]]
-      redirect_to teachers_path
+      redirect_to semester_teachers_path
       return false
     end
     return true

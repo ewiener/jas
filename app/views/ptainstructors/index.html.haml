@@ -24,5 +24,13 @@
           - @ptainstructors.each do |ptainstructor|
             %tr
               %td.cell_center{:colspan => "2"}
-                = ptainstructor.name
-                
+                %div{:style=>"float:left;margin-top:4px;"}
+                  = ptainstructor.name
+                %span{:style=>"float:left;margin-left:140px;margin-top:4px;"}
+                  = ptainstructor.email
+                %span{:style=>"float:left;margin-left:60px;margin-top:4px;"}
+                  = ptainstructor.phone
+                %a.btn.btn-warning.span1{:href => "#{edit_semester_ptainstructor_path(@semester,ptainstructor)}",:style=>"float:left;margin-top:0;margin-left:80px;"}
+                  Edit
+                %a.btn.btn-danger.span1{:style=>"float:left;margin-left:10px;margin-top:0;"}
+                  Delete

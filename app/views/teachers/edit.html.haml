@@ -1,157 +1,42 @@
--# This file is app/views/courses/new.html.haml
+-# This file is app/views/teachers/edit.html.haml
+
 !!! 5
 
 %html
   %head
     %title
-      Edit Course
+      New Classroom Teacher
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
     = render :partial => "partial/topbar"
     %div#container
-      = render :partial => "partial/course_error", :locals => {:course => @course}
+      = render :partial => "partial/user_error"
       .clear
-      %h1.span6.offset3
-        Edit Course
+      %h1.span8.offset2
+        Add New Classroom Teacher
       .vspace20
       %div.span8.offset2
-        = form_tag semester_course_path(@semester,@course), :method => "put", :class =>"form-horizontal" do
+        = form_tag semester_teacher_path(@semester, @teacher),:method => :put, :class =>"form-horizontal" do
           %div.control-group 
-            = label :course, :name, 'Course Name:', :class => "control-label"
+            = label :teacher, :name, 'Teacher Name:', :class => "control-label"
             %div.controls
-              = text_field :course, :name
+              = text_field :teacher, :name
 
           %div.control-group
-            = label :temp, :instructor, 'PTA Instructor:', :class => "control-label"
+            = label :teacher, :grade, 'Grade:', :class => "control-label"
             %div.controls
-              = text_field :temp, :instructor
+              = text_field :teacher, :grade
 
           %div.control-group
-            = label :course, :description, 'Description:', :class => "control-label"
+            = label :teacher, :classroom, 'Classroom:', :class => "control-label"
             %div.controls
-              = text_area :course, :description, :rows => 5
-
-          %div.control-group
-            = label :course, :start_time, 'Start Time:', :class => "control-label"
-            %div.controls
-              = text_field :course, :start_time, :placeholder => "e.g. 3:00PM"
-          
-          %div.control-group
-            = label :course, :end_time, 'End Time:', :class => "control-label"
-            %div.controls
-              = text_field :course, :end_time, :placeholder => "e.g.  5:00PM"
-          // %div.control-group
-          //   = label :course, :start_time, 'Start Time', :class => "control-label"
-          //   %div.controls
-          //     = text_field :course, :start_time_hour, :class => "time time-input"
-          //     %span{:class => "time-input-colon"}
-          //       =":"
-          //     = text_field :course, :start_time_minute, :class => "time time-input"
-          //     = select :course, :start_time_type, %w[AM PM 24HR]
-          //     .clear
-
-          // %div.control-group
-          //   = label :course, :end_time, 'End Time', :class => "control-label"
-          //   %div.controls
-          //     = text_field :course, :end_time_hour, :class => "time time-input"
-          //     %span{:class => "time-input-colon"}
-          //       =":"
-          //     = text_field :course, :end_time_minute, :class => "time time-input"
-          //     = select :course, :end_time_type, %w[AM PM 24HR]
-          //     .clear
-
-          // start of DAYS
-
-          .vspace20
-
-          %div.control-group
-            .days
-              = label :course, 'Sun:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :sunday
-
-            .days
-              = label :course, 'Mon:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :monday
-
-            .days
-              = label :course, 'Tue:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :tuesday
-
-            .days
-              = label :course, 'Wed:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :wednesday
-
-            .days
-              = label :course, 'Thu:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :thursday
-
-            .days
-              = label :course, 'Fri:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :friday
-
-            .days
-              = label :course, 'Sat:', :class => "control-label checkbox inline"
-              %div.controls
-                = check_box :course, :saturday
-              .clear
-            .clear
-            
-            .vspace20
-
-          // end of DAYS
-
-          %div.control-group
-            = label :temp, :location, 'Location:', :class => "control-label"
-            %div.controls
-              = text_field :temp, :location
-
-          %div.control-group
-            = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"
-            %div.controls
-              = text_field :course, :grade_range
-
-          %div.control-group{:style=>"width:200px;"}
-            = label :course, :class_min, 'Min. Class Size:', :class => "control-label"
-            %div.controls
-              = text_field :course, :class_min, :class => "span1"
-
-          %div.control-group{:style=>"width:200px;"}
-            = label :course, :class_max, 'Max. Class Size:', :class => "control-label"
-            %div.controls
-              = text_field :course, :class_max, :class => "span1"
-          .clear
-
-          %div.control-group
-            = label :course, :fee_per_meeting, 'Price Per Student Per Meeting:', :class => "control-label"
-            %div.controls
-              = text_field :course, :fee_per_meeting
-
-          %div.control-group
-            = label :course, :number_of_classes, 'Number of Meetings:', :class => "control-label"
-            %div.controls
-              = text_field :course, :number_of_classes
-
-          %div.control-group
-            = label :course, :fee_for_additional_materials, 'Fee for Additional Materials:', :class => "control-label"
-            %div.controls
-              = text_field :course, :fee_for_additional_materials
-
-          %div.control-group
-            = label :course, :total_fee, 'Total Fee:', :class => "control-label"
-            %div.controls
-              = text_field :course, :total_fee
+              = text_field :teacher, :classroom
 
           %div.control-group
             %div.controls
-              = submit_tag 'Update Course', :class => "btn btn-warning"
-              = link_to 'Cancel', semester_path(@semester), :class => "btn"
+              = submit_tag 'Finish Editing Classroom Teacher', :class => "btn btn-warning"
+              = link_to 'Cancel', ".." , :class => "btn btn-info"
           .clear
           .vspace80
 

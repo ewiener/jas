@@ -1,13 +1,16 @@
 class Ptainstructor < ActiveRecord::Base
 
-  has_many :courses, :through => :semesters
+  has_many :courses
+  has_many :teachers, :through => :courses
+  belongs_to :semester
   #has_many :students, :through => :courses
 
   attr_accessible :name,
                   :email,
                   :phone,
                   :address,
-                  :bio
+                  :bio,
+                  :semester
 
   validate :name_is_valid
   validate :email_is_valid

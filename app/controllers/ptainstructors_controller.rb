@@ -2,7 +2,7 @@ class PtainstructorsController < ApplicationController
   protect_from_forgery
 
   def show
-    #Need to check for admin
+    #Need to check for admins
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
 
@@ -26,41 +26,52 @@ class PtainstructorsController < ApplicationController
 
   def new
     @semester = Semester.find_by_id params[:semester_id]
-    #@ptainstructor = Ptainstructor.new
+    return unless semester_is_valid(@semester)
+    if flash.key? :ptainstructor
+      @ptainstructor = flash[:ptainstructor]
+      render 'new'
+      return
+    end
   end
 
   def create
     #check for admin
-    @ptainstructor = Ptainstructor.create(params[:ptainstructor])
-    #@ptainstructor.update_attributes(params[:ptainstructor])
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+
+    @ptainstructor = @semester.ptainstructors.create(params[:ptainstructor])
     if @ptainstructor.new_record?
       flash[:warning] = @ptainstructor.errors
-      redirect_to new_semester_ptainstructor_path
+      flash[:ptainstructor] = @ptainstructor
+      redirect_to new_semester_ptainstructor_path(@semester)
       return
     else
       flash[:notice] = "#{@ptainstructor.name} was successfully added to the database."
-      redirect_to semester_ptainstructors_path
+      redirect_to semester_ptainstructors_path(@semester)
     end
   end
 
   def edit
     #check if admin or if not, check to see if the logged in ptainstructor id is the id
     #of the ptainstructor being edited
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
   end
 
   def update
     #Check if admin or if the current ptainstructor matches the id of the ptainstructor being modified
+    @semester = Semester.find_by_id params[:semester_id]
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
 
     if @ptainstructor.update_attributes(params[:ptainstructor])
       flash[:notice] = "#{@ptainstructor.name}'s information was successfully updated."
-      redirect_to ptainstructors_path
+      redirect_to semester_ptainstructors_path(@semester)
     else
       flash[:warning] = @ptainstructor.errors
-      redirect_to edit_ptainstructor_path
+      redirect_to edit_semester_ptainstructor_path(@semester,@ptainstructor)
     end
   end
 
@@ -77,13 +88,23 @@ class PtainstructorsController < ApplicationController
       flash[:warning] = @ptainstructor.errors
     end
 
-    redirect_to ptainstructors_path
+    redirect_to semester_ptainstructors_path
   end
 
   def ptainstructor_is_valid(user)
     if(user == nil)
       flash[:warning] = [[:id, "Could not find the corresponding PTA instructor."]]
-      redirect_to ptainstructors_path
+      redirect_to semester_ptainstructors_path
+      return false
+    end
+    return true
+  end
+
+  private
+  def semester_is_valid(semester, message="Error: Unable to find the semester for the ptainstructor.")
+    if not semester
+      flash[:warning] = [[:semester_id, message]]
+      redirect_to semesters_path, :method => :get
       return false
     end
     return true

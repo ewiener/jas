@@ -1,4 +1,4 @@
--# This file is app/views/courses/new.html.haml
+-# This file is app/views/courses/edit.html.haml
 !!! 5
 
 %html
@@ -151,7 +151,7 @@
           %div.control-group
             %div.controls
               = submit_tag 'Update Course', :class => "btn btn-warning"
-              = link_to 'Cancel', semester_path(@semester), :class => "btn"
+              = link_to 'Cancel', semester_ptainstructors_path(@semester), :class => "btn"
           .clear
           .vspace80
 

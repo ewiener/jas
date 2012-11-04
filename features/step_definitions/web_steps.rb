@@ -59,6 +59,14 @@ Given /^the following classrooms are in the database:$/ do |table|
  end
 end
 
+Given /^the following pta instructors exist:$/ do |table|
+  table.hashes.each do |instructor|
+    sem_id = Semester.find_by_name(instructor[:semester])
+    instructor[:semester] = sem_id
+    Ptainstructor.create(instructor)
+  end
+end
+
 Given /^the following usernames and passwords exist:$/ do |table|
   table.hashes.each do |user|
     User.create(user)
@@ -180,6 +188,15 @@ end
 # TODO: Add support for checkbox, select or option
 # based on naming conventions.
 #
+
+Then /^the "([^"]*)" drop-down should contain the option "([^"]*)"$/ do |id, value|
+  page.should.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
+end
+
+Then /^the "([^"]*)" drop-down should not contain the option "([^"]*)"$/ do |id, value|
+  page.should_not.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
+end
+
 When /^(?:|I )fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
     When %{I fill in "#{name}" with "#{value}"}

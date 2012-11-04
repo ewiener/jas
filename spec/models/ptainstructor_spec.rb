@@ -49,6 +49,18 @@ describe Ptainstructor do
       @ptainstructor.email = "john.com"
       @ptainstructor.email_is_valid?.should == false
     end
+
+    it 'I test email_is_valid? with invalid email john' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email = "john"
+      @ptainstructor.email_is_valid?.should == false
+    end
+
+    it 'I test email_is_valid? with @.com' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.email = "@.com"
+      @ptainstructor.email_is_valid?.should == false
+    end
   end
 
   describe 'Test if phone is valid' do

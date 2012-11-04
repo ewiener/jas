@@ -71,7 +71,7 @@ class TeachersController < ApplicationController
   end
 
   def destroy
-    @teacher = Teacher.find_by_id
+    @teacher = Teacher.find_by_id(params[:id])
     return unless teacher_is_valid(@teacher)
 
     name = @teacher.name

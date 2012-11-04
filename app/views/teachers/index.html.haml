@@ -43,4 +43,4 @@
               %td.cell_center
                 = button_to "Edit", edit_semester_teacher_path(@semester,teacher), :method => :get, :class => "btn btn-warning"
               %td.cell_center
-                = button_to "Delete", semester_teachers_path(@semester), :method => :get, :class => "btn btn-danger" unless not teacher.can_be_deleted?
+                = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger" unless not teacher.can_be_deleted?

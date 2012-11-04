@@ -25,4 +25,5 @@
           - @teachers.each do |teacher|
             %tr
               %td.cell_center{:colspan => "2"}
-                = link_to teacher.name, semester_teacher_path(teacher)
+                = link_to "#{teacher.name} - #{teacher.grade} - #{teacher.classroom}", edit_semester_teacher_path(@semester,teacher)
+                /#{teacher.name} - #{teacher.grade} - #{teacher.classroom}

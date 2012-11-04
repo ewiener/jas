@@ -4,7 +4,8 @@ class Teacher < ActiveRecord::Base
 
   attr_accessible :name,
                   :grade,
-                  :classroom
+                  :classroom,
+                  :semester
 
   belongs_to :semester
 
@@ -19,7 +20,7 @@ class Teacher < ActiveRecord::Base
   end
 
   # Used by validation check to verify that the grade is valid
-  def name_is_valid
+  def grade_is_valid
     errors.add(:grade,"Invalid empty string for grade.") unless grade_is_valid?
   end
 

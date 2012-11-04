@@ -19,9 +19,10 @@
             %td Current PTA Instructors:
             / %td.cell_right#create_new_semester
             %td
-              = link_to "Add New PTA Instructor", new_ptainstructor_path
+              = link_to "Add New PTA Instructor", new_semester_ptainstructor_path(@semester)
         %tbody
           - @ptainstructors.each do |ptainstructor|
             %tr
               %td.cell_center{:colspan => "2"}
-                = link_to ptainstructor.name, ptainstructor_path(ptainstructor)
+                = ptainstructor.name
+                

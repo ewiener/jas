@@ -89,11 +89,13 @@ module NavigationHelpers
           end
       end
       
-    when /^the PTA Instructor home page$/
-      "/users"
+    when /^the "(.+)" PTA Instructor home page$/
+      semester_id = Semester.find_by_name($1).id
+      "/semesters/#{semester_id}/ptainstructors"
       
-    when /^the Add New PTA Teacher Page$/
-      "/users/new"
+    when /^the "(.+)" Add New PTA Teacher Page$/
+      semester_id = Semester.find_by_name($1).id
+      "/semesters/#{semester_id}/ptainstructors/new"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -16,7 +16,7 @@
         Add New Classroom Teacher
       .vspace20
       %div.span8.offset2
-        = form_tag users_path, :class =>"form-horizontal" do
+        = form_tag semester_teachers_path(@semester), :class =>"form-horizontal" do
           %div.control-group 
             = label :teacher, :name, 'Teacher Name:', :class => "control-label"
             %div.controls
@@ -31,10 +31,6 @@
             = label :teacher, :classroom, 'Classroom:', :class => "control-label"
             %div.controls
               = text_field :teacher, :classroom
-
-              = hidden_field_tag "teacher[active]", true
-
-              = hidden_field_tag "teacher[semester_id]", 1
 
           %div.control-group
             %div.controls

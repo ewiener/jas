@@ -7,21 +7,44 @@ class TeachersController < ApplicationController
   end
 
   def index
+    if params[:semester_id]
+      @semester = Semester.find_by_id params[:semester_id]
+      if not @semester
+        flash[:warning] = [[:semester_id, "Unable to locate the specified semester."]]
+        redirect_to semesters_path
+        return
+      end
+    else
+      flash[:warning] = [[:semester_id, "No semester was given."]]
+      redirect_to semesters_path
+      return
+    end
     @teachers = Teacher.all
   end
 
   def new
-
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+    if flash.key? :course
+      @course = flash[:course]
+      render 'new'
+      return
+    end
   end
 
   def create
-    @teacher = Teacher.create(params[:teacher])
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the teacher.")
+
+    @teacher = @semester.teachers.create(params[:teacher])
     if @teacher.new_record?
       flash[:warning] = @teacher.errors
-      redirect_to new_teacher_path(@teacher)
+      flash[:teacher] = @teacher
+      redirect_to new_semester_teacher_path(@semester)
       return
     else
       flash[:notice] = "Successfully added #{@teacher.name} to the database."
+      redirect_to semester_teachers_path(@semester)
     end
   end
 
@@ -58,7 +81,7 @@ class TeachersController < ApplicationController
     redirect_to teachers_path
   end
 
-
+  private
   def teacher_is_valid(teacher)
     if(teacher == nil)
       flash[:warning] = [[:id, "Could not find the corresponding teacher."]]
@@ -67,4 +90,16 @@ class TeachersController < ApplicationController
     end
     return true
   end
+
+
+  private
+  def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
+    if not semester
+      flash[:warning] = [[:semester_id, message]]
+      redirect_to semesters_path, :method => :get
+      return false
+    end
+    return true
+  end
+
 end

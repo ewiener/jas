@@ -1,19 +1,20 @@
 class CoursesController  < ApplicationController
   protect_from_forgery
+=begin
   def show
     @course = Course.find_by_id params[:course_id]
     if not @course
       flash[:warning] = @course.errors
-      redirect_to semester_index
+      redirect_to semesters_path
     end
   end
-
+=end
   def index
     #redirect to the semester homepage
     if params[:semester_id]
       redirect_to semester_path( params[:semester_id] )# semester page
     else
-      redirect_to semester_index
+      redirect_to semesters_path
     end
   end
 
@@ -56,7 +57,7 @@ class CoursesController  < ApplicationController
       return
     end
     flash[:notice] = "Successfully created #{@course.name}."
-    redirect_to semester_path( @semester.id )
+    redirect_to semester_path(@semester)
   end
 
   def edit

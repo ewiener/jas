@@ -11,7 +11,7 @@ Background:
     | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            | 35  |
 
 Scenario: Creating from the PTA Instructor home page
-  Given I am on the PTA Instructor home page
+  Given I am on the "Fall 2011" PTA Instructor home page
   And I follow "Add New PTA Instructor"
   Then I should be on the Add New PTA Teacher Page
   When I fill in the new pta form correctly with name "Michelle"
@@ -22,25 +22,25 @@ Scenario: Creating from the PTA Instructor home page
 Scenario: Creating from the create class page
   Given I am on the "Fall 2011" Create Class Page
   And I follow "Add New PTA Instructor"
-  Then I should be on the Add New PTA Teacher Page
+  Then I should be on the "Fall 2011" Add New PTA Teacher Page
   When I fill in the new pta form correctly with name "Nancy"
   And press "Add New PTA Instructor"
   Then I should be on the "Fall 2011" Create Class Page
   And I should see "Nancy"
   
 Scenario: Cancel creating from the PTA Instructor home page
-  Given I am on the PTA Instructor home page
+  Given I am on the "Fall 2011" PTA Instructor home page
   And I follow "Add New PTA Instructor"
   Then I should be on the Add New PTA Teacher Page
   When I fill in the new pta form correctly with name "Greg"
   And follow "Cancel"
-  Then I should be on the PTA Instructor home page
+  Then I should be on the "Fall 2011" PTA Instructor home page
   And I should not see "Greg"
   
 Scenario: Cancel creating from the create class page
   Given I am on the "Fall 2011" Create Class Page
   And I follow "Add New PTA Instructor"
-  Then I should be on the Add New PTA Teacher Page
+  Then I should be on the "Fall 2011" Add New PTA Teacher Page
   When I fill in the new pta form correctly with name "Joe"
   And follow "Cancel"
   Then I should be on the "Fall 2011" Create Class Page

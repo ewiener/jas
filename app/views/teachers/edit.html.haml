@@ -4,7 +4,7 @@
 %html
   %head
     %title
-      New Course
+      Edit Course
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
@@ -13,10 +13,10 @@
       = render :partial => "partial/course_error", :locals => {:course => @course}
       .clear
       %h1.span6.offset3
-        Create New Course
+        Edit Course
       .vspace20
       %div.span8.offset2
-        = form_tag semester_courses_path(@semester), :class =>"form-horizontal" do
+        = form_tag semester_course_path(@semester,@course), :method => "put", :class =>"form-horizontal" do
           %div.control-group 
             = label :course, :name, 'Course Name:', :class => "control-label"
             %div.controls
@@ -111,7 +111,7 @@
             = label :temp, :location, 'Location:', :class => "control-label"
             %div.controls
               = text_field :temp, :location
-          = link_to "Add New Location", new_semester_teacher_path(@semester)
+
           %div.control-group
             = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"
             %div.controls
@@ -150,8 +150,8 @@
 
           %div.control-group
             %div.controls
-              = submit_tag 'Add New Course', :class => "btn btn-info"
-              = link_to 'Cancel', semester_path(@semester), :class => "btn btn-info"
+              = submit_tag 'Update Course', :class => "btn btn-warning"
+              = link_to 'Cancel', semester_path(@semester), :class => "btn"
           .clear
           .vspace80
 

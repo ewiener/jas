@@ -4,7 +4,7 @@ class CoursesController  < ApplicationController
     @course = Course.find_by_id params[:course_id]
     if not @course
       flash[:warning] = @course.errors
-      redirect_to semester_index
+      redirect_to semesters_path
     end
   end
 
@@ -13,7 +13,7 @@ class CoursesController  < ApplicationController
     if params[:semester_id]
       redirect_to semester_path( params[:semester_id] )# semester page
     else
-      redirect_to semester_index
+      redirect_to semesters_path
     end
   end
 

@@ -28,8 +28,8 @@ Scenario: Edit classroom teacher/location
   Given I am on the "Fall 2011" Classroom Teachers home page
   And I press "Edit"
   Then I should be on the "Fall 2011" "joe" Classroom Teachers edit page
-  And I fill in "Location" with "Room 500"
-  And I press "Update"
+  And I fill in "Classroom" with "Room 500"
+  And I press "Finish Editing Classroom Teacher"
   Then I should be on the "Fall 2011" Classroom Teachers home page
 
 Scenario: Adding new classroom teacher from homepage
@@ -60,7 +60,7 @@ Scenario: Cancel adding new classroom teacher from homepage
   Then I should be on the "Fall 2011" Add New Classroom Page
   When I fill in the new classroom form correctly with classroom "Auditorium"
   And follow "Cancel"
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Classroom Teachers home page
   And the "locations" drop-down should not contain the option "Auditorium"
   
 Scenario: Cancel adding from the create class page

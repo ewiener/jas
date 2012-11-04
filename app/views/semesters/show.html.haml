@@ -74,12 +74,12 @@
         %h2
           Manage
         %a
-          PTA Instructors
+          = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get
         %br
         %a
           Students
         %br
-          = link_to "Jefferson Classrooms", semester_teachers_path(@semester), :method => :get
+          = link_to "Teachers/Classrooms", semester_teachers_path(@semester), :method => :get
         %br
         .vspace30
       // END hero-unit: _Manage_

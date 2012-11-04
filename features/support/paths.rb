@@ -90,10 +90,10 @@ module NavigationHelpers
       end
       
     when /^the PTA Instructor home page$/
-      "/users"
+      "/ptainstructor"
       
     when /^the Add New PTA Teacher Page$/
-      "/users/new"
+      "/ptainstructor/new"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

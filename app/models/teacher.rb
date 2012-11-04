@@ -4,7 +4,8 @@ class Teacher < ActiveRecord::Base
 
   attr_accessible :name,
                   :grade,
-                  :classroom
+                  :classroom,
+                  :semester
 
   belongs_to :semester
 

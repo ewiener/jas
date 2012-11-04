@@ -51,6 +51,14 @@ Given /^the following courses have been added:$/ do |table|
   end
 end
 
+Given /^the following classrooms are in the database:$/ do |table|
+ table.hashes.each do |classroom|
+   sem_id = Semester.find_by_name(classroom[:semester])
+   classroom[:semester] = sem_id
+   Teacher.create(classroom)
+ end
+end
+
 Given /^the following usernames and passwords exist:$/ do |table|
   table.hashes.each do |user|
     User.create(user)
@@ -100,11 +108,11 @@ When /^I fill in the new pta form correctly with name "(.*)"$/ do |name|
 end
 
 def fill_in_new_pta_form_correcctly(name)
-  fill_in("user_name", :with => name)
-  fill_in("user_email", :with => "michelle@gmail.com")
-  fill_in("user_phone", :with => "234-456-7890")
-  fill_in("user_address", :with => "1600 Pennsylvania Avenue")
-  fill_in("user_bio", :with => "Info about me")
+  fill_in("ptainstructor_name", :with => name)
+  fill_in("ptainstructor_email", :with => "michelle@gmail.com")
+  fill_in("ptainstructor_phone", :with => "234-456-7890")
+  fill_in("ptainstructor_address", :with => "1600 Pennsylvania Avenue")
+  fill_in("ptainstructor_bio", :with => "Info about me")
   #click_button("Add New PTA Instructor")
 end
 

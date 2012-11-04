@@ -26,6 +26,8 @@ class CoursesController  < ApplicationController
       render 'new'
       return
     end
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
 =begin
@@ -69,6 +71,8 @@ class CoursesController  < ApplicationController
       redirect_to semester_path(@semester)
       return
     end
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @teachers = Teacher.find_all_by_semester_id @semester
   end
 
   def destroy

@@ -6,6 +6,7 @@ class AddPtaInstructorTable < ActiveRecord::Migration
       t.text       'phone'
       t.text       'address'
       t.text       'bio'
+      t.references 'semester'
     end
   end
 

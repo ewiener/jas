@@ -28,6 +28,8 @@ class AddCourseTable < ActiveRecord::Migration
       t.float      'fee_for_additional_materials'
       t.float      'total_fee'
       t.references 'semester'
+      t.references 'ptainstructor'
+      t.references 'teacher'
     end
   end
 

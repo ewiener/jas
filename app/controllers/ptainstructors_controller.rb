@@ -2,7 +2,7 @@ class PtainstructorsController < ApplicationController
   protect_from_forgery
 
   def show
-    #Need to check for admin
+    #Need to check for admins
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
 
@@ -45,7 +45,7 @@ class PtainstructorsController < ApplicationController
     if @ptainstructor.new_record?
       flash[:warning] = @ptainstructor.errors
       flash[:ptainstructor] = @ptainstructor
-      redirect_to new_semester_ptainstructor_path
+      redirect_to new_semester_ptainstructor_path(@semester)
       return
     else
       flash[:notice] = "#{@ptainstructor.name} was successfully added to the database."
@@ -103,7 +103,7 @@ class PtainstructorsController < ApplicationController
   end
 
   private
-  def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
+  def semester_is_valid(semester, message="Error: Unable to find the semester for the ptainstructor.")
     if not semester
       flash[:warning] = [[:semester_id, message]]
       redirect_to semesters_path, :method => :get

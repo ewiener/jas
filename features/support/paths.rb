@@ -107,13 +107,34 @@ module NavigationHelpers
       end
       
     when /^the "(.+)" PTA Instructor home page$/
-      semester_id = Semester.find_by_name($1).id
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
       "/semesters/#{semester_id}/ptainstructors"
       
     when /^the "(.+)" Add New PTA Teacher Page$/
       semester_id = Semester.find_by_name($1).id
       "/semesters/#{semester_id}/ptainstructors/new"
-
+    
+    when /^the "(.+)" "(.+)" PTA Instructor Edit Page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+        pta_id = Ptainstructor.find_by_name($2).id
+        "/semesters/#{semester_id}/ptainstructors/#{classroom_id}/edit"
+      rescue
+          begin
+            semester_id = Semester.find_by_name($1).id
+            classroom_id = Ptainstructor.all.length + 1
+            "/semesters/#{semester_id}/ptainstructors/#{classroom_id}/edit"
+          rescue
+            semester_id = Semester.all.length + 1
+            classroom_id = Ptainstructor.all.length + 1
+            "/semesters/#{semester_id}/ptainstructors/#{classroom_id}/edit"
+          end
+      end
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

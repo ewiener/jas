@@ -23,10 +23,9 @@
               = text_field :course, :name
 
           %div.control-group
-            = label :temp, :instructor, 'PTA Instructor:', :class => "control-label"
+            = label :course, :ptainstructor, 'PTA Instructor:', :class => "control-label"
             %div.controls
-              = text_field :temp, :instructor
-
+              = select_tag "course[ptainstructor]", options_from_collection_for_select(@ptainstructors, :id, :name),:class => "course_select"
           %div.control-group
             = label :course, :description, 'Description:', :class => "control-label"
             %div.controls
@@ -108,9 +107,9 @@
           // end of DAYS
 
           %div.control-group
-            = label :temp, :location, 'Location:', :class => "control-label"
+            = label :course, :teacher, 'Classroom:', :class => "control-label"
             %div.controls
-              = text_field :temp, :location
+              = select_tag "course[teacher]", options_from_collection_for_select(@teachers, :id, :classroom), :class => "course_select"
           = link_to "Add New Location", new_semester_teacher_path(@semester)
           %div.control-group
             = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"

@@ -42,14 +42,14 @@ Scenario: Adding new classroom teacher from homepage
   And press "Add Classroom Teacher"
   Then I should be on the "Fall 2011" Classroom Teachers home page
   And I should see "Gym"
-  
-Scenario: Adding from the create class page
-  Given I am on the "Fall 2011" new Course Name Page
-  And I follow "Add New Location"
-  Then I should be on the "Fall 2011" Add New Classroom Page
-  When I fill in the new classroom form correctly with classroom "Room 10"
-  And press "Add Classroom Teacher"
-  ###Implementing later
+
+###Implementing later  
+#Scenario: Adding from the create class page
+  #Given I am on the "Fall 2011" new Course Name Page
+  #And I follow "Add New Location"
+  #Then I should be on the "Fall 2011" Add New Classroom Page
+  #When I fill in the new classroom form correctly with classroom "Room 10"
+  #And press "Add Classroom Teacher"
   #Then I should be on the "Fall 2011" new Course Name Page
   #And the "locations" drop-down should contain the option "Room 10"
   
@@ -63,13 +63,13 @@ Scenario: Cancel adding new classroom teacher from homepage
   And follow "Cancel"
   Then I should be on the "Fall 2011" Classroom Teachers home page
   And the "locations" drop-down should not contain the option "Auditorium"
-  
-Scenario: Cancel adding from the create class page
-  Given I am on the "Fall 2011" new Course Name Page
-  And I follow "Add New Location"
-  Then I should be on the "Fall 2011" Add New Classroom Page
-  When I fill in the new classroom form correctly with classroom "Room 1"
-  And follow "Cancel"
-  ###Implementing later
+
+###Implementing later  
+#Scenario: Cancel adding from the create class page
+  #Given I am on the "Fall 2011" new Course Name Page
+  #And I follow "Add New Location"
+  #Then I should be on the "Fall 2011" Add New Classroom Page
+  #When I fill in the new classroom form correctly with classroom "Room 1"
+  #And follow "Cancel"
   #Then I should be on the "Fall 2011" new Course Name Page
   #And the "locations" drop-down should not contain the option "Room 1"

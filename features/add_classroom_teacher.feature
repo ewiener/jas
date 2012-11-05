@@ -14,6 +14,21 @@ Background: populate db with a single class session
   | name    | grade | classroom | semester  |
   | joe     | 1     | Room 4    | Fall 2011 |
 
+Scenario: Create invalid classroom teacher:
+  Given I am on the "Fall 2011" Classroom Teachers home page
+  And I follow "Add New Classroom Teacher"
+  Then I should be on the "Fall 2011" Add New Classroom Page
+  And press "Add Classroom Teacher"
+  Then I should be on the "Fall 2011" Add New Classroom Page
+  And I should see "Invalid empty string for name."
+  
+Scenario: Update classroom teacher invalidly
+  Given I am on the "Fall 2011" Classroom Teachers home page
+  And I press "Edit"
+  And I fill in "teacher_name" with ""
+  And I press "Finish Editing Classroom Teacher"
+  And I should see "Invalid empty string for name."
+
 Scenario: Delete classrom teacher/location
   Given I am on the "Fall 2011" Classroom Teachers home page
   And I press "Delete"

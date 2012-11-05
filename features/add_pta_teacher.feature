@@ -14,6 +14,24 @@ Background:
   | name    | email     | phone     | address       | bio       | semester  |
   | Jim     | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   | Amy     | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  | Mia     | mia@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+
+Scenario: Create invalid pta instructor
+  Given I am on the "Fall 2011" PTA Instructor home page
+  And I follow "Add New PTA Instructor"
+  Then I should be on the "Fall 2011" Add New PTA Teacher Page
+  And press "Add New PTA Instructor"
+  Then I should be on the "Fall 2011" Add New PTA Teacher Page
+  And I should see "Invalid string for name."
+  
+Scenario: Update pta instructor invalidly
+  Given I am on the "Fall 2011" PTA Instructor home page
+  And I follow "Edit"
+  #Given I am on the "Fall 2011" "Amy" PTA Instructor Edit Page
+  And I fill in "ptainstructor_name" with ""
+  And I press "Update PTA Instructor"
+  #Then I should be on the "Fall 2011" "Amy" PTA Instructor Edit Page
+  And I should see "Invalid string for name."
 
 Scenario: Invalid pta instructor to edit
   Given I am on the "Fall 2011" "Henry" PTA Instructor Edit Page

@@ -2,8 +2,9 @@ class TeachersController < ApplicationController
   protect_from_forgery
 
   def show
-    @teacher = Teacher.find_by_id params[:id]
-    return unless teacher_is_valid(@teacher)
+    #Not currently used.
+    #@teacher = Teacher.find_by_id params[:id]
+    #return unless teacher_is_valid(@teacher)
   end
 
   def index

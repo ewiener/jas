@@ -2,10 +2,9 @@ class PtainstructorsController < ApplicationController
   protect_from_forgery
 
   def show
-    #Need to check for admins
-    @ptainstructor = Ptainstructor.find_by_id params[:id]
-    return unless ptainstructor_is_valid(@ptainstructor)
-
+    #Not currently used
+    #@ptainstructor = Ptainstructor.find_by_id params[:id]
+    #return unless ptainstructor_is_valid(@ptainstructor)
   end
 
   def index

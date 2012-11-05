@@ -110,7 +110,7 @@
             = label :course, :teacher, 'Classroom:', :class => "control-label"
             %div.controls
               = select_tag "course[teacher]", options_from_collection_for_select(@teachers, :id, :classroom), :class => "course_select"
-          = link_to "Add New Location", new_semester_teacher_path(@semester)
+
           %div.control-group
             = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"
             %div.controls

@@ -20,7 +20,7 @@ class PtainstructorsController < ApplicationController
       redirect_to semesters_path
       return
     end
-    @ptainstructors = Ptainstructor.all
+    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
   end
 
   def new

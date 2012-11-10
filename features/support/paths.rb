@@ -135,6 +135,22 @@ module NavigationHelpers
           end
       end
       
+    when /^the "(.+)" Students home page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
+      "/semesters/#{semester_id}/students"
+      
+    when /^the "(.+)" New Students Page$/
+      semester_id = Semester.find_by_name($1).id
+      "/semesters/#{semester_id}/students/new"
+      
+    when /^the "(.+)" Edit Students Page$/
+      semester_id = Semester.find_by_name($1).id
+      "/semesters/#{semester_id}/students/edit"
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

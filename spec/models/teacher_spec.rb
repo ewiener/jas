@@ -88,11 +88,12 @@ describe Teacher do
     end
   end
 
-=begin
+
   describe 'Test if teacher can be deleted' do
     it 'I test can_be_deleted with teacher who isnt teaching classes this semester' do
 
       @teacher = Teacher.new
+=begin
       @teacher1 = Teacher.new
       @semester = Semester.new
       @semester1 = Semester.new
@@ -101,9 +102,10 @@ describe Teacher do
       @course = Course.new
       @course.semester = @semester1
       @teacher1.course = @course
+=end
       @teacher.can_be_deleted?.should == true
       # @teacher1.can_be_deleted?.should == false
     end
   end
-=end
+
 end

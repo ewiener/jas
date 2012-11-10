@@ -168,6 +168,16 @@ class Semester < ActiveRecord::Base
   end
 
   public
+  def can_create_course?
+    ptainstructors = Ptainstructor.find_by_semester(self.id)
+    teachers = Teacher.find_by_semester(self.id)
+    if ((ptainstructors == nil) or (teachrs == nil))
+        return false
+    end
+    return true
+  end
+
+  public
   def start_date_as_date
     return USDateParse(self.start_date)
   end

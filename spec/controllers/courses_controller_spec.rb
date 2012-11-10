@@ -44,7 +44,7 @@ describe CoursesController do
       @course.fee_per_meeting.should == 12
       @course.fee_for_additional_materials.should == 25
     end
-=end
+
     end
   end
 
@@ -109,7 +109,4 @@ describe CoursesController do
         Course.should_receive(:create).with({:name => "Music"}, {:description => "A music class that teaches children the fundamentals of music"}, {:days_of_week => "Monday, Wednesday"}, {:number_of_classes => -5}, {:start_time_hour => 3}, {:start_time_minute => 10}, {:start_time_type => "PM"}, {:end_time_hour => 5}, {:end_time_minute => 10}, {:end_time_type => "PM"}, {:class_min => 0}, {:class_max => 15}, {:grade_range => "1-5"}, {:fee_per_meeting => 12}, {:fee_for_additional_materials => 25}).and_return(nil)
     end
   end
-
-end
-
 =end

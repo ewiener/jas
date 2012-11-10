@@ -14,6 +14,21 @@ Background: populate db with a single class session
   | name    | grade | classroom | semester  |
   | joe     | 1     | Room 4    | Fall 2011 |
 
+Scenario: Create invalid classroom teacher:
+  Given I am on the "Fall 2011" Classroom Teachers home page
+  And I follow "Add New Classroom Teacher"
+  Then I should be on the "Fall 2011" Add New Classroom Page
+  And press "Add Classroom Teacher"
+  Then I should be on the "Fall 2011" Add New Classroom Page
+  And I should see "Invalid empty string for name."
+  
+Scenario: Update classroom teacher invalidly
+  Given I am on the "Fall 2011" Classroom Teachers home page
+  And I press "Edit"
+  And I fill in "teacher_name" with ""
+  And I press "Finish Editing Classroom Teacher"
+  And I should see "Invalid empty string for name."
+
 Scenario: Delete classrom teacher/location
   Given I am on the "Fall 2011" Classroom Teachers home page
   And I press "Delete"
@@ -42,15 +57,16 @@ Scenario: Adding new classroom teacher from homepage
   And press "Add Classroom Teacher"
   Then I should be on the "Fall 2011" Classroom Teachers home page
   And I should see "Gym"
-  
-Scenario: Adding from the create class page
-  Given I am on the "Fall 2011" new Course Name Page
-  And I follow "Add New Location"
-  Then I should be on the "Fall 2011" Add New Classroom Page
-  When I fill in the new classroom form correctly with classroom "Room 10"
-  And press "Add Classroom Teacher"
-  Then I should be on the "Fall 2011" new Course Name Page
-  And the "locations" drop-down should contain the option "Room 10"
+
+###Implementing later  
+#Scenario: Adding from the create class page
+  #Given I am on the "Fall 2011" new Course Name Page
+  #And I follow "Add New Location"
+  #Then I should be on the "Fall 2011" Add New Classroom Page
+  #When I fill in the new classroom form correctly with classroom "Room 10"
+  #And press "Add Classroom Teacher"
+  #Then I should be on the "Fall 2011" new Course Name Page
+  #And the "locations" drop-down should contain the option "Room 10"
   
 Scenario: Cancel adding new classroom teacher from homepage
   Given I am on the "Fall 2011" Session Name Page
@@ -62,12 +78,13 @@ Scenario: Cancel adding new classroom teacher from homepage
   And follow "Cancel"
   Then I should be on the "Fall 2011" Classroom Teachers home page
   And the "locations" drop-down should not contain the option "Auditorium"
-  
-Scenario: Cancel adding from the create class page
-  Given I am on the "Fall 2011" new Course Name Page
-  And I follow "Add New Location"
-  Then I should be on the "Fall 2011" Add New Classroom Page
-  When I fill in the new classroom form correctly with classroom "Room 1"
-  And follow "Cancel"
-  Then I should be on the "Fall 2011" new Course Name Page
-  And the "locations" drop-down should not contain the option "Room 1"
+
+###Implementing later  
+#Scenario: Cancel adding from the create class page
+  #Given I am on the "Fall 2011" new Course Name Page
+  #And I follow "Add New Location"
+  #Then I should be on the "Fall 2011" Add New Classroom Page
+  #When I fill in the new classroom form correctly with classroom "Room 1"
+  #And follow "Cancel"
+  #Then I should be on the "Fall 2011" new Course Name Page
+  #And the "locations" drop-down should not contain the option "Room 1"

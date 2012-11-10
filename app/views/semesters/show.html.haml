@@ -32,7 +32,7 @@
             - @courses.each do |course|
               %tr
                 %td #{course.name}
-                %td #{@ptainstructor_name || "--"}
+                %td #{course.ptainstructor.name || "--"}
                 %td
                   - if course.sunday
                     Su
@@ -49,10 +49,8 @@
                   - if course.saturday
                     Sa
                 %td #{course.start_time} - #{course.end_time}
-                %td
-                  ="--"
-                %td
-                  ="--"
+                %td #{course.teacher.classroom || "--"}
+                %td #{"--"}
                 %td
                   = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :method => :get, :class => "btn btn-warning"
                 %td

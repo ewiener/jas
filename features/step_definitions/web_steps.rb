@@ -47,6 +47,10 @@ Given /^the following courses have been added:$/ do |table|
     course[:class_max] = Integer(course[:class_max])
     sem_id = Semester.find_by_name(course[:semester])
     course[:semester] = sem_id
+    pta_id = Ptainstructor.find_by_name(course[:ptainstructor])
+    course[:ptainstructor] = pta_id
+    classroom_id = Teacher.find_by_classroom(course[:teacher])
+    course[:teacher] = classroom_id
     Course.create(course)
   end
 end
@@ -121,7 +125,6 @@ def fill_in_new_pta_form_correcctly(name)
   fill_in("ptainstructor_phone", :with => "234-456-7890")
   fill_in("ptainstructor_address", :with => "1600 Pennsylvania Avenue")
   fill_in("ptainstructor_bio", :with => "Info about me")
-  #click_button("Add New PTA Instructor")
 end
 
 When /^I fill in the new classroom form correctly with classroom "(.*)"$/ do |location|
@@ -132,7 +135,40 @@ def fill_in_new_classroom_form_correcctly(location)
   fill_in("teacher_name", :with => "Mary")
   fill_in("teacher_grade", :with => "5")
   fill_in("teacher_classroom", :with => location)
-  #click_button("Add New PTA Instructor")
+end
+
+When /^I fill in the new create class form correctly with subject "(.*)"$/ do |subject|
+  fill_in_new_create_class_form_correcctly(subject)
+end
+
+def fill_in_new_create_class_form_correcctly(subject)
+  fill_in("course_name", :with => subject)
+  #fill_in("course_ptainstructor", :with => "")
+  fill_in("course_description", :with => "A class about numbers")
+  check("course_wednesday")
+  fill_in("course_start_time", :with => "2:10pm")
+  fill_in("course_end_time", :with => "5:10pm")
+  fill_in("course_grade_range", :with => "1-5")
+  fill_in("course_class_min", :with => "1")
+  fill_in("course_class_max", :with => "20")
+  fill_in("course_fee_per_meeting", :with => "10")
+  fill_in("course_number_of_classes", :with => "10")
+  fill_in("course_fee_for_additional_materials", :with => "15")
+  fill_in("course_total_fee", :with => "100")
+  fill_in("course_class_max", :with => "20")
+end
+
+When /^I fill in the new session form correctly with name "(.*)"$/ do |name|
+  fill_in_new_session_form_correcctly(name)
+end
+
+def fill_in_new_session_form_correcctly(name)
+  fill_in("semester_name", :with => name)
+  fill_in("semester_start_date", :with => "09/21/2012")
+  fill_in("semester_end_date", :with => "12/15/2012")
+  fill_in("semester_registration_deadline", :with => "09/15/2012")
+  fill_in("semester_lottery_deadline", :with => "09/10/2012")
+  fill_in("semester_fee", :with => "10")
 end
 
 Given /^I am an admin$/ do

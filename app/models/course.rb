@@ -71,6 +71,8 @@ class Course < ActiveRecord::Base
   validate :fee_per_meeting_is_valid
   validate :fee_for_additional_materials_is_valid
   validate :total_fee_is_valid
+  validate :ptainstructor_is_valid
+  validate :teacher_is_valid
 
   private
   def name_is_valid
@@ -270,6 +272,26 @@ class Course < ActiveRecord::Base
   public
   def total_fee_is_valid?
     return ((self.total_fee != nil) and (self.total_fee >= 0))
+  end
+
+  private
+  def ptainstructor_is_valid
+    errors.add(:ptainstructor,'No PTA instructor was selected.') unless ptainstructor_is_valid?
+  end
+
+  public
+  def ptainstructor_is_valid?
+    return self.ptainstructor_id != nil
+  end
+
+  private
+  def teacher_is_valid
+    errors.add(:teacher,'No classroom location was selected.') unless teacher_is_valid?
+  end
+
+  public
+  def teacher_is_valid?
+    return self.teacher_id != nil
   end
 
   private

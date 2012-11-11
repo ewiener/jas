@@ -171,6 +171,20 @@ def fill_in_new_session_form_correcctly(name)
   fill_in("semester_fee", :with => "10")
 end
 
+When /^I fill in the new student form correctly with name "(.*?)"$/ do |name|
+  fill_in_new_student_form_correcctly(name)
+end
+
+def fill_in_new_student_form_correcctly(name)
+  fill_in("semester_name", :with => name)
+  fill_in("semester_start_date", :with => "09/21/2012")
+  fill_in("semester_end_date", :with => "12/15/2012")
+  fill_in("semester_registration_deadline", :with => "09/15/2012")
+  fill_in("semester_lottery_deadline", :with => "09/10/2012")
+  fill_in("semester_fee", :with => "10")
+end
+
+
 Given /^I am an admin$/ do
   pending
 end

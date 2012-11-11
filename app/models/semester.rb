@@ -190,10 +190,10 @@ class Semester < ActiveRecord::Base
     return false
   end
   
-  
-  def specific_days_in_semester
-    date_start = USDateParse("12/3/2012")#USDateParse(self.start_date)
-    date_end = USDateParse("12/3/2012")#USDateParse(self.end_date)
+  #returns a hash 0f 1-7, where 1 is monday
+  def specific_days_in_semester(start_date, end_date)
+    date_start = USDateParse(start_date)#USDateParse(self.start_date)
+    date_end = USDateParse(end_date)#USDateParse(self.end_date)
     curr_date = date_start
     date_hash = Hash.new(0)
     while curr_date <= date_end do

@@ -8,7 +8,7 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar"
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
       = render :partial => "partial/ptainstructor_error"
       .clear
@@ -48,5 +48,8 @@
               = link_to 'Cancel', semester_ptainstructors_path(@semester), :class => "btn btn-info"
           .clear
           .vspace80
+
+    :javascript
+      $("#navbar-ptainstructors").addClass('active');
 
 

@@ -71,14 +71,15 @@
       .hero-unit
         %h2
           Manage
-        <style>a { font-size:1.2em;line-height:1.6em; }</style>
-        %a
+        <style>a.manage-option { font-size:1.2em;line-height:1.6em; }</style>
+        %a.manage-option
           = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get
         %br
-        %a
+        %a.manage-option
           Students
         %br
-          = link_to "Teachers/Classrooms", semester_teachers_path(@semester), :method => :get
+        %a.manage-option{:href=>"#{semester_teachers_path(@semester)}", :method=>"get"}
+          Teachers/Classrooms
         %br
         .vspace30
       // END hero-unit: _Manage_

@@ -62,7 +62,7 @@ class StudentsController < ApplicationController
     return unless student_is_valid(@student)
 
     if @student.update_attributes(params[:student])
-      flash[:notice] "#{@student.first_name} #{student.last_name}'s information was successfully updated."
+      flash[:notice] = "#{@student.first_name} #{student.last_name}'s information was successfully updated."
       redirect_to semester_student_path(@semester)
     else
       flash[:warning] = @student.errors

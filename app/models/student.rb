@@ -71,6 +71,7 @@ class Student < ActiveRecord::Base
   def student_phone_is_valid?
     if is_nil_or_empty_string(self.student_phone);return true;end
     return false unless phone_is_valid(self.student_phone)
+    return true
   end
 
   private
@@ -81,6 +82,7 @@ class Student < ActiveRecord::Base
   public
   def parent_phone_is_valid?
     return false unless phone_is_valid(self.parent_phone)
+    return true
   end
 
   private
@@ -92,6 +94,7 @@ class Student < ActiveRecord::Base
   def parent_phone2_is_valid?
     if is_nil_or_empty_string(self.parent_phone2);return true;end
     return false unless phone_is_valid(self.parent_phone2)
+    return true
   end
 
   private
@@ -102,6 +105,7 @@ class Student < ActiveRecord::Base
   public
   def parent_email_is_valid?
     return false unless parent_email_is_valid?
+    return true
   end
 
   def parent_email_is_valid?
@@ -119,6 +123,7 @@ class Student < ActiveRecord::Base
   private
   def is_nil_or_empty_string(str)
     return false unless ((str == nil) or (str == ""))
+    return true
   end
 
   private

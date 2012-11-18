@@ -27,6 +27,6 @@
                 %td.cell_center{:colspan => "2"}
                   = link_to semester.name, semester_path(semester)
                   %div{:style=>"float:right;font-size:0.9em"}
-                    = semester.start_date.slice(0,5)
+                    = semester.start_date
                     = " - "
-                    = semester.end_date.slice(0,5)
+                    = semester.end_date

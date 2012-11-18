@@ -119,6 +119,7 @@ class Student < ActiveRecord::Base
   private
   def is_nil_or_empty_string(str)
     return false unless ((str == nil) or (str == ""))
+    return true
   end
 
   private

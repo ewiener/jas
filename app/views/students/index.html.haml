@@ -1,0 +1,50 @@
+-# This file is app/views/students/index.html.haml
+!!! 5
+
+%html{:lang => "en"}
+  %head
+    %title
+      Session List
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
+    %div#container
+      = render :partial => "partial/flash_messages"
+      %h1.span6.offset3
+        Current Students
+      .vspace20
+      /%table{:class => "table table-striped table-hover"}
+      %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+        %thead
+          %tr
+            %td.cell_right{:colspan => "5"}
+              = link_to "Add New Classroom Teacher", new_semester_teacher_path
+        %tbody
+          %tr
+            %td
+              Teacher Name
+            %td
+              Grade
+            %td
+              Location
+            %td
+              Edit Entry
+            %td
+              Delete Entry
+          - @teachers.each do |teacher|
+            %tr
+              %td.cell_center
+                = teacher.name
+              %td.cell_center
+                = teacher.grade
+              %td.cell_center
+                = teacher.classroom
+              %td.cell_center
+                = button_to "Edit", edit_semester_teacher_path(@semester,teacher), :method => :get, :class => "btn btn-warning"
+              %td.cell_center
+                = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger" unless not teacher.can_be_deleted?
+                = "Teacher is currently referenced and cannot be deleted" unless teacher.can_be_deleted?
+
+    :javascript
+      $("#navbar-teachers").addClass('active');

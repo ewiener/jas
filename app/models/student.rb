@@ -82,6 +82,7 @@ class Student < ActiveRecord::Base
   public
   def parent_phone_is_valid?
     return false unless phone_is_valid(self.parent_phone)
+    return true
   end
 
   private

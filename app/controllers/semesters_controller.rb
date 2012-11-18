@@ -78,6 +78,26 @@ class SemestersController < ApplicationController
     return true
   end
 
+  def import
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+
+    if params[:import_semester_id]
+      semester_to_import = Semester.find_by_id params[:import_semester_id]
+      if semester_to_import
+        if @semester.import(semester_to_import)
+          flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
+        else
+          flash[:warning] = @semester.errors
+        end
+      else
+        flash[:warning] = [[:import_semester_id,"The semeste id of the semester to import did not correspond to any semesters in the database."]]
+      end
+    else
+      flash[:warning] = [[:import_semester_id, "The semester id of the semester to import was not found."]]
+    end
+    redirect_to semester_course_page(@semester)
+  end
 =begin
   private
   def errors_string(semester)

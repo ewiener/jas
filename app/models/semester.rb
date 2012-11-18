@@ -72,7 +72,8 @@ class Semester < ActiveRecord::Base
   # Verifies that the start date can be parsed
   def start_date_is_valid?
     begin
-      USDateParse(self.start_date)
+      date = USDateParse(self.start_date)
+      self.start_date = date.strftime("%m/%d/%y")
     rescue
       return false
     end
@@ -89,7 +90,8 @@ class Semester < ActiveRecord::Base
   # Verifies that the end date can be parsed
   def end_date_is_valid?
     begin
-      USDateParse(self.end_date)
+      date = USDateParse(self.end_date)
+      self.end_date = date.strftime("%m/%d/%y")
     rescue
       return false
     end
@@ -186,6 +188,19 @@ class Semester < ActiveRecord::Base
   def not_nil_and_string(str)
     return true unless ((str == nil) or (not str.instance_of? String))
     return false
+  end
+  
+  #returns a hash 0f 1-7, where 1 is monday
+  def specific_days_in_semester(start_date, end_date)
+    date_start = USDateParse(start_date)#USDateParse(self.start_date)
+    date_end = USDateParse(end_date)#USDateParse(self.end_date)
+    curr_date = date_start
+    date_hash = Hash.new(0)
+    while curr_date <= date_end do
+      date_hash[curr_date.cwday] += 1
+      curr_date += 1
+    end
+    return date_hash
   end
 end
 

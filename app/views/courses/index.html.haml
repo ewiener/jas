@@ -9,19 +9,6 @@
     = javascript_include_tag("application")
 	%body
 		%div#container
-			%ul.nav.nav-tabs
-				%li.active
-					= link_to "Home", semesters_path
-				%li
-					= link_to "Sessions", semesters_path
-				%li
-					= link_to "Instructors", new_semester_path
-				%li
-					= link_to "Classes", new_semester_path
-				%li
-					= link_to "Students", new_semester_path
-				%li
-					= link_to "Classrooms", new_semester_path
 			%h1.span6.offset3
 				Jefferson PTA Sessions
 			%div.span6.offset3
@@ -36,3 +23,6 @@
 							%td.cell_center{:colspan => "2"} Session 1
 						%tr 
 							%td.cell_center{:colspan => "2"} Session 2
+
+    :javascript
+      $("#navbar-courses").addClass('active');

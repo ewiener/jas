@@ -8,6 +8,7 @@ class TeachersController < ApplicationController
   end
 
   def index
+    @semester = Semester.find_by_id params[:semester_id]
     if params[:semester_id]
       @semester = Semester.find_by_id params[:semester_id]
       if not @semester

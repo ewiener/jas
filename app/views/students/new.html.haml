@@ -1,0 +1,54 @@
+-# This file is app/views/teachers/new.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      New Classroom Teacher
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
+    %div#container
+      = render :partial => "partial/flash_messages"
+      .clear
+      %h1.span8.offset2
+        Register New Student
+      .vspace20
+      %div.span8.offset2
+        = form_tag semester_students_path(@semester), :class =>"form-horizontal" do
+          %div.control-group
+            = label :student, :first_name, 'Firstname:', :class => "control-label"
+            %div.controls
+              = text_field :student, :first_name
+              
+          %div.control-group
+            = label :student, :last_name, 'Lastname:', :class => "control-label"
+            %div.controls
+              = text_field :student, :last_name
+              
+          %div.control-group
+            = label :student, :teacher, 'Jefferson Classroom:', :class => "control-label"
+            %div.controls
+              = select_tag "course[teacher]", options_from_collection_for_select(@teachers, :id, :name), :class => "course_select"
+
+          %div.control-group
+            = label :student, :email, 'Email:', :class => "control-label"
+            %div.controls
+              = text_field :student, :email
+
+          %div.control-group
+            = label :student, :health, 'Health Alert:', :class => "control-label"
+            %div.controls
+              = text_field :student, :health
+
+          %div.control-group
+            %div.controls
+              = submit_tag 'Register Student', :class => "btn btn-info"
+              = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
+          .clear
+          .vspace80
+
+    :javascript
+      $("#navbar-students").addClass('active');
+

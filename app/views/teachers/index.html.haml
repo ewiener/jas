@@ -8,7 +8,7 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar"
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
       = render :partial => "partial/flash_messages"
       %h1.span8.offset2
@@ -45,3 +45,6 @@
               %td.cell_center
                 = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger" unless not teacher.can_be_deleted?
                 = "Teacher is currently referenced and cannot be deleted" unless teacher.can_be_deleted?
+
+    :javascript
+      $("#navbar-teachers").addClass('active');

@@ -11,6 +11,7 @@ class CoursesController  < ApplicationController
 =end
   def index
     #redirect to the semester homepage
+    @semester = Semester.find_by_id params[:semester_id]
     if params[:semester_id]
       redirect_to semester_path( params[:semester_id] )# semester page
     else

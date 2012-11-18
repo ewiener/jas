@@ -8,7 +8,7 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar"
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
       / %h1.span6.offset3
       .center
@@ -71,13 +71,15 @@
       .hero-unit
         %h2
           Manage
-        %a
+        <style>a.manage-option { font-size:1.2em;line-height:1.6em; }</style>
+        %a.manage-option
           = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get
         %br
-        %a
+        %a.manage-option
           Students
         %br
-          = link_to "Teachers/Classrooms", semester_teachers_path(@semester), :method => :get
+        %a.manage-option{:href=>"#{semester_teachers_path(@semester)}", :method=>"get"}
+          Teachers/Classrooms
         %br
         .vspace30
       // END hero-unit: _Manage_
@@ -138,3 +140,6 @@
         .vspace30
       .vspace80
       // END hero-unit: _Semester Admin_
+
+    :javascript
+      $("#navbar-courses").addClass('active');

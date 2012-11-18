@@ -102,9 +102,11 @@ class Semester < ActiveRecord::Base
   # Verifies that the dates that there are no classes are within the session start date and session end date.
   def dates_with_no_classes_in_session
     if self.dates_with_no_classes == nil
-      # No dates that there aren't classes
+      # No dates that there aren't classes, initialize with emptylist
+      self.dates_with_no_classes = []
       return
     end
+=begin
     begin
       begin_parse = USDateParse(self.start_date)
       end_parse = USDateParse(self.end_date)
@@ -122,6 +124,7 @@ class Semester < ActiveRecord::Base
         errors.add(:dates_with_no_classes, 'The date, "#{date}", does not reside within the semester.')
       end
     end
+=end
   end
 
   private
@@ -173,7 +176,7 @@ class Semester < ActiveRecord::Base
   def can_create_course?
     ptainstructors = Ptainstructor.find_by_semester(self.id)
     teachers = Teacher.find_by_semester(self.id)
-    if ((ptainstructors == nil) or (teachrs == nil))
+    if ((ptainstructors == nil) or (teachers == nil))
         return false
     end
     return true
@@ -189,7 +192,8 @@ class Semester < ActiveRecord::Base
     return true unless ((str == nil) or (not str.instance_of? String))
     return false
   end
-  
+
+  public
   #returns a hash 0f 1-7, where 1 is monday
   def specific_days_in_semester(start_date, end_date)
     date_start = USDateParse(start_date)#USDateParse(self.start_date)
@@ -201,6 +205,11 @@ class Semester < ActiveRecord::Base
       curr_date += 1
     end
     return date_hash
+  end
+
+  public
+  def import(semester_to_import)
+
   end
 end
 

@@ -101,39 +101,39 @@ describe Student do
   end
 
   describe 'Test valid email of students parents' do
-    it 'I test email_is_valid? with valid email' do
+    it 'I test parent_email_is_valid? with valid email' do
       @student = Student.new
-      @student.email = "john@gmail.com"
-      @student.email_is_valid?.should == true
+      @student.parent_email = "john@gmail.com"
+      @student.parent_email_is_valid?.should == true
     end
 
-    it 'I test email_is_valid? with invalid email "" ' do
+    it 'I test parent_email_is_valid? with invalid email "" ' do
       @student = Student.new
-      @student.email = ""
-      @student.email_is_valid?.should == false
+      @student.parent_email = ""
+      @student.parent_email_is_valid?.should == false
     end
 
-    it 'I test email_is_valid? with invalid email nil' do
+    it 'I test parent_email_is_valid? with invalid email nil' do
       @student = Student.new
-      @student.email_is_valid?.should == false
+      @student.parent_email_is_valid?.should == false
     end
 
-    it 'I test email_is_valid? with invalid email john.com' do
+    it 'I test parent_email_is_valid? with invalid email john.com' do
       @student = Student.new
-      @student.email = "john.com"
-      @student.email_is_valid?.should == false
+      @student.parent_email = "john.com"
+      @student.parent_email_is_valid?.should == false
     end
 
-    it 'I test email_is_valid? with invalid email john' do
+    it 'I test parent_email_is_valid? with invalid email john' do
       @student = Student.new
-      @student.email = "john"
-      @student.email_is_valid?.should == false
+      @student.parent_email = "john"
+      @student.parent_email_is_valid?.should == false
     end
 
-    it 'I test email_is_valid? with @.com' do
+    it 'I test parent_email_is_valid? with @.com' do
       @student = Student.new
-      @student.email = "@.com"
-      @student.email_is_valid?.should == false
+      @student.parent_email = "@.com"
+      @student.parent_email_is_valid?.should == false
     end
   end
 
@@ -178,6 +178,50 @@ describe Student do
       @student = Student.new
       @student.student_phone = "12 (925) 123-4567"
       @student.student_phone_is_valid?.should == false
+    end
+  end
+
+   describe 'Test if parent phone is valid' do
+    it 'I test parent_phone_is_valid? with valid number' do
+      @student = Student.new
+      @student.parent_phone = "(925) 123-4567"
+      @student.parent_phone_is_valid?.should == true
+    end
+
+    it 'I test parent_phone_is_valid? with valid number without ()' do
+      @student = Student.new
+      @student.parent_phone = "925-123-4567"
+      @student.parent_phone_is_valid?.should == true
+    end
+
+    it 'I test parent_phone_is_valid? with valid number with no spaces' do
+      @student = Student.new
+      @student.parent_phone = "9251234567"
+      @student.parent_phone_is_valid?.should == true
+    end
+
+    it 'I test parent_phone_is_valid? with invalid number ---------' do
+      @student = Student.new
+      @student.parent_phone = "---------"
+      @student.parent_phone_is_valid?.should == false
+    end
+
+    it 'I test parent_phone_is_valid? with invalid number with 1' do
+      @student = Student.new
+      @student.parent_phone = "1-925-123-4567"
+      @student.parent_phone_is_valid?.should == false
+    end
+
+    it 'I test parent_phone_is_valid? with invalid number with less than 9 digits' do
+      @student = Student.new
+      @student.parent_phone = "(925) 123-456"
+      @student.parent_phone_is_valid?.should == false
+    end
+
+    it 'I test parent_phone_is_valid? with invalid number with more than 10 digits' do
+      @student = Student.new
+      @student.parent_phone = "12 (925) 123-4567"
+      @student.parent_phone_is_valid?.should == false
     end
   end
 

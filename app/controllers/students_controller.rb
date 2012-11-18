@@ -26,6 +26,8 @@ class StudentsController < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
+    @classes = Course.where( :semester_id => @semester)
+    @teachers = Teacher.where( :semester_id => @semester )
     if flash.key? :student
       @student = flash[:student]
       render 'new'

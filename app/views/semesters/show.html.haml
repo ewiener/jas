@@ -76,10 +76,10 @@
           = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get
         %br
         %a.manage-option
-          Students
+          = link_to "Students", semester_student_path(@semester), :method => :get
         %br
         %a.manage-option{:href=>"#{semester_teachers_path(@semester)}", :method=>"get"}
-          Teachers/Classrooms
+          Teacher Classrooms
         %br
         .vspace30
       // END hero-unit: _Manage_

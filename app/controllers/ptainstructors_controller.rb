@@ -8,7 +8,6 @@ class PtainstructorsController < ApplicationController
   end
 
   def index
-    @semester = Semester.find_by_id params[:semester_id]
     if params[:semester_id]
       @semester = Semester.find_by_id params[:semester_id]
       if not @semester
@@ -77,7 +76,7 @@ class PtainstructorsController < ApplicationController
 
   def destroy
     #Check is the ptainstructor is an admin.  Only admin's should be able to delete ptainstructors
-    @semester = Semester.find_by_id params[:semester_id]
+    #@semester = Semester.find_by_id params[:semester_id]
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
 

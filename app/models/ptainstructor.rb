@@ -3,7 +3,8 @@ class Ptainstructor < ActiveRecord::Base
   has_many :courses
   has_many :teachers, :through => :courses
   belongs_to :semester
-  #has_many :students, :through => :courses
+  has_many :students, :through => :courses
+
 
   attr_accessible :name,
                   :email,

@@ -7,6 +7,7 @@ Ptast::Application.routes.draw do
     resources :courses
     resources :teachers
     resources :ptainstructors
+    resources :students
   end
   #resources :teachers
   # Sample of regular route:

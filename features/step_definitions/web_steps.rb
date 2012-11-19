@@ -36,7 +36,7 @@ Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
     #need to change the input so that field is not requited in this case
     #no_classes = Array.new
-    session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
+    #session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
     Semester.create(session)
   end
 end

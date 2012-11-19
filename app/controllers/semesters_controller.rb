@@ -103,22 +103,13 @@ class SemestersController < ApplicationController
     redirect_to semesters_path
   end
 
-  private
-  def semester_is_valid(semester)
-    if(semester == nil)
-      flash[:warning] = [[:id,"Could not find the corresponding semester."]]
-      redirect_to semesters_path
-      return false
-    end
-    return true
-  end
-
   def import
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
 
     if params[:import_semester_id]
-      semester_to_import = Semester.find_by_id params[:import_semester_id]
+      import_semester_id = Semester.find_by_name(params[:import_semester_id]).id
+      semester_to_import = Semester.find_by_id import_semester_id
       if semester_to_import
         if @semester.import(semester_to_import)
           flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
@@ -133,6 +124,17 @@ class SemestersController < ApplicationController
     end
     redirect_to semester_path(@semester)
   end
+
+  private
+  def semester_is_valid(semester)
+    if(semester == nil)
+      flash[:warning] = [[:id,"Could not find the corresponding semester."]]
+      redirect_to semesters_path
+      return false
+    end
+    return true
+  end
+
 =begin
   private
   def errors_string(semester)

@@ -8,7 +8,10 @@ Ptast::Application.routes.draw do
     resources :teachers
     resources :ptainstructors
     resources :students
+    collection do
+    end
   end
+  match '/semesters/:id/import' => 'semesters#import', :as=>'semester_import', :via=>[:post,:get]
   #resources :teachers
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

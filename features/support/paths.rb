@@ -149,12 +149,24 @@ module NavigationHelpers
       "/semesters/#{semester_id}/students"
       
     when /^the "(.+)" New Students Page$/
-      semester_id = Semester.find_by_name($1).id
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
       "/semesters/#{semester_id}/students/new"
       
     when /^the "(.+)" "(.+)" Edit Students Page$/
-      semester_id = Semester.find_by_name($1).id
-      student_id = Student.find_by_first_name($2).id
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
+      begin
+        student_id = Student.find_by_first_name($2).id
+      rescue
+        student_id = Student.all.length + 1
+      end
       "/semesters/#{semester_id}/students/#{student_id}/edit"
       
     # Add more mappings here.

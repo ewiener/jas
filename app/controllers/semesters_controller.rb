@@ -4,6 +4,7 @@ class SemestersController < ApplicationController
   def show
     @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
+    @semesters = Semester.all.delete_if {|sem| sem == @semester}
     @courses = @semester.courses
   end
 
@@ -75,6 +76,16 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
       redirect_to edit_semester_path
     end
+
+    puts 'ASDFLAKJSDFLKAJSDLFKAJSDLKFJASDLFJASDFLJAKSDF'
+    puts params[:import_form]
+    puts params
+    puts 'ASDFLAKJSDFLKAJSDLFKAJSDLKFJASDLFJASDFLJAKSDF'
+    if params[:import_form]
+      puts 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZzz'
+      import()
+      return
+    end
   end
 
   def destroy
@@ -120,7 +131,7 @@ class SemestersController < ApplicationController
     else
       flash[:warning] = [[:import_semester_id, "The semester id of the semester to import was not found."]]
     end
-    redirect_to semester_course_page(@semester)
+    redirect_to semester_path(@semester)
   end
 =begin
   private

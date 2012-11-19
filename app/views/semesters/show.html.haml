@@ -58,13 +58,25 @@
                   = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
         .vspace10
         .center-right
-          %button.btn.btn-info
-            Import
           %a{:href=>new_semester_course_path(@semester)}
             %button.btn.btn-info#new_semester_course
               Add +
         .vspace30
       // END hero-unit: _Classes_
+      .vspace30
+
+      // hero-unit: _Import_
+      .hero-unit
+        %h2
+          Import
+        = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+          = hidden_field_tag(:import_form,"1")
+          %select#import_semester{:name=>"import_semester_id", :style=>"width:140px;"}
+            - @semesters.each do |sem|
+              %option{:id=>"#{sem.id}"}
+                = sem.name
+          %button.btn.btn-info{:type=>"submit"}
+            Import
       .vspace30
       
       // hero-unit: _Manage_

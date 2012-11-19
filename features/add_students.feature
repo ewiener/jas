@@ -24,7 +24,7 @@ Scenario: add student to db correctly
   And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
   And I fill in the new student form correctly with name "Jimmy"
-  And I press "Add Student"
+  And I press "Register Student"
   Then I should be on the "Fall 2011" Students home page
   And I should see "Jimmy"
   
@@ -32,8 +32,7 @@ Scenario: add student incorrectly, should redirect to same page
   Given I am on the "Fall 2011" Students home page
   And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
-  And I fill in the new student form correctly with name "Jimmy"
-  And I press "Add Student"
+  And I press "Register Student"
   Then I should be on the "Fall 2011" New Students Page
 
 Scenario: update student correctly

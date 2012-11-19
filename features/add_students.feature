@@ -21,7 +21,7 @@ Background: populate db with a single class session
   
 Scenario: add student to db correctly
   Given I am on the "Fall 2011" Students home page
-  And I press "Add New student"
+  And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
   And I fill in the new student form correctly with name "Jimmy"
   And I press "Add Student"
@@ -30,7 +30,7 @@ Scenario: add student to db correctly
   
 Scenario: add student incorrectly, should redirect to same page
   Given I am on the "Fall 2011" Students home page
-  And I press "Add New student"
+  And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
   And I fill in the new student form correctly with name "Jimmy"
   And I press "Add Student"

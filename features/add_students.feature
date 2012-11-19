@@ -39,8 +39,8 @@ Scenario: add student incorrectly, should redirect to same page
 Scenario: update student correctly
   Given I am on the "Fall 2011" Students home page
   And I press "Edit"
-  Then I should be on the "Fall 2011" Edit Students Page
-  And I fill in "Student Name" with "Mary"
+  Then I should be on the "Fall 2011" "Abby" Edit Students Page
+  And I fill in "First Name" with "Mary"
   And I press "Update Student"
   Then I should be on the "Fall 2011" Students home page
   And I should see "Mary"
@@ -48,10 +48,10 @@ Scenario: update student correctly
 Scenario: update student incorrectly
   Given I am on the "Fall 2011" Students home page
   And I press "Edit"
-  Then I should be on the "Fall 2011" Edit Students Page
-  And I fill in "Student Name" with ""
+  Then I should be on the "Fall 2011" "Abby" Edit Students Page
+  And I fill in "First Name" with ""
   And I press "Update Student"
-  Then I should be on the "Fall 2011" Edit Students Page
+  Then I should be on the "Fall 2011" "Abby" Edit Students Page
 
 Scenario: Delete student
   Given I am on the "Fall 2011" Students home page

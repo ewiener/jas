@@ -1,0 +1,44 @@
+-# This file is app/views/students/index.html.haml
+!!! 5
+
+%html{:lang => "en"}
+  %head
+    %title
+      Students
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
+    %div#container
+      = render :partial => "partial/flash_messages"
+      %h1.span6.offset3
+        Current Students
+      .vspace20
+      /%table{:class => "table table-striped table-hover"}
+      %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+        %thead
+          %tr
+            %td.cell_right{:colspan => "5"}
+              = link_to "Add New Student", new_semester_student_path
+        %tbody
+          %tr
+            %td
+              Last, First
+            %td
+              Grade
+            %td
+              Edit Entry
+            %td
+              Delete Entry
+          - @students.each do |student|
+            %tr
+              %td.cell_center
+                = student.last_name + ", " + student.first_name
+              %td.cell_center
+                = student.grade
+              %td.cell_center
+                = button_to "Edit", edit_semester_student_path(@semester,student), :method => :get, :class => "btn btn-warning"
+              %td.cell_center
+                = button_to "Delete", semester_student_path(@semester, student), :method => :delete, :class => "btn btn-danger"
+    :javascript
+      $("#navbar-students").addClass('active');

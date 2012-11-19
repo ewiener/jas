@@ -7,8 +7,8 @@ Feature: Add class to the session
 Background: populate db with a single class session
 
   Given the following sessions exist:
-  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | dates_with_no_classes |
-  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            |
+  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline |
+  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            |
 
   Given the following pta instructors exist:
   | name    | email     | phone     | address       | bio       | semester  |
@@ -21,6 +21,9 @@ Background: populate db with a single class session
   Given the following courses have been added:
     | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | ptainstructor | teacher   |
     | Artistic Dance     | Fall 2011     | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | teacher3 | room3 |
+    
+  And I am on the home page
+  And I follow "Fall 2011"
 
 Scenario: Attempt to delete a course that does not exist
 
@@ -80,9 +83,7 @@ Scenario: Delete a class
   Then I should see "Th"
   
 Scenario: Create New Class
-  Given I am on the home page
-  And I follow "Fall 2011"
-  Then I should be on the "Fall 2011" Session Name Page
+  Given I am on the "Fall 2011" Session Name Page
   When I follow "Add +"
   Then I should be on the "Fall 2011" Create Class Page
   And I fill in the new create class form correctly with subject "Math"
@@ -91,12 +92,17 @@ Scenario: Create New Class
   And I should see "Math"
   
 Scenario: Cancel Create New Class
-  Given I am on the home page
-  And I follow "Fall 2011"
-  Then I should be on the "Fall 2011" Session Name Page
+  Given I am on the "Fall 2011" Session Name Page
   When I follow "Add +"
   Then I should be on the "Fall 2011" Create Class Page
   When I fill in "Course Name" with "Silly Science"
   And I follow "Cancel"
   Then I should be on the "Fall 2011" Session Name Page
   And I should not see "Silly Science"
+  
+Scenario: Attemt to create a create a course in an invalid semester
+  Given I am on the "Fall 2111" Create Class Page
+  Then I should be on the home page
+  And I should see "Error: Unable to find the semester for the course."
+  
+Scenario: Attempt to access an Session Name Page of an invalid year

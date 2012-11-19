@@ -36,7 +36,7 @@ Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
     #need to change the input so that field is not requited in this case
     #no_classes = Array.new
-    session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
+    #session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
     Semester.create(session)
   end
 end
@@ -68,6 +68,12 @@ Given /^the following pta instructors exist:$/ do |table|
     sem_id = Semester.find_by_name(instructor[:semester])
     instructor[:semester] = sem_id
     Ptainstructor.create(instructor)
+  end
+end
+
+Given /^the following students are in the database:$/ do |table|
+  table.hashes.each do |student|
+    Student.create(student)
   end
 end
 

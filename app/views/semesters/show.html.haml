@@ -72,7 +72,7 @@
         = form_tag "/semesters/#{@semester.id}/import", :method => :post, :class => "form-horizontal" do
           = hidden_field_tag(:semester_id,"#{@semester.id}")
           = hidden_field_tag(:import_form,"1")
-          = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select", :multiple => true
+          = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
           %button.btn.btn-info{:type=>"submit"}
             Import
       .vspace30
@@ -85,7 +85,7 @@
         <style>a.manage-option { font-size:1.2em;line-height:1.6em; }</style>
         = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get, :class => "manage-option"
         %br
-        = link_to "Students", semester_student_path(@semester), :method => :get, :class => "manage-option"
+        = link_to "Students", semester_students_path(@semester), :method => :get, :class => "manage-option"
         %br
         = link_to "Teacher Classrooms", semester_teachers_path(@semester), :method => :get, :class => "manage-option"
         %br

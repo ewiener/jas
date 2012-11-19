@@ -16,7 +16,7 @@
         Edit Student
       .vspace20
       %div.span8.offset2
-        = form_tag semester_students_path(@semester, @student), :class =>"form-horizontal" do
+        = form_tag semester_student_path(@semester, @student), :class =>"form-horizontal", :method => :put do
           %div.control-group
             = label :student, :first_name, 'First Name:', :class => "control-label"
             %div.controls

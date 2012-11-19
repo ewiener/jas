@@ -71,6 +71,12 @@ Given /^the following pta instructors exist:$/ do |table|
   end
 end
 
+Given /^the following students are in the database:$/ do |table|
+  table.hashes.each do |student|
+    Student.create(student)
+  end
+end
+
 Given /^the following usernames and passwords exist:$/ do |table|
   table.hashes.each do |user|
     User.create(user)

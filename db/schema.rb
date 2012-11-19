@@ -60,6 +60,9 @@ ActiveRecord::Schema.define(:version => 20121118022550) do
     t.text  "lottery_deadline"
     t.text  "registration_deadline"
     t.float "fee"
+    t.text  "dates_with_no_classes_name"
+    t.text  "dates_with_no_classes_day"
+    t.text  "individual_dates_with_no_classes"
   end
 
   create_table "students", :force => true do |t|

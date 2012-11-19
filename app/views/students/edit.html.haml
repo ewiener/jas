@@ -1,0 +1,79 @@
+-# This file is app/views/students/edit.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      Edit Student
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = render :partial => "partial/topbar", :locals => {:semester => @semester}
+    %div#container
+      = render :partial => "partial/flash_messages"
+      .clear
+      %h1.span6.offset3
+        Edit Student
+      .vspace20
+      %div.span8.offset2
+        = form_tag semester_students_path(@semester, @student), :class =>"form-horizontal" do
+          %div.control-group
+            = label :student, :first_name, 'First Name:', :class => "control-label"
+            %div.controls
+              = text_field :student, :first_name
+              
+          %div.control-group
+            = label :student, :last_name, 'Last Name:', :class => "control-label"
+            %div.controls
+              = text_field :student, :last_name
+
+          %div.control-group
+            = label :student, :grade, 'Grade:', :class => "control-label"
+            %div.controls
+              = text_field :student, :grade
+
+          %div.control-group
+            = label :courses, 'Enrolled Courses:', :class => "control-label"
+            %div.controls
+              = select_tag :courses, options_from_collection_for_select(@classes, :id, :name),:class => "course_select", :multiple => true
+
+          %div.control-group
+            = label :teacher, 'Jefferson Classroom Teacher:', :class => "control-label"
+            %div.controls
+              = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name),:class => "course_select"
+
+          %div.control-group
+            = label :student, :student_phone, 'Student Phone:', :class => "control-label"
+            %div.controls
+              = phone_field :student, :student_phone
+
+          %div.control-group
+            = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"
+            %div.controls
+              = phone_field :student, :parent_phone
+
+          %div.control-group
+            = label :student, :parent_phone2, 'Parent Phone 2:', :class => "control-label"
+            %div.controls
+              = phone_field :student, :parent_phone2
+
+          %div.control-group
+            = label :student, :parent_email, 'Parent Email:', :class => "control-label"
+            %div.controls
+              = email_field :student, :parent_email
+
+          %div.control-group
+            = label :student, :health_alert, 'Health Alert:', :class => "control-label"
+            %div.controls
+              = text_area :student, :health_alert, :rows => 5
+
+          %div.control-group
+            %div.controls
+              = submit_tag 'Update Student Information', :class => "btn btn-info"
+              = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
+          .clear
+          .vspace80
+
+    :javascript
+      $("#navbar-students").addClass('active');
+

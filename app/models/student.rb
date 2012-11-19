@@ -18,6 +18,7 @@ class Student < ActiveRecord::Base
                   :semester,
                   :teacher,
                   :courses
+                  :teacher_id
 
   validate :first_name_is_valid
   validate :last_name_is_valid

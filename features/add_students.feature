@@ -14,34 +14,32 @@ Background: populate db with a single class session
   | name    | grade | classroom | semester  |
   | joe     | 1     | Room 4    | Fall 2011 |
   
-  #need to associate session, teacher, pta instructor with student
   Given the following students are in the database:
-  | first_name  | last_name | grade | student_phone | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  |
-  | Abby        | Davis     | K     | 6193242345    | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    |
+  | first_name  | last_name | grade | student_phone | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
+  | Abby        | Davis     | K     | 6193242345    | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
 
   
 Scenario: add student to db correctly
   Given I am on the "Fall 2011" Students home page
-  And I press "Add New student"
+  And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
   And I fill in the new student form correctly with name "Jimmy"
-  And I press "Add Student"
+  And I press "Register Student"
   Then I should be on the "Fall 2011" Students home page
   And I should see "Jimmy"
   
 Scenario: add student incorrectly, should redirect to same page
   Given I am on the "Fall 2011" Students home page
-  And I press "Add New student"
+  And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
-  And I fill in the new student form correctly with name "Jimmy"
-  And I press "Add Student"
+  And I press "Register Student"
   Then I should be on the "Fall 2011" New Students Page
 
 Scenario: update student correctly
   Given I am on the "Fall 2011" Students home page
   And I press "Edit"
-  Then I should be on the "Fall 2011" Edit Students Page
-  And I fill in "Student Name" with "Mary"
+  Then I should be on the "Fall 2011" "Abby" Edit Students Page
+  And I fill in "First Name" with "Mary"
   And I press "Update Student"
   Then I should be on the "Fall 2011" Students home page
   And I should see "Mary"
@@ -49,10 +47,10 @@ Scenario: update student correctly
 Scenario: update student incorrectly
   Given I am on the "Fall 2011" Students home page
   And I press "Edit"
-  Then I should be on the "Fall 2011" Edit Students Page
-  And I fill in "Student Name" with ""
+  Then I should be on the "Fall 2011" "Abby" Edit Students Page
+  And I fill in "First Name" with ""
   And I press "Update Student"
-  Then I should be on the "Fall 2011" Edit Students Page
+  Then I should be on the "Fall 2011" "Abby" Edit Students Page
 
 Scenario: Delete student
   Given I am on the "Fall 2011" Students home page

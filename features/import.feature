@@ -23,7 +23,7 @@ Background: populate db with all information for a session
   
   Given the following courses have been added:
     | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | ptainstructor | teacher   |
-    | Artistic Dance     | Fall 2011     | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | teacher3 | room3 |
+    | Artistic Dance     | Fall 2011     | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | Jim | Room 4 |
   
   Given the following students are in the database:
   | first_name  | last_name | grade | student_phone | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
@@ -52,9 +52,11 @@ Scenario: verify classroom teachers imported
   And I should not see "Mia"
 
 Scenario: verify courses imported
-  Then I should see "Artistic Dance"
+  Given I am on the "Spring 2012" Session Name Page
+  And I should see "Artistic Dance"
 
 Scenario: verify students imported
   When I follow "Students"
+  And I should see "Abby"
   
   

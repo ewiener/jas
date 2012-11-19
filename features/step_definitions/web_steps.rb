@@ -188,12 +188,11 @@ When /^I fill in the new student form correctly with name "(.*?)"$/ do |name|
 end
 
 def fill_in_new_student_form_correcctly(name)
-  fill_in("semester_name", :with => name)
-  fill_in("semester_start_date", :with => "09/21/2012")
-  fill_in("semester_end_date", :with => "12/15/2012")
-  fill_in("semester_registration_deadline", :with => "09/15/2012")
-  fill_in("semester_lottery_deadline", :with => "09/10/2012")
-  fill_in("semester_fee", :with => "10")
+  fill_in("student_first_name", :with => name)
+  fill_in("student_last_name", :with => name)
+  fill_in("student_grade", :with => "K")
+  fill_in("student_parent_phone", :with => "555 555-5555")
+  fill_in("student_parent_email", :with => "asdf@asdf.com")
 end
 
 

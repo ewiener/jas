@@ -89,6 +89,8 @@ class StudentsController < ApplicationController
   def edit
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
+    @classes = Course.where( :semester_id => @semester)
+    @teachers = Teacher.where( :semester_id => @semester )
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)
   end
@@ -121,8 +123,8 @@ class StudentsController < ApplicationController
       return
     end
 
-    flash[:notice] = "#{@student.first_name} #{student.last_name}'s information was successfully updated."
-    redirect_to semester_student_path(@semester)
+    flash[:notice] = "#{@student.first_name} #{@student.last_name}'s information was successfully updated."
+    redirect_to semester_students_path(@semester)
 
 
   end

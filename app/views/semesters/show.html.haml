@@ -58,13 +58,25 @@
                   = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
         .vspace10
         .center-right
-          %button.btn.btn-info
-            Import
           %a{:href=>new_semester_course_path(@semester)}
             %button.btn.btn-info#new_semester_course
               Add +
         .vspace30
       // END hero-unit: _Classes_
+      .vspace30
+
+      // hero-unit: _Import_
+      .hero-unit
+        %h2
+          Import
+        = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+          = hidden_field_tag(:import_form,"1")
+          %select#import_semester{:name=>"import_semester_id", :style=>"width:140px;"}
+            - @semesters.each do |sem|
+              %option{:id=>"#{sem.id}"}
+                = sem.name
+          %button.btn.btn-info{:type=>"submit"}
+            Import
       .vspace30
       
       // hero-unit: _Manage_
@@ -72,14 +84,11 @@
         %h2
           Manage
         <style>a.manage-option { font-size:1.2em;line-height:1.6em; }</style>
-        %a.manage-option
-          = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get
+        = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get, :class => "manage-option"
         %br
-        %a.manage-option
-          = link_to "Students", semester_student_path(@semester), :method => :get
+        = link_to "Students", semester_student_path(@semester), :method => :get, :class => "manage-option"
         %br
-        %a.manage-option{:href=>"#{semester_teachers_path(@semester)}", :method=>"get"}
-          Teacher Classrooms
+        = link_to "Teacher Classrooms", semester_teachers_path(@semester), :method => :get, :class => "manage-option"
         %br
         .vspace30
       // END hero-unit: _Manage_
@@ -113,21 +122,26 @@
         .vspace30
         %table.table-striped.table-bordered.table-hover{:id=>"table_days_off",:style=>"width:100%;text-align:center;"}
           %thead{:style=>"text-decoration:underline;"}
-            %td Label
+            %td Holiday Name
             %td Day or Span
             %td Remove
-          %tr
-            %td Class
-            %td Teacher
-            %td Days
-          %tr
-            %td Class
-            %td Teacher
-            %td Days
-        .vspace10
-        .center-right
-          %button.btn.btn-info
-            Add Days Off
+          - @semester.dates_with_no_classes.each do |date|
+            %tr
+              %td.cell_center
+                = date["name"]
+              %td.cell_center
+                = date["days"]
+              %td.cell_center
+                //currently deletes the semester instead of the date
+                //= button_to "Delete", date, :method => :delete, :class => "btn btn-danger"
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            %tr
+              %td
+                = text_field :semester, :dates_with_no_classes_name, :placeholder => "enter new holiday name"
+              %td
+                = text_field :semester, :dates_with_no_classes_day, :placeholder => "e.g. 11/23/12 or 11/23/12-11/24/12"
+              //submit tag needs to be moved to lower right
+            = submit_tag 'Add Days Off', :class => "btn btn-info", :style => "center-right"
         .vspace30
       // END hero-unit: _Schedule_
 

@@ -14,7 +14,10 @@ class Student < ActiveRecord::Base
                   :parent_phone2,
                   :parent_name,
                   :parent_email,
-                  :health_alert
+                  :health_alert,
+                  :semester,
+                  :teacher,
+                  :courses
 
   validate :first_name_is_valid
   validate :last_name_is_valid

@@ -41,23 +41,30 @@ class StudentsController < ApplicationController
 
    @student = Student.new(params[:student])
    #return unless student_is_valid(@student,"Could not initialize a student object.")
-   if not student
+   if not @student
      flash[:warning] = [[:student,"Could not initialize a student object."]]
      redirect_to new_semester_student_path(@semester)
      return
    end
 
-   student.semester_id = @semester.id
-   @teacher = Teacher.find_by_id params[:teacher]
-   if @teacher
-     student.teacher_id = @teacher.id
-   end
-   @courses = Course.find(params[:courses])
+   @student.semester_id = @semester.id
+
+   @courses = Course.find_all_by_id(params[:courses])
    if @courses
-     student << @courses
+     @student.courses = @courses
    end
 
-   if student.save
+   @teacher = Teacher.find_by_id params[:teacher]
+   if @teacher
+     @student.teacher_id = @teacher.id
+   else
+     flash[:warning] = [[:teacher,"A valid teacher was not selected."]]
+     flash[:student] = @student
+     redirect_to new_semester_student_path(@semester)
+     return
+   end
+
+   if @student.save
      flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully added to the database."
      redirect_to semester_students_path
    else
@@ -91,20 +98,40 @@ class StudentsController < ApplicationController
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)
 
-    if @student.update_attributes(params[:student])
-      flash[:notice] = "#{@student.first_name} #{student.last_name}'s information was successfully updated."
-      redirect_to semester_student_path(@semester)
-    else
+    if not @student.update_attributes(params[:student])
       flash[:warning] = @student.errors
       redirect_to edit_semester_student_path(@semester,@student)
+      return
     end
+
+    @courses = Course.find_all_by_id(params[:courses])
+    if @courses
+      @student.courses = @courses
+    else
+      @student.courses = nil
+    end
+
+    @teacher = Teacher.find_by_id params[:teacher]
+    if @teacher
+      @student.teacher_id = @teacher.id
+    else
+      flash[:warning] = [[:teacher,"A valid teacher was not selected."]]
+      flash[:student] = @student
+      redirect_to new_semester_student_path(@semester)
+      return
+    end
+
+    flash[:notice] = "#{@student.first_name} #{student.last_name}'s information was successfully updated."
+    redirect_to semester_student_path(@semester)
+
+
   end
 
   def destroy
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)
 
-    name = "{@student.first_name} {@student.last_name}"
+    name = "#{@student.first_name} #{@student.last_name}"
 
     if @student.destroy
       flash[:notice]= "#{name} was successfully deleted."

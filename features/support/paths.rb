@@ -152,9 +152,10 @@ module NavigationHelpers
       semester_id = Semester.find_by_name($1).id
       "/semesters/#{semester_id}/students/new"
       
-    when /^the "(.+)" Edit Students Page$/
+    when /^the "(.+)" "(.+)" Edit Students Page$/
       semester_id = Semester.find_by_name($1).id
-      "/semesters/#{semester_id}/students/edit"
+      student_id = Student.find_by_first_name($2).id
+      "/semesters/#{semester_id}/students/#{student_id}/edit"
       
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

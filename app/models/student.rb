@@ -15,6 +15,9 @@ class Student < ActiveRecord::Base
                   :parent_name,
                   :parent_email,
                   :health_alert,
+                  :semester,
+                  :teacher,
+                  :courses
                   :teacher_id
 
   validate :first_name_is_valid

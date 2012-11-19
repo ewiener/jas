@@ -76,16 +76,6 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
       redirect_to edit_semester_path
     end
-
-    puts 'ASDFLAKJSDFLKAJSDLFKAJSDLKFJASDLFJASDFLJAKSDF'
-    puts params[:import_form]
-    puts params
-    puts 'ASDFLAKJSDFLKAJSDLFKAJSDLKFJASDLFJASDFLJAKSDF'
-    if params[:import_form]
-      puts 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZzz'
-      import()
-      return
-    end
   end
 
   def destroy
@@ -108,8 +98,7 @@ class SemestersController < ApplicationController
     return unless semester_is_valid(@semester)
 
     if params[:import_semester_id]
-      import_semester_id = Semester.find_by_name(params[:import_semester_id]).id
-      semester_to_import = Semester.find_by_id import_semester_id
+      semester_to_import = Semester.find_by_id params[:import_semester_id]
       if semester_to_import
         if @semester.import(semester_to_import)
           flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"

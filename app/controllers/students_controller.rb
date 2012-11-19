@@ -87,7 +87,7 @@ class StudentsController < ApplicationController
  end
 
   def edit
-    @semester = Semester.find_by_id params[:semster_id]
+    @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)

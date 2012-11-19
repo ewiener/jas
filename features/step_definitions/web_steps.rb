@@ -73,6 +73,12 @@ end
 
 Given /^the following students are in the database:$/ do |table|
   table.hashes.each do |student|
+    sem_id = Semester.find_by_name(student[:semester])
+    student[:semester] = sem_id
+    #course_id = Ptainstructor.find_by_name(student[:courses])
+    #student[:courses] = course_id
+    classroom_id = Teacher.find_by_name(student[:teacher])
+    student[:teacher] = classroom_id
     Student.create(student)
   end
 end

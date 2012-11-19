@@ -62,3 +62,11 @@ Scenario: Attempt to access a semester that does not exist
   Given I am on the "Fall 2111" Students home page
   Then I should be on the home page
   
+Scenario: Attempt to add new student in invalid semester
+  Given I am on the "Fall 2111" New Students Page
+  Then I should be on the home page
+  And I should see "Error: Unable to find the semester for the student."
+  
+Scenario: Attempt to edit a student in an invalid semester
+  Given I am on the "Fall 2111" "Abby" Edit Students Page
+  Then I should be on the home page

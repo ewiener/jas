@@ -91,6 +91,13 @@ Scenario: Create New Class
   Then I should be on the "Fall 2011" Session Name Page
   And I should see "Math"
   
+Scenario: Create New Invalid Class
+  Given I am on the "Fall 2011" Session Name Page
+  When I follow "Add +"
+  Then I should be on the "Fall 2011" Create Class Page
+  And I press "Add New Course"
+  Then I should be on the "Fall 2011" Create Class Page
+  
 Scenario: Cancel Create New Class
   Given I am on the "Fall 2011" Session Name Page
   When I follow "Add +"

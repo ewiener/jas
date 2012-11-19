@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
       redirect_to semesters_path
       return
     end
-    @students = Student.find_all_by_semester_id
+    @students = Student.find_all_by_semester_id(@semester)
   end
 
   def new

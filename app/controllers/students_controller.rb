@@ -39,6 +39,33 @@ class StudentsController < ApplicationController
    @semester = Semester.find_by_id params[:semester_id]
    return unless semester_is_valid(@semester)
 
+   @student = Student.new(params[:student])
+   #return unless student_is_valid(@student,"Could not initialize a student object.")
+   if not student
+     flash[:warning] = [[:student,"Could not initialize a student object."]]
+     redirect_to new_semester_student_path(@semester)
+     return
+   end
+
+   student.semester_id = @semester.id
+   @teacher = Teacher.find_by_id params[:teacher]
+   if @teacher
+     student.teacher_id = @teacher.id
+   end
+   @courses = Course.find(params[:courses])
+   if @courses
+     student << @courses
+   end
+
+   if student.save
+     flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully added to the database."
+     redirect_to semester_students_path
+   else
+     flash[:warning] = @student.errors
+     flash[:student] = @student
+     redirect_to new_semester_student_path(@semester)
+   end
+=begin
    @student = @semester.students.create(params[:student])
    if @student.new_record?
      flash[:warning] = @student.errors
@@ -47,8 +74,9 @@ class StudentsController < ApplicationController
      return
    else
      flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully added to the database."
-     redirect_to semester_students_path(@student)
+     redirect_to semester_students_path
    end
+=end
  end
 
   def edit
@@ -88,9 +116,9 @@ class StudentsController < ApplicationController
   end
 
   private
-  def student_is_valid(student)
-    if(stutdent == nil)
-      flash[:warning] = [[:id,"Could not find the corresponding student."]]
+  def student_is_valid(student,message="Could not find the corresponding student.")
+    if(student == nil)
+      flash[:warning] = [[:id,message]]
       redirect_to semesters_students_path
       return false
     end

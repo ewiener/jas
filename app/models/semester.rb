@@ -253,7 +253,101 @@ class Semester < ActiveRecord::Base
 
   public
   def import(semester_to_import)
+    if not semester_to_import
+      errors.add(:semester_to_import,"Was given a nil semester to import.")
+      return false
+    end
 
+    failure = false
+    error_message = nil
+    #raise ActiveRecord::Rollback
+
+    ActiveRecord::Base.transaction do
+      ptainstructors = Ptainstructor.find_all_by_semester_id(semester_to_import.id)
+      teachers = Teacher.find_all_by_semester_id(semester_to_import.id)
+      students = Student.find_all_by_semester_id(semester_to_import.id)
+      courses = Course.find_all_by_semester_id(semester_to_import.id)
+
+      ptainstructors_cloned = Hash.new
+      teachers_cloned = Hash.new
+      courses.each do |oldcourse|
+        newcourse = oldcourse.dup
+        oldteacher = Teacher.find_by_id(oldcourse.teacher_id)
+        oldptainstructor = Ptainstructor.find_by_id(oldcourse.ptainstructor_id)
+        raise ActiveRecord::Rollback unless duplicate_teacher_for_course(newcourse, oldteacher,teachers_cloned)
+        raise ActiveRecord::Rollback unless duplicate_ptainstructor_for_course(newcourse,oldptainstructor,ptainstructors_cloned)
+        newcourse.semester_id = self.id
+        raise ActiveRecord::Rollback unless newcourse.save
+      end
+
+      ptainstructors.each do |ptainstructor|
+        if ptainstructors_cloned[ptainstructor.id];next;end
+        raise ActiveRecord::Rollback unless duplicate_ptainstructor(ptainstructor)
+      end
+
+      teachers.each do |teacher|
+        if teachers_cloned[teacher.id];next;end
+        raise ActiveRecord::Rollback unless duplicate_teacher(teacher,teachers_cloned)
+      end
+
+      students.each do |student|
+        raise ActiveRecord::Rollback unless duplicate_student(student,teachers_cloned)
+      end
+    end
+  end
+
+  private
+  def duplicate_teacher_for_course(newcourse, oldteacher, teachers_cloned)
+    if teachers_cloned[oldteacher.id]
+      newcourse.teacher_id = teachers_cloned[oldteacher.id]
+    else
+      newteacher = oldteacher.dup
+      newteacher.semester_id = self.id
+      return false unless newteacher.save
+      newcourse.teacher_id = newteacher.id
+      teachers_cloned[oldteacher.id] = newteacher.id
+    end
+    return true
+  end
+
+  private
+  def duplicate_ptainstructor_for_course(newcourse, oldptainstructor, ptainstructors_cloned)
+    if ptainstructors_cloned[oldptainstructor.id]
+      newcourse.ptainstructor_id = ptainstructors_cloned[oldptainstructor.id]
+    else
+      newptainstructor = oldptainstructor.dup
+      newptainstructor.semester_id = self.id
+      return false unless newptainstructor.save
+      newcourse.ptainstructor_id = newptainstructor.id
+      ptainstructors_cloned[oldptainstructor.id] = newptainstructor.id
+    end
+    return true
+  end
+
+  private
+  def duplicate_teacher(oldteacher,teachers_cloned)
+    newteacher = oldteacher.dup
+    newteacher.semester_id = self.id
+    return false unless newteacher.save
+    teachers_cloned[oldteacher.id] = newteacher.id
+    return true
+  end
+
+  private
+  def duplicate_ptainstructor(oldptainstructor)
+    newptainstructor = oldptainstructor.dup
+    newptainstructor.semester_id = self.id
+    return false unless newptainstructor.save
+    return true
+  end
+
+  private
+  def duplicate_student(oldstudent, teachers_cloned)
+    newstudent = oldstudent.dup
+    newstudent.semester_id = self.id
+    newstudent.teacher_id = teachers_cloned[oldstudent.id]
+    return false unless newstudent.save
+    return true
   end
 end
 

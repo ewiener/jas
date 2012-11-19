@@ -10,9 +10,8 @@ class AddStudentTable < ActiveRecord::Migration
       t.text        'parent_name'
       t.text        'parent_email'
       t.text        'health_alert'
-      #t.references  'semester'
-      #t.references  'teacher'
-      #t.
+      t.references  'semester'
+      t.references  'teacher'
     end
     #create_table 'ptainstructors_students', :id =>false do |t|
     #  t.integer :ptainstructor_id

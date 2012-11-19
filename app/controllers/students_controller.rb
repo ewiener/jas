@@ -26,6 +26,8 @@ class StudentsController < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
+    @classes = Course.where( :semester_id => @semester)
+    @teachers = Teacher.where( :semester_id => @semester )
     if flash.key? :student
       @student = flash[:student]
       render 'new'
@@ -37,11 +39,11 @@ class StudentsController < ApplicationController
    @semester = Semester.find_by_id params[:semester_id]
    return unless semester_is_valid(@semester)
 
-   @student = @semester.student.create(params[:student])
+   @student = @semester.students.create(params[:student])
    if @student.new_record?
      flash[:warning] = @student.errors
      flash[:student] = @student
-     redurect_to new_semester_student_path(@semester)
+     redirect_to new_semester_student_path(@semester)
      return
    else
      flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully added to the database."
@@ -98,7 +100,7 @@ class StudentsController < ApplicationController
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the student.")
     if not semester
-      flash[:warning] = [[:semester_id, messsage]]
+      flash[:warning] = [[:semester_id, message]]
       redirect_to semesters_path, :method => :get
       return false
     end

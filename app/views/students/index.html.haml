@@ -4,7 +4,7 @@
 %html{:lang => "en"}
   %head
     %title
-      Session List
+      Students
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
@@ -19,32 +19,26 @@
         %thead
           %tr
             %td.cell_right{:colspan => "5"}
-              = link_to "Add New Classroom Teacher", new_semester_teacher_path
+              = link_to "Add New Student", new_semester_student_path
         %tbody
           %tr
             %td
-              Teacher Name
+              Last, First
             %td
               Grade
-            %td
-              Location
             %td
               Edit Entry
             %td
               Delete Entry
-          - @teachers.each do |teacher|
+          - @students.each do |student|
             %tr
               %td.cell_center
-                = teacher.name
+                = student.last_name + ", " + student.first_name
               %td.cell_center
-                = teacher.grade
+                = student.grade
               %td.cell_center
-                = teacher.classroom
+                = button_to "Edit", edit_semester_student_path(@semester,student), :method => :get, :class => "btn btn-warning"
               %td.cell_center
-                = button_to "Edit", edit_semester_teacher_path(@semester,teacher), :method => :get, :class => "btn btn-warning"
-              %td.cell_center
-                = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger" unless not teacher.can_be_deleted?
-                = "Teacher is currently referenced and cannot be deleted" unless teacher.can_be_deleted?
-
+                = button_to "Delete", semester_student_path(@semester, student), :method => :delete, :class => "btn btn-danger"
     :javascript
-      $("#navbar-teachers").addClass('active');
+      $("#navbar-students").addClass('active');

@@ -216,8 +216,8 @@ class Semester < ActiveRecord::Base
 
   public
   def can_create_course?
-    ptainstructors = Ptainstructor.find_by_semester(self.id)
-    teachers = Teacher.find_by_semester(self.id)
+    ptainstructors = Ptainstructor.find_by_semester_id(self.id)
+    teachers = Teacher.find_by_semester_id(self.id)
     if ((ptainstructors == nil) or (teachers == nil))
         return false
     end

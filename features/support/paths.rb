@@ -17,8 +17,13 @@ module NavigationHelpers
       '/semesters'
       
     when /^the "(.+)" Create Class Page$/
-      semester_id = Semester.find_by_name($1).id
-      "/semesters/#{semester_id}/courses/new"
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}/courses/new"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}/courses/new"
+      end
     
     when /^the login page$/
       '/logins'

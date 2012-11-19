@@ -30,7 +30,6 @@ Background: previous sessions have been added to the database
   And I am on the home page
 
 Scenario: Displaying Sessions
-  Given I am on the home page
   Then I should see "Spring 2012" before "Fall 2011"
 
 Scenario: Create new session
@@ -68,14 +67,12 @@ Scenario: Create new session
 #  And I should not see "Art"
   
 Scenario: View semester
-  Given I am on the home page
   And I follow "Spring 2012"
   Then I should be on the "Spring 2012" Session Name Page
   Then I should see "Art"
   And I should see "Science"
   
 Scenario: Add a semester with missing necessary fields
-  Given I am on the home page
   When I follow "Create New Session"
   Then I am on the Session Name Page
   When I fill in "Session Name" with "Fall 2012"
@@ -129,4 +126,3 @@ Scenario: Update registration page
   Then I should be on the "Fall 2011" Session Name Page
   And I should see "Fall 2011 was successfully updated."
   And the "Registration Fee: $" field should contain "100"
-  And the "Registration Fee: $" field should not contain "35"

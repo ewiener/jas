@@ -3,6 +3,7 @@ class Semester < ActiveRecord::Base
   require 'date'
 
   serialize :dates_with_no_classes
+  serialize :individual_dates_with_no_classes
 
   # Attributes
   # :name, :start_date
@@ -12,7 +13,10 @@ class Semester < ActiveRecord::Base
                   :dates_with_no_classes,
                   :lottery_deadline,
                   :registration_deadline,
-                  :fee
+                  :fee,
+                  :dates_with_no_classes_name,
+                  :dates_with_no_classes_day,
+                  :individual_dates_with_no_classes
                   #:start_date_as_date
 
   validate :name_is_valid
@@ -97,6 +101,43 @@ class Semester < ActiveRecord::Base
     end
     return true
   end
+  
+  public
+  # verifys the date range can be parsed (works for single date and range of the form date-date, also adds all dates to a set for use later in caculating number of class meetings
+  def dates_in_span_valid?(date_string)
+    dates_array = date_string.split("-")
+    start_range = dates_array[0]
+    begin
+      start_range = USDateParse(start_range)
+      self.individual_dates_with_no_classes.add(start_range)
+    rescue
+      errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the date is not parsable.')
+      return false
+    end
+    #also need to check if startdate is before enddate
+    if dates_array.length == 2
+      end_range = dates_array[1]
+      begin
+        end_range = USDateParse(end_range)
+        if end_range < start_range
+          errors.add(:dates_with_no_classes_day, 'Could not add the date range because end date is before start date.')
+          return false
+        end
+        date = start_range
+        while date < end_range
+          date += 1
+          self.individual_dates_with_no_classes.add(date)
+        end
+      rescue
+        errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the date is not parsable.')
+        return false
+      end
+    elsif dates_array.length > 2
+      errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the range is not parsable.')
+      return false
+    end
+    return true
+  end
 
   private
   # Verifies that the dates that there are no classes are within the session start date and session end date.
@@ -104,6 +145,7 @@ class Semester < ActiveRecord::Base
     if self.dates_with_no_classes == nil
       # No dates that there aren't classes, initialize with emptylist
       self.dates_with_no_classes = []
+      self.individual_dates_with_no_classes = Set.new
       return
     end
 =begin
@@ -201,8 +243,10 @@ class Semester < ActiveRecord::Base
     curr_date = date_start
     date_hash = Hash.new(0)
     while curr_date <= date_end do
-      date_hash[curr_date.cwday] += 1
+      if (! self.individual_dates_with_no_classes.include?(curr_date))
+        date_hash[curr_date.cwday] += 1
       curr_date += 1
+      end
     end
     return date_hash
   end

@@ -1,17 +1,23 @@
 .vspace20
 .navbar
   .navbar-inner
-    %a.brand{:href=>"#{semesters_path}", :style=>"padding-left:25px; margin-right:10px;"} PTA Scheduler
+    %a.brand{:href=>"#{semesters_path}", :style=>"padding-left:25px; margin-right:10px;"}
+      PTA Scheduler
     %ul.nav
       %li#navbar-semester
-        %a.brand{:href=>"#{semester_path(semester)}"} #{semester.name}
+        %a.brand-small{:href=>"#{semester_path(semester)}"}
+          #{semester.name}
       %li#navbar-courses
-        %a{:href=>"#{semester_courses_path(semester)}"} Classes
+        %a{:href=>"#{semester_courses_path(semester)}"}
+          Classes
       %li#navbar-ptainstructors
-        %a{:href=>"#{semester_ptainstructors_path(semester)}"} PTA Instructors
+        %a{:href=>"#{semester_ptainstructors_path(semester)}"}
+          PTA Instructors
       %li#navbar-students
-        %a{:href=>"#{semester_students_path(semester)}"} Students
+        %a{:href=>"#{semester_students_path(semester)}"}
+          Students
       %li#navbar-teachers
-        %a{:href=>"#{semester_teachers_path(semester)}"} Teachers/Classrooms
+        %a{:href=>"#{semester_teachers_path(semester)}"}
+          Teachers/Classrooms
 
 .vspace10

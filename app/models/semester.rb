@@ -14,7 +14,6 @@ class Semester < ActiveRecord::Base
                   :lottery_deadline,
                   :registration_deadline,
                   :fee,
-                  :dates_with_no_classes_name,
                   :dates_with_no_classes_day,
                   :individual_dates_with_no_classes
                   #:start_date_as_date

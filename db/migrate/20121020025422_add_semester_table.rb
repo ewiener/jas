@@ -9,7 +9,6 @@ class AddSemesterTable < ActiveRecord::Migration
       t.text   'lottery_deadline'
       t.text   'registration_deadline'
       t.float  'fee'
-      t.text   'dates_with_no_classes_name'
       t.text   'dates_with_no_classes_day'
       t.text   'individual_dates_with_no_classes'
     end

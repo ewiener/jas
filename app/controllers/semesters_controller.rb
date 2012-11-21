@@ -42,14 +42,12 @@ class SemestersController < ApplicationController
 =end
 
   def add_days_off(update_hash)
-    name = update_hash[:dates_with_no_classes_name]
     day_span = update_hash[:dates_with_no_classes_day]
     if @semester.dates_in_span_valid?(day_span)
       valid = true
-      holiday = Hash[:name => name, :days => day_span]
+      holiday = day_span
       update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
       update_hash[:dates_with_no_classes] +=  [holiday]
-      update_hash[:dates_with_no_classes_name] = nil
       update_hash[:dates_with_no_classes_day] = nil
     else
       valid = false
@@ -61,7 +59,7 @@ class SemestersController < ApplicationController
     @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
     update_hash = params[:semester]
-    if (update_hash.include?(:dates_with_no_classes_name) and update_hash.include?(:dates_with_no_classes_day))
+    if update_hash.include?(:dates_with_no_classes_day)
       update_hash, valid = add_days_off(update_hash)
     end
     if valid == false

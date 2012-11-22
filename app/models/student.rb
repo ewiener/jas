@@ -9,7 +9,6 @@ class Student < ActiveRecord::Base
   attr_accessible :first_name,
                   :last_name,
                   :grade,
-                  :student_phone,
                   :parent_phone,
                   :parent_phone2,
                   :parent_name,
@@ -23,7 +22,6 @@ class Student < ActiveRecord::Base
   validate :first_name_is_valid
   validate :last_name_is_valid
   validate :grade_is_valid
-  validate :student_phone_is_valid
   validate :parent_phone_is_valid
   validate :parent_phone2_is_valid
   validate :parent_email_is_valid
@@ -64,18 +62,6 @@ class Student < ActiveRecord::Base
       end
     end
     return false
-  end
-
-  private
-  def student_phone_is_valid
-    errors.add(:student_phone, "Student phone is a not a valid 10 digit phone number.") unless student_phone_is_valid?
-  end
-
-  public
-  def student_phone_is_valid?
-    if is_nil_or_empty_string(self.student_phone);return true;end
-    return false unless phone_is_valid(self.student_phone)
-    return true
   end
 
   private

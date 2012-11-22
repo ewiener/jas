@@ -43,11 +43,6 @@
               = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name),:class => "course_select"
 
           %div.control-group
-            = label :student, :student_phone, 'Student Phone:', :class => "control-label"
-            %div.controls
-              = phone_field :student, :student_phone
-
-          %div.control-group
             = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"
             %div.controls
               = phone_field :student, :parent_phone

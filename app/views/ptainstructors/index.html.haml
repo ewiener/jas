@@ -8,8 +8,8 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
+      = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/ptainstructor_error"
       %h1
         PTA Instructors

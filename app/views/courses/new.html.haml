@@ -8,8 +8,8 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
+      = render :partial => "partial/topbar", :locals => {:semester => @semester}
       %ul.pager{:style=>"margin-top:0;"}
         %li.previous
           %a{:href=>"#{}"}

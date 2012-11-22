@@ -8,19 +8,18 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
+      = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       %h1.span8.offset2
         Current Classroom Teachers
       .vspace20
       /%table{:class => "table table-striped table-hover"}
-      %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+      %table.teachers.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
           %tr
             %td.cell_right{:colspan => "5"}
               = link_to "Add New Classroom Teacher", new_semester_teacher_path
-        %tbody
           %tr
             %td
               Teacher Name
@@ -32,19 +31,48 @@
               Edit Entry
             %td
               Delete Entry
+        %tbody
           - @teachers.each do |teacher|
             %tr
-              %td.cell_center
+              %td.cell_center.teacher-name
                 = teacher.name
-              %td.cell_center
+              %td.cell_center.teacher-grade
                 = teacher.grade
-              %td.cell_center
+              %td.cell_center.teacher-classroom
                 = teacher.classroom
-              %td.cell_center
+              %td.cell_center.teacher-edit
                 = button_to "Edit", edit_semester_teacher_path(@semester,teacher), :method => :get, :class => "btn btn-warning"
-              %td.cell_center
+              %td.cell_center.teacher-delete
                 = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger" unless not teacher.can_be_deleted?
                 = "Teacher is currently referenced and cannot be deleted" unless teacher.can_be_deleted?
 
     :javascript
       $("#navbar-teachers").addClass('active');
+      teachers = [];
+      $("table.teachers tbody tr").each(function() {
+        $tr = $(this);
+        $teacherName = $.trim($tr.children(".teacher-name").text());
+        $teacherGrade = $.trim($tr.children(".teacher-grade").text());
+        $teacherClassroom = $.trim($tr.children(".teacher-classroom").text());
+        $teacherEdit = $tr.children(".teacher-edit");
+        $teacherDelete = $tr.children(".teacher-delete");
+        teachers.push({
+          'teacherName': $teacherName,
+          'teacherGrade': $teacherGrade,
+          'teacherClassroom': $teacherClassroom,
+          'teacherDelete': $teacherDelete,
+          'teacherEdit': $teacherEdit,
+        });
+      });
+      console.log(teachers[0].teacherDelete);
+      // sort by name
+
+
+
+
+
+
+
+
+
+

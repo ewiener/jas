@@ -26,8 +26,8 @@ Background: populate db with all information for a session
     | Artistic Dance     | Fall 2011     | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | Jim | Room 4 |
   
   Given the following students are in the database:
-  | first_name  | last_name | grade | student_phone | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
-  | Abby        | Davis     | K     | 6193242345    | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
+  | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
+  | Abby        | Davis     | K     | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
   
   Given I am on the home page
   And I follow "Create New Session"

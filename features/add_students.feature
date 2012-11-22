@@ -15,8 +15,8 @@ Background: populate db with a single class session
   | joe     | 1     | Room 4    | Fall 2011 |
   
   Given the following students are in the database:
-  | first_name  | last_name | grade | student_phone | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
-  | Abby        | Davis     | K     | 6193242345    | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
+  | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
+  | Abby        | Davis     | K     | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
 
   
 Scenario: add student to db correctly

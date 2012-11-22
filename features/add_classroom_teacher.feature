@@ -16,6 +16,7 @@ Background: populate db with a single class session
 
   Given I am on the "Fall 2011" Session Name Page
   And I follow "Teachers/Classrooms"
+  Then I should be on the "Fall 2011" Classroom Teachers home page
 
 Scenario: Create invalid classroom teacher:
   Given I am on the "Fall 2011" Classroom Teachers home page

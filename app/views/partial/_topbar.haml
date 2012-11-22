@@ -5,14 +5,19 @@
       %li
         %a.brand{:href=>"#{semesters_path}", :style=>"text-align:center;"} JAS Administration
       %li#navbar-semester
-        %a{:href=>"#{semester_path(semester)}"} #{semester.name}
+        %a{:href=>"#{semester_path(semester)}"}
+          #{semester.name}
       %li#navbar-courses
-        %a{:href=>"#{semester_courses_path(semester)}"} Classes
+        %a{:href=>"#{semester_courses_path(semester)}"}
+          Classes
       %li#navbar-ptainstructors
-        %a{:href=>"#{semester_ptainstructors_path(semester)}"} PTA Instructors
+        %a{:href=>"#{semester_ptainstructors_path(semester)}"}
+          PTA Instructors
       %li#navbar-students
-        %a{:href=>"semester_students_path(semester)"} Students
+        %a{:href=>"#{semester_students_path(semester)}"}
+          Students
       %li#navbar-teachers
-        %a{:href=>"#{semester_teachers_path(semester)}"} Teachers/Classrooms
+        %a{:href=>"#{semester_teachers_path(semester)}"}
+          Teachers/Classrooms
 
-.vspace40
+.vspace10

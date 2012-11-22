@@ -36,7 +36,7 @@ Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
     #need to change the input so that field is not requited in this case
     #no_classes = Array.new
-    session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
+    #session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
     Semester.create(session)
   end
 end
@@ -68,6 +68,18 @@ Given /^the following pta instructors exist:$/ do |table|
     sem_id = Semester.find_by_name(instructor[:semester])
     instructor[:semester] = sem_id
     Ptainstructor.create(instructor)
+  end
+end
+
+Given /^the following students are in the database:$/ do |table|
+  table.hashes.each do |student|
+    sem_id = Semester.find_by_name(student[:semester])
+    student[:semester] = sem_id
+    #course_id = Ptainstructor.find_by_name(student[:courses])
+    #student[:courses] = course_id
+    classroom_id = Teacher.find_by_name(student[:teacher])
+    student[:teacher] = classroom_id
+    Student.create(student)
   end
 end
 
@@ -176,12 +188,11 @@ When /^I fill in the new student form correctly with name "(.*?)"$/ do |name|
 end
 
 def fill_in_new_student_form_correcctly(name)
-  fill_in("semester_name", :with => name)
-  fill_in("semester_start_date", :with => "09/21/2012")
-  fill_in("semester_end_date", :with => "12/15/2012")
-  fill_in("semester_registration_deadline", :with => "09/15/2012")
-  fill_in("semester_lottery_deadline", :with => "09/10/2012")
-  fill_in("semester_fee", :with => "10")
+  fill_in("student_first_name", :with => name)
+  fill_in("student_last_name", :with => name)
+  fill_in("student_grade", :with => "K")
+  fill_in("student_parent_phone", :with => "555 555-5555")
+  fill_in("student_parent_email", :with => "asdf@asdf.com")
 end
 
 

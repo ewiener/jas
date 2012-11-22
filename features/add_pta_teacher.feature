@@ -7,8 +7,8 @@ Feature: Adding PTA instructors to the database
 Background:
 
   Given the following sessions exist:
-    | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | dates_with_no_classes | fee |
-    | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            | 35  |
+    | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | fee |
+    | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 35  |
     
   Given the following pta instructors exist:
   | name    | email     | phone     | address       | bio       | semester  |

@@ -4,6 +4,7 @@ class SemestersController < ApplicationController
   def show
     @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
+    @semesters = Semester.all.delete_if {|sem| sem == @semester}
     @courses = @semester.courses
   end
 
@@ -40,11 +41,33 @@ class SemestersController < ApplicationController
   end
 =end
 
+  def add_days_off(update_hash)
+    day_span = update_hash[:dates_with_no_classes_day]
+    if @semester.dates_in_span_valid?(day_span)
+      valid = true
+      holiday = day_span
+      update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
+      update_hash[:dates_with_no_classes] +=  [holiday]
+      update_hash[:dates_with_no_classes_day] = nil
+    else
+      valid = false
+    end
+    return update_hash, valid
+  end
+
   def update
     @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
-
-    if @semester.update_attributes(params[:semester])
+    update_hash = params[:semester]
+    if update_hash.include?(:dates_with_no_classes_day)
+      update_hash, valid = add_days_off(update_hash)
+    end
+    if valid == false
+      flash[:warning] = @semester.errors
+      redirect_to semester_path(@semester)
+      return
+    end
+    if @semester.update_attributes(update_hash)
       flash[:notice] = "#{@semester.name} was successfully updated."
       redirect_to semester_path(@semester)
     else
@@ -66,6 +89,27 @@ class SemestersController < ApplicationController
     end
 
     redirect_to semesters_path
+  end
+
+  def import
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+
+    if params[:import_semester_id]
+      semester_to_import = Semester.find_by_id params[:import_semester_id]
+      if semester_to_import
+        if @semester.import(semester_to_import)
+          flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
+        else
+          flash[:warning] = @semester.errors
+        end
+      else
+        flash[:warning] = [[:import_semester_id,"The semeste id of the semester to import did not correspond to any semesters in the database."]]
+      end
+    else
+      flash[:warning] = [[:import_semester_id, "The semester id of the semester to import was not found."]]
+    end
+    redirect_to semester_path(@semester)
   end
 
   private

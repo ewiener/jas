@@ -7,12 +7,15 @@ Feature: Adding classroom teachers to the database
 Background: populate db with a single class session
 
   Given the following sessions exist:
-  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | dates_with_no_classes |
-  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            |
+  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline |
+  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            |
   
   Given the following classrooms are in the database:
   | name    | grade | classroom | semester  |
   | joe     | 1     | Room 4    | Fall 2011 |
+
+  Given I am on the "Fall 2011" Session Name Page
+  And I follow "Teachers/Classrooms"
 
 Scenario: Create invalid classroom teacher:
   Given I am on the "Fall 2011" Classroom Teachers home page
@@ -48,8 +51,6 @@ Scenario: Edit classroom teacher/location
   Then I should be on the "Fall 2011" Classroom Teachers home page
 
 Scenario: Adding new classroom teacher from homepage
-  Given I am on the "Fall 2011" Session Name Page
-  And I follow "Teachers/Classrooms"
   Then I am on the "Fall 2011" Classroom Teachers home page
   And I follow "Add New Classroom Teacher"
   Then I should be on the "Fall 2011" Add New Classroom Page
@@ -69,8 +70,6 @@ Scenario: Adding new classroom teacher from homepage
   #And the "locations" drop-down should contain the option "Room 10"
   
 Scenario: Cancel adding new classroom teacher from homepage
-  Given I am on the "Fall 2011" Session Name Page
-  And I follow "Teachers/Classrooms"
   Then I am on the "Fall 2011" Classroom Teachers home page
   And I follow "Add New Classroom Teacher"
   Then I should be on the "Fall 2011" Add New Classroom Page

@@ -43,8 +43,9 @@ class Course < ActiveRecord::Base
 
   belongs_to :semester
   belongs_to :ptainstructor
-  has_many :students
+  has_and_belongs_to_many :students
   belongs_to :teacher
+
 
 =begin
   validates :name, :presence => true

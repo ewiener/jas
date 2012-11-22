@@ -1,10 +1,10 @@
--# This file is app/views/students/new.html.haml
+-# This file is app/views/students/edit.html.haml
 !!! 5
 
 %html
   %head
     %title
-      New Student
+      Edit Student
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
@@ -13,10 +13,10 @@
       = render :partial => "partial/flash_messages"
       .clear
       %h1.span6.offset3
-        Register New Student
+        Edit Student
       .vspace20
       %div.span8.offset2
-        = form_tag semester_students_path(@semester), :class =>"form-horizontal" do
+        = form_tag semester_student_path(@semester, @student), :class =>"form-horizontal", :method => :put do
           %div.control-group
             = label :student, :first_name, 'First Name:', :class => "control-label"
             %div.controls
@@ -69,7 +69,7 @@
 
           %div.control-group
             %div.controls
-              = submit_tag 'Register Student', :class => "btn btn-info"
+              = submit_tag 'Update Student Information', :class => "btn btn-info"
               = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
           .clear
           .vspace80

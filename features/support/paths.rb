@@ -17,8 +17,13 @@ module NavigationHelpers
       '/semesters'
       
     when /^the "(.+)" Create Class Page$/
-      semester_id = Semester.find_by_name($1).id
-      "/semesters/#{semester_id}/courses/new"
+      begin
+        semester_id = Semester.find_by_name($1).id
+        "/semesters/#{semester_id}/courses/new"
+      rescue
+        semester_id = Semester.all.length + 1
+        "/semesters/#{semester_id}/courses/new"
+      end
     
     when /^the login page$/
       '/logins'
@@ -144,12 +149,25 @@ module NavigationHelpers
       "/semesters/#{semester_id}/students"
       
     when /^the "(.+)" New Students Page$/
-      semester_id = Semester.find_by_name($1).id
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
       "/semesters/#{semester_id}/students/new"
       
-    when /^the "(.+)" Edit Students Page$/
-      semester_id = Semester.find_by_name($1).id
-      "/semesters/#{semester_id}/students/edit"
+    when /^the "(.+)" "(.+)" Edit Students Page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
+      begin
+        student_id = Student.find_by_first_name($2).id
+      rescue
+        student_id = Student.all.length + 1
+      end
+      "/semesters/#{semester_id}/students/#{student_id}/edit"
       
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -7,10 +7,10 @@ Feature: Adding/Editing a session
 Background: previous sessions have been added to the database
   
   Given the following sessions exist:
-    | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | dates_with_no_classes | fee |
-    | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 11/13/2011            | 35  |
-    | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 04/14/2012            | 29  |
-    | Fall 2012   | 09/15/2012    | 12/15/2012| 09/09/2012        | 09/14/2012            | 11/13/2012            | 31  |
+    | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | fee |
+    | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 35  |
+    | Spring 2012 | 02/15/2012    | 06/15/2012| 01/21/2012        | 01/31/2012            | 29  |
+    | Fall 2012   | 09/15/2012    | 12/15/2012| 09/09/2012        | 09/14/2012            | 31  |
     
   Given the following pta instructors exist:
   | name    | email     | phone     | address       | bio       | semester  |
@@ -30,8 +30,42 @@ Background: previous sessions have been added to the database
   And I am on the home page
 
 Scenario: Displaying Sessions
-  Given I am on the home page
   Then I should see "Spring 2012" before "Fall 2011"
+  
+Scenario: Add days off - blank
+  Given I am on the "Fall 2012" Session Name Page
+  And I press "Add Days Off"
+  Then I should see "Could not verify the date range because the date is not parsable."
+  
+Scenario: Add days off - valid single day
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "11/23/12"
+  And I press "Add Days Off"
+  Then I should see "successfully updated"
+  
+Scenario: Add days off - valid date range
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "11/23/12-11/24/12"
+  And I press "Add Days Off"
+  Then I should see "successfully updated"
+  
+Scenario: Add days off - invalid date range
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "11/24/12-11/23/12"
+  And I press "Add Days Off"
+  Then I should see "Could not add the date range because end date is before start date."
+  
+Scenario: Add days off - invalid date range
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "11/23/12-11/24/12-11/25/12"
+  And I press "Add Days Off"
+  Then I should see "Could not verify the date range because the range is not parsable."
+  
+Scenario: Add days off - invalid end date in range
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "11/23/12-11/24"
+  And I press "Add Days Off"
+  Then I should see "Could not verify the date range because the date is not parsable."
 
 Scenario: Create new session
   When I follow "Create New Session"
@@ -68,14 +102,12 @@ Scenario: Create new session
 #  And I should not see "Art"
   
 Scenario: View semester
-  Given I am on the home page
   And I follow "Spring 2012"
   Then I should be on the "Spring 2012" Session Name Page
   Then I should see "Art"
   And I should see "Science"
   
 Scenario: Add a semester with missing necessary fields
-  Given I am on the home page
   When I follow "Create New Session"
   Then I am on the Session Name Page
   When I fill in "Session Name" with "Fall 2012"
@@ -129,4 +161,3 @@ Scenario: Update registration page
   Then I should be on the "Fall 2011" Session Name Page
   And I should see "Fall 2011 was successfully updated."
   And the "Registration Fee: $" field should contain "100"
-  And the "Registration Fee: $" field should not contain "35"

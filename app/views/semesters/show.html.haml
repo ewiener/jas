@@ -82,22 +82,6 @@
       .vspace30
       // END hero-unit: _Import_
       
-      // hero-unit: _Manage_
-      .hero-unit
-        %h2
-          Manage
-        <style>a.manage-option { font-size:1.2em;line-height:1.6em; }</style>
-        %a.manage-option{:href=>"#{semester_ptainstructors_path(@semester)}", :method => "get"}
-          PTA Instructors 
-        %br
-        = link_to "Students", semester_students_path(@semester), :method => :get, :class => "manage-option"
-        %br
-        = link_to "Teacher Classrooms", semester_teachers_path(@semester), :method => :get, :class => "manage-option"
-        %br
-        .vspace30
-      // END hero-unit: _Manage_
-      .vspace30
-
       // hero-unit: _Fees_
       .hero-unit
         %h2 

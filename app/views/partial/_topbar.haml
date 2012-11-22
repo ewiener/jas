@@ -2,8 +2,8 @@
 .navbar
   .navbar-inner
     %ul.nav
-      %li
-        %a.brand{:href=>"#{semesters_path}", :style=>"text-align:center;"} JAS Administration
+      %a.brand{:href=>"#{semesters_path}"}
+        JAS Administration
       %li#navbar-semester
         %a{:href=>"#{semester_path(semester)}"}
           #{semester.name}

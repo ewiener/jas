@@ -4,7 +4,6 @@ class AddStudentTable < ActiveRecord::Migration
       t.text        'first_name'
       t.text        'last_name'
       t.text        'grade'
-      t.text        'student_phone'
       t.text        'parent_phone'
       t.text        'parent_phone2'
       t.text        'parent_name'

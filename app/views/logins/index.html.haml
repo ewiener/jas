@@ -12,8 +12,9 @@
     %div#container
 
       .vspace30
-      %div.hero-unit.section#login
-        %h1 PTA Scheduler
+      %div.hero-unit.section#login{:style=>'padding-bottom:5px;'}
+        %h1
+          JAS Administration
         %h2
           #{@banner_message}
         .vspace20
@@ -24,9 +25,9 @@
           %label Password:
           %div
           %input{:type => "password", :name => "password"}
-          .vspace30
+          .vspace20
           = submit_tag 'Login', :id => 'login_submit', :class => 'btn btn-info'
-      .vspace30
+      .vspace20
       %div.hero-unit
         %h4{:style=>"float:left;"}
           While in development, click the button below to bypass login.

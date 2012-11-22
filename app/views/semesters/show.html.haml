@@ -8,9 +8,13 @@
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
   %body
-    = render :partial => "partial/topbar", :locals => {:semester => @semester}
     %div#container
+      = render :partial => "partial/topbar", :locals => {:semester => @semester}
       / %h1.span6.offset3
+      %ul.pager{:style=>"margin-top:0;"}
+        %li.previous
+          %a{:href=>"#{semesters_path}"}
+            &larr; Back
       .center
         %h1 Session: #{@semester.name}
       = render :partial => "partial/semester_error"
@@ -72,8 +76,8 @@
         %h2
           Manage
         <style>a.manage-option { font-size:1.2em;line-height:1.6em; }</style>
-        %a.manage-option
-          = link_to "PTA Instructors", semester_ptainstructors_path(@semester), :method => :get
+        %a.manage-option{:href=>"#{semester_ptainstructors_path(@semester)}", :method => "get"}
+          PTA Instructors 
         %br
         %a.manage-option
           Students

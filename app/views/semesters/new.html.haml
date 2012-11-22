@@ -10,6 +10,10 @@
   %body
     = render :partial => "partial/topbar_index"
     %div#container
+      %ul.pager
+        %li.previous
+          %a{:href=>"#{semesters_path}"}
+            &larr; Back
       %h1.span6.offset3
         Create New Session
       / %h3.span8.offset3
@@ -67,3 +71,5 @@
           /%div.control-group
           /  %div.controls
           /    = submit_tag 'Save Changes'
+    :javascript
+      $("#navbar-new-session").addClass('active');

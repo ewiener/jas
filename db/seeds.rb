@@ -71,45 +71,50 @@ semesters.each do |isemester|
     )
   end
 
-#  # Adding Courses
-#  grades = 'K,1,2,3,4,5'.split(',')
-#  ps = []
-#  ts = []
-#  Ptainstructor.all.each do |ptainstructa|
-#    ps.push(ptainstructa.id)
-#  end
-#  Teacher.all.each do |teacha|
-#    ts.push(teacha.id)
-#  end
-#  number_of_courses = 3
-#  number_of_courses.times do |t|
-#    randomGrade = grades[rand(grades.length)]
-#    randomMin = rand(50)
-#    randomMax = rand(50) + 50
-#    random = rand(100)
-#    ptainstructorId = ps[rand(ps.length)]
-#    teacherId = ts[rand(ts.length)]
-#    ptainstructor = Ptainstructor.find_by_id(ptainstructorId)
-#    teacher = Teacher.find_by_id(teacherId)
-#
-#    semester.courses.create(
-#      name: "#{isemester} Course #{t+1}",
-#      description: "#{isemester} course ##{t+1}",
-#      sunday: 1,
-#      wednesday: 1,
-#      start_time: "#{t+1}:00pm",
-#      end_time: "#{t+1}:00pm",
-#      grade_range: "#{randomGrade}",
-#      class_min: randomMin,
-#      class_max: randomMax,
-#      number_of_classes: randomMin,
-#      fee_per_meeting: random,
-#      fee_for_additional_materials: random,
-#      total_fee: random,
-#      ptainstructor: ptainstructor,
-#      teacher: teacher,
-#    )
-#  end
+  # Adding Courses
+  grades = 'K,1,2,3,4,5'.split(',')
+  ps = []
+  ts = []
+  Ptainstructor.all.each do |ptainstructa|
+    ps.push(ptainstructa.id)
+  end
+  Teacher.all.each do |teacha|
+    ts.push(teacha.id)
+  end
+  number_of_courses = 3
+  number_of_courses.times do |t|
+    randomGrade = grades[rand(grades.length)]
+    randomMin = rand(50)
+    randomMax = rand(50) + 50
+    random = rand(100)
+    ptainstructorId = ps[rand(ps.length)]
+    teacherId = ts[rand(ts.length)]
+    ptainstructor = Ptainstructor.find_by_id(ptainstructorId)
+    teacher = Teacher.find_by_id(teacherId)
+
+    semester.courses.create(
+      name: "#{isemester.name} Course #{t+1}",
+      description: "#{isemester.name} course ##{t+1}",
+      sunday: true,
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+      saturday: true,
+      start_time: "#{t+1}:00pm",
+      end_time: "#{t+1}:00pm",
+      grade_range: "#{randomGrade}",
+      class_min: randomMin,
+      class_max: randomMax,
+      number_of_classes: randomMin,
+      fee_per_meeting: random,
+      fee_for_additional_materials: random,
+      total_fee: random,
+      ptainstructor: ptainstructor,
+      teacher: teacher,
+    )
+  end
 end
 
 

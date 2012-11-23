@@ -24,9 +24,17 @@
             %td
               Teacher Name
               %span#sort-by-lastname
-                A&rarr;Z
+                A
+                %span
+                  &mdash;
+                Z
             %td
               Grade
+              %span#sort-by-grade
+                K
+                %span
+                  &rarr;
+                4
             %td
               Location
             %td
@@ -66,9 +74,10 @@
           rows.push({
             'tr': $tr,
             'lastname': $teacherLastName,
-            'teachergrade': $teacherGrade,
+            'grade': $teacherGrade,
           });
         });
+        console.log(rows);
 
         function teacherSort(property, reverse) {
           reverse = (typeof reverse === "undefined") ? 0 : reverse;
@@ -89,17 +98,36 @@
 
         $("#sort-by-lastname").click(function() {
           reverse = 0;
-          if ($(this).attr('data-reverse')) {
+          if ($(this).attr('data-reverse') == 1) {
             // unset data-reverse for next time
             reverse = 1;
             $(this).removeAttr('data-reverse');
             $(this).attr('class','highlight-reverse');
+            $(this).children('span').html('&larr;');
           } else {
             // if not set then set for next time
             $(this).attr('data-reverse',1);
             $(this).attr('class','highlight');
+            $(this).children('span').html('&rarr;');
           }
           teacherSort('lastname', reverse);
+        });
+
+        $("#sort-by-grade").click(function() {
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            // unset data-reverse for next time
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).attr('class','highlight-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            // if not set then set for next time
+            $(this).attr('data-reverse',1);
+            $(this).attr('class','highlight');
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('grade', reverse);
         });
       });
 

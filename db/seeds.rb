@@ -58,11 +58,12 @@ semesters.each do |isemester|
 
   # Adding Teachers
   grades = 'K,1,2,3,4,5'.split(',')
-  randomGrade = grades[rand(grades.length)]
 
   number_of_teachers = 3
 	teacher_names = ['Takashi Murakami', 'Kanye West', 'Jermaine Cole']
+
   number_of_teachers.times do |t|
+  	randomGrade = grades[rand(grades.length)]
     semester.teachers.create(
       name: teacher_names[t],
       grade: "#{randomGrade}",

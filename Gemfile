@@ -11,8 +11,6 @@ gem 'bootstrap-sass'
 gem 'twitter-bootstrap-rails'
 gem 'sass-rails',   '~> 3.2.3'
 
-gem 'therubyracer'
-gem 'less-rails'
 gem 'rdoc'
 
 group :production do

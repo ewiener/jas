@@ -8,6 +8,8 @@
 
 require 'ostruct'
 
+puts "Seeding..."
+
 semesters = []
 semesters.push(OpenStruct.new({
 	:name => 'Fall 2012',
@@ -73,6 +75,7 @@ semesters.each do |isemester|
 
   # Adding Courses
   grades = 'K,1,2,3,4,5'.split(',')
+	courses = ['Fun Math', 'Beautiful Photography', 'Rubik\'s Cube']
   ps = []
   ts = []
   Ptainstructor.all.each do |ptainstructa|
@@ -83,18 +86,20 @@ semesters.each do |isemester|
   end
   number_of_courses = 3
   number_of_courses.times do |t|
+
     randomGrade = grades[rand(grades.length)]
     randomMin = rand(50)
     randomMax = rand(50) + 50
     random = rand(100)
+
     ptainstructorId = ps[rand(ps.length)]
     teacherId = ts[rand(ts.length)]
     ptainstructor = Ptainstructor.find_by_id(ptainstructorId)
     teacher = Teacher.find_by_id(teacherId)
 
     semester.courses.create(
-      name: "#{isemester.name} Course #{t+1}",
-      description: "#{isemester.name} course ##{t+1}",
+      name: courses[t],
+      description: courses[t],
       sunday: true,
       monday: true,
       tuesday: true,
@@ -123,3 +128,4 @@ end
 
 
 
+puts "Seeding Done!"

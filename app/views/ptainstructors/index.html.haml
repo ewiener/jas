@@ -11,30 +11,46 @@
     %div#container
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/ptainstructor_error"
-      %h1
+      %h1{:style=>"text-align:center;"}
         PTA Instructors
-      %table{:class => "table table-striped table-hover"}
+      = link_to "+ Add New PTA Instructor", new_semester_ptainstructor_path(@semester), :style=>"float:right;"
+      .clear
+      .vspace10
+      %table.ptainstructors.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
           %tr
-            %td Current PTA Instructors:
-            / %td.cell_right#create_new_semester
             %td
-              = link_to "Add New PTA Instructor", new_semester_ptainstructor_path(@semester)
+              Name
+            %td
+              Email
+            %td
+              Phone
+            %td
+            %td
         %tbody
           - @ptainstructors.each do |ptainstructor|
             %tr
-              %td.cell_center{:colspan => "2"}
-                %div{:style=>"float:left;margin-top:4px;"}
-                  = ptainstructor.name
-                %span{:style=>"float:left;margin-left:140px;margin-top:4px;"}
-                  = ptainstructor.email
-                %span{:style=>"float:left;margin-left:60px;margin-top:4px;"}
-                  = ptainstructor.phone
-                %a.btn.btn-warning.span1{:href => "#{edit_semester_ptainstructor_path(@semester,ptainstructor)}",:style=>"float:left;margin-top:0;margin-left:80px;margin-right:10px;"}
+              %td.cell_center.ptainstructor-name
+                = ptainstructor.name
+              %td.cell_center.ptainstructor-email
+                = ptainstructor.email
+              %td.cell_center.ptainstructor-phone
+                = ptainstructor.phone
+              %td.cell_center.ptainstructor-edit
+                %a.btn.btn-warning.edit-button-icon{:href => "#{edit_semester_ptainstructor_path(@semester,ptainstructor)}"}
                   Edit
+                  %i.icon-pencil.icon-white
+              %td.cell_center.ptainstructor-delete
                 - if ptainstructor.can_be_deleted?
-                  = link_to "Delete", semester_ptainstructor_path(@semester,ptainstructor), :method => "delete", :style=>"float:left;margin-left:10px;margin-top:0;margin-right:10px;", :class => "btn btn-danger span1"
+                  %a.btn.btn-danger.delete-button-icon{:href=>"#{semester_ptainstructor_path(@semester,ptainstructor)}", :method=>"delete"}
+                    Delete
+                    %i.icon-trash.icon-white
                 - else
-                  = "PTA Instructor is currently referenced and cannot be deleted"
+                  = "Referenced"
+      .vspace10
+      %p
+        %i * Referenced means that it is associated with a course and thus cannot be deleted.
+        %br
+        %i Delete the course first to delete the PTA Instructor.
     :javascript
       $("#navbar-ptainstructors").addClass('active');

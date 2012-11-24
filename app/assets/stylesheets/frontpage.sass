@@ -1,5 +1,4 @@
 @import "bootstrap"
-@import "css3_mixins"
 
 .clear
   clear: both
@@ -7,9 +6,6 @@
 .navbar a.brand
   &:hover
     color: #222
-
-.no-select
-  @include css3-user-select
 
 $container_width: 920px
 #container
@@ -25,18 +21,6 @@ ul.nav-pills
   border-right: 1px solid #ddd
 
 $section-width: 800px
-
-#sort-by-grade, #sort-by-lastname
-  border: 1px solid black
-  padding: 1px 3px
-  position: relative
-  left: 20px
-  cursor: pointer
-  @include css3-user-select
-#sort-by-lastname.highlight, #sort-by-grade.highlight
-  background-color: #99ff66
-#sort-by-lastname.highlight-reverse, #sort-by-grade.highlight-reverse
-  background-color: #ff6666
 
 .section
   width: $section-width

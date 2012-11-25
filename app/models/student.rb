@@ -2,7 +2,8 @@ class Student < ActiveRecord::Base
   belongs_to :semester
   belongs_to :teacher
   #has_and_belongs_to_many :ptainstructors
-  has_and_belongs_to_many :courses
+  #has_and_belongs_to_many :courses
+  has_many :courses, :through => :enrollment
 
   GRADES = ["K","k","1","2","3","4","5"]
 

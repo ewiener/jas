@@ -11,7 +11,7 @@
     %div#container
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
-      %h1.span8.offset2
+      %h1{:style=>"text-align:center;"}
         Current Classroom Teachers
       .vspace20
       = link_to "Add New Classroom Teacher", new_semester_teacher_path, :style => "float:right;"
@@ -42,7 +42,7 @@
               Delete Entry
         %tbody
           - @teachers.each do |teacher|
-            %tr
+            %tr.teacher-info
               %td.cell_center.teacher-name
                 = teacher.name
               %td.cell_center.teacher-grade
@@ -144,8 +144,6 @@
           teacherSort('grade', reverse);
         });
       });
-      console.log(teachers[0].teacherDelete);
-      // sort by name
 
 
 

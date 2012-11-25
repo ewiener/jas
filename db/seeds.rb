@@ -35,23 +35,24 @@ semesters.push(OpenStruct.new({
 	:registration_deadline => '08/22/2012',
 	:fee => 2000,
 }))
-semesters.each do |isemester|
+semesters.each do |semester|
   # Adding Semesters
   Semester.create(
-    name: my_semester,
-    start_date: "08/22/2012",
-    end_date: "12/24/2012",
-    lottery_deadline: "08/22/2012",
-    registration_deadline: "08/22/2012",
+    name: semester.name,
+    start_date: semester.start_date,
+    end_date: semester.end_date,
+    lottery_deadline: semester.lottery_deadline,
+    registration_deadline: semester.registration_deadline,
     fee: 1000.0
   )
 
   # Adding PTA Instructors
-  semester = Semester.find_by_name(my_semester)
+  currentSemester = Semester.find_by_name(semester.name)
+  ptainstructors = ['Benny Benassi', 'David Guetta', 'Steve Aoki']
   number_of_ptainstructors = 3
   number_of_ptainstructors.times do |t|
-    semester.ptainstructors.create(
-      name: "#{my_semester} PTA Instructor #{t+1}",
+    currentSemester.ptainstructors.create(
+      name: ptainstructors[t],
       email: "ptainstructor#{t+1}@gmail.com",
       phone: "1234567890",
       address: "An address somewhere",
@@ -60,11 +61,12 @@ semesters.each do |isemester|
 
   # Adding Teachers
   grades = 'K,1,2,3,4,5'.split(',')
-  randomGrade = grades[rand(grades.length)]
   number_of_teachers = 3
+  teacher_names = ['Lil Wayne', 'Kanye West', 'Jermaine Cole']
   number_of_teachers.times do |t|
-    semester.teachers.create(
-      name: "#{my_semester} Teacher #{t+1}",
+    randomGrade = grades[rand(grades.length)]
+    currentSemester.teachers.create(
+      name: teacher_names[t],
       grade: "#{randomGrade}",
       classroom: "A classroom somewhere",
     )
@@ -94,7 +96,7 @@ semesters.each do |isemester|
     ptainstructor = Ptainstructor.find_by_id(ptainstructorId)
     teacher = Teacher.find_by_id(teacherId)
 
-    semester.courses.create(
+    currentSemester.courses.create(
       name: courses[t],
       description: courses[t],
       sunday: true,

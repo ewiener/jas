@@ -11,16 +11,13 @@
     %div#container
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
-      %h1.span6.offset3
+      %h1{:style=>"text-align:center;"}
         Current Students
-      .vspace20
-      /%table{:class => "table table-striped table-hover"}
+      = link_to "+ Add New Student", new_semester_student_path, :style=>"float:right;"
+      .clear
+      .vspace10
       %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
-          %tr
-            %td.cell_right{:colspan => "5"}
-              = link_to "Add New Student", new_semester_student_path
-        %tbody
           %tr
             %td
               Last, First
@@ -30,6 +27,7 @@
               Edit Entry
             %td
               Delete Entry
+        %tbody
           - @students.each do |student|
             %tr
               %td.cell_center

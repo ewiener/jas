@@ -1,4 +1,5 @@
 @import "bootstrap"
+@import "css3_mixins"
 
 .clear
   clear: both
@@ -6,6 +7,9 @@
 .navbar a.brand
   &:hover
     color: #222
+
+.no-select
+  @include css3-user-select
 
 $container_width: 920px
 #container
@@ -21,6 +25,19 @@ ul.nav-pills
   border-right: 1px solid #ddd
 
 $section-width: 800px
+
+#sort-by-grade, #sort-by-lastname
+  border: 1px solid #ccc
+  padding: 1px 3px
+  display: inline
+  margin-left: 6px
+  margin-right: 5px
+  cursor: pointer
+  @include css3-user-select
+#sort-by-lastname.highlight, #sort-by-grade.highlight
+  background-color: #99ff66
+#sort-by-lastname.highlight-reverse, #sort-by-grade.highlight-reverse
+  background-color: #ff6666
 
 .section
   width: $section-width
@@ -163,14 +180,9 @@ form
 table
   td
     width: auto
-    padding: 7px
     form
       div
         text-align: center
-  .btn
-    margin: 0 auto
-    display: block
-    margin-top: 15px
 
 .form-horizontal
   width: 770px
@@ -185,6 +197,17 @@ table
     border: 10px solid red
     margin-right: 0
     margin-left: 7px
+
+table .edit-button-icon
+  width: 42px
+  height: 15px
+  line-height: 15px
+  margin: 4px auto
+table .delete-button-icon
+  width: 60px
+  height: 15px
+  line-height: 15px
+  margin: 4px auto
 
 #create_new_semester
   text-align: right

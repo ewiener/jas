@@ -34,7 +34,7 @@ Scenario: Update pta instructor invalidly
   And I should see "Invalid string for name."
 
 Scenario: Invalid pta instructor to edit
-  Given I am on the "Fall 2011" "Henry" PTA Instructor Edit Page
+  Given I am on the "Fall 2011" "dhfhhg" PTA Instructor Edit Page
   Then I should be on the "Fall 2011" PTA Instructor home page
   And I should see "Could not find the corresponding PTA instructor."
 
@@ -53,7 +53,7 @@ Scenario: Edit PTA Instructor
   
 Scenario: Delete PTA Instructor
   Given I am on the "Fall 2011" PTA Instructor home page
-  And I follow "Delete"
+  And I press "Delete"
   Then I should be on the "Fall 2011" PTA Instructor home page
   And I should see "successfully deleted."
 

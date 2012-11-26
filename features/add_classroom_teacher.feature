@@ -28,7 +28,7 @@ Scenario: Create invalid classroom teacher:
   
 Scenario: Update classroom teacher invalidly
   Given I am on the "Fall 2011" Classroom Teachers home page
-  And I follow "Edit"
+  And I press "Edit"
   And I fill in "teacher_name" with ""
   And I press "Finish Editing Classroom Teacher"
   And I should see "Invalid empty string for name."
@@ -45,7 +45,7 @@ Scenario: Attempt to access a semester that does not exist
   
 Scenario: Edit classroom teacher/location
   Given I am on the "Fall 2011" Classroom Teachers home page
-  And I follow "Edit"
+  And I press "Edit"
   Then I should be on the "Fall 2011" "joe" Classroom Teachers edit page
   And I fill in "Classroom" with "Room 500"
   And I press "Finish Editing Classroom Teacher"

@@ -42,10 +42,6 @@ Scenario: Edit Course
   And I should see "Artistic Dance in Fall 2011 was successfully updated."
   And I should see "6:45pm"
   
-Scenario: Verify index redirects back to that semesters home page
-  Given I am on the "Fall 2011" Course Page
-  Then I should be on the "Fall 2011" Session Name Page
-  
 Scenario: Attempt to edit a course not in the database
   Given I am on the "Fall 2011" "Drawing" Course Edit Page
   Then I should be on the "Fall 2011" Session Name Page

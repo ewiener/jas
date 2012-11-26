@@ -37,12 +37,10 @@
               %td.cell_center.ptainstructor-phone
                 = ptainstructor.phone
               %td.cell_center.ptainstructor-edit
-                %a.btn.btn-warning.edit-button-icon{:href => "#{edit_semester_ptainstructor_path(@semester,ptainstructor)}"}
-                  Edit
-                  %i.icon-pencil.icon-white
+                = button_to "Edit", edit_semester_ptainstructor_path(@semester,ptainstructor), :method=>"get", :class=>"btn btn-warning edit-delete"
               %td.cell_center.ptainstructor-delete
                 - if ptainstructor.can_be_deleted?
-                  = button_to "Delete", semester_ptainstructor_path(@semester, ptainstructor), :method => :delete, :class => "btn btn-danger"
+                  = button_to "Delete", semester_ptainstructor_path(@semester, ptainstructor), :method => :delete, :class => "btn btn-danger edit-delete"
                 - else
                   = "Referenced"       
       .vspace10

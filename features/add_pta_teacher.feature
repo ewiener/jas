@@ -26,7 +26,7 @@ Scenario: Create invalid pta instructor
   
 Scenario: Update pta instructor invalidly
   Given I am on the "Fall 2011" PTA Instructor home page
-  And I follow "Edit"
+  And I press "Edit"
   #Given I am on the "Fall 2011" "Amy" PTA Instructor Edit Page
   And I fill in "ptainstructor_name" with ""
   And I press "Update PTA Instructor"
@@ -45,7 +45,7 @@ Scenario: Invalid semester
 
 Scenario: Edit PTA Instructor
   Given I am on the "Fall 2011" PTA Instructor home page
-  And I follow "Edit"
+  And I press "Edit"
   And I fill in "Name" with "Mary"
   And I press "Update"
   Then I should be on the "Fall 2011" PTA Instructor home page

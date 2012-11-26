@@ -28,29 +28,31 @@
             %td
             %td
         %tbody
-          - @ptainstructors.each do |ptainstructor|
-            %tr
-              %td.cell_center.ptainstructor-name
-                = ptainstructor.name
-              %td.cell_center.ptainstructor-email
-                = ptainstructor.email
-              %td.cell_center.ptainstructor-phone
-                = ptainstructor.phone
-              %td.cell_center.ptainstructor-edit
-                %a.btn.btn-warning.edit-button-icon{:href => "#{edit_semester_ptainstructor_path(@semester,ptainstructor)}"}
-                  Edit
-                  %i.icon-pencil.icon-white
-              %td.cell_center.ptainstructor-delete
-                - if ptainstructor.can_be_deleted?
-                  %a.btn.btn-danger.delete-button-icon{:href=>"#{semester_ptainstructor_path(@semester,ptainstructor)}", :method=>"delete"}
-                    Delete
-                    %i.icon-trash.icon-white
-                - else
-                  = "Referenced"
+          - if @ptainstructors
+            - @ptainstructors.each do |ptainstructor|
+              %tr
+                %td.cell_center.ptainstructor-name
+                  = ptainstructor.name
+                %td.cell_center.ptainstructor-email
+                  = ptainstructor.email
+                %td.cell_center.ptainstructor-phone
+                  = ptainstructor.phone
+                %td.cell_center.ptainstructor-edit
+                  %a.btn.btn-warning.edit-button-icon{:href => "#{edit_semester_ptainstructor_path(@semester,ptainstructor)}"}
+                    Edit
+                    %i.icon-pencil.icon-white
+                %td.cell_center.ptainstructor-delete
+                  - if ptainstructor.can_be_deleted?
+                    %a.btn.btn-danger.delete-button-icon{:href=>"#{semester_ptainstructor_path(@semester,ptainstructor)}", :method=>"delete"}
+                      Delete
+                      %i.icon-trash.icon-white
+                  - else
+                    %span.referenced-tooltip{"data-original-title"=>"Referenced to a course. Remove instructor from course to delete."}
+                      = "Referenced"
       .vspace10
-      %p
-        %i * Referenced means that it is associated with a course and thus cannot be deleted.
-        %br
-        %i Delete the course first to delete the PTA Instructor.
+
     :javascript
-      $("#navbar-ptainstructors").addClass('active');
+      $(function() {
+        $("#navbar-ptainstructors").addClass('active');
+        $("span.referenced-tooltip").tooltip();
+      });

@@ -10,13 +10,8 @@ class CoursesController  < ApplicationController
   end
 =end
   def index
-    #redirect to the semester homepage
     @semester = Semester.find_by_id params[:semester_id]
-    if params[:semester_id]
-      redirect_to semester_path( params[:semester_id] )# semester page
-    else
-      redirect_to semesters_path
-    end
+    @courses = @semester.courses
   end
 
   def new
@@ -71,7 +66,7 @@ class CoursesController  < ApplicationController
     @course = Course.find_by_id params[:id]
     if not @course
       flash[:warning] = [[:id, "Unable to locate the course given for modification."]]
-      redirect_to semester_path(@semester)
+      redirect_to semester_courses_path
       return
     end
     @ptainstructors = Ptainstructor.find_all_by_semester_id @semester

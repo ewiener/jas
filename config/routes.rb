@@ -7,7 +7,9 @@ Ptast::Application.routes.draw do
     resources :courses
     resources :teachers
     resources :ptainstructors
-    resources :students
+    resources :students do
+      resources :enrollments
+    end
     collection do
     end
   end

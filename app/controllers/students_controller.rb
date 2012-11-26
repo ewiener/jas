@@ -128,8 +128,6 @@ class StudentsController < ApplicationController
 
     flash[:notice] = "#{@student.first_name} #{@student.last_name}'s information was successfully updated."
     redirect_to semester_students_path(@semester)
-
-
   end
 
   def destroy

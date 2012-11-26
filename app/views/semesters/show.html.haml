@@ -36,7 +36,7 @@
             - @courses.each do |course|
               %tr
                 %td #{course.name}
-                %td #{course.ptainstructor.name || "--"}
+                %td #{course.ptainstructor.name || "-"}
                 %td
                   - if course.sunday
                     Su

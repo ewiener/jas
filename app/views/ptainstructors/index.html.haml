@@ -46,9 +46,9 @@
                 - else
                   = "Referenced"       
       .vspace10
-      %p
-        %i * Referenced means that it is associated with a course and thus cannot be deleted.
-        %br
-        %i Delete the course first to delete the PTA Instructor.
+
     :javascript
-      $("#navbar-ptainstructors").addClass('active');
+      $(function() {
+        $("#navbar-ptainstructors").addClass('active');
+        $("span.referenced-tooltip").tooltip();
+      });

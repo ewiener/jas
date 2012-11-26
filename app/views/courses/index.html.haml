@@ -2,27 +2,88 @@
 !!! 5
 
 %html
-	%head
-		%title
-			Session List
+  %head
+    %title
+      Session List
     = stylesheet_link_tag("frontpage")
     = javascript_include_tag("application")
-	%body
-		%div#container
-			%h1.span6.offset3
-				Jefferson PTA Sessions
-			%div.span6.offset3
-				%table{:class => "table table-striped"}
-					%thead
-						%tr
-							%td Current and Previous Sessions:
-							%td.cell_right 
-								= link_to "Create New Session", new_semester_path
-					%tbody
-						%tr
-							%td.cell_center{:colspan => "2"} Session 1
-						%tr 
-							%td.cell_center{:colspan => "2"} Session 2
+  %body
+    %div#container
+      = render :partial => "partial/topbar", :locals => {:semester => @semester}
+      = render :partial => "partial/flash_messages"
+      %h1{:style=>"text-align:center;"}
+        Current C
+      .vspace20
+      = link_to "Add New Classroom Teacher", new_semester_course_path, :style => "float:right;"
+      .clear
+      .vspace10
+      %table.courses.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}
+        %thead
+          %tr.no-select
+            %td
+              Name
+              %span.sort-by#sort-by-name
+                A
+                %span
+                  ="~"
+                Z
+            %td
+              PTA Instructor
+              %span.sort-by#sort-by-ptainstructor
+                A
+                %span
+                  ="~"
+                Z
+            %td
+              Days
+            %td
+              Time
+            %td
+              Room
+            %td
+              Enrolled
+            %td
+            %td
+        %tbody
+          - if @courses
+            - @courses.each do |course|
+              %tr.course-info
+                %td.cell_center.course-name
+                  = course.name
+                %td.cell_center.course-ptainstructor
+                  = course.ptainstructor.name || "-"
+                %td.cell_center.course-days
+                  - if course.sunday
+                    Su
+                  - if course.monday
+                    M
+                  - if course.tuesday
+                    Tu
+                  - if course.wednesday
+                    W
+                  - if course.thursday
+                    Th
+                  - if course.friday
+                    F
+                  - if course.saturday
+                    Sa
+                %td.cell_center.course-time
+                  = "#{course.start_time} - #{course.end_time}"
+                %td.cell_center.course-room
+                  = course.teacher.classroom || "-"
+                %td.cell_center.course-enrolled
+                  = "-"
+                %td.cell_center.course-edit
+                  %a.btn.btn-warning.edit-button-icon{:href=>"#{edit_semester_course_path(@semester,course)}", :method=>"get"}
+                    Edit
+                    %i.icon-pencil.icon-white
+                %td.cell_center.course-delete
+                  %a.btn.btn-danger.delete-button-icon{:href=>"#{semester_course_path(@semester, course)}", :method=>"delete"}
+                    Delete
+                    %i.icon-trash.icon-white
+      .vspace10
 
     :javascript
-      $("#navbar-courses").addClass('active');
+      $(function() {
+        $("#navbar-courses").addClass('active');
+      });

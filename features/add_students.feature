@@ -1,8 +1,8 @@
-Feature: Register and assign students to classes
+Feature: Assign students to classes
 
   As an administrator
   So that I can schedule students to classes
-  I want to add student registration info to the database
+  I want to add student info to the database
   
 Background: populate db with a single class session
 

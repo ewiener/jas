@@ -49,11 +49,12 @@ class StudentsController < ApplicationController
 
    @student.semester_id = @semester.id
 
+   """
    @courses = Course.find_all_by_id(params[:courses])
    if @courses
      @student.courses = @courses
    end
-
+   """
    @teacher = Teacher.find_by_id params[:teacher]
    if @teacher
      @student.teacher_id = @teacher.id
@@ -106,12 +107,14 @@ class StudentsController < ApplicationController
       return
     end
 
+    """
     @courses = Course.find_all_by_id(params[:courses])
     if @courses
       @student.courses = @courses
     else
       @student.courses = nil
     end
+    """
 
     @teacher = Teacher.find_by_id params[:teacher]
     if @teacher

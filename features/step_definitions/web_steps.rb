@@ -31,6 +31,9 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Given /^PENDING/ do
+  pending
+end
 
 Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|

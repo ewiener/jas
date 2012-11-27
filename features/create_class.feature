@@ -33,74 +33,74 @@ Scenario: Invalid Semester when trying to add a new course
   And I should see "Error: Unable to find the semester for the course."
 
 Scenario: Edit Course
-  Given I am on the "Fall 2011" Session Name Page
+  Given I am on the "Fall 2011" Course home page
   And I press "Edit"
   Then I should be on the "Fall 2011" "Artistic Dance" Course Edit Page
   And I fill in "Start Time" with "6:45pm"
   And I press "Update Course"
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   And I should see "Artistic Dance in Fall 2011 was successfully updated."
   And I should see "6:45pm"
   
 Scenario: Attempt to edit a course not in the database
   Given I am on the "Fall 2011" "Drawing" Course Edit Page
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   And I should see "Unable to locate the course given for modification."
 
 @javascript
 Scenario: Delete a class
-  Given I am on the "Fall 2011" Session Name Page
+  Given I am on the "Fall 2011" Course home page
   Then I should see "Artistic Dance"
   When I press "Delete"
   And I confirm popup
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   And I should see "Artistic Dance was successfully removed"
   And I should not see "3:10pm"
 
 @javascript
 Scenario: Cancel delete a class
-  Given I am on the "Fall 2011" Session Name Page
+  Given I am on the "Fall 2011" Course home page
   Then I should see "Artistic Dance"
   When I press "Delete"
   And I dismiss popup
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   And I should not see "Artistic Dance was successfully removed"
   And I should see "3:10pm"
   
 @javascript
 Scenario: Delete a class
-  Given I am on the "Fall 2011" Session Name Page
+  Given I am on the "Fall 2011" Course home page
   Then I should see "Artistic Dance"
   When I press "Edit"
   And I check "course_thursday"
   And I uncheck "course_monday"
   And I press "Update Course"
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   Then I should see "Th"
   
 Scenario: Create New Class
-  Given I am on the "Fall 2011" Session Name Page
-  When I follow "Add +"
+  Given I am on the "Fall 2011" Course home page
+  When I follow "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   And I fill in the new create class form correctly with subject "Math"
   And I press "Add New Course"
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   And I should see "Math"
   
 Scenario: Create New Invalid Class
-  Given I am on the "Fall 2011" Session Name Page
-  When I follow "Add +"
+  Given I am on the "Fall 2011" Course home page
+  When I follow "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   And I press "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   
 Scenario: Cancel Create New Class
-  Given I am on the "Fall 2011" Session Name Page
-  When I follow "Add +"
+  Given I am on the "Fall 2011" Course home page
+  When I follow "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   When I fill in "Course Name" with "Silly Science"
   And I follow "Cancel"
-  Then I should be on the "Fall 2011" Session Name Page
+  Then I should be on the "Fall 2011" Course home page
   And I should not see "Silly Science"
   
 Scenario: Attemt to create a create a course in an invalid semester

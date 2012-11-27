@@ -111,6 +111,14 @@ module NavigationHelpers
           end
       end
       
+    when /^the "(.+)" Course home page$/
+      begin
+        semester_id = Semester.find_by_name($1).id
+      rescue
+        semester_id = Semester.all.length + 1
+      end
+      "/semesters/#{semester_id}/courses"
+      
     when /^the "(.+)" PTA Instructor home page$/
       begin
         semester_id = Semester.find_by_name($1).id

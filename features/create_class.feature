@@ -80,7 +80,7 @@ Scenario: Delete a class
   
 Scenario: Create New Class
   Given I am on the "Fall 2011" Course home page
-  When I follow "Add New Course"
+  When I follow "+ Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   And I fill in the new create class form correctly with subject "Math"
   And I press "Add New Course"
@@ -89,21 +89,21 @@ Scenario: Create New Class
   
 Scenario: Create New Invalid Class
   Given I am on the "Fall 2011" Course home page
-  When I follow "Add New Course"
+  When I follow "+ Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   And I press "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   
 Scenario: Cancel Create New Class
   Given I am on the "Fall 2011" Course home page
-  When I follow "Add New Course"
+  When I follow "+ Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   When I fill in "Course Name" with "Silly Science"
   And I follow "Cancel"
   Then I should be on the "Fall 2011" Course home page
   And I should not see "Silly Science"
   
-Scenario: Attemt to create a create a course in an invalid semester
+Scenario: Attempt to create a create a course in an invalid semester
   Given I am on the "Fall 2111" Create Class Page
   Then I should be on the home page
   And I should see "Error: Unable to find the semester for the course."

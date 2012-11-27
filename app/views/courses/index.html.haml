@@ -12,14 +12,8 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       %h1{:style=>"text-align:center;"}
-<<<<<<< HEAD
         Courses
       = link_to "+ Add New Course", new_semester_course_path, :style => "float:right;"
-=======
-        Current C
-      .vspace20
-      = link_to "Add New Course", new_semester_course_path, :style => "float:right;"
->>>>>>> 79f3dcfdc1751f7ab5244cc069a8100ee6a1ab1c
       .clear
       .vspace20
       %table.courses.table-striped.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}

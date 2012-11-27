@@ -104,7 +104,8 @@ class CoursesController  < ApplicationController
     @course = Course.find_by_id params[:id]
     if not @course
       flash[:warning] = [[:id, "The given course for updating could not be found."]]
-      redirect_to semester_path(@semester, :method => :get)
+      # redirect_to semester_path(@semester, :method => :get)
+      redirect_to semester_courses_path(@semester)
       return
     end
     params[:course][:ptainstructor] = Ptainstructor.find_by_id params[:course][:ptainstructor]
@@ -114,7 +115,7 @@ class CoursesController  < ApplicationController
       if params[:course].length > 0
           flash[:notice] = "#{@course.name} in #{@semester.name} was successfully updated."
       end
-      redirect_to semester_path(@semester)
+      redirect_to semester_courses_path(@semester)
     else
       flash[:warning] = @course.errors
       flash[:course] = @course

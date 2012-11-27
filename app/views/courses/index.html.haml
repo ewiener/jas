@@ -75,7 +75,7 @@
                 %td.cell_center.course-edit
                   = button_to "Edit", edit_semester_course_path(@semester,course), :method=>"get", :class=>"btn btn-warning edit-delete"
                 %td.cell_center.course-delete
-                  = button_to "Delete", semester_course_path(@semester, course), :method => :delete, :class => "btn btn-danger edit-delete"
+                  = button_to "Delete", semester_course_path(@semester, course), :method => :delete, :class => "btn btn-danger edit-delete", :confirm => "Are you sure you want to delete #{course.name}?"
       .vspace10
 
     :javascript

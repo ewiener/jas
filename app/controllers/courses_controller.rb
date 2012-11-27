@@ -67,7 +67,7 @@ class CoursesController  < ApplicationController
     @course = Course.find_by_id params[:id]
     if not @course
       flash[:warning] = [[:id,"Could not find the course to be destroyed."]]
-      redirect_to semester_path(@semester)
+      redirect_to semester_courses_path(@semester)
       return
     end
     course_name = @course.name

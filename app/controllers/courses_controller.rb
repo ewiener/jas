@@ -93,7 +93,7 @@ class CoursesController  < ApplicationController
     else
       flash[:warning] = @course.errors
     end
-    redirect_to semester_path(@semester)
+    redirect_to semester_courses_path(@semester)
   end
 
   def update

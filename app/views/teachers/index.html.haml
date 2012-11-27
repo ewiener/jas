@@ -14,10 +14,10 @@
       %h1{:style=>"text-align:center;"}
         Current Classroom Teachers
       .vspace20
-      = link_to "Add New Classroom Teacher", new_semester_teacher_path, :style => "float:right;"
+      = link_to "+ Add New Classroom Teacher", new_semester_teacher_path, :style => "float:right;"
       .clear
       .vspace10
-      %table.teachers.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+      %table.teachers.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
           %tr.no-select
             %td
@@ -41,7 +41,7 @@
         %tbody
           - if @teachers
             - @teachers.each do |teacher|
-              %tr.teacher-info
+              %tr.teacher-info.padding-rows
                 %td.cell_center.teacher-name
                   = teacher.name
                 %td.cell_center.teacher-grade

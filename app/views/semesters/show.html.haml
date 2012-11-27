@@ -14,7 +14,7 @@
       %ul.pager{:style=>"margin-top:0;"}
         %li.previous
           %a{:href=>"#{semesters_path}"}
-            &larr; Back
+            &larr; Back to All Semesters
       .center
         %h1 Session: #{@semester.name}
       = render :partial => "partial/semester_error"
@@ -22,10 +22,10 @@
       .hero-unit
         %h2
           Classes
-        %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+        %table.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
           %thead{:style=>"text-decoration:underline;"}
             %td Class
-            %td Teacher
+            %td PTA Instructor
             %td Days
             %td Time
             %td Room
@@ -34,7 +34,7 @@
             %td
           - if @courses
             - @courses.each do |course|
-              %tr
+              %tr.padding-rows
                 %td #{course.name}
                 %td #{course.ptainstructor.name || "-"}
                 %td
@@ -56,10 +56,10 @@
                 %td #{course.teacher.classroom || "--"}
                 %td #{"--"}
                 %td
-                  = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :method => :get, :class => "btn btn-warning"
+                  = button_to "Edit", edit_semester_course_path(@semester.id,course.id), :method => :get, :class => "btn btn-warning edit-delete"
                 %td
                   / %a{:href=>semester_course_path(@semester.id,params[:id])}
-                  = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure?"
+                  = button_to "Delete", semester_course_path(@semester,course), :method => :delete, :class => "btn btn-danger edit-delete", :confirm => "Are you sure?"
         .vspace10
         .center-right
           %a{:href=>new_semester_course_path(@semester)}
@@ -139,4 +139,4 @@
       // END hero-unit: _Semester Admin_
 
     :javascript
-      $("#navbar-courses").addClass('active');
+      $("#navbar-semester").addClass('active');

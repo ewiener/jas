@@ -12,12 +12,11 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       %h1{:style=>"text-align:center;"}
-        Current C
-      .vspace20
-      = link_to "Add New Classroom Teacher", new_semester_course_path, :style => "float:right;"
+        Courses
+      = link_to "+ Add New Course", new_semester_course_path, :style => "float:right;"
       .clear
-      .vspace10
-      %table.courses.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}
+      .vspace20
+      %table.courses.table-striped.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}
         %thead
           %tr.no-select
             %td
@@ -74,13 +73,9 @@
                 %td.cell_center.course-enrolled
                   = "-"
                 %td.cell_center.course-edit
-                  %a.btn.btn-warning.edit-button-icon{:href=>"#{edit_semester_course_path(@semester,course)}", :method=>"get"}
-                    Edit
-                    %i.icon-pencil.icon-white
+                  = button_to "Edit", edit_semester_course_path(@semester,course), :method=>"get", :class=>"btn btn-warning edit-delete"
                 %td.cell_center.course-delete
-                  %a.btn.btn-danger.delete-button-icon{:href=>"#{semester_course_path(@semester, course)}", :method=>"delete"}
-                    Delete
-                    %i.icon-trash.icon-white
+                  = button_to "Delete", semester_course_path(@semester, course), :method=>"delete", :class=>"btn btn-danger edit-delete"
       .vspace10
 
     :javascript

@@ -52,7 +52,7 @@ Scenario: verify classroom teachers imported
   And I should not see "Mia"
 
 Scenario: verify courses imported
-  Given I am on the "Spring 2012" Session Name Page
+  Given I am on the "Spring 2012" Course home page
   And I should see "Artistic Dance"
 
 Scenario: verify students imported

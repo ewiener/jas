@@ -101,10 +101,12 @@ Scenario: Create new session
 #  And I should not see "Science"
 #  And I should not see "Art"
   
-Scenario: View semester
+Scenario: View semester courses
   And I follow "Spring 2012"
   Then I should be on the "Spring 2012" Session Name Page
-  Then I should see "Art"
+  And I follow "Courses"
+  Then I should be on the "Spring 2012" Course home page 
+  And I should see "Art"
   And I should see "Science"
   
 Scenario: Add a semester with missing necessary fields

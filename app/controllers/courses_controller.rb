@@ -11,6 +11,7 @@ class CoursesController  < ApplicationController
 =end
   def index
     @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
     @courses = @semester.courses
   end
 
@@ -87,7 +88,6 @@ class CoursesController  < ApplicationController
     @course = Course.find_by_id params[:id]
     if not @course
       flash[:warning] = [[:id, "The given course for updating could not be found."]]
-      # redirect_to semester_path(@semester, :method => :get)
       redirect_to semester_courses_path(@semester)
       return
     end
@@ -106,31 +106,6 @@ class CoursesController  < ApplicationController
     end
   end
 
-=begin
-  def destroy
-    @course = Course.find(params[:course_id])
-    if not @course
-      flash[:warning] = "Error: Could not find the course to be destroyed."
-      redirect_to semester_index
-      return
-    end
-    course_name = @course.name
-    if @course.destroy
-      flash[:notice] = "#{course_name} was successfully removed from the database."
-    else
-      flash[:warning] = "#{course_name} could not be removed from the database beause of the following errors:\n" + errors_string(@course)
-    end
-    redirect_to semester_index #semester page
-  end
-=end
-=begin
-  private
-  def errors_string(course)
-    error_messages = ""
-    course.errors.each{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
-    return error_messages
-  end
-=end
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
     if not semester

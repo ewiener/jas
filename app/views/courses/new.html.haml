@@ -12,7 +12,7 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       %ul.pager{:style=>"margin-top:0;"}
         %li.previous
-          %a{:href=>"#{}"}
+          %a{:href=>"#{semester_courses_path(@semester)}"}
             &larr; Back
       = render :partial => "partial/course_error", :locals => {:course => @course}
       .clear

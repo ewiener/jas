@@ -33,11 +33,6 @@
               = text_field :student, :grade
 
           %div.control-group
-            = label :courses, 'Enrolled Courses:', :class => "control-label"
-            %div.controls
-              = select_tag :courses, options_from_collection_for_select(@classes, :id, :name),:class => "course_select", :multiple => true
-
-          %div.control-group
             = label :teacher, 'Jefferson Classroom Teacher:', :class => "control-label"
             %div.controls
               = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name),:class => "course_select"

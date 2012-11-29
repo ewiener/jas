@@ -94,6 +94,7 @@ class StudentsController < ApplicationController
     @teachers = Teacher.where( :semester_id => @semester )
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)
+    @enrollments = Enrollment.find_by_student_id @student.id
   end
 
   def update

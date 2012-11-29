@@ -46,7 +46,7 @@ class Course < ActiveRecord::Base
   #has_and_belongs_to_many :students
   belongs_to :teacher
   has_many :enrollments
-  has_many :students, :through => :enrollment
+  has_many :students, :through => :enrollments
 
 =begin
   validates :name, :presence => true

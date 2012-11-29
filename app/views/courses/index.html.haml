@@ -71,7 +71,7 @@
                 %td.cell_center.course-room
                   = course.teacher.classroom || "-"
                 %td.cell_center.course-enrolled
-                  = "-"
+                  = @enrollmentHash[course.id]
                 %td.cell_center.course-edit
                   = button_to "Edit", edit_semester_course_path(@semester,course), :method=>"get", :class=>"btn btn-warning edit-delete"
                 %td.cell_center.course-delete

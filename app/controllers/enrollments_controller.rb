@@ -45,6 +45,26 @@ class EnrollmentsController < ApplicationController
 
     @enrollment = Enrollment.new(params[:enrollment])
 
+    if not @enrollment
+      flash[:warning] = [[:enrollment,"Could not initialize a enrollment object."]]
+      redirect_to new_semester_student_enrollment_path(@semester)
+      return
+    end
+
+    @enrollment.semester_id = @semester.id
+    @enrollment.student_id = @student.id
+
+    if @enrollment.save
+      flash[:notice] = "#{@enrollment.id} was successfully added to the database."
+      redirect_to semester_students_path(@semester)
+      return
+    else
+      flash[:warning] = @enrollment.errors
+      flash[:student] = @enrollment
+      redirect_to edit_semester_student_path(@semester, @student)
+      return
+    end
+
     redirect_to edit_semester_student_path(@semester, @student)
   end
 

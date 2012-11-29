@@ -66,6 +66,21 @@ Scenario: Add days off - invalid end date in range
   And I fill in "semester_dates_with_no_classes_day" with "11/23/12-11/24"
   And I press "Add Days Off"
   Then I should see "Could not verify the date range because the date is not parsable."
+  
+Scenario: Add a day off that already exists
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "10/10/10"
+  And I press "Add Days Off"
+  And I fill in "semester_dates_with_no_classes_day" with "10/10/10"
+  And I press "Add Days Off"
+  Then I should see "Date string already entered."
+  
+Scenario: Delete a date
+  Given I am on the "Fall 2012" Session Name Page
+  And I fill in "semester_dates_with_no_classes_day" with "10/10/10"
+  And I press "Add Days Off"
+  And I press "Delete Date"
+  Then I should see "Successfully deleted"
 
 Scenario: Create new session
   When I follow "Create New Session"

@@ -111,6 +111,14 @@ class SemestersController < ApplicationController
     end
     redirect_to semester_path(@semester)
   end
+  
+  def delete_date
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+    
+    
+    redirect_to semester_path(@semester)
+  end
 
   private
   def semester_is_valid(semester)

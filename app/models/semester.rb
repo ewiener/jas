@@ -235,7 +235,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  #returns a hash 0f 1-7, where 1 is monday
+  #returns a hash 0f 1-7 (where 1 is monday) of the quantity of that day
   def specific_days_in_semester(start_date, end_date)
     date_start = USDateParse(start_date)#USDateParse(self.start_date)
     date_end = USDateParse(end_date)#USDateParse(self.end_date)

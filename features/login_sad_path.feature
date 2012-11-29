@@ -1,7 +1,7 @@
 Feature: Create Login to the PTA Database
 
    As an administrator
-   So that I can manage the sessions (login requires authentication)
+   So that I can manage the sessions securely
    I want to create a login for the database
 
 Background:

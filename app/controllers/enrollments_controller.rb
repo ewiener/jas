@@ -45,8 +45,6 @@ class EnrollmentsController < ApplicationController
 
     @enrollment = Enrollment.new(params[:enrollment])
 
-
-
     redirect_to edit_semester_student_path(@semester, @student)
   end
 

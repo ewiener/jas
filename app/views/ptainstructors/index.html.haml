@@ -42,7 +42,8 @@
                 - if ptainstructor.can_be_deleted?
                   = button_to "Delete", semester_ptainstructor_path(@semester, ptainstructor), :method => :delete, :class => "btn btn-danger edit-delete"
                 - else
-                  = "Referenced"       
+                  %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses. Remove the instructor from all referencing courses to delete."}
+                    = "Referenced"       
       .vspace10
 
     :javascript

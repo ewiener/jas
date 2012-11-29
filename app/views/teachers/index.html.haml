@@ -54,7 +54,7 @@
                   - if teacher.can_be_deleted?
                     = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger edit-delete"
                   - else
-                    %span.referenced-tooltip{"data-original-title"=>"Referenced to a course. Remove instructor from course to delete."}
+                    %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses. Remove the teacher from all referencing courses to delete."}
                       = "Referenced"
       .vspace10
 

@@ -67,56 +67,54 @@
           %h1.span8.offset2
             Student Enrollment
           .vspace20
-          = form_tag semester_students_path, :class =>"form-horizontal" do
+          = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal" do
             %div.control-group
-              = label :teacher, 'Select Class:', :class => "control-label"
+              = label "enrollment[scholarship]", 'Select Class:', :class => "control-label"
               %div.controls
-                = select_tag :teacher, options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
+                = select_tag "enrollment[scholarship]", options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
 
             %div.control-group
-              .days
-                = label :scholarship, 'Scholarship:', :class => "control-label radio inline"
+              = label "enrollment[scholarship]", 'Scholarship:', :class => "control-label radio inline"
 
-              .days
-                = label :scholarship, 'None:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[scholarship]", 'None:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :scholarship, "0"
+                  = radio_button_tag "enrollment[scholarship]", "0"
 
-              .days
-                = label :scholarship, 'Full:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[scholarship]", 'Full:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :scholarship, "1"
+                  = radio_button_tag "enrollment[scholarship]", "1"
 
-              .days
-                = label :scholarship, 'Partial:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[scholarship]", 'Partial:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :scholarship, "1"
+                  = radio_button_tag "enrollment[scholarship]", "1"
 
             %div.control-group
-              = label :scholarship, :amount, 'Amount:', :class => "control-label"
+              = label "enrollment[scholarship]", :amount, 'Amount:', :class => "control-label"
               %div.controls
-                = text_field :scholarship, :amount
+                = text_field :enrollment, :scholarship_amount
 
             %div.control-group
-              .days
-                = label :dismissal, 'Dismissal Location:', :class => "control-label radio inline"
+              = label :dismissal, 'Dismissal Location:', :class => "control-label radio inline"
 
-              .days
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :dismissal, 'Pick Up:', :class => "control-label radio inline"
                 %div.controls
                   = radio_button_tag :dismissal, "0"
 
-              .days
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :dismissal, 'JAZ:', :class => "control-label radio inline"
                 %div.controls
                   = radio_button_tag :dismissal, "1"
 
-              .days
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :dismissal, 'BEARS:', :class => "control-label radio inline"
                 %div.controls
                   = radio_button_tag :dismissal, "2"
 
-              .days
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :dismissal, 'walk:', :class => "control-label radio inline"
                 %div.controls
                   = radio_button_tag :dismissal, "3"
@@ -124,19 +122,19 @@
             %div.control-group
               = label :status, 'Status:', :class => "control-label radio inline"
 
-              .days{:style=>"width:70px;"}
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :status, 'Enrolled:', :class => "control-label radio inline"
                 %div.controls
                   = radio_button_tag :enrolled, "0"
 
-              .days{:style=>"width:130px;"}
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :status, 'Not Enrolled Lottery:', :class => "control-label radio inline"
                 %div.controls
                   = radio_button_tag :enrolled, "1"
 
             %div.control-group
               %div.controls
-                = submit_tag 'Register Student', :class => "btn btn-info"
+                = submit_tag 'Add Enrollment', :class => "btn btn-info"
                 = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
             .clear
             .vspace80

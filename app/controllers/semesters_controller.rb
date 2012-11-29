@@ -46,6 +46,10 @@ class SemestersController < ApplicationController
     if @semester.dates_in_span_valid?(day_span)
       valid = true
       holiday = day_span
+      if @semester.dates_with_no_classes.include?(day_span)
+        valid = false
+        @semester.errors.add(:name,"Date string already entered.")
+      end
       update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
       update_hash[:dates_with_no_classes] +=  [holiday]
       update_hash[:dates_with_no_classes_day] = nil
@@ -116,7 +120,12 @@ class SemestersController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
     
-    
+    date = params[:date]
+    if @semester.delete_date(date)
+      flash[:notice] = "Successfully deleted #{date} from #{@semester.name}"
+    else
+      flash[:warning] = @semester.errors
+    end
     redirect_to semester_path(@semester)
   end
 

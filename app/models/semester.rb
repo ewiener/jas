@@ -108,7 +108,7 @@ class Semester < ActiveRecord::Base
     start_range = dates_array[0]
     begin
       start_range = USDateParse(start_range)
-      self.individual_dates_with_no_classes.add(start_range)
+      self.individual_dates_with_no_classes += [start_range]
     rescue
       errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the date is not parsable.')
       return false
@@ -125,7 +125,7 @@ class Semester < ActiveRecord::Base
         date = start_range
         while date < end_range
           date += 1
-          self.individual_dates_with_no_classes.add(date)
+          self.individual_dates_with_no_classes += [date]
         end
       rescue
         errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the date is not parsable.')
@@ -144,7 +144,7 @@ class Semester < ActiveRecord::Base
     if self.dates_with_no_classes == nil
       # No dates that there aren't classes, initialize with emptylist
       self.dates_with_no_classes = []
-      self.individual_dates_with_no_classes = Set.new
+      self.individual_dates_with_no_classes = Array.new
       return
     end
 =begin
@@ -248,6 +248,28 @@ class Semester < ActiveRecord::Base
       end
     end
     return date_hash
+  end
+  
+  public
+  def delete_date(date)
+    if self.dates_with_no_classes.delete(date) == nil
+      errors.add(:dates_with_no_classes, 'Could not find date in holiday array.')
+      return false
+
+    else
+      dates_array = date.split("-")
+      start_range = dates_array[0]
+      end_range = dates_array[dates_array.length-1]
+      date_start = USDateParse(start_range)
+      date_end = USDateParse(end_range)
+      curr_date = date_start
+      while curr_date <= date_end do
+        self.individual_dates_with_no_classes.delete(curr_date)
+        curr_date += 1
+      end
+    end
+    if not self.save; return false; end
+    return true
   end
 
   public

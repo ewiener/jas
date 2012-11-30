@@ -12,28 +12,28 @@ puts "Seeding..."
 
 semesters = []
 semesters.push(OpenStruct.new({
-	:name => 'Fall 2012',
-	:start_date => '08/22/2012',
-	:end_date => '10/24/2012',
-	:lottery_deadline => '08/22/2012',
-	:registration_deadline => '08/22/2012',
-	:fee => 1000,
+  :name => 'Fall 2012',
+  :start_date => '08/22/2012',
+  :end_date => '10/24/2012',
+  :lottery_deadline => '08/22/2012',
+  :registration_deadline => '08/22/2012',
+  :fee => 1000,
 }))
 semesters.push(OpenStruct.new({
-	:name => 'Spring 2012',
-	:start_date => '01/28/2012',
-	:end_date => '03/14/2012',
-	:lottery_deadline => '08/22/2012',
-	:registration_deadline => '08/22/2012',
-	:fee => 2000,
+  :name => 'Spring 2012',
+  :start_date => '01/28/2012',
+  :end_date => '03/14/2012',
+  :lottery_deadline => '08/22/2012',
+  :registration_deadline => '08/22/2012',
+  :fee => 2000,
 }))
 semesters.push(OpenStruct.new({
-	:name => 'Winter 2012',
-	:start_date => '11/28/2012',
-	:end_date => '12/14/2012',
-	:lottery_deadline => '08/22/2012',
-	:registration_deadline => '08/22/2012',
-	:fee => 2000,
+  :name => 'Winter 2012',
+  :start_date => '11/28/2012',
+  :end_date => '12/14/2012',
+  :lottery_deadline => '08/22/2012',
+  :registration_deadline => '08/22/2012',
+  :fee => 2000,
 }))
 semesters.each do |semester|
   # Adding Semesters
@@ -48,11 +48,13 @@ semesters.each do |semester|
 
   # Adding PTA Instructors
   currentSemester = Semester.find_by_name(semester.name)
-  ptainstructors = ['Benny Benassi', 'David Guetta', 'Steve Aoki']
+  ptainstructors_first_names = ['Benny', 'David', 'Steve']
+  ptainstructors_last_names = ['Benassi', 'Guetta', 'Aoki']
   number_of_ptainstructors = 3
   number_of_ptainstructors.times do |t|
     currentSemester.ptainstructors.create(
-      name: ptainstructors[t],
+      first_name: ptainstructors_first_names[t],
+      last_name: ptainstructors_last_names[t],
       email: "ptainstructor#{t+1}@gmail.com",
       phone: "1234567890",
       address: "An address somewhere",
@@ -74,7 +76,7 @@ semesters.each do |semester|
 
   # Adding Courses
   grades = 'K,1,2,3,4,5'.split(',')
-	courses = ['Fun Math', 'Beautiful Photography', 'Rubik\'s Cube']
+  courses = ['Fun Math', 'Beautiful Photography', 'Rubik\'s Cube']
   ps = []
   ts = []
   Ptainstructor.all.each do |ptainstructa|

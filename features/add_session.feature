@@ -13,9 +13,9 @@ Background: previous sessions have been added to the database
     | Fall 2012   | 09/15/2012    | 12/15/2012| 09/09/2012        | 09/14/2012            | 31  |
     
   Given the following pta instructors exist:
-  | name    | email     | phone     | address       | bio       | semester  |
-  | teacher1| jim@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
-  | teacher2| amy@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
+  | first_name | last_name | email     | phone     | address       | bio       | semester  |
+  | teacher1   | lastname1 | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
+  | teacher2   | lastname2 | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
   
   Given the following classrooms are in the database:
   | name    | grade | classroom | semester  |

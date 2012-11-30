@@ -55,8 +55,8 @@ class EnrollmentsController < ApplicationController
     @enrollment.student_id = @student.id
 
     if @enrollment.save
-      flash[:notice] = "#{@enrollment.id} was successfully added to the database."
-      redirect_to edit_semester_student_path(@semester, @student) + "#enrollment"
+      flash[:notice] = "#{@enrollment.course.name} was successfully added to the database."
+      redirect_to edit_semester_student_path(@semester, @student)
       return
     else
       flash[:warning] = @enrollment.errors
@@ -119,7 +119,7 @@ class EnrollmentsController < ApplicationController
     else
       flash[:warning] = @enrollment.errors
     end
-    redirect_to edit_semester_student_path(@semester, @student) + "#enrollment"
+    redirect_to edit_semester_student_path(@semester, @student)
   end
 
 

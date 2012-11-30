@@ -12,7 +12,63 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       .clear
-      %div#student-edit{:style=>"float:left;width:450px;outline:1px solid #ddd;margin-right:5px;height:650px;"}
+      %div.enrollmentTable
+        %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+          %thead
+            %tr
+              %td
+                Course
+              %td
+                Status
+              %td
+                Scholarship Amount
+              %td
+                Class Fees
+              %td
+                Dismissal
+              %td
+                Edit Entry
+              %td
+                Delete Entry
+          %tbody
+            - if @enrollments.length != 0
+              - @enrollments.each do |enrollment|
+                %tr
+                  %td.cell_center
+                    = enrollment.course.name
+                  %td.cell_center
+                    = enrollment.enrolled
+                  %td.cell_center
+                    = enrollment.scholarship_amount
+                  %td.cell_center
+                    = enrollment.course.total_fee
+                  %td.cell_center
+                    = enrollment.dismissal
+                  %td.cell_center
+                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning"
+                  %td.cell_center
+                    = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger"
+            - else
+              %tr
+                %td.cell_center
+                  ="-"
+                %td.cell_center
+                  ="-"
+                %td.cell_center
+                  ="-"
+                %td.cell_center
+                  ="-"
+                %td.cell_center
+                  ="-"
+                %td.cell_center
+                  ="-"
+                %td.cell_center
+                  ="-"
+        .clear
+        .vspace40
+
+
+      %div#student-edit{:style=>"float:left;width:455px;outline:1px solid #ddd;margin-right:5px;height:650px;"}
         %h1{:style=>"text-align:center;"}
           Edit Student
         .vspace20
@@ -149,7 +205,6 @@
               = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info", :style=>"width:190px;"
           .clear
           .vspace80
-
 
     :javascript
       $(function() {

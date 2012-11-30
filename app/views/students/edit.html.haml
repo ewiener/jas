@@ -68,11 +68,11 @@
         .vspace40
 
 
-      %div#student-edit{:style=>"float:left;width:455px;outline:1px solid #ddd;margin-right:5px;height:650px;"}
+      %div#student-edit{:style=>"float:left;width:430px;border:1px solid #ddd;margin-right:15px;height:650px;"}
         %h1{:style=>"text-align:center;"}
           Edit Student
         .vspace20
-        = form_tag semester_student_path(@semester, @student), :class =>"form-horizontal", :method => :put do
+        = form_tag semester_student_path(@semester, @student), :class =>"form-horizontal", :method => :put, :style=>"display:inline;" do
           %div.control-group
             = label :student, :first_name, 'First Name:', :class => "control-label"
             %div.controls
@@ -123,11 +123,11 @@
           .clear
           .vspace80
 
-      %div#enrollment{:style=>"float:left;width:460px;outline:1px solid #ddd;height:650px;"}
+      %div#enrollment{:style=>"float:left;width:460px;outline:1px solid #ddd;height:650px;position:relative;top:1px;left:9px;"}
         %h1{:style=>"text-align:center;"}
           Student Enrollment
         .vspace20
-        = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal" do
+        = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal", :style=>"display:inline;" do
           %div.control-group
             = label "enrollment[scholarship]", 'Select Class:', :class => "control-label"
             %div.controls

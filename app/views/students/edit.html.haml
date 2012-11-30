@@ -209,6 +209,8 @@
     :javascript
       $(function() {
         $("#navbar-students").addClass('active');
+        $("#enrollment_scholarship_amount").val(0);
+        $("#enrollment_scholarship_0").click();
         $("#enrollment-amount-div").css('visibility','hidden');
         $("#enrollment_course_id").change(function() {
           courseid = $("#enrollment_course_id").val();

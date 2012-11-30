@@ -109,6 +109,16 @@ class CoursesController  < ApplicationController
       redirect_to edit_semester_course_path
     end
   end
+  
+  public
+  def calculate_meetings
+    puts "############################################################"
+    puts params[:id]
+    @course = Course.find_by_id params[:id]
+    return unless semester_is_valid(@course)
+    puts @course[:sunday]
+    redirect_to edit_semester_course_path
+  end
 
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")

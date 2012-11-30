@@ -45,9 +45,9 @@
                   %td.cell_center
                     = enrollment.dismissal
                   %td.cell_center
-                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning"
+                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning edit-delete"
                   %td.cell_center
-                    = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger"
+                    = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger edit-delete"
             - else
               %tr
                 %td.cell_center
@@ -209,7 +209,7 @@
     :javascript
       $(function() {
         $("#navbar-students").addClass('active');
-        $("#enrollment-amount-div").hide();
+        $("#enrollment-amount-div").css('visibility','hidden');
         $("#enrollment_course_id").change(function() {
           courseid = $("#enrollment_course_id").val();
           if ($("#enrollment_scholarship_1").attr('checked')) {
@@ -223,11 +223,11 @@
         $("#enrollment_scholarship_0").click(function() {
           // None
           $("#enrollment_scholarship_amount").val(0);
-          $("#enrollment-amount-div").hide();
+          $("#enrollment-amount-div").css('visibility','hidden');
         });
         $("#enrollment_scholarship_1").click(function() {
           // Full
-          $("#enrollment-amount-div").show();
+          $("#enrollment-amount-div").css('visibility','visible');
           courseid = $("#enrollment_course_id").val();
           $.ajax({
             url: "/coursefee/" + courseid
@@ -237,7 +237,7 @@
         });
         $("#enrollment_scholarship_2").click(function() {
           // Partial
-          $("#enrollment-amount-div").show();
+          $("#enrollment-amount-div").css('visibility','visible');
         });
       });
 

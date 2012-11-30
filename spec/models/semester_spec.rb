@@ -431,6 +431,27 @@ describe Semester do
 
     end
   end
+
+=begin
+  describe 'Test if date span is valid' do
+    it 'I test dates_in_span_valid? with valid span' do
+      @semester = Semester.new
+      @semester.id = 3
+      @semester.name = "Spring 2013"
+      @semester.start_date = "01/22/12"
+      @semester.end_date = "02/24/12"
+      @semester.dates_with_no_classes = []
+      @semester.lottery_deadline = "01/22/2013"
+      @semester.registration_deadline = "01/22/13"
+      @semester.fee = 200
+      @semester.save
+      @answer = @semester.dates_in_span_valid?("10/12/2012-10/23/2012")
+      @answer.should == true
+    end
+  end
+=end
+
+
 end
 
 

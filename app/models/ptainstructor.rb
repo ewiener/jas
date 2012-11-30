@@ -6,22 +6,56 @@ class Ptainstructor < ActiveRecord::Base
   has_many :students, :through => :courses
 
 
-  attr_accessible :name,
+  attr_accessible :first_name,
+                  :last_name,
                   :email,
                   :phone,
                   :address,
                   :bio,
                   :semester
 
-  validate :name_is_valid
+  validate :first_name_is_valid
+  validate :last_name_is_valid
   validate :email_is_valid
   validate :phone_is_valid
   validate :address_is_valid
 
+  private
+  def first_name_is_valid
+    errors.add(:name, "Invalid string for first name.") unless first_name_is_valid?
+  end
+
+  def last_name_is_valid
+    errors.add(:name, "Invalid string for last name.") unless last_name_is_valid?
+  end
+
+
+  def email_is_valid
+    errors.add(:email, "Invalid email address entered.") unless email_is_valid?
+  end
+
+  def phone_is_valid
+    errors.add(:phone, "Invalid phone number entered.") unless phone_is_valid?
+  end
+
+  def address_is_valid
+    errors.add(:address, "Invalid address entered.") unless address_is_valid?
+  end
+
+  def not_nil_and_string(str)
+    return true unless ((str == nil) or (not str.instance_of? String))
+    return false
+  end
+
   public
-  def name_is_valid?
-    return false unless not_nil_and_string(self.name)
-    return self.name.length > 0
+  def first_name_is_valid?
+    return false unless not_nil_and_string(self.first_name)
+    return self.first_name.length > 0
+  end
+
+  def last_name_is_valid?
+    return false unless not_nil_and_string(self.last_name)
+    return self.last_name.length > 0
   end
 
   def email_is_valid?
@@ -46,25 +80,7 @@ class Ptainstructor < ActiveRecord::Base
     return courses.length == 0
   end
 
-  private
-  def name_is_valid
-    errors.add(:name, "Invalid string for name.") unless name_is_valid?
-  end
-
-  def email_is_valid
-    errors.add(:email, "Invalid email address entered.") unless email_is_valid?
-  end
-
-  def phone_is_valid
-    errors.add(:phone, "Invalid phone number entered.") unless phone_is_valid?
-  end
-
-  def address_is_valid
-    errors.add(:address, "Invalid address entered.") unless address_is_valid?
-  end
-
-  def not_nil_and_string(str)
-    return true unless ((str == nil) or (not str.instance_of? String))
-    return false
+  def full_name_last_first
+    return (self.last_name + ", " + self.first_name)
   end
 end

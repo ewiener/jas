@@ -50,7 +50,7 @@ Given /^the following courses have been added:$/ do |table|
     course[:class_max] = Integer(course[:class_max])
     sem_id = Semester.find_by_name(course[:semester])
     course[:semester] = sem_id
-    pta_id = Ptainstructor.find_by_name(course[:ptainstructor])
+    pta_id = Ptainstructor.find_by_first_name(course[:ptainstructor])
     course[:ptainstructor] = pta_id
     classroom_id = Teacher.find_by_classroom(course[:teacher])
     course[:teacher] = classroom_id
@@ -135,7 +135,8 @@ When /^I fill in the new pta form correctly with name "(.*)"$/ do |name|
 end
 
 def fill_in_new_pta_form_correcctly(name)
-  fill_in("ptainstructor_name", :with => name)
+  fill_in("ptainstructor_first_name", :with => name)
+  fill_in("ptainstructor_last_name", :with => name)
   fill_in("ptainstructor_email", :with => "michelle@gmail.com")
   fill_in("ptainstructor_phone", :with => "234-456-7890")
   fill_in("ptainstructor_address", :with => "1600 Pennsylvania Avenue")

@@ -19,6 +19,8 @@ class Enrollment < ActiveRecord::Base
   validate :course_id_is_valid
   validate :student_id_is_valid
 
+  DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
+
   private
   def dismissal_is_valid
     errors.add(:dismissal, 'Invalid dismissal value.') unless dismissal_is_valid?
@@ -92,5 +94,11 @@ class Enrollment < ActiveRecord::Base
   public
   def student_id_is_valid?
     return ( Student.find_by_id(self.student_id) != nil )
+  end
+
+  public
+  def dismissal_to_s
+    if self.dismissal < DISMISSAL.length;return DISMISSAL[self.dismissal];end
+    return "Invalid Value"
   end
 end

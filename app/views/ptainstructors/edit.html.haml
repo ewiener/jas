@@ -18,9 +18,14 @@
       %div.span8.offset2
         = form_tag semester_ptainstructor_path(@semester,@ptainstructor), :method => "put", :class =>"form-horizontal" do
           %div.control-group 
-            = label :ptainstructor, :name, 'Instructor Name:', :class => "control-label"
+            = label :ptainstructor, :first_name, 'First Name:', :class => "control-label"
             %div.controls
-              = text_field :ptainstructor, :name
+              = text_field :ptainstructor, :first_name
+
+          %div.control-group 
+            = label :ptainstructor, :last_name, 'Last  Name:', :class => "control-label"
+            %div.controls
+              = text_field :ptainstructor, :last_name
 
           %div.control-group
             = label :ptainstructor, :email, 'Email:', :class => "control-label"

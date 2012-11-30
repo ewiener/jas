@@ -291,8 +291,17 @@ describe Semester do
   describe 'Check if correct number of days is calculated in semester' do
     it 'I test specific_days_in_semester with semester over 2 months' do
       @semester = Semester.new
+      @semester.id = 4
+      @semester.name = "Spring 2013"
+      @semester.start_date = "01/22/12"
+      @semester.end_date = "02/24/12"
+      @semester.dates_with_no_classes = []
+      @semester.individual_dates_with_no_classes = []
+      @semester.lottery_deadline = "01/22/2013"
+      @semester.registration_deadline = "01/22/13"
+      @semester.fee = 200
       @semester.save
-    #  @semester.individual_dates_with_no_classes.add("9/02/2012")
+    # @semester.individual_dates_with_no_classes.add("9/02/2012")
       @start_date = "09/02/2012"
       @end_date = "10/07/2012"
       date_hash = {7 => 6, 1 => 5, 2 => 5 , 3 => 5 , 4 => 5 , 5 => 5 , 6 => 5}
@@ -437,7 +446,7 @@ describe Semester do
     end
   end
 
-=begin
+
   describe 'Test if date span is valid' do
     it 'I test dates_in_span_valid? with valid span' do
       @semester = Semester.new
@@ -446,17 +455,79 @@ describe Semester do
       @semester.start_date = "01/22/12"
       @semester.end_date = "02/24/12"
       @semester.dates_with_no_classes = []
+      @semester.individual_dates_with_no_classes = []
       @semester.lottery_deadline = "01/22/2013"
       @semester.registration_deadline = "01/22/13"
       @semester.fee = 200
       @semester.save
-      @answer = Semester.find(4).dates_in_span_valid?("10/12/2012-10/23/2012")
+      @answer = @semester.dates_in_span_valid?("10/12/2012-10/23/2012")
       @answer.should == true
     end
+
+    it 'I test dates_in_span_valid? with valid span, one date' do
+      @semester = Semester.new
+      @semester.id = 4
+      @semester.name = "Spring 2013"
+      @semester.start_date = "01/22/12"
+      @semester.end_date = "02/24/12"
+      @semester.dates_with_no_classes = []
+      @semester.individual_dates_with_no_classes = []
+      @semester.lottery_deadline = "01/22/2013"
+      @semester.registration_deadline = "01/22/13"
+      @semester.fee = 200
+      @semester.save
+      @answer = @semester.dates_in_span_valid?("10/12/2012")
+      @answer.should == true
+    end
+
+    it 'I test dates_in_span_valid? with invalid span' do
+      @semester = Semester.new
+      @semester.id = 4
+      @semester.name = "Spring 2013"
+      @semester.start_date = "01/22/12"
+      @semester.end_date = "02/24/12"
+      @semester.dates_with_no_classes = []
+      @semester.individual_dates_with_no_classes = []
+      @semester.lottery_deadline = "01/22/2013"
+      @semester.registration_deadline = "01/22/13"
+      @semester.fee = 200
+      @semester.save
+      @answer = @semester.dates_in_span_valid?("10/12/2012-9/22/2012")
+      @answer.should == false
+    end
+
+    it 'I test dates_in_span_valid? with invalid date' do
+      @semester = Semester.new
+      @semester.id = 4
+      @semester.name = "Spring 2013"
+      @semester.start_date = "01/22/12"
+      @semester.end_date = "02/24/12"
+      @semester.dates_with_no_classes = []
+      @semester.individual_dates_with_no_classes = []
+      @semester.lottery_deadline = "01/22/2013"
+      @semester.registration_deadline = "01/22/13"
+      @semester.fee = 200
+      @semester.save
+      @answer = @semester.dates_in_span_valid?("10/32/2012")
+      @answer.should == false
+    end
+
+    it 'I test dates_in_span_valid? with invalid date 5' do
+      @semester = Semester.new
+      @semester.id = 4
+      @semester.name = "Spring 2013"
+      @semester.start_date = "01/22/12"
+      @semester.end_date = "02/24/12"
+      @semester.dates_with_no_classes = []
+      @semester.individual_dates_with_no_classes = []
+      @semester.lottery_deadline = "01/22/2013"
+      @semester.registration_deadline = "01/22/13"
+      @semester.fee = 200
+      @semester.save
+      @answer = @semester.dates_in_span_valid?("10")
+      @answer.should == false
+    end
   end
-=end
-
-
 end
 
 

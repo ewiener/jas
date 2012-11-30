@@ -1,22 +1,41 @@
 require 'spec_helper'
 
 describe Ptainstructor do
-  describe 'Test valid name of pta instructor' do
-    it 'I test name_is_valid? with valid name' do
+  describe 'Test valid first name of pta instructor' do
+    it 'I test first_name_is_valid? with valid name' do
       @ptainstructor = Ptainstructor.new
-      @ptainstructor.name = "Jane Johnson"
-      @ptainstructor.name_is_valid?.should == true
+      @ptainstructor.first_name = "Jane"
+      @ptainstructor.first_name_is_valid?.should == true
     end
 
-    it 'I test name_is_valid? with invalid name "" ' do
+    it 'I test first_name_is_valid? with invalid name "" ' do
       @ptainstructor = Ptainstructor.new
-      @ptainstructor.name = ""
-      @ptainstructor.name_is_valid?.should == false
+      @ptainstructor.first_name = ""
+      @ptainstructor.first_name_is_valid?.should == false
     end
 
-    it 'I test name_is_valid? with invalid name nil' do
+    it 'I test first_name_is_valid? with invalid name nil' do
       @ptainstructor = Ptainstructor.new
-      @ptainstructor.name_is_valid?.should == false
+      @ptainstructor.first_name_is_valid?.should == false
+    end
+  end
+
+  describe 'Test valid last name of pta instructor' do
+    it 'I test last_name_is_valid? with valid name' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.last_name = "Johnson"
+      @ptainstructor.last_name_is_valid?.should == true
+    end
+
+    it 'I test last_name_is_valid? with invalid name "" ' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.last_name = ""
+      @ptainstructor.last_name_is_valid?.should == false
+    end
+
+    it 'I test last_name_is_valid? with invalid name nil' do
+      @ptainstructor = Ptainstructor.new
+      @ptainstructor.last_name_is_valid?.should == false
     end
   end
 
@@ -38,7 +57,7 @@ describe Ptainstructor do
       @ptainstructor.email_is_valid?.should == false
     end
 =begin
-    it 'I test email_is_valid? with invalid email john@gmail' do 
+    it 'I test email_is_valid? with invalid email john@gmail' do
       @ptainstructor = Ptainstructor.new
       @ptainstructor.email = "john@gmail"
       @ptainstructor.email_is_valid?.should == false

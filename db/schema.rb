@@ -53,7 +53,8 @@ ActiveRecord::Schema.define(:version => 20121125012720) do
   end
 
   create_table "ptainstructors", :force => true do |t|
-    t.text    "name"
+    t.text    "first_name"
+    t.text    "last_name"
     t.text    "email"
     t.text    "phone"
     t.text    "address"

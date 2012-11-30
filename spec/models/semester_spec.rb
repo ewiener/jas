@@ -307,13 +307,13 @@ describe Semester do
       answer_hash.should == date_hash
     end
 
-=begin
+
     it 'I test specific_days_in_semester with semester that passes through new year' do
       @semester = Semester.new
       @semester.id = 6
       @semester.name = "Spring 2013"
       @semester.start_date = "12/24/2012"
-      @semester.end_date = "1/04/2012"
+      @semester.end_date = "1/04/2013"
       @semester.dates_with_no_classes = []
       @semester.individual_dates_with_no_classes = []
       @semester.lottery_deadline = "01/22/2013"
@@ -324,7 +324,7 @@ describe Semester do
       answer_hash = @semester.specific_days_in_semester
       answer_hash.should == date_hash
     end
-=end
+
 
     it 'I test specific_days_in_semester with semester without 2 and 4 digits' do
       @semester = Semester.new

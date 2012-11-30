@@ -19,7 +19,7 @@
               %td
                 Course
               %td
-                Status
+                Enrolled
               %td
                 Scholarship Amount
               %td
@@ -34,18 +34,18 @@
             - if @enrollments.length != 0
               - @enrollments.each do |enrollment|
                 %tr
-                  %td.cell_center
+                  %td.cell_center.enrollment-course{:id=>"#{enrollment.course.id}"}
                     = enrollment.course.name
-                  %td.cell_center
+                  %td.cell_center.enrollment-enrolled
                     = enrollment.enrolled
-                  %td.cell_center
+                  %td.cell_center.enrollment-scholarship{:id=>"#{enrollment.scholarship}"}
                     = enrollment.scholarship_amount
-                  %td.cell_center
+                  %td.cell_center.enrollment-fee
                     = enrollment.course.total_fee
+                  %td.cell_center.enrollment-pickup{:id=>"#{enrollment.dismissal}"}
+                    = enrollment.dismissal_to_s
                   %td.cell_center
-                    = enrollment.dismissal
-                  %td.cell_center
-                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning edit-delete"
+                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning edit-delete enrollment-edit", :id => "#{enrollment.id}"
                   %td.cell_center
                     = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger edit-delete"
             - else
@@ -190,12 +190,12 @@
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:140px;"}
                   Enrolled:
-                = radio_button_tag "enrollment[enrolled]", "1", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[enrolled]", "true", false, :style=>"position:relative;top:-3px;"
 
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:140px;"}
                   Not Enrolled Lottery:
-                = radio_button_tag "enrollment[enrolled]", "0", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[enrolled]", "false", false, :style=>"position:relative;top:-3px;"
 
           %div.control-group
             %div.controls
@@ -209,6 +209,8 @@
     :javascript
       $(function() {
         $("#navbar-students").addClass('active');
+        $("#enrollment_scholarship_amount").val(0);
+        $("#enrollment_scholarship_0").click();
         $("#enrollment-amount-div").css('visibility','hidden');
         $("#enrollment_course_id").change(function() {
           courseid = $("#enrollment_course_id").val();
@@ -219,6 +221,23 @@
               $("#enrollment_scholarship_amount").val(data);
             });
           }
+        });
+        $(".enrollment-edit").click(function(event) {
+          event.preventDefault();
+          $td = $(this).parent().parent().parent();
+          $courseID = $td.siblings(".enrollment-course").attr("id");
+          $enrollmentStatus = $.trim($td.siblings(".enrollment-enrolled").text());
+          $scholarship = $td.siblings(".enrollment-scholarship").attr("id");
+          $scholarshipAmount = $.trim($td.siblings(".enrollment-scholarship").text());
+          $pickup = $td.siblings(".enrollment-pickup").attr("id");
+          $("#enrollment_course_id").val($courseID);
+          $("#enrollment_scholarship_"+$scholarship).click();
+          if($scholarship == "2"){
+             $("#enrollment_scholarship_amount").val($scholarshipAmount);
+          }
+          $("#enrollment_dismissal_"+$pickup).click();
+          $("#enrollment_enrolled_"+$enrollmentStatus).click();
+
         });
         $("#enrollment_scholarship_0").click(function() {
           // None

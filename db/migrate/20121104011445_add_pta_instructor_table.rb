@@ -1,7 +1,8 @@
 class AddPtaInstructorTable < ActiveRecord::Migration
   def up
     create_table 'ptainstructors' do |t|
-      t.text       'name'
+      t.text       'first_name'
+      t.text       'last_name'
       t.text       'email'
       t.text       'phone'
       t.text       'address'

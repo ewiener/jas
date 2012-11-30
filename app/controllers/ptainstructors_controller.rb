@@ -45,7 +45,7 @@ class PtainstructorsController < ApplicationController
       redirect_to new_semester_ptainstructor_path(@semester)
       return
     else
-      flash[:notice] = "#{@ptainstructor.name} was successfully added to the database."
+      flash[:notice] = "#{@ptainstructor.first_name} #{@ptainstructor.last_name} was successfully added to the database."
       redirect_to semester_ptainstructors_path(@semester)
     end
   end
@@ -66,7 +66,7 @@ class PtainstructorsController < ApplicationController
     return unless ptainstructor_is_valid(@ptainstructor)
 
     if @ptainstructor.update_attributes(params[:ptainstructor])
-      flash[:notice] = "#{@ptainstructor.name}'s information was successfully updated."
+      flash[:notice] = "#{@ptainstructor.first_name} #{@ptainstructor.last_name}'s information was successfully updated."
       redirect_to semester_ptainstructors_path(@semester)
     else
       flash[:warning] = @ptainstructor.errors
@@ -80,10 +80,11 @@ class PtainstructorsController < ApplicationController
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
 
-    name = @ptainstructor.name
+    first_name = @ptainstructor.first_name
+    last_name = @ptainstructor.last_name
 
     if @ptainstructor.destroy
-      flash[:notice] = "#{name} was successfully deleted."
+      flash[:notice] = "#{first_name} #{last_name} was successfully deleted."
     else
       flash[:warning] = @ptainstructor.errors
     end

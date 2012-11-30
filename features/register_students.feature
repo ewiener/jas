@@ -16,10 +16,10 @@ Background: populate db with all information for a session
   | jim     | 4     | Room 2    | Fall 2011 |
   
   Given the following pta instructors exist:
-  | name    | email     | phone     | address       | bio       | semester  |
-  | Jim     | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
-  | Amy     | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
-  | Mia     | mia@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  | first_name | last_name | email     | phone     | address       | bio       | semester  |
+  | Jim        | Dean      | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  | Amy        | Tsao      | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  | Mia        | Mama      | mia@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   
   Given the following courses have been added:
     | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | ptainstructor | teacher   |

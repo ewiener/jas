@@ -11,8 +11,8 @@ Background: populate db with a single class session
   | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            |
 
   Given the following pta instructors exist:
-  | name    | email     | phone     | address       | bio       | semester  |
-  | teacher3| jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  | first_name    | last_name | email     | phone     | address       | bio       | semester  |
+  | teacher3      | lastname3 | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   
   Given the following classrooms are in the database:
   | name    | grade | classroom | semester  |

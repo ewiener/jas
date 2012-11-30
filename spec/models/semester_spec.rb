@@ -189,7 +189,8 @@ describe Semester do
       @semester.save
       @ptainstructor = Ptainstructor.new
       @ptainstructor.id = 2
-      @ptainstructor.name = "Mary"
+      @ptainstructor.first_name = "Mary"
+      @ptainstructor.last_name = "Katherine"
       @ptainstructor.email = "mary@gmail.com"
       @ptainstructor.phone = "925-987-1234"
       @ptainstructor.address = "1000 Main St. SF, CA 94109"
@@ -219,7 +220,8 @@ describe Semester do
       @semester.save
       @ptainstructor = Ptainstructor.new
       @ptainstructor.id = 2
-      @ptainstructor.name = "Mary"
+      @ptainstructor.first_name = "Mary"
+      @ptainstructor.last_name = "Katherine"
       @ptainstructor.email = "mary@gmail.com"
       @ptainstructor.phone = "925-987-1234"
       @ptainstructor.address = "1000 Main St. SF, CA 94109"
@@ -263,7 +265,8 @@ describe Semester do
       @semester.save
       @ptainstructor = Ptainstructor.new
       @ptainstructor.id = 2
-      @ptainstructor.name = "Mary"
+      @ptainstructor.first_name = "Mary"
+      @ptainstructor.last_name = "Katherine"
       @ptainstructor.email = "mary@gmail.com"
       @ptainstructor.phone = "925-987-1234"
       @ptainstructor.address = "1000 Main St. SF, CA 94109"
@@ -334,7 +337,8 @@ describe Semester do
       @semester1.save
       @ptainstructor = Ptainstructor.new
       @ptainstructor.id = 2
-      @ptainstructor.name = "Mary"
+      @ptainstructor.first_name = "Mary"
+      @ptainstructor.last_name = "Katherine"
       @ptainstructor.email = "mary@gmail.com"
       @ptainstructor.phone = "925-987-1234"
       @ptainstructor.address = "1000 Main St. SF, CA 94109"
@@ -395,7 +399,8 @@ describe Semester do
       @teachers.should == @teacher_test
       @ptainstructor_test = Ptainstructor.new
       @ptainstructor_test.id = 3
-      @ptainstructor_test.name = "Mary"
+      @ptainstructor_test.first_name = "Mary"
+      @ptainstructor_test.last_name = "Katherine"
       @ptainstructor_test.email = "mary@gmail.com"
       @ptainstructor_test.phone = "925-987-1234"
       @ptainstructor_test.address = "1000 Main St. SF, CA 94109"

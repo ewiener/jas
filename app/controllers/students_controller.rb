@@ -102,11 +102,7 @@ class StudentsController < ApplicationController
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)
 
-    if not @student.update_attributes(params[:student])
-      flash[:warning] = @student.errors
-      redirect_to edit_semester_student_path(@semester,@student)
-      return
-    end
+    @student.assign_attributes(params[:student])
 
     """
     @courses = Course.find_all_by_id(params[:courses])
@@ -127,8 +123,14 @@ class StudentsController < ApplicationController
       return
     end
 
-    flash[:notice] = "#{@student.first_name} #{@student.last_name}'s information was successfully updated."
-    redirect_to semester_students_path(@semester)
+    if @student.save
+      flash[:notice] = "#{@student.first_name} #{@student.last_name}'s information was successfully updated."
+      redirect_to semester_students_path(@semester)
+    else
+      flash[:warning] = @student.errors
+      flash[:student] = @student
+      redirect_to edit_semester_student_path(@semester,@student)
+    end
   end
 
   def destroy

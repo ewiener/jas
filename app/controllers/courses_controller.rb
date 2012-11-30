@@ -31,6 +31,12 @@ class CoursesController  < ApplicationController
     end
   end
 
+  def coursefee
+    course = Course.find(params[:id])
+    @coursefee = course.total_fee.to_json
+    return
+  end
+
   def create
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")

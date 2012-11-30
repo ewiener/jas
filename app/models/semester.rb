@@ -31,10 +31,12 @@ class Semester < ActiveRecord::Base
 
 
 
-  has_many :courses
-  has_many :students, :through => :courses
-  has_many :ptainstructors
-  has_many :teachers#, :through => :courses
+  has_many :courses, :dependent => :destroy
+  has_many :students, :through => :courses, :dependent => :destroy
+  has_many :ptainstructors, :dependent => :destroy
+  has_many :teachers, :dependent => :destroy
+  has_many :enrollments, :dependent => :destroy
+
 
   #TODO Validate fee
   private
@@ -100,7 +102,7 @@ class Semester < ActiveRecord::Base
     end
     return true
   end
-  
+
   public
   # verifys the date range can be parsed (works for single date and range of the form date-date, also adds all dates to a set for use later in caculating number of class meetings
   def dates_in_span_valid?(date_string)
@@ -249,7 +251,7 @@ class Semester < ActiveRecord::Base
     end
     return date_hash
   end
-  
+
   public
   def delete_date(date)
     if self.dates_with_no_classes.delete(date) == nil

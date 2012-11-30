@@ -15,6 +15,7 @@ Ptast::Application.routes.draw do
   end
   match '/semesters/:semester_id/import' => 'semesters#import', :as=>'semester_import', :via=>[:put]
   match '/semesters/:semester_id/date' => 'semesters#delete_date', :as=>'semester_delete_date', :via=>[:put]
+  match '/coursefee/:id' => 'courses#coursefee', :as => 'coursefee'
   #resources :teachers
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

@@ -12,7 +12,7 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       .clear
-      %h1.span6.offset3
+      %h1{:style=>"text-align:center;"}
         Edit Student
       .vspace20
       %div.span8.offset2
@@ -64,7 +64,7 @@
           .clear
           .vspace80
         %div#enrollment
-          %h1.span8.offset2
+          %h1{:style=>"text-align:center;"}
             Student Enrollment
           .clear
           %div.enrollmentTable
@@ -109,25 +109,28 @@
               %div.controls
                 = select_tag "enrollment[course_id]", options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
 
-            %div.control-group
-              = label "enrollment[scholarship]", 'Scholarship:', :class => "control-label radio inline"
+            %div.control-group{:style=>"margin-bottom:0;"}
+              = label "enrollment[scholarship]", 'Scholarship:', :class => "control-label radio inline", :style=>"position:relative;left:-18px;"
+              / Scholarship:
 
-              %div{:style=>"float:left;outline:1px solid black;"}
-                = label "enrollment[scholarship]", 'None:', :class => "control-label radio inline"
-                %div.controls
-                  = radio_button_tag "enrollment[scholarship]", "0", :checked
+              %div{:style=>"width:215px;height:90px;position:relative;left:180px;top:-18px;"}
+                %div{:style=>"width:100%;float:left;"}
+                  %div{:style=>"float:left;width:50px;"}
+                    None:
+                  = radio_button_tag "enrollment[scholarship]", "0", true, :style=>"position:relative;top:-3px;"
+                .clear
+                %div{:style=>"width:100%;float:left;"}
+                  %div{:style=>"float:left;width:50px;"}
+                    Full:
+                  = radio_button_tag "enrollment[scholarship]", "1", false, :style=>"position:relative;top:-3px;"
+                .clear
+                %div{:style=>"width:100%;float:left;"}
+                  %div{:style=>"float:left;width:50px;"}
+                    Partial:
+                  = radio_button_tag "enrollment[scholarship]", "2", false, :style=>"position:relative;top:-3px;"
+                .clear
 
-              %div{:style=>"float:left;outline:1px solid black;"}
-                = label "enrollment[scholarship]", 'Full:', :class => "control-label radio inline"
-                %div.controls
-                  = radio_button_tag "enrollment[scholarship]", "1"
-
-              %div{:style=>"float:left;outline:1px solid black;"}
-                = label "enrollment[scholarship]", 'Partial:', :class => "control-label radio inline"
-                %div.controls
-                  = radio_button_tag "enrollment[scholarship]", "2"
-
-            %div.control-group
+            %div.control-group#enrollment-amount-div
               = label "enrollment[scholarship]", :amount, 'Amount:', :class => "control-label"
               %div.controls
                 = text_field "enrollment", :scholarship_amount
@@ -177,5 +180,37 @@
 
 
     :javascript
-      $("#navbar-students").addClass('active');
+      $(function() {
+        $("#navbar-students").addClass('active');
+        $("#enrollment-amount-div").hide();
+        $("#enrollment_course_id").change(function() {
+          courseid = $("#enrollment_course_id").val();
+          if ($("#enrollment_scholarship_1").attr('checked')) {
+            $.ajax({
+              url: "/coursefee/" + courseid
+            }).done(function(data) {
+              $("#enrollment_scholarship_amount").val(data);
+            });
+          }
+        });
+        $("#enrollment_scholarship_0").click(function() {
+          // None
+          $("#enrollment_scholarship_amount").val(0);
+          $("#enrollment-amount-div").hide();
+        });
+        $("#enrollment_scholarship_1").click(function() {
+          // Full
+          $("#enrollment-amount-div").show();
+          courseid = $("#enrollment_course_id").val();
+          $.ajax({
+            url: "/coursefee/" + courseid
+          }).done(function(data) {
+            $("#enrollment_scholarship_amount").val(data);
+          });
+        });
+        $("#enrollment_scholarship_2").click(function() {
+          // Partial
+          $("#enrollment-amount-div").show();
+        });
+      });
 

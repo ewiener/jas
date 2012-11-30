@@ -140,6 +140,7 @@
             = label :course, :number_of_classes, 'Number of Meetings:', :class => "control-label"
             %div.controls
               = text_field :course, :number_of_classes
+              = link_to "Calculate", calculate_meetings_path, :id => "calc_meeting_number"
 
           %div.control-group
             = label :course, :fee_for_additional_materials, 'Fee for Additional Materials:', :class => "control-label"
@@ -160,3 +161,22 @@
 
     :javascript
       $("#navbar-courses").addClass('active');
+      $("#calc_meeting_number").click(function() {
+          event.preventDefault();
+          var jsonObj = {};
+          jsonObj[7] = course_sunday.checked;
+          jsonObj[1] = course_monday.checked;
+          jsonObj[2] = course_tuesday.checked;
+          jsonObj[3] = course_wednesday.checked;
+          jsonObj[4] = course_thursday.checked;
+          jsonObj[5] = course_friday.checked;
+          jsonObj[6] = course_saturday.checked;
+          $.ajax({
+            type: "POST",
+            url: "#{calculate_meetings_path}",
+            dataType: "json",
+            data: jsonObj
+          }).done(function(data) {
+            $("#course_number_of_classes").val(data);
+          });
+        });

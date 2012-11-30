@@ -238,16 +238,16 @@ class Semester < ActiveRecord::Base
 
   public
   #returns a hash 0f 1-7 (where 1 is monday) of the quantity of that day
-  def specific_days_in_semester(start_date, end_date)
-    date_start = USDateParse(start_date)#USDateParse(self.start_date)
-    date_end = USDateParse(end_date)#USDateParse(self.end_date)
+  def specific_days_in_semester
+    date_start = USDateParse(self.start_date)#USDateParse(self.start_date)
+    date_end = USDateParse(self.end_date)#USDateParse(self.end_date)
     curr_date = date_start
     date_hash = Hash.new(0)
     while curr_date <= date_end do
       if (! self.individual_dates_with_no_classes.include?(curr_date))
         date_hash[curr_date.cwday] += 1
-      curr_date += 1
       end
+      curr_date += 1
     end
     return date_hash
   end

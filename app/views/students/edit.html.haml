@@ -209,7 +209,7 @@
     :javascript
       $(function() {
         $("#navbar-students").addClass('active');
-        $("#enrollment-amount-div").hide();
+        $("#enrollment-amount-div").css('visibility','hidden');
         $("#enrollment_course_id").change(function() {
           courseid = $("#enrollment_course_id").val();
           if ($("#enrollment_scholarship_1").attr('checked')) {
@@ -223,11 +223,11 @@
         $("#enrollment_scholarship_0").click(function() {
           // None
           $("#enrollment_scholarship_amount").val(0);
-          $("#enrollment-amount-div").hide();
+          $("#enrollment-amount-div").css('visibility','hidden');
         });
         $("#enrollment_scholarship_1").click(function() {
           // Full
-          $("#enrollment-amount-div").show();
+          $("#enrollment-amount-div").css('visibility','visible');
           courseid = $("#enrollment_course_id").val();
           $.ajax({
             url: "/coursefee/" + courseid
@@ -237,7 +237,7 @@
         });
         $("#enrollment_scholarship_2").click(function() {
           // Partial
-          $("#enrollment-amount-div").show();
+          $("#enrollment-amount-div").css('visibility','visible');
         });
       });
 

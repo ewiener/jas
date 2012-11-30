@@ -99,9 +99,9 @@
                     %td.cell_center
                       = enrollment.dismissal
                     %td.cell_center
-                      = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning"
+                      = button_to "Edit", "#", :class => "btn btn-warning edit-delete"
                     %td.cell_center
-                      = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger"
+                      = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger edit-delete"
           .vspace80
           = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal" do
             %div.control-group

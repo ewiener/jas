@@ -62,7 +62,9 @@ class Teacher < ActiveRecord::Base
     end
 =end
     courses = Course.where(:semester_id => self.semester, :teacher_id => self.id)
-    return courses.length == 0
+    students = Student.where(:semester_id => self.semester, :teacher_id => self.id)
+
+    return ((courses.length + students.length) == 0)
   end
 
 end

@@ -92,7 +92,6 @@ class CoursesController  < ApplicationController
 
   def update
     @semester = Semester.find_by_id params[:semester_id]
-
     return unless semester_is_valid(@semester)
 
     @course = Course.find_by_id params[:id]
@@ -118,12 +117,21 @@ class CoursesController  < ApplicationController
   
   public
   def calculate_meetings
-    puts "############################################################"
-    puts params[:id]
-    @course = Course.find_by_id params[:id]
-    return unless semester_is_valid(@course)
-    puts @course[:sunday]
-    redirect_to edit_semester_course_path
+    @semester = Semester.find_by_id params[:semester_id]
+    return unless semester_is_valid(@semester)
+    class_meetings = 0
+    class_meetings_hash = @semester.specific_days_in_semester
+    params.each do |d, value|
+      puts "before", value
+      day_of_week = d.to_i
+      if value != "true"; next; end
+      if ((1 <= day_of_week) and (day_of_week <= 7))
+        class_meetings += class_meetings_hash[day_of_week]
+      end
+    end
+    
+    @calculate_meetings = class_meetings.to_json
+    render :text => @calculate_meetings
   end
 
   private

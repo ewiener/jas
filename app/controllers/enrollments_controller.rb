@@ -98,7 +98,7 @@ class EnrollmentsController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
 
-    @students = Student.find_by_id params[:student_id]
+    @student = Student.find_by_id params[:student_id]
     return unless student_is_valid(@student, @semester)
 
     @enrollment = Enrollment.find_by_id params[:id]
@@ -119,7 +119,7 @@ class EnrollmentsController < ApplicationController
     else
       flash[:warning] = @enrollment.errors
     end
-    redirect_to semester_student
+    redirect_to edit_semester_student_path(@semester, @student) + "#enrollment"
   end
 
 

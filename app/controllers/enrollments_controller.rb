@@ -45,7 +45,25 @@ class EnrollmentsController < ApplicationController
 
     @enrollment = Enrollment.new(params[:enrollment])
 
+    if not @enrollment
+      flash[:warning] = [[:enrollment,"Could not initialize a enrollment object."]]
+      redirect_to new_semester_student_enrollment_path(@semester)
+      return
+    end
 
+    @enrollment.semester_id = @semester.id
+    @enrollment.student_id = @student.id
+
+    if @enrollment.save
+      flash[:notice] = "#{@enrollment.id} was successfully added to the database."
+      redirect_to edit_semester_student_path(@semester, @student) + "#enrollment"
+      return
+    else
+      flash[:warning] = @enrollment.errors
+      flash[:student] = @enrollment
+      redirect_to edit_semester_student_path(@semester, @student)
+      return
+    end
 
     redirect_to edit_semester_student_path(@semester, @student)
   end
@@ -80,7 +98,7 @@ class EnrollmentsController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
 
-    @students = Student.find_by_id params[:student_id]
+    @student = Student.find_by_id params[:student_id]
     return unless student_is_valid(@student, @semester)
 
     @enrollment = Enrollment.find_by_id params[:id]
@@ -101,7 +119,7 @@ class EnrollmentsController < ApplicationController
     else
       flash[:warning] = @enrollment.errors
     end
-    redirect_to semester_student
+    redirect_to edit_semester_student_path(@semester, @student) + "#enrollment"
   end
 
 

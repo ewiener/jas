@@ -12,7 +12,7 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       .clear
-      %h1.span6.offset3
+      %h1{:style=>"text-align:center;"}
         Edit Student
       .vspace20
       %div.span8.offset2
@@ -35,7 +35,7 @@
           %div.control-group
             = label :teacher, 'Jefferson Classroom Teacher:', :class => "control-label"
             %div.controls
-              = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name),:class => "course_select"
+              = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name, @student.teacher_id),:class => "course_select"
 
           %div.control-group
             = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"
@@ -64,84 +64,153 @@
           .clear
           .vspace80
         %div#enrollment
-          %h1.span8.offset2
+          %h1{:style=>"text-align:center;"}
             Student Enrollment
-          .vspace20
-          = form_tag semester_students_path, :class =>"form-horizontal" do
+          .clear
+          %div.enrollmentTable
+            %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+              %thead
+                %tr
+                  %td
+                    Course
+                  %td
+                    Status
+                  %td
+                    Scholarship Amount
+                  %td
+                    Class Fees
+                  %td
+                    Dismissal
+                  %td
+                    Edit Entry
+                  %td
+                    Delete Entry
+              %tbody
+                - @enrollments.each do |enrollment|
+                  %tr
+                    %td.cell_center
+                      = enrollment.course.name
+                    %td.cell_center
+                      = enrollment.enrolled
+                    %td.cell_center
+                      = enrollment.scholarship_amount
+                    %td.cell_center
+                      = enrollment.course.total_fee
+                    %td.cell_center
+                      = enrollment.dismissal
+                    %td.cell_center
+                      = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning"
+                    %td.cell_center
+                      = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger"
+          .vspace80
+          = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal" do
             %div.control-group
-              = label :teacher, 'Select Class:', :class => "control-label"
+              = label "enrollment[scholarship]", 'Select Class:', :class => "control-label"
               %div.controls
-                = select_tag :teacher, options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
+                = select_tag "enrollment[course_id]", options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
 
-            %div.control-group
-              .days
-                = label :scholarship, 'Scholarship:', :class => "control-label radio inline"
+            %div.control-group{:style=>"margin-bottom:0;"}
+              = label "enrollment[scholarship]", 'Scholarship:', :class => "control-label radio inline", :style=>"position:relative;left:-18px;"
+              / Scholarship:
 
-              .days
-                = label :scholarship, 'None:', :class => "control-label radio inline"
-                %div.controls
-                  = radio_button_tag :scholarship, "0"
+              %div{:style=>"width:215px;height:90px;position:relative;left:180px;top:-18px;"}
+                %div{:style=>"width:100%;float:left;"}
+                  %div{:style=>"float:left;width:50px;"}
+                    None:
+                  = radio_button_tag "enrollment[scholarship]", "0", true, :style=>"position:relative;top:-3px;"
+                .clear
+                %div{:style=>"width:100%;float:left;"}
+                  %div{:style=>"float:left;width:50px;"}
+                    Full:
+                  = radio_button_tag "enrollment[scholarship]", "1", false, :style=>"position:relative;top:-3px;"
+                .clear
+                %div{:style=>"width:100%;float:left;"}
+                  %div{:style=>"float:left;width:50px;"}
+                    Partial:
+                  = radio_button_tag "enrollment[scholarship]", "2", false, :style=>"position:relative;top:-3px;"
+                .clear
 
-              .days
-                = label :scholarship, 'Full:', :class => "control-label radio inline"
-                %div.controls
-                  = radio_button_tag :scholarship, "1"
-
-              .days
-                = label :scholarship, 'Partial:', :class => "control-label radio inline"
-                %div.controls
-                  = radio_button_tag :scholarship, "1"
-
-            %div.control-group
-              = label :scholarship, :amount, 'Amount:', :class => "control-label"
+            %div.control-group#enrollment-amount-div
+              = label "enrollment[scholarship]", :amount, 'Amount:', :class => "control-label"
               %div.controls
-                = text_field :scholarship, :amount
+                = text_field "enrollment", :scholarship_amount
 
             %div.control-group
-              .days
-                = label :dismissal, 'Dismissal Location:', :class => "control-label radio inline"
+              = label "enrollment[dismissal]", 'Dismissal Location:', :class => "control-label radio inline"
 
-              .days
-                = label :dismissal, 'Pick Up:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[dismissal]", 'Pick Up:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :dismissal, "0"
+                  = radio_button_tag "enrollment[dismissal]", "0"
 
-              .days
-                = label :dismissal, 'JAZ:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[dismissal]", 'JAZ:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :dismissal, "1"
+                  = radio_button_tag "enrollment[dismissal]", "1"
 
-              .days
-                = label :dismissal, 'BEARS:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[dismissal]", 'BEARS:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :dismissal, "2"
+                  = radio_button_tag "enrollment[dismissal]", "2"
 
-              .days
-                = label :dismissal, 'walk:', :class => "control-label radio inline"
+              %div{:style=>"float:left;outline:1px solid black;"}
+                = label "enrollment[dismissal]", 'walk:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :dismissal, "3"
+                  = radio_button_tag "enrollment[dismissal]", "3"
 
             %div.control-group
               = label :status, 'Status:', :class => "control-label radio inline"
 
-              .days{:style=>"width:70px;"}
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :status, 'Enrolled:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :enrolled, "0"
+                  = radio_button_tag "enrollment[enrolled]", "0"
 
-              .days{:style=>"width:130px;"}
+              %div{:style=>"float:left;outline:1px solid black;"}
                 = label :status, 'Not Enrolled Lottery:', :class => "control-label radio inline"
                 %div.controls
-                  = radio_button_tag :enrolled, "1"
+                  = radio_button_tag "enrollment[enrolled]", "1"
 
             %div.control-group
               %div.controls
-                = submit_tag 'Register Student', :class => "btn btn-info"
+                = submit_tag 'Add Enrollment', :class => "btn btn-info"
                 = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
             .clear
             .vspace80
 
 
     :javascript
-      $("#navbar-students").addClass('active');
+      $(function() {
+        $("#navbar-students").addClass('active');
+        $("#enrollment-amount-div").hide();
+        $("#enrollment_course_id").change(function() {
+          courseid = $("#enrollment_course_id").val();
+          if ($("#enrollment_scholarship_1").attr('checked')) {
+            $.ajax({
+              url: "/coursefee/" + courseid
+            }).done(function(data) {
+              $("#enrollment_scholarship_amount").val(data);
+            });
+          }
+        });
+        $("#enrollment_scholarship_0").click(function() {
+          // None
+          $("#enrollment_scholarship_amount").val(0);
+          $("#enrollment-amount-div").hide();
+        });
+        $("#enrollment_scholarship_1").click(function() {
+          // Full
+          $("#enrollment-amount-div").show();
+          courseid = $("#enrollment_course_id").val();
+          $.ajax({
+            url: "/coursefee/" + courseid
+          }).done(function(data) {
+            $("#enrollment_scholarship_amount").val(data);
+          });
+        });
+        $("#enrollment_scholarship_2").click(function() {
+          // Partial
+          $("#enrollment-amount-div").show();
+        });
+      });
 

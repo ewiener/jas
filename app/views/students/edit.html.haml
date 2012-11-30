@@ -45,9 +45,9 @@
                   %td.cell_center
                     = enrollment.dismissal
                   %td.cell_center
-                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning"
+                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning edit-delete"
                   %td.cell_center
-                    = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger"
+                    = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger edit-delete"
             - else
               %tr
                 %td.cell_center

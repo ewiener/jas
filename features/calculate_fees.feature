@@ -1,4 +1,4 @@
-Feature: Adding PTA instructors to the database
+Feature: Calculate Fees Feature
 
   As an administrator
   So that I can give students' parents the fees

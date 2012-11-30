@@ -18,6 +18,7 @@ class Enrollment < ActiveRecord::Base
   validate :semester_id_is_valid
   validate :course_id_is_valid
   validate :student_id_is_valid
+  validate :student_not_already_enrolled
 
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
 
@@ -84,6 +85,23 @@ class Enrollment < ActiveRecord::Base
   public
   def course_id_is_valid?
     return ( Course.find_by_id(self.course_id) != nil )
+  end
+
+  private
+  def student_not_already_enrolled
+    errors.add(:course_id, "The student is already enrolled in the selected course.") unless student_not_already_enrolled?
+  end
+
+  public
+  def student_not_already_enrolled?
+=begin
+    course = Course.find_by_id(self.course_id)
+    return false unless course != nil
+    student = Student.find_by_id(self.student_id)
+    return false unless student != nil
+=end
+    enrollments = Enrollment.where(:student_id => self.student_id, :course_id => self.course_id )
+    return enrollments.length == 0
   end
 
   private

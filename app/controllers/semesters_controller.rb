@@ -4,7 +4,7 @@ class SemestersController < ApplicationController
   def show
     @semester = Semester.find_by_id params[:id]
     return unless semester_is_valid(@semester)
-    @semesters = Semester.all.delete_if {|sem| sem == @semester}
+    @semesters = Semester.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
     @courses = @semester.courses
   end
 
@@ -115,11 +115,11 @@ class SemestersController < ApplicationController
     end
     redirect_to semester_path(@semester)
   end
-  
+
   def delete_date
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    
+
     date = params[:date]
     if @semester.delete_date(date)
       flash[:notice] = "Successfully deleted #{date} from #{@semester.name}"

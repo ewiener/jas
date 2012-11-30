@@ -94,7 +94,7 @@
                   = radio_button_tag "enrollment[scholarship]", "2", false, :style=>"position:relative;top:-3px;"
                 .clear
 
-            %div.control-group
+            %div.control-group#enrollment-amount-div
               = label "enrollment[scholarship]", :amount, 'Amount:', :class => "control-label"
               %div.controls
                 = text_field "enrollment", :scholarship_amount
@@ -146,6 +146,7 @@
     :javascript
       $(function() {
         $("#navbar-students").addClass('active');
+        $("#enrollment-amount-div").hide();
         $("#enrollment_course_id").change(function() {
           courseid = $("#enrollment_course_id").val();
           if ($("#enrollment_scholarship_1").attr('checked')) {
@@ -159,11 +160,11 @@
         $("#enrollment_scholarship_0").click(function() {
           // None
           $("#enrollment_scholarship_amount").val(0);
-          $("#enrollment_scholarship_amount").hide();
+          $("#enrollment-amount-div").hide();
         });
         $("#enrollment_scholarship_1").click(function() {
           // Full
-          $("#enrollment_scholarship_amount").show();
+          $("#enrollment-amount-div").show();
           courseid = $("#enrollment_course_id").val();
           $.ajax({
             url: "/coursefee/" + courseid
@@ -173,7 +174,7 @@
         });
         $("#enrollment_scholarship_2").click(function() {
           // Partial
-          $("#enrollment_scholarship_amount").show();
+          $("#enrollment-amount-div").show();
         });
       });
 

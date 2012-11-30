@@ -171,17 +171,17 @@
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:60px;"}
                   JAZ
-                = radio_button_tag :dismissal, "1", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[dismissal]", "1", false, :style=>"position:relative;top:-3px;"
 
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:60px;"}
                   BEARS:
-                = radio_button_tag :dismissal, "2", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[dismissal]", "2", false, :style=>"position:relative;top:-3px;"
 
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:60px;"}
                   Walk:
-                = radio_button_tag :dismissal, "3", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[dismissal]", "3", false, :style=>"position:relative;top:-3px;"
 
           %div.control-group{:style=>"margin-bottom:0;"}
             = label :status, 'Status:', :class => "control-label radio inline", :style=>"position:relative;left:-18px;"
@@ -190,12 +190,12 @@
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:140px;"}
                   Enrolled:
-                = radio_button_tag "enrollment[enrolled]", "0", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[enrolled]", "1", false, :style=>"position:relative;top:-3px;"
 
               %div{:style=>"width:100%;float:left;"}
                 %div{:style=>"float:left;width:140px;"}
                   Not Enrolled Lottery:
-                = radio_button_tag "enrollment[enrolled]", "1", false, :style=>"position:relative;top:-3px;"
+                = radio_button_tag "enrollment[enrolled]", "0", false, :style=>"position:relative;top:-3px;"
 
           %div.control-group
             %div.controls

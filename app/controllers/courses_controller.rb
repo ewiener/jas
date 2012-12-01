@@ -114,7 +114,7 @@ class CoursesController  < ApplicationController
       redirect_to edit_semester_course_path
     end
   end
-  
+
   public
   def calculate_meetings
     @semester = Semester.find_by_id params[:semester_id]
@@ -122,27 +122,28 @@ class CoursesController  < ApplicationController
     class_meetings = 0
     class_meetings_hash = @semester.specific_days_in_semester
     params.each do |d, value|
-      puts "before", value
       day_of_week = d.to_i
-      if value != "true"; next; end
+      if value != "checked"; next; end
       if ((1 <= day_of_week) and (day_of_week <= 7))
         class_meetings += class_meetings_hash[day_of_week]
       end
     end
-    
+
     @calculate_meetings = class_meetings.to_json
     render :text => @calculate_meetings
   end
-  
+
+=begin
   public
   def calculate_total_fees
     per_meeting_cost = params["per_meeting_cost"].to_i
     number_of_meetings = params["meeting_number"].to_i
     additional_fees = params["additional_fees"].to_i
-    
+
     @total_fee = per_meeting_cost*number_of_meetings + additional_fees
     render :text => @total_fee
   end
+=end
 
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")

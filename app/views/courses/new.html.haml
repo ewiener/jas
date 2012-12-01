@@ -1,6 +1,8 @@
 -# This file is app/views/courses/new.html.haml
 !!! 5
 
+= csrf_meta_tags
+
 %html
   %head
     %title
@@ -140,7 +142,7 @@
             = label :course, :number_of_classes, 'Number of Meetings:', :class => "control-label"
             %div.controls
               = text_field :course, :number_of_classes
-              = link_to "Calculate", calculate_meetings_path, :id => "calc_meeting_number"
+              = link_to "Calculate", "#", :id => "calc_meeting_number"
 
           %div.control-group
             = label :course, :fee_for_additional_materials, 'Fee for Additional Materials:', :class => "control-label"
@@ -151,7 +153,7 @@
             = label :course, :total_fee, 'Total Fee:', :class => "control-label"
             %div.controls
               = text_field :course, :total_fee
-              = link_to "Calculate", calculate_total_fees_path, :id => "calc_total_fee"
+              = link_to "Calculate", "#", :id => "calc_total_fee"
 
           %div.control-group
             %div.controls
@@ -162,16 +164,16 @@
 
     :javascript
       $("#navbar-courses").addClass('active');
-      $("#calc_meeting_number").click(function() {
+      $("#calc_meeting_number").click(function(event) {
           event.preventDefault();
           var jsonObj = {};
-          jsonObj[7] = course_sunday.checked;
-          jsonObj[1] = course_monday.checked;
-          jsonObj[2] = course_tuesday.checked;
-          jsonObj[3] = course_wednesday.checked;
-          jsonObj[4] = course_thursday.checked;
-          jsonObj[5] = course_friday.checked;
-          jsonObj[6] = course_saturday.checked;
+          jsonObj[7] = $("#course_sunday").attr('checked');
+          jsonObj[1] = $("#course_monday").attr('checked');
+          jsonObj[2] = $("#course_tuesday").attr('checked');
+          jsonObj[3] = $("#course_wednesday").attr('checked');
+          jsonObj[4] = $("#course_thursday").attr('checked');
+          jsonObj[5] = $("#course_friday").attr('checked');
+          jsonObj[6] = $("#course_saturday").attr('checked');
           $.ajax({
             type: "POST",
             url: "#{calculate_meetings_path}",
@@ -181,18 +183,15 @@
             $("#course_number_of_classes").val(data);
           });
         });
-        $("#calc_total_fee").click(function() {
+        $("#calc_total_fee").click(function(event) {
           event.preventDefault();
-          var jsonObj = {};
-          jsonObj["per_meeting_cost"] = course_fee_per_meeting.value;
-          jsonObj["meeting_number"] = course_number_of_classes.value;
-          jsonObj["additional_fees"] = course_fee_for_additional_materials.value;
-          $.ajax({
-            type: "POST",
-            url: "#{calculate_total_fees_path}",
-            dataType: "json",
-            data: jsonObj
-          }).done(function(data) {
-            $("#course_total_fee").val(data);
-          });
+          var course_fee = $("#course_fee_per_meeting").val();
+          var course_number = $("#course_number_of_classes").val();
+          var additional_fees = $("#course_fee_for_additional_materials").val();
+          if(!isNaN(course_fee) && !isNaN(course_number) && !isNaN(additional_fees)){
+            var total = Number(course_fee) * Number(course_number) + Number(additional_fees);
+            $("#course_total_fee").val(total);
+          }else{
+            alert('"Price Per Student Per Meeting", "Number of Meetings", or "Fee for Additional Materials" does not contain a valid number');
+          }
         });

@@ -152,7 +152,7 @@ class StudentsController < ApplicationController
   def student_is_valid(student,message="Could not find the corresponding student.")
     if(student == nil)
       flash[:warning] = [[:id,message]]
-      redirect_to semesters_students_path
+      redirect_to semester_students_path
       return false
     end
     return true

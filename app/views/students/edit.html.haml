@@ -129,7 +129,7 @@
         .vspace20
         = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal", :style=>"display:inline;" do
           %div.control-group
-            = label "enrollment[scholarship]", 'Select Class:', :class => "control-label"
+            = label "enrollment[course_id]", 'Select Class:', :class => "control-label"
             %div.controls
               = select_tag "enrollment[course_id]", options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
 

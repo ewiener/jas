@@ -55,7 +55,7 @@ class EnrollmentsController < ApplicationController
     @enrollment.student_id = @student.id
 
     if @enrollment.save
-      flash[:notice] = "#{@enrollment.course.name} was successfully added to the database."
+      flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully enrolled in #{@enrollment.course.name}."
       redirect_to edit_semester_student_path(@semester, @student)
       return
     else

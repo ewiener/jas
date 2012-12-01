@@ -151,6 +151,7 @@
             = label :course, :total_fee, 'Total Fee:', :class => "control-label"
             %div.controls
               = text_field :course, :total_fee
+              = link_to "Calculate", calculate_total_fees_path, :id => "calc_total_fee"
 
           %div.control-group
             %div.controls
@@ -178,5 +179,20 @@
             data: jsonObj
           }).done(function(data) {
             $("#course_number_of_classes").val(data);
+          });
+        });
+        $("#calc_total_fee").click(function() {
+          event.preventDefault();
+          var jsonObj = {};
+          jsonObj["per_meeting_cost"] = course_fee_per_meeting.value;
+          jsonObj["meeting_number"] = course_number_of_classes.value;
+          jsonObj["additional_fees"] = course_fee_for_additional_materials.value;
+          $.ajax({
+            type: "POST",
+            url: "#{calculate_total_fees_path}",
+            dataType: "json",
+            data: jsonObj
+          }).done(function(data) {
+            $("#course_total_fee").val(data);
           });
         });

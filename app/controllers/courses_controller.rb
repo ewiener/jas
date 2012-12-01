@@ -133,6 +133,16 @@ class CoursesController  < ApplicationController
     @calculate_meetings = class_meetings.to_json
     render :text => @calculate_meetings
   end
+  
+  public
+  def calculate_total_fees
+    per_meeting_cost = params["per_meeting_cost"].to_i
+    number_of_meetings = params["meeting_number"].to_i
+    additional_fees = params["additional_fees"].to_i
+    
+    @total_fee = per_meeting_cost*number_of_meetings + additional_fees
+    render :text => @total_fee
+  end
 
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")

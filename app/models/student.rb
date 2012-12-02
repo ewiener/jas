@@ -75,6 +75,7 @@ class Student < ActiveRecord::Base
   def parent_phone_is_valid?
     if is_nil_or_empty_string(self.parent_phone);return true;end
     return false unless phone_is_valid(self.parent_phone)
+    self.parent_phone = formatted_number(self.parent_phone)
     return true
   end
 
@@ -87,6 +88,7 @@ class Student < ActiveRecord::Base
   def parent_phone2_is_valid?
     if is_nil_or_empty_string(self.parent_phone2);return true;end
     return false unless phone_is_valid(self.parent_phone2)
+    self.parent_phone2 = formatted_number(self.parent_phone2)
     return true
   end
 
@@ -120,6 +122,15 @@ class Student < ActiveRecord::Base
     return false unless not_nil_and_string(phone)
     return false unless ((phone =~ /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/) == 0)
     return true
+  end
+  
+  def formatted_number(number)
+    digits = number.gsub(/\D/, '').split(//)
+
+    if (digits.length == 10)
+      digits = digits.join
+      '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
+    end
   end
 
 end

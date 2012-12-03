@@ -10,6 +10,9 @@ require 'ostruct'
 
 puts "Seeding..."
 
+
+User.create(:username => "admin", :password => "asdf", :password_confirmation => "asdf")
+
 semesters = []
 semesters.push(OpenStruct.new({
   :name => 'Fall 2012',

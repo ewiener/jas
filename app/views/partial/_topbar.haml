@@ -19,5 +19,8 @@
       %li#navbar-teachers
         %a{:href=>"#{semester_teachers_path(semester)}"}
           Teachers/Classrooms
+      %li#navbar-user_session
+        %a{:href=>"#{user_session_destroy_path}"}
+          = "Logout #{@current_user.username}"
 
 .vspace10

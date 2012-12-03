@@ -1,0 +1,41 @@
+-# This file is app/views/logins/index.html.haml
+!!! 5
+
+%html
+  %head
+    %title
+      Logins
+    = stylesheet_link_tag("frontpage")
+    = javascript_include_tag("application")
+  %body
+    = #render :partial => "partials/topbar"
+    %div#container
+
+      .vspace30
+      %div.hero-unit.section#login{:style=>'padding-bottom:5px;'}
+        %h1
+          JAS Administration
+        %h2
+          = render :partial => "partial/user_sessions_messages"
+        .vspace20
+        = form_tag user_sessions_path, :method => :post, :id=> 'login_form' do
+          %label Username:
+          / %input{:type => "text", :name => "username", :class => "text"}
+          = text_field :user_session, :username
+          %br
+          %label Password:
+          %div
+          / %input{:type => "password", :name => "password"}
+          = password_field :user_session, :password
+          .vspace20
+          = submit_tag 'Login', :id => 'login_submit', :class => 'btn btn-info'
+      .vspace20
+      %div.hero-unit.section
+        %h4{:style=>"float:left;"}
+          While in development, click the button below to bypass login.
+        %a.btn.btn-info{:href => "#{semesters_path}", :style=>"float:left;margin-left:25px;position:relative;top:2px;"}
+          Semesters &raquo;
+        .vspace10
+        .vspace30
+
+

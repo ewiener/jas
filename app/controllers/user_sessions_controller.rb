@@ -1,24 +1,29 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => :destroy
-  
+  #before_filter :require_no_user, :only => [:new, :create]
+  #before_filter :require_user, :only => :destroy
+  skip_before_filter :require_user, :only => [:new, :create]
+
   def new
+    redirect_to semesters_path unless not current_user_session
     @user_session = UserSession.new
   end
-  
+
   def create
+    puts params[:user_session]
     @user_session = UserSession.new(params[:user_session])
+    puts @user_session
     if @user_session.save
-      flash[:notice] = "Login successful!"
-      redirect_back_or_default account_url
+      flash[:notice] = "Successfully logged in as #{@user_session.username}"
+      redirect_back_or_default(semesters_path)
     else
-      render :action => :new
+      flash[:warning] = "Failed to login using the given credentials."
+      redirect_to :root
     end
   end
-  
+
   def destroy
     current_user_session.destroy
     flash[:notice] = "Logout successful!"
-    redirect_back_or_default new_user_session_url
+    redirect_to :root
   end
 end

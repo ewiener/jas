@@ -1,0 +1,7 @@
+- if flash[:notice]
+  .alert.alert-success
+    #{flash[:notice]}
+/ %h3.span8.offset3
+- if flash[:warning]
+  .alert.alert-error
+    #{flash[:warning]}

@@ -26,7 +26,7 @@ module NavigationHelpers
       end
     
     when /^the login page$/
-      '/logins'
+      '/'
       
     when /^the Session Name Page$/
       '/semesters/new'

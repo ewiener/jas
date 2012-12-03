@@ -18,10 +18,12 @@ Background:
 #   | pta_instructor | pta_password      |
 
 Given I am on the login page
-And I log in correctly
+And I log in correctly as "admin"
+Then I should be on the home page
+And I should see "Successfully logged in as admin"
 
 Scenario: Access the home page
-   Given I am on the hompe page
+   Given I am on the home page
    Then I should be on the home page
 
 Scenario: Access classroom teachers home page

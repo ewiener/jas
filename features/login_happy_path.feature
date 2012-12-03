@@ -39,6 +39,13 @@ Scenario: Access the students home page
    Given I am on the "Fall 2011" Students home page
    Then I should be on the "Fall 2011" Students home page
 
+Scenario: Logout from the site
+   Given I am on the home page
+   Then I should be on the home page
+   And I follow "Logout admin"
+   Then I should be on the login page
+   And I should see "Logout successful!"
+
 #Scenario: Login as an administrator
 #   Given I am on the login page
 #   When I fill in "username" with "admin"

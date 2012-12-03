@@ -47,6 +47,15 @@ Scenario: Edit Course
   Then I should be on the "Fall 2011" Course home page
   And I should see "Artistic Dance in Fall 2011 was successfully updated."
   And I should see "6:45pm"
+
+Scenario:Edit Course with Invalid Data
+  Given I am on the "Fall 2011" Course home page
+  And I press "Edit"
+  Then I should be on the "Fall 2011" "Artistic Dance" Course Edit Page
+  And I fill in "Course Name" with ""
+  And I press "Update Course"
+  Then I should be on the "Fall 2011" "Artistic Dance" Course Edit Page
+  And I should see "Invalid empty string for name."
   
 Scenario: Attempt to edit a course not in the database
   Given I am on the "Fall 2011" "Drawing" Course Edit Page

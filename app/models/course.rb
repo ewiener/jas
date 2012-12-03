@@ -36,6 +36,8 @@ class Course < ActiveRecord::Base
                   :fee_for_additional_materials,
                   :total_fee,
                   :semester,
+                  :ptainstructor_id,
+                  :teacher_id,
                   :ptainstructor,
                   :teacher
 

@@ -12,7 +12,7 @@ class CoursesController  < ApplicationController
   def index
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @courses = @semester.courses
+    @courses = Course.find_all_by_semester_id(@semester.id, :joins => :ptainstructor, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, first_name asc")
     @enrollmentHash = {}
     @courses.each do |course|
       @enrollmentHash[course.id] = course.students.length
@@ -25,7 +25,7 @@ class CoursesController  < ApplicationController
     @ptainstructors = Ptainstructor.where( :semester_id => @semester )
     @teachers = Teacher.where( :semester_id => @semester )
     if flash.key? :course
-      @course = flash[:course]
+      @course = Course.new(flash[:course])
       render 'new'
       return
     end
@@ -40,13 +40,10 @@ class CoursesController  < ApplicationController
   def create
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
-    #special_time_parsing_helper
-    params[:course][:ptainstructor] = Ptainstructor.find_by_id params[:course][:ptainstructor]
-    params[:course][:teacher] = Teacher.find_by_id params[:course][:teacher]
     @course = @semester.courses.create(params[:course])
     if @course.new_record?
       flash[:warning] = @course.errors
-      flash[:course] = @course
+      flash[:course] = params[:course] #save fields so the user doesn't have to re-enter everything again
       redirect_to new_semester_course_path
       return
     end
@@ -66,7 +63,9 @@ class CoursesController  < ApplicationController
     @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
     @teachers = Teacher.find_all_by_semester_id @semester
     if flash.key? :course
-      @course = flash[:course]
+      course_id = @course.id
+      @course = Course.new(flash[:course])
+      @course.id = course_id
       render 'edit'
       return
     end
@@ -100,9 +99,6 @@ class CoursesController  < ApplicationController
       redirect_to semester_courses_path(@semester)
       return
     end
-    params[:course][:ptainstructor] = Ptainstructor.find_by_id params[:course][:ptainstructor]
-    params[:course][:teacher] = Teacher.find_by_id params[:course][:teacher]
-    #not sure what to call update_attributes with
     if @course.update_attributes(params[:course])
       if params[:course].length > 0
           flash[:notice] = "#{@course.name} in #{@semester.name} was successfully updated."
@@ -110,8 +106,8 @@ class CoursesController  < ApplicationController
       redirect_to semester_courses_path(@semester)
     else
       flash[:warning] = @course.errors
-      flash[:course] = @course
-      redirect_to edit_semester_course_path
+      flash[:course] = params[:course]
+      redirect_to edit_semester_course_path(@semester, @course)
     end
   end
 

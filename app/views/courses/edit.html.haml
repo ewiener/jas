@@ -25,9 +25,9 @@
               = text_field :course, :name
 
           %div.control-group
-            = label :temp, :instructor, 'PTA Instructor:', :class => "control-label"
+            = label :temp, :ptainstructor_id, 'PTA Instructor:', :class => "control-label"
             %div.controls
-              = select_tag "course[ptainstructor]", options_from_collection_for_select(@ptainstructors, :id, :full_name_last_first, @course.ptainstructor_id),:class => "course_select"
+              = select_tag "course[ptainstructor_id]", options_from_collection_for_select(@ptainstructors, :id, :full_name_last_first, @course.ptainstructor_id),:class => "course_select"
 
           %div.control-group
             = label :course, :description, 'Description:', :class => "control-label"
@@ -112,7 +112,7 @@
           %div.control-group
             = label :temp, :location, 'Location:', :class => "control-label"
             %div.controls
-              = select_tag "course[teacher]", options_from_collection_for_select(@teachers, :id, :classroom, @course.teacher_id), :class => "course_select"
+              = select_tag "course[teacher_id]", options_from_collection_for_select(@teachers, :id, :classroom, @course.teacher_id), :class => "course_select"
 
           %div.control-group
             = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"

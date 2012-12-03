@@ -107,7 +107,7 @@ class CoursesController  < ApplicationController
     else
       flash[:warning] = @course.errors
       flash[:course] = params[:course]
-      redirect_to edit_semester_course_path(@semester, @course)
+      redirect_to edit_semester_course_path
     end
   end
 

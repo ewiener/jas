@@ -71,6 +71,10 @@ Given /^I log in correctly as "(.*?)"$/ do |name|
   click_button("Login")
 end
 
+Given /^I log in incorrectly$/ do
+  click_button("Login")
+end
+
 Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
     #need to change the input so that field is not requited in this case

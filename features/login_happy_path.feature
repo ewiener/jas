@@ -9,13 +9,10 @@ Background:
   Given the following sessions exist:
     | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | fee |
     | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 35  |
-
-#Background: Populate login with username and password
-#   
-#   Given the following usernames and passwords exist:
-#   | username       | password          |
-#   | admin          | admin_password    |
-#   | pta_instructor | pta_password      |
+   
+   Given the following usernames and passwords exist:
+   | username       | password | password_confirmation |
+   | admin          | asdf     | asdf                  |
 
 Given I am on the login page
 And I log in correctly as "admin"
@@ -31,8 +28,8 @@ Scenario: Access classroom teachers home page
    Then I should be on the "Fall 2011" Classroom Teachers home page
    
 Scenario: Access the courses home page
-   Given I am on the "Fall 2011" Course page
-   Then I should be on the "Fall 2011" Course page
+   Given I am on the "Fall 2011" Course Page
+   Then I should be on the "Fall 2011" Course Page
    
 Scenario: Access the home page
    Given I am on the "Fall 2011" PTA Instructor home page

@@ -28,7 +28,13 @@ Background: populate db with all information for a session
   Given the following students are in the database:
   | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
   | Abby        | Davis     | K     | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
+  
+  Given the following usernames and passwords exist:
+  | username       | password | password_confirmation |
+  | admin          | asdf     | asdf                  |
 
+  Given I am on the login page
+  And I log in correctly as "admin"
   Given I am on the "Fall 2011" "Abby" Edit Students Page
   Then I should see "Student Enrollment"
 

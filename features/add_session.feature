@@ -26,7 +26,13 @@ Background: previous sessions have been added to the database
     | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | ptainstructor | teacher   |
     | Art     | Spring 2012   | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | teacher1 | room1 |
     | Science | Spring 2012   | sci class   | 2:15pm            | 10         | 20        | K            | 15                | 5                              | true      | false     | false     | false     | false     | 3:15pm     | false | false | 13 | 133 | teacher2 | room2 |
-  
+    
+  Given the following usernames and passwords exist:
+  | username       | password | password_confirmation |
+  | admin          | asdf     | asdf                  |
+
+  Given I am on the login page
+  And I log in correctly as "admin"
   And I am on the home page
 
 Scenario: Displaying Sessions

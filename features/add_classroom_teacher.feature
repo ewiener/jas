@@ -13,7 +13,13 @@ Background: populate db with a single class session
   Given the following classrooms are in the database:
   | name    | grade | classroom | semester  |
   | joe     | 1     | Room 4    | Fall 2011 |
+  
+  Given the following usernames and passwords exist:
+  | username       | password | password_confirmation |
+  | admin          | asdf     | asdf                  |
 
+  Given I am on the login page
+  And I log in correctly as "admin"
   Given I am on the "Fall 2011" Session Name Page
   And I follow "Teachers/Classrooms"
   Then I should be on the "Fall 2011" Classroom Teachers home page

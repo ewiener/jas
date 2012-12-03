@@ -15,6 +15,13 @@ Background:
   | Jim        | Dean      | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   | Amy        | Tsao      | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   | Mia        | Mama      | mia@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
+  
+  Given the following usernames and passwords exist:
+  | username       | password | password_confirmation |
+  | admin          | asdf     | asdf                  |
+
+  Given I am on the login page
+  And I log in correctly as "admin"
 
 Scenario: Create invalid pta instructor
   Given I am on the "Fall 2011" PTA Instructor home page

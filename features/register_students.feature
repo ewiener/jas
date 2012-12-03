@@ -29,10 +29,32 @@ Background: populate db with all information for a session
   | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
   | Abby        | Davis     | K     | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
 
-  Given PENDING I am on the register courses home page
-  
+  Given I am on the "Fall 2011" "Abby" Edit Students Page
+  Then I should see "Student Enrollment"
+
+
+@javascript  
 Scenario: Register Student after adding them to the database
-  Given PENDING I am on the "Fall 2011" "Abby" Edit Students Page
-  Then PENDING I should see "Register Student"
-  Given PENDING I fill out the registration form correctly with course name "Math"
-  Then PENDING I should see "Math"
+  Given I fill out the registration form correctly with "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  And I press "Add Enrollment"
+  Then I should see "Artistic Dance" 3 times
+  #^^ once for listing in the tabel, once in the dropdown, and once in the flash message
+  
+Scenario: Invalidly register student for course
+  And I press "Add Enrollment"
+  Then I should see "Invalid dismissal value."
+  Then I should see "An invalid enrollment value was selected."
+ 
+@javascript
+Scenario: Add then edit student course registration
+  Given I fill out the registration form correctly with "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  And I press "Add Enrollment"
+  And I press "Edit"
+  And I press "Add Enrollment"
+
+@javascript
+Scenario: Add then delete student course registration
+  Given I fill out the registration form correctly with "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  And I press "Add Enrollment"
+  And I press "Delete"
+  Then I should see "Successfully deleted"

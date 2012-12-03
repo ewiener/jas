@@ -67,6 +67,7 @@ class Ptainstructor < ActiveRecord::Base
   def phone_is_valid?
     return false unless not_nil_and_string(self.phone)
     return false unless ((self.phone =~ /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/) == 0)
+    self.phone = formatted_number(self.phone)
     return true
   end
 
@@ -82,5 +83,14 @@ class Ptainstructor < ActiveRecord::Base
 
   def full_name_last_first
     return (self.last_name + ", " + self.first_name)
+  end
+  
+  def formatted_number(number)
+    digits = number.gsub(/\D/, '').split(//)
+
+    if (digits.length == 10)
+      digits = digits.join
+      '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
+    end
   end
 end

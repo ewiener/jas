@@ -77,12 +77,14 @@ Scenario: Delete a class
   And I press "Update Course"
   Then I should be on the "Fall 2011" Course home page
   Then I should see "Th"
-  
+
+@javascript  
 Scenario: Create New Class
   Given I am on the "Fall 2011" Course home page
   When I follow "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
   And I fill in the new create class form correctly with subject "Math"
+  And I follow "Calculate"
   And I press "Add New Course"
   Then I should be on the "Fall 2011" Course home page
   And I should see "Math"

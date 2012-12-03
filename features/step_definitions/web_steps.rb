@@ -31,6 +31,36 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Then /^(?:|I )should see "([^\/]*)" (\d+)(?:x|X| times?)?$/ do |regexp, count|
+  regexp = Regexp.new(regexp)
+  count = count.to_i
+  page.find(:xpath, '//body').text.split(regexp).length.should == count+1
+end
+
+Given /^I fill out the registration form correctly with "(.*?)" scholarship, "(.*?)" dismissal, and "(.*?)"$/ do |arg1, arg2, arg3|
+  if arg1 == "None"
+    choose("enrollment_scholarship_0")
+  elsif arg1 == "Full"
+    choose("enrollment_scholarship_1")
+  elsif arg1 == "Partial"
+    choose("enrollment_scholarship_2")
+  end
+  if arg2 == "Pick Up"
+    choose("enrollment_dismissal_0")
+  elsif arg2 == "JAZ"
+    choose("enrollment_dismissal_1")
+  elsif arg2 == "BEARS"
+    choose("enrollment_dismissal_2")
+  elsif arg2 == "Walk"
+    choose("enrollment_dismissal_3")
+  end
+  if arg3 == "Enrolled"
+    choose("enrollment_enrolled_true")
+  elsif arg3 == "Not Enrolled Lottery"
+    choose("enrollment_enrolled_false")
+  end
+end
+
 Given /^PENDING/ do
   pending
 end

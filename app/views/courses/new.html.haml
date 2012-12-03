@@ -18,9 +18,8 @@
             &larr; Back
       = render :partial => "partial/course_error", :locals => {:course => @course}
       .clear
-      %h1.span6.offset3
+      %h1.center
         Create New Course
-      .vspace20
       %div.span8.offset2
         = form_tag semester_courses_path(@semester), :class =>"form-horizontal" do
           %div.control-group 

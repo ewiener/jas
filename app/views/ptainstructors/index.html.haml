@@ -20,9 +20,9 @@
         %thead
           %tr
             %td
-              Last Name
-            %td
               First Name
+            %td
+              Last Name
             %td
               Email
             %td
@@ -33,9 +33,9 @@
           - @ptainstructors.each do |ptainstructor|
             %tr.ptainstructor-info.padding-rows
               %td.cell_center.ptainstructor-last_name
-                = ptainstructor.last_name
-              %td.cell_center.ptainstructor-first_name
                 = ptainstructor.first_name
+              %td.cell_center.ptainstructor-first_name
+                = ptainstructor.last_name
               %td.cell_center.ptainstructor-email
                 = ptainstructor.email
               %td.cell_center.ptainstructor-phone

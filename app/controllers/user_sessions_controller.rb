@@ -9,9 +9,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    puts params[:user_session]
     @user_session = UserSession.new(params[:user_session])
-    puts @user_session
     if @user_session.save
       flash[:notice] = "Successfully logged in as #{@user_session.username}"
       redirect_back_or_default(semesters_path)

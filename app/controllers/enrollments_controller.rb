@@ -1,6 +1,6 @@
 class EnrollmentsController < ApplicationController
   protect_from_forgery
-
+=begin
   def show
     #not used
     @semester = Semester.find_by_id params[:semester_id]
@@ -34,6 +34,7 @@ class EnrollmentsController < ApplicationController
 
     redirect_to edit_semester_student_path(@semester, @student)
   end
+=end
 
   def create
     @semester = Semester.find_by_id params[:semester_id]
@@ -56,18 +57,14 @@ class EnrollmentsController < ApplicationController
 
     if @enrollment.save
       flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully enrolled in #{@enrollment.course.name}."
-      redirect_to edit_semester_student_path(@semester, @student)
-      return
     else
       flash[:warning] = @enrollment.errors
       flash[:student] = @enrollment
-      redirect_to edit_semester_student_path(@semester, @student)
-      return
     end
 
     redirect_to edit_semester_student_path(@semester, @student)
   end
-
+=begin
   def edit
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
@@ -78,7 +75,7 @@ class EnrollmentsController < ApplicationController
 
     redirect_to edit_semester_student_path(@semester, @student)
   end
-
+=end
   def update
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)

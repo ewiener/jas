@@ -11,7 +11,11 @@ class TeachersController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
 
-    @teachers = Teacher.find_all_by_semester_id @semester
+    #@teachers = Teacher.find_all_by_semester_id(@semester, :order => "grade asc, name asc")
+    teachers1 = Teacher.where("semester_id = ? AND grade == ?", @semester.id, "K")
+    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K")
+    @teachers = teachers1 + teachers2
+
   end
 
   def new

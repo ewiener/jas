@@ -90,7 +90,7 @@ class StudentsController < ApplicationController
   def edit
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @classes = Course.where( :semester_id => @semester)
+    @classes = Course.find_all_by_semester_id(@semester, :order => "name")
     @teachers = Teacher.where( :semester_id => @semester )
     @student = Student.find_by_id params[:id]
     return unless student_is_valid(@student)

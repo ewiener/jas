@@ -12,9 +12,8 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/flash_messages"
       .clear
-      %h1.span8.offset2
+      %h1.center
         Add New Classroom Teacher
-      .vspace20
       %div.span8.offset2
         = form_tag semester_teachers_path(@semester), :class =>"form-horizontal" do
           %div.control-group 

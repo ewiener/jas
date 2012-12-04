@@ -20,7 +20,9 @@
         %thead
           %tr
             %td
-              Last, First
+              Last
+            %td
+              First
             %td
               Grade
             %td
@@ -31,7 +33,9 @@
           - @students.each do |student|
             %tr
               %td.cell_center
-                = student.last_name + ", " + student.first_name
+                = student.last_name
+              %td.cell_center
+                = student.first_name
               %td.cell_center
                 = student.grade
               %td.cell_center

@@ -14,9 +14,8 @@
       = render :partial => "partial/topbar", :locals => {:semester => @semester}
       = render :partial => "partial/course_error", :locals => {:course => @course}
       .clear
-      %h1.span6.offset3
+      %h1.center
         Edit Course
-      .vspace20
       %div.span8.offset2
         = form_tag semester_course_path(@semester,@course), :method => "put", :class =>"form-horizontal" do
           %div.control-group 

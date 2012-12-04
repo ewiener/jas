@@ -52,7 +52,9 @@ class Enrollment < ActiveRecord::Base
   public
   def scholarship_amount_is_valid?
     return false unless self.scholarship_amount != nil
-    return (self.scholarship_amount >= 0)
+    course = Course.find_by_id(self.course_id)
+    return false unless course #make sure course is non-nil
+    return ((self.scholarship_amount >= 0) and (self.scholarship_amount <= course.total_fee)) #Make sure the scholarship fee is non-negative and that it is also less than or equal to the total course fee
   end
 
   private

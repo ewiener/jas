@@ -81,7 +81,7 @@ class Enrollment < ActiveRecord::Base
 
   private
   def course_id_is_valid
-    errors.add(:course_id, "An invalid or non-existant course id was specified.") unless course_id_is_valid?
+    errors.add(:course_id, "No valid class was selected.") unless course_id_is_valid?
   end
 
   public

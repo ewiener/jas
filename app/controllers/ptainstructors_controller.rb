@@ -20,7 +20,7 @@ class PtainstructorsController < ApplicationController
       redirect_to semesters_path
       return
     end
-    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
+    @ptainstructors = Ptainstructor.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
   end
 
   def new

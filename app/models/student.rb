@@ -60,6 +60,7 @@ class Student < ActiveRecord::Base
   def grade_is_valid?
     if not_nil_and_string(self.grade)
       if GRADES.include? self.grade
+        if self.grade == "k";self.grade = "K";end #force uppercase K
         return true
       end
     end
@@ -123,7 +124,7 @@ class Student < ActiveRecord::Base
     return false unless ((phone =~ /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/) == 0)
     return true
   end
-  
+
   def formatted_number(number)
     digits = number.gsub(/\D/, '').split(//)
 

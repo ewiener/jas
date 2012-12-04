@@ -4,7 +4,7 @@ class UserSessionsController < ApplicationController
   skip_before_filter :require_user, :only => [:new, :create]
 
   def new
-    redirect_to semesters_path unless not current_user_session
+    redirect_to semesters_path unless not ((current_user_session) and (current_user_session.user)) # second clause, current_user_session.user, required to detect timeouts for the sessions
     @user_session = UserSession.new
   end
 

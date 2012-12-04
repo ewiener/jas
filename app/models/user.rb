@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
                   :password_confirmation
 
   acts_as_authentic do |c|
-    c.logged_in_timeout(10.minutes)
+    c.logged_in_timeout(30.minutes)
   end
 
 =begin

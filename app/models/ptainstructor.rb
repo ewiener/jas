@@ -55,7 +55,7 @@ class Ptainstructor < ActiveRecord::Base
 
   def last_name_is_valid?
     return false unless not_nil_and_string(self.last_name)
-    return self.last_name.length > 0
+    return self.last_name.length >= 0
   end
 
   def email_is_valid?
@@ -82,9 +82,15 @@ class Ptainstructor < ActiveRecord::Base
   end
 
   def full_name_last_first
+    return self.first_name unless (self.last_name.length > 0)
     return (self.last_name + ", " + self.first_name)
   end
-  
+
+  def full_name_first_last
+    return self.first_name unless (self.last_name.length > 0)
+    return (self.first_name + " " + self.last_name)
+  end
+
   def formatted_number(number)
     digits = number.gsub(/\D/, '').split(//)
 

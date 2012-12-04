@@ -24,11 +24,14 @@ class CoursesController  < ApplicationController
     return unless semester_is_valid(@semester)
     @ptainstructors = Ptainstructor.where( :semester_id => @semester )
     @teachers = Teacher.where( :semester_id => @semester )
+    @ptainstructors.unshift(Ptainstructor.new(:first_name => "Select", :last_name => "Item:")) #add item to the beginning of the ptainstructor's list
+    @teachers.unshift(Teacher.new(:classroom => "Select Item:"))
     if flash.key? :course
       @course = Course.new(flash[:course])
       render 'new'
       return
     end
+    @course = Course.new
   end
 
   def coursefee

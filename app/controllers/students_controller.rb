@@ -26,13 +26,16 @@ class StudentsController < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @classes = Course.where( :semester_id => @semester)
+    #@classes = Course.where( :semester_id => @semester) #not currently used in new
     @teachers = Teacher.where( :semester_id => @semester )
+    #@classes.unshift(Course.new(:name => "Select Item:")) #not currently used in new
+    @teachers.unshift(Teacher.new(:name => "Select Item:"))
     if flash.key? :student
       @student = flash[:student]
       render 'new'
       return
     end
+    @student = Student.new
   end
 
  def create
@@ -91,8 +94,9 @@ class StudentsController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
     @classes = Course.find_all_by_semester_id(@semester, :order => "name")
-    @teachers = Teacher.where( :semester_id => @semester )
+    @teachers = Teacher.where(:semester_id => @semester)
     @student = Student.find_by_id params[:id]
+    @classes.unshift(Course.new(:name => "Select Item:"))
     return unless student_is_valid(@student)
     @enrollments = Enrollment.find_all_by_student_id @student.id
   end
@@ -119,7 +123,7 @@ class StudentsController < ApplicationController
     else
       flash[:warning] = [[:teacher,"A valid teacher was not selected."]]
       flash[:student] = @student
-      redirect_to new_semester_student_path(@semester)
+      redirect_to edit_semester_student_path(@semester)
       return
     end
 

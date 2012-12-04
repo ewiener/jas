@@ -1,11 +1,13 @@
 .vspace20
+%div
+  %a.brand{:href=>"#{semesters_path}",:style=>"font-size:2em;"}
+    JAS Administration
+.vspace10
 .navbar
   .navbar-inner
     %ul.nav
-      %a.brand{:href=>"#{semesters_path}"}
-        JAS Administration
-      %li#navbar-semester
-        %a{:href=>"#{semester_path(semester)}"}
+      %li#navbar-semester{:style=>"border:0;"}
+        %a.brand{:href=>"#{semester_path(semester)}"}
           #{semester.name}
       %li#navbar-courses
         %a{:href=>"#{semester_courses_path(semester)}"}
@@ -21,6 +23,8 @@
           Teachers/Classrooms
       %li#navbar-user_session
         %a{:href=>"#{user_session_destroy_path}"}
-          = "Logout #{@current_user.username}"
+          = "Logout: "
+          %b
+            = "#{@current_user.username}"
 
 .vspace10

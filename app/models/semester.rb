@@ -29,8 +29,6 @@ class Semester < ActiveRecord::Base
   validate :valid_lottery_date
   validate :valid_registration_date
 
-
-
   has_many :courses, :dependent => :destroy
   has_many :students, :through => :courses, :dependent => :destroy
   has_many :ptainstructors, :dependent => :destroy

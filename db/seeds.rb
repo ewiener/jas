@@ -10,7 +10,6 @@ require 'ostruct'
 
 puts "Seeding..."
 
-
 User.create(:username => "admin", :password => "asdf", :password_confirmation => "asdf")
 
 semesters = []
@@ -67,10 +66,11 @@ semesters.each do |semester|
   # Adding Teachers
   grades = 'K,1,2,3,4,5'.split(',')
   number_of_teachers = 3
-  teacher_names = ['Lil Wayne', 'Kanye West', 'Jermaine Cole']
+  teacher_names = ['Lil Wayne', 'Jay Z', 'Rick Ross']
+  students_names = ['Aubrey Drake', 'Jermaine Cole', 'Something Wale']
   number_of_teachers.times do |t|
     randomGrade = grades[rand(grades.length)]
-    currentSemester.teachers.create(
+    teacher = currentSemester.teachers.create(
       name: teacher_names[t],
       grade: "#{randomGrade}",
       classroom: "A classroom somewhere",

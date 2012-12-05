@@ -34,13 +34,6 @@ class SemestersController < ApplicationController
     redirect_to semesters_path
   end
 
-=begin
-  def edit
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-  end
-=end
-
   def add_days_off(update_hash)
     day_span = update_hash[:dates_with_no_classes_day]
     if @semester.dates_in_span_valid?(day_span)
@@ -138,14 +131,5 @@ class SemestersController < ApplicationController
     end
     return true
   end
-
-=begin
-  private
-  def errors_string(semester)
-    error_messages = ""
-    semester.errors.each{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
-    return error_messages
-  end
-=end
 end
 

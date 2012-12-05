@@ -36,14 +36,14 @@ Background: populate db with all information for a session
   Given I am on the login page
   And I log in correctly as "admin"
 
-  Given PENDING I am on the register courses home page
-  
+@javascript  
 Scenario: See total Fee calculated after registering to courses
-  Given PENDING I am on the "Fall 2011" "Abby" Student page
-  Then PENDING I should see a total fee of "115"
-  And PENDING I should see a course fee of "100"
+  Given I am on the "Fall 2011" "Abby" Edit Students Page
+  And I should see "$100.00"
+  Then I should see "$115.00"
 
-Scenario: New students should have a fee of zero
-  Given PENDING I am on the "Fall 2011" Students home page
-  And PENDING I follow "Add new Student"
-  Then PENDING I should see a fee of 0
+@javascript
+Scenario: New students (not enrolled in courses yet) should have a fee of the registration fee
+  Given I am on the "Fall 2011" Students home page
+  And I follow "+ Add new Student"
+  Then I should see "$15.00"

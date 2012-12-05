@@ -42,6 +42,7 @@ Scenario: add student incorrectly, should redirect to same page
   And I press "Register Student"
   Then I should be on the "Fall 2011" New Students Page
 
+@javascript
 Scenario: update student correctly
   Given I am on the "Fall 2011" Students home page
   And I press "Edit"
@@ -51,6 +52,7 @@ Scenario: update student correctly
   Then I should be on the "Fall 2011" Students home page
   And I should see "Mary"
 
+@javascript
 Scenario: update student incorrectly
   Given I am on the "Fall 2011" Students home page
   And I press "Edit"

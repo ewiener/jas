@@ -37,7 +37,7 @@ Then /^(?:|I )should see "([^\/]*)" (\d+)(?:x|X| times?)?$/ do |regexp, count|
   page.find(:xpath, '//body').text.split(regexp).length.should == count+1
 end
 
-Given /^I fill out the registration form correctly with "(.*?)" scholarship, "(.*?)" dismissal, and "(.*?)"$/ do |arg1, arg2, arg3|
+Given /^I fill out the registration form correctly with class "(.*?)", "(.*?)" scholarship, "(.*?)" dismissal, and "(.*?)"$/ do |course, arg1, arg2, arg3|
   if arg1 == "None"
     choose("enrollment_scholarship_0")
   elsif arg1 == "Full"
@@ -59,6 +59,7 @@ Given /^I fill out the registration form correctly with "(.*?)" scholarship, "(.
   elsif arg3 == "Not Enrolled Lottery"
     choose("enrollment_enrolled_false")
   end
+  select(course, :from => 'enrollment_course_id')
 end
 
 Given /^PENDING/ do
@@ -193,11 +194,11 @@ def fill_in_new_classroom_form_correcctly(location)
   fill_in("teacher_classroom", :with => location)
 end
 
-When /^I fill in the new create class form correctly with subject "(.*)"$/ do |subject|
-  fill_in_new_create_class_form_correcctly(subject)
+Then /^I fill in the new create class form correctly with subject "(.*?)", pta instructor "(.*?)", and classroom "(.*?)"$/ do |subject, pta_inst, room|
+  fill_in_new_create_class_form_correcctly(subject, pta_inst, room)
 end
 
-def fill_in_new_create_class_form_correcctly(subject)
+def fill_in_new_create_class_form_correcctly(subject, pta_inst, room)
   fill_in("course_name", :with => subject)
   #fill_in("course_ptainstructor", :with => "")
   fill_in("course_description", :with => "A class about numbers")
@@ -212,6 +213,8 @@ def fill_in_new_create_class_form_correcctly(subject)
   fill_in("course_fee_for_additional_materials", :with => "15")
   fill_in("course_total_fee", :with => "100")
   fill_in("course_class_max", :with => "20")
+  select(pta_inst, :from => 'course_ptainstructor_id')
+  select(room, :from => 'course_teacher_id')
 end
 
 When /^I fill in the new session form correctly with name "(.*)"$/ do |name|
@@ -227,16 +230,17 @@ def fill_in_new_session_form_correcctly(name)
   fill_in("semester_fee", :with => "10")
 end
 
-When /^I fill in the new student form correctly with name "(.*?)"$/ do |name|
-  fill_in_new_student_form_correcctly(name)
+When /^I fill in the new student form correctly with name "(.*?)" and teacher "(.*?)"$/ do |name, teacher|
+  fill_in_new_student_form_correcctly(name, teacher)
 end
 
-def fill_in_new_student_form_correcctly(name)
+def fill_in_new_student_form_correcctly(name, teacher)
   fill_in("student_first_name", :with => name)
   fill_in("student_last_name", :with => name)
   fill_in("student_grade", :with => "K")
   fill_in("student_parent_phone", :with => "555 555-5555")
   fill_in("student_parent_email", :with => "asdf@asdf.com")
+  select(teacher, :from => 'teacher')
 end
 
 

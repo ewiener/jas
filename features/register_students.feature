@@ -41,7 +41,7 @@ Background: populate db with all information for a session
 
 @javascript  
 Scenario: Register Student after adding them to the database
-  Given I fill out the registration form correctly with "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
   And I press "Add Enrollment"
   Then I should see "Artistic Dance" 3 times
   #^^ once for listing in the tabel, once in the dropdown, and once in the flash message
@@ -53,14 +53,14 @@ Scenario: Invalidly register student for course
  
 @javascript
 Scenario: Add then edit student course registration
-  Given I fill out the registration form correctly with "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
   And I press "Add Enrollment"
   And I press "Edit"
   And I press "Add Enrollment"
 
 @javascript
 Scenario: Add then delete student course registration
-  Given I fill out the registration form correctly with "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
   And I press "Add Enrollment"
   And I press "Delete"
   Then I should see "Successfully deleted"

@@ -98,7 +98,7 @@ Scenario: Create New Class
   Given I am on the "Fall 2011" Course home page
   When I follow "Add New Course"
   Then I should be on the "Fall 2011" Create Class Page
-  And I fill in the new create class form correctly with subject "Math"
+  And I fill in the new create class form correctly with subject "Math", pta instructor "teacher3", and classroom "room3"
   And I follow "Calculate"
   And I press "Add New Course"
   Then I should be on the "Fall 2011" Course home page

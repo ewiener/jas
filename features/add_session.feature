@@ -97,30 +97,6 @@ Scenario: Create new session
   And I should see "Fall 2012"
   And I should see "Spring 2012"
   And I should see "Fall 2011"
-
-##will implement import at a later date  
-#Scenario: Import classes from last semester
-#  Given I am on the "Fall 2012" Session Name Page
-#  When I press "Import"
-#  Then I should see "Art"
-#  And I should see "Science"
-#  When I check "Art"
-#  And I check "Science"
-#  And I press "Import"
-#  Then I should be on the "Fall 2012" Session Name Page
-#  And I should see "Art"
-#  And I should see "Science"
-
-##will implement import at a later date
-#Scenario: Cancel import of classes from last semester
-#  Given I am on the "Fall 2012" Session Name Page
-#  When I press "Import"
-#  Then I should see "Art"
-#  And I should see "Science"
-#  When I press "Cancel"
-#  Then I should be on the "Fall 2012" Session Name Page
-#  And I should not see "Science"
-#  And I should not see "Art"
   
 Scenario: View semester courses
   And I follow "Spring 2012"

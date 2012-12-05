@@ -140,17 +140,12 @@ class Student < ActiveRecord::Base
     enrollments = Enrollment.find_all_by_student_id(self.id)
     semester = self.semester
     enrollments.each do |enrollment|
-      puts "Adding fee for " +  enrollment.course.name.to_s + " $" + enrollment.course.total_fee.to_s
       total += enrollment.course.total_fee
-      puts "Subtracting fee for scholarship $" + enrollment.scholarship_amount.to_s
+
       total -= enrollment.scholarship_amount
     end
 
-    puts "Adding Registration Fee $" + semester.fee.to_s
-
     total += semester.fee
-
-    puts "Total = " + total.to_s
 
     return total
   end

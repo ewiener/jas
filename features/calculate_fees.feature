@@ -7,8 +7,8 @@ Feature: Calculate Fees Feature
 Background: populate db with all information for a session
 
   Given the following sessions exist:
-  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline |
-  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            |
+  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | fee |
+  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 15  |
   
   Given the following classrooms are in the database:
   | name    | grade | classroom | semester  |
@@ -37,13 +37,21 @@ Background: populate db with all information for a session
   And I log in correctly as "admin"
 
 @javascript  
-Scenario: See total Fee calculated after registering to courses
+Scenario: See total Fee calculated after registering to courses with no scholarship
   Given I am on the "Fall 2011" "Abby" Edit Students Page
-  And I should see "$100.00"
-  Then I should see "$115.00"
+  And I fill out the registration form correctly with class "Artistic Dance", "None" scholarship, "Pick Up" dismissal, and "Enrolled"
+  And I press "Add New Enrollment"
+  And I should see "$122.00"
+  Then I should see "$137.00"
+  
+@javascript  
+Scenario: See total Fee calculated after registering to courses with full scholarship
+  Given I am on the "Fall 2011" "Abby" Edit Students Page
+  And I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  And I press "Add New Enrollment"
+  Then I should see "$15.00"
 
 @javascript
-Scenario: New students (not enrolled in courses yet) should have a fee of the registration fee
-  Given I am on the "Fall 2011" Students home page
-  And I follow "+ Add new Student"
+Scenario: See total Fee calculated before registering to courses should have a fee of the registration fee
+  Given I am on the "Fall 2011" "Abby" Edit Students Page
   Then I should see "$15.00"

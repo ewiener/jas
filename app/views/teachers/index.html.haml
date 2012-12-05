@@ -13,7 +13,6 @@
       = render :partial => "partial/flash_messages"
       %h1{:style=>"text-align:center;"}
         Current Classroom Teachers
-      .vspace20
       = link_to "+ Add New Classroom Teacher", new_semester_teacher_path, :style => "float:right;"
       .clear
       .vspace10
@@ -63,9 +62,6 @@
           if ($teacherGrade == 'K' || $teacherGrade == 'k') {
             $teacherGrade = '0';
           }
-          // $teacherClassroom = $.trim($tr.children(".teacher-classroom").text());
-          // $teacherEdit = $tr.children(".teacher-edit");
-          // $teacherDelete = $tr.children(".teacher-delete");
           rows.push({
             'tr': $tr,
             'lastname': $teacherLastName,
@@ -128,13 +124,3 @@
           teacherSort('grade', reverse);
         });
       });
-
-
-
-
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
   belongs_to :semester
   belongs_to :teacher
-  has_many :enrollment
+  has_many :enrollments
   has_many :courses, :through => :enrollment
 
   GRADES = ["K","k","1","2","3","4","5"]
@@ -146,6 +146,22 @@ class Student < ActiveRecord::Base
       digits = digits.join
       '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
     end
+  end
+
+  public
+  def grand_total
+    total = 0
+    enrollments = Enrollment.find_all_by_student_id(self.id)
+    semester = self.semester
+    enrollments.each do |enrollment|
+      total += enrollment.course.total_fee
+
+      total -= enrollment.scholarship_amount
+    end
+
+    total += semester.fee
+
+    return total
   end
 
 end

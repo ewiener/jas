@@ -116,7 +116,9 @@ class Enrollment < ActiveRecord::Base
   #Tests that student is not already linked to a course in enrollment and returns true or false.
   def student_not_already_enrolled?
     enrollments = Enrollment.where(:student_id => self.student_id, :course_id => self.course_id )
-    return enrollments.length == 0
+    return true unless enrollments.length > 0
+    return true unless self.id != enrollments[0].id
+    return false
   end
 
   private
@@ -147,4 +149,5 @@ class Enrollment < ActiveRecord::Base
     return "Not Enrolled, Lottery" unless self.enrolled
     return "Enrolled"
   end
+
 end

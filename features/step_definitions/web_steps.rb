@@ -38,6 +38,7 @@ Then /^(?:|I )should see "([^\/]*)" (\d+)(?:x|X| times?)?$/ do |regexp, count|
 end
 
 Given /^I fill out the registration form correctly with class "(.*?)", "(.*?)" scholarship, "(.*?)" dismissal, and "(.*?)"$/ do |course, arg1, arg2, arg3|
+  select(course, :from => 'enrollment_course_id')
   if arg1 == "None"
     choose("enrollment_scholarship_0")
   elsif arg1 == "Full"
@@ -59,7 +60,6 @@ Given /^I fill out the registration form correctly with class "(.*?)", "(.*?)" s
   elsif arg3 == "Not Enrolled Lottery"
     choose("enrollment_enrolled_false")
   end
-  select(course, :from => 'enrollment_course_id')
 end
 
 Given /^PENDING/ do

@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
     #@classes.unshift(Course.new(:name => "Select Item:")) #not currently used in new
     @teachers.unshift(Teacher.new(:name => "Select Item:"))
     if flash.key? :student
-      @student = flash[:student]
+      @student = Student.new(flash[:student])
       render 'new'
       return
     end
@@ -57,7 +57,7 @@ class StudentsController < ApplicationController
      @student.teacher_id = @teacher.id
    else
      flash[:warning] = [[:teacher,"A valid teacher was not selected."]]
-     flash[:student] = @student
+     flash[:student] = params[:student]
      redirect_to new_semester_student_path(@semester)
      return
    end
@@ -67,7 +67,7 @@ class StudentsController < ApplicationController
      redirect_to semester_students_path
    else
      flash[:warning] = @student.errors
-     flash[:student] = @student
+     flash[:student] = params[:student]
      redirect_to new_semester_student_path(@semester)
    end
 =begin
@@ -93,6 +93,18 @@ class StudentsController < ApplicationController
     @classes.unshift(Course.new(:name => "Select Item:"))
     return unless student_is_valid(@student)
     @enrollments = Enrollment.find_all_by_student_id @student.id
+
+    @classes.each do |course|
+      course.modify_name_for_enrollments(@student.id)
+    end
+
+    if flash.key? :enrollment
+      @enrollment = Enrollment.new(flash[:enrollment])
+      render 'edit'
+      return
+    end
+
+    @enrollment = Enrollment.new
   end
 
   def update

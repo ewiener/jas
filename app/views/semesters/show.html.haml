@@ -21,24 +21,22 @@
 
       // hero-unit: _Import_
       .hero-unit
-        %h2
-          Import
-        = form_tag semester_import_path(@semester), :method => :put, :class => "form-horizontal" do
-          = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
-          %button.btn.btn-info{:type=>"submit"}
+        %div{:style=>"width:400px;float:left;"}
+          %h2
             Import
-      .vspace30
-      // END hero-unit: _Import_
-      
-      // hero-unit: _Fees_
-      .hero-unit
-        %h2
-          Fees
-        = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
-          %div{:style=>"float:left;"}
-            = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "width:auto;margin-right:10px;"
-            = text_field :semester, :fee, :class => "span2"
-          = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px"
+          = form_tag semester_import_path(@semester), :method => :put, :class => "form-horizontal" do
+            = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
+            %button.btn.btn-info{:type=>"submit"}
+              Import
+        %div{:style=>"width:450px;float:right;"}
+          %h2
+            Fees
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            %div{:style=>"float:left;"}
+              = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "width:auto;margin-right:10px;"
+              = text_field :semester, :fee, :class => "span2"
+            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px"
+        .clear
         .vspace30
       // END hero-unit: _Fees_
       .vspace30
@@ -68,9 +66,6 @@
                   = date
                 %td.cell_center
                   = submit_tag 'Delete Date', :class => "btn btn-danger edit-delete"
-                  //= button_to "Delete Date", @semester.delete_date(), :class => "btn btn-danger edit-delete"
-                  //currently deletes the semester instead of the date
-                  //= button_to "Delete", date, :method => :delete, :class => "btn btn-danger"
           = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
             %tr
               %td

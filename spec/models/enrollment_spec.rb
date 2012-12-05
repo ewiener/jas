@@ -65,15 +65,127 @@ describe Enrollment do
 
   describe 'Test if scholarship amount is valid' do
     it 'I test scholarship_amount_is_valid? with valid amount 0' do
+      @course = Course.new
+      @course.id = 4
+      @course.name = "Math"
+      @course.description = "Math is amazing"
+      @course.sunday = false
+      @course.monday = true
+      @course.tuesday = false
+      @course.wednesday = true
+      @course.thursday = false
+      @course.friday = false
+      @course.saturday = false
+      @course.start_time = "2:00"
+      @course.end_time = "5:00"
+      @course.grade_range = "K-5"
+      @course.class_min = 2
+      @course.class_max = 20
+      @course.number_of_classes = 10
+      @course.fee_per_meeting = 20
+      @course.fee_for_additional_materials = 30
+      @course.total_fee = 230
+      @course.semester_id = 2
+      @course.ptainstructor_id = 2
+      @course.teacher_id = 3
+      @course.save
       @enrollment = Enrollment.new
       @enrollment.scholarship_amount = 0
+      @enrollment.course_id = 4
       @enrollment.scholarship_amount_is_valid?.should == true
     end
 
-    it 'I test scholarship_amount_is_valid? with valid amount 1000' do
+     it 'I test scholarship_amount_is_valid? with valid amount 230' do
+      @course = Course.new
+      @course.id = 4
+      @course.name = "Math"
+      @course.description = "Math is amazing"
+      @course.sunday = false
+      @course.monday = true
+      @course.tuesday = false
+      @course.wednesday = true
+      @course.thursday = false
+      @course.friday = false
+      @course.saturday = false
+      @course.start_time = "2:00"
+      @course.end_time = "5:00"
+      @course.grade_range = "K-5"
+      @course.class_min = 2
+      @course.class_max = 20
+      @course.number_of_classes = 10
+      @course.fee_per_meeting = 20
+      @course.fee_for_additional_materials = 30
+      @course.total_fee = 230
+      @course.semester_id = 2
+      @course.ptainstructor_id = 2
+      @course.teacher_id = 3
+      @course.save
+      @enrollment = Enrollment.new
+      @enrollment.scholarship_amount = 230
+      @enrollment.course_id = 4
+      @enrollment.scholarship_amount_is_valid?.should == true
+    end
+
+    it 'I test scholarship_amount_is_valid? with invalid amount 1000' do
+      @course = Course.new
+      @course.id = 4
+      @course.name = "Math"
+      @course.description = "Math is amazing"
+      @course.sunday = false
+      @course.monday = true
+      @course.tuesday = false
+      @course.wednesday = true
+      @course.thursday = false
+      @course.friday = false
+      @course.saturday = false
+      @course.start_time = "2:00"
+      @course.end_time = "5:00"
+      @course.grade_range = "K-5"
+      @course.class_min = 2
+      @course.class_max = 20
+      @course.number_of_classes = 10
+      @course.fee_per_meeting = 20
+      @course.fee_for_additional_materials = 30
+      @course.total_fee = 230
+      @course.semester_id = 2
+      @course.ptainstructor_id = 2
+      @course.teacher_id = 3
+      @course.save
       @enrollment = Enrollment.new
       @enrollment.scholarship_amount = 1000
-      @enrollment.scholarship_amount_is_valid?.should == true
+      @enrollment.course_id = 4
+      @enrollment.scholarship_amount_is_valid?.should == false
+    end
+
+     it 'I test scholarship_amount_is_valid? when corresponding course is not created' do
+      @course = Course.new
+      @course.id = 4
+      @course.name = "Math"
+      @course.description = "Math is amazing"
+      @course.sunday = false
+      @course.monday = true
+      @course.tuesday = false
+      @course.wednesday = true
+      @course.thursday = false
+      @course.friday = false
+      @course.saturday = false
+      @course.start_time = "2:00"
+      @course.end_time = "5:00"
+      @course.grade_range = "K-5"
+      @course.class_min = 2
+      @course.class_max = 20
+      @course.number_of_classes = 10
+      @course.fee_per_meeting = 20
+      @course.fee_for_additional_materials = 30
+      @course.total_fee = 230
+      @course.semester_id = 2
+      @course.ptainstructor_id = 2
+      @course.teacher_id = 3
+      @course.save
+      @enrollment = Enrollment.new
+      @enrollment.scholarship_amount = 230
+      @enrollment.course_id = 5
+      @enrollment.scholarship_amount_is_valid?.should == false
     end
 
     it 'I test scholarship_amount_is_valid? with invalid amount -1' do

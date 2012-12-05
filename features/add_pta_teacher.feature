@@ -34,10 +34,8 @@ Scenario: Create invalid pta instructor
 Scenario: Update pta instructor invalidly
   Given I am on the "Fall 2011" PTA Instructor home page
   And I press "Edit"
-  #Given I am on the "Fall 2011" "Amy" PTA Instructor Edit Page
   And I fill in "ptainstructor_first_name" with ""
   And I press "Update PTA Instructor"
-  #Then I should be on the "Fall 2011" "Amy" PTA Instructor Edit Page
   And I should see "Invalid string for first name."
 
 Scenario: Invalid pta instructor to edit
@@ -73,16 +71,6 @@ Scenario: Creating from the PTA Instructor home page
   Then I should be on the "Fall 2011" PTA Instructor home page
   And I should see "Michelle"
   
-Scenario: Creating from the create class page
-  Given I am on the "Fall 2011" Create Class Page
-  ###Implementing later
-  #And I follow "Add New PTA Instructor"
-  #Then I should be on the "Fall 2011" Add New PTA Teacher Page
-  #When I fill in the new pta form correctly with name "Nancy"
-  #And press "Add New PTA Instructor"
-  #Then I should be on the "Fall 2011" Create Class Page
-  #And I should see "Nancy"
-  
 Scenario: Cancel creating from the PTA Instructor home page
   Given I am on the "Fall 2011" PTA Instructor home page
   And I follow "Add New PTA Instructor"
@@ -91,13 +79,3 @@ Scenario: Cancel creating from the PTA Instructor home page
   And follow "Cancel"
   Then I should be on the "Fall 2011" PTA Instructor home page
   And I should not see "Greg"
-  
-Scenario: Cancel creating from the create class page
-  Given I am on the "Fall 2011" Create Class Page
-  ###Implementing later
-  #And I follow "Add New PTA Instructor"
-  #Then I should be on the "Fall 2011" Add New PTA Teacher Page
-  #When I fill in the new pta form correctly with name "Joe"
-  #And follow "Cancel"
-  #Then I should be on the "Fall 2011" Create Class Page
-  #And I should not see "Joe"

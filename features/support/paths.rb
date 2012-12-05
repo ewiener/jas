@@ -1,8 +1,3 @@
-# TL;DR: YOU SHOULD DELETE THIS FILE
-#
-# This file is used by web_steps.rb, which you should also delete
-#
-# You have been warned
 module NavigationHelpers
   # Maps a name to a path. Used by the
   #
@@ -50,7 +45,6 @@ module NavigationHelpers
       end
     
     when /^the "(.+)" Session Name Page$/
-      #semester_id = Semester.where(:name => $1).id
       begin
         semester_id = Semester.find_by_name($1).id
         "/semesters/#{semester_id}"
@@ -176,12 +170,6 @@ module NavigationHelpers
         student_id = Student.all.length + 1
       end
       "/semesters/#{semester_id}/students/#{student_id}/edit"
-      
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
 
     else
       begin

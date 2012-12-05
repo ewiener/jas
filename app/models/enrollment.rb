@@ -121,4 +121,11 @@ class Enrollment < ActiveRecord::Base
     if self.dismissal < DISMISSAL.length;return DISMISSAL[self.dismissal];end
     return "Invalid Value"
   end
+
+
+  public
+  def enrolled_to_s
+    return "Not Enrolled, Lottery" unless self.enrolled
+    return "Enrolled"
+  end
 end

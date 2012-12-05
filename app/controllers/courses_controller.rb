@@ -12,7 +12,8 @@ class CoursesController  < ApplicationController
   def index
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @courses = Course.find_all_by_semester_id(@semester.id, :joins => :ptainstructor, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, first_name asc")
+    #@courses = Course.find_all_by_semester_id(@semester.id, :joins => :ptainstructor, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, first_name asc")
+    @courses = Course.find_all_by_semester_id(@semester, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
     @enrollmentHash = {}
     @courses.each do |course|
       @enrollmentHash[course.id] = course.students.length

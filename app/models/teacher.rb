@@ -2,6 +2,8 @@ class Teacher < ActiveRecord::Base
 
   has_many :courses
 
+  GRADES = ["K","k","1","2","3","4","5"]
+
   attr_accessible :name,
                   :grade,
                   :classroom,
@@ -21,7 +23,7 @@ class Teacher < ActiveRecord::Base
 
   # Used by validation check to verify that the grade is valid
   def grade_is_valid
-    errors.add(:grade,"Invalid empty string for grade.") unless grade_is_valid?
+    errors.add(:grade,"Invalid grade entered. Only K, 1, 2, 3, 4, and 5 are allowed.") unless grade_is_valid?
   end
 
   # Used by validation check to verify that the classroom is valid
@@ -44,8 +46,13 @@ class Teacher < ActiveRecord::Base
 
   # Verifies that the grade is valid
   def grade_is_valid?
-    return false unless not_nil_and_string(self.grade)
-    return self.grade.length > 0
+    if not_nil_and_string(self.grade)
+      if GRADES.include? self.grade
+        if self.grade == "k";self.grade = "K";end #force uppercase K
+        return true
+      end
+    end
+    return false
   end
 
   # Verifies that the classroom is valid

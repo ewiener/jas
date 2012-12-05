@@ -114,7 +114,7 @@
           %div.control-group
             = label :course, :teacher_id, 'Classroom:', :class => "control-label"
             %div.controls
-              = select_tag "course[teacher_id]", options_from_collection_for_select(@teachers, :id, :classroom), :class => "course_select"
+              = select_tag "course[teacher_id]", options_from_collection_for_select(@teachers, :id, :classroom, @course.teacher_id), :class => "course_select"
 
           %div.control-group
             = label :course, :grade_range, 'Eligible Grades:', :class => "control-label"

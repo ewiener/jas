@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
       redirect_to semesters_path
       return
     end
-    @students = Student.find_all_by_semester_id(@semester, :order => "last_name asc")
+    @students = Student.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
   end
 
   def new

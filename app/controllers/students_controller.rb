@@ -1,12 +1,6 @@
 class StudentsController < ApplicationController
   protect_from_forgery
 
-  def show
-    #Not currently used
-    #@student = Student.find_by_id params[:id]
-    #return unless student_is_valid(@student)
-  end
-
   def index
     if params[:semester_id]
       @semester = Semester.find_by_id params[:semester_id]

@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :teacher
   #has_and_belongs_to_many :ptainstructors
   #has_and_belongs_to_many :courses
-  has_many :enrollment
+  has_many :enrollments
   has_many :courses, :through => :enrollment
 
   GRADES = ["K","k","1","2","3","4","5"]
@@ -132,6 +132,27 @@ class Student < ActiveRecord::Base
       digits = digits.join
       '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
     end
+  end
+
+  public
+  def grand_total
+    total = 0
+    enrollments = Enrollment.find_all_by_student_id(self.id)
+    semester = self.semester
+    enrollments.each do |enrollment|
+      puts "Adding fee for " +  enrollment.course.name.to_s + " $" + enrollment.course.total_fee.to_s
+      total += enrollment.course.total_fee
+      puts "Subtracting fee for scholarship $" + enrollment.scholarship_amount.to_s
+      total -= enrollment.scholarship_amount
+    end
+
+    puts "Adding Registration Fee $" + semester.fee.to_s
+
+    total += semester.fee
+
+    puts "Total = " + total.to_s
+
+    return total
   end
 
 end

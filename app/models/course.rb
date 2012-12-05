@@ -311,4 +311,10 @@ class Course < ActiveRecord::Base
     return [self.students.count, self.class_max]
   end
 
+  def modify_name_for_enrollments(student_id)
+    enrolled =  Enrollment.where("student_id = ? AND course_id = ?", student_id, self.id)
+    if enrolled.length != 0
+      self.name += " (Edit Only)"
+    end
+  end
 end

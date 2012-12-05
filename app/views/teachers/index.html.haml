@@ -62,9 +62,6 @@
           if ($teacherGrade == 'K' || $teacherGrade == 'k') {
             $teacherGrade = '0';
           }
-          // $teacherClassroom = $.trim($tr.children(".teacher-classroom").text());
-          // $teacherEdit = $tr.children(".teacher-edit");
-          // $teacherDelete = $tr.children(".teacher-delete");
           rows.push({
             'tr': $tr,
             'lastname': $teacherLastName,
@@ -127,13 +124,3 @@
           teacherSort('grade', reverse);
         });
       });
-
-
-
-
-
-
-
-
-
-

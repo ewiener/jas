@@ -1,18 +1,9 @@
 class CoursesController  < ApplicationController
   protect_from_forgery
-=begin
-  def show
-    @course = Course.find_by_id params[:course_id]
-    if not @course
-      flash[:warning] = @course.errors
-      redirect_to semesters_path
-    end
-  end
-=end
+
   def index
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    #@courses = Course.find_all_by_semester_id(@semester.id, :joins => :ptainstructor, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, first_name asc")
     @courses = Course.find_all_by_semester_id(@semester, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
     @enrollmentHash = {}
     @courses.each do |course|
@@ -133,18 +124,6 @@ class CoursesController  < ApplicationController
     render :text => @calculate_meetings
   end
 
-=begin
-  public
-  def calculate_total_fees
-    per_meeting_cost = params["per_meeting_cost"].to_i
-    number_of_meetings = params["meeting_number"].to_i
-    additional_fees = params["additional_fees"].to_i
-
-    @total_fee = per_meeting_cost*number_of_meetings + additional_fees
-    render :text => @total_fee
-  end
-=end
-
   private
   def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
     if not semester
@@ -154,6 +133,5 @@ class CoursesController  < ApplicationController
     end
     return true
   end
-
 
 end

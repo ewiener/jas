@@ -1,25 +1,12 @@
 class TeachersController < ApplicationController
   protect_from_forgery
 
-  def show
-    #Not currently used.
-    #@teacher = Teacher.find_by_id params[:id]
-    #return unless teacher_is_valid(@teacher)
-  end
-
   def index
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-
-    #@teachers = Teacher.find_all_by_semester_id(@semester, :order => "grade asc, name asc")
-=begin
-    teachers1 = Teacher.where("semester_id = ? AND grade == ?", @semester.id, "K", :order => "name asc")
-    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K", :order => "name asc")
-=end
     teachers1 = Teacher.where("semester_id = ? AND grade == ?", @semester.id, "K").order("name asc")
     teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
     @teachers = teachers1 + teachers2
-
   end
 
   def new

@@ -26,6 +26,7 @@ class CoursesController  < ApplicationController
     @course = Course.new
   end
 
+  #Returns the fee of the course
   def coursefee
     course = Course.find(params[:id])
     @coursefee = course.total_fee.to_json
@@ -107,6 +108,7 @@ class CoursesController  < ApplicationController
   end
 
   public
+  #Returns the number of times a class meets in a semester. Called from javascript, with a hash of the days of the week that are checked
   def calculate_meetings
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)

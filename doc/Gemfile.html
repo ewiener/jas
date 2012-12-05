@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Gemfile - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./Scripts and Stuff_txt.html">Scripts and Stuff</a>
+  
+    <li class="file"><a href="./public/robots_txt.html">robots</a>
+  
+    <li class="file"><a href="./tools/course/cs169_txt.html">cs169</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Ptast.html">Ptast</a>
+  
+    <li><a href="./Ptast/Application.html">Ptast::Application</a>
+  
+    <li><a href="./AddCourseTable.html">AddCourseTable</a>
+  
+    <li><a href="./AddCreateSessionsTable.html">AddCreateSessionsTable</a>
+  
+    <li><a href="./AddEnrollmentTable.html">AddEnrollmentTable</a>
+  
+    <li><a href="./AddPtaInstructorTable.html">AddPtaInstructorTable</a>
+  
+    <li><a href="./AddSemesterTable.html">AddSemesterTable</a>
+  
+    <li><a href="./AddStudentTable.html">AddStudentTable</a>
+  
+    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+  
+    <li><a href="./AddUserTable.html">AddUserTable</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./Enrollment.html">Enrollment</a>
+  
+    <li><a href="./EnrollmentsController.html">EnrollmentsController</a>
+  
+    <li><a href="./HtmlSelectorsHelpers.html">HtmlSelectorsHelpers</a>
+  
+    <li><a href="./Login.html">Login</a>
+  
+    <li><a href="./NavigationHelpers.html">NavigationHelpers</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Prickle_helper.html">Prickle_helper</a>
+  
+    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+  
+    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+  
+    <li><a href="./Semester.html">Semester</a>
+  
+    <li><a href="./SemestersController.html">SemestersController</a>
+  
+    <li><a href="./Student.html">Student</a>
+  
+    <li><a href="./StudentsController.html">StudentsController</a>
+  
+    <li><a href="./Teacher.html">Teacher</a>
+  
+    <li><a href="./TeachersController.html">TeachersController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSession.html">UserSession</a>
+  
+    <li><a href="./UserSessionsController.html">UserSessionsController</a>
+  
+    <li><a href="./ValidateLoginController.html">ValidateLoginController</a>
+  
+    <li><a href="./WithinHelpers.html">WithinHelpers</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>source ‘<a href="https://rubygems.org">rubygems.org</a>’</p>
+
+<p>gem ‘rails’, ‘3.2.7’</p>
+
+<p># Bundle edge Rails instead: # gem ‘rails’, :git =&gt;
+‘git://github.com/rails/rails.git’</p>
+
+<p>gem ‘haml-rails’</p>
+
+<p>gem ‘bootstrap-sass’ gem ‘twitter-bootstrap-rails’ gem ‘sass-rails’,  
+‘~&gt; 3.2.3’</p>
+
+<p>gem ‘rdoc’</p>
+
+<p>group :production do</p>
+
+<pre>gem 'pg'
+gem 'authlogic'</pre>
+
+<p>end</p>
+
+<p>group :test do</p>
+
+<pre>gem 'cucumber-rails'
+gem 'prickle'</pre>
+
+<p>end</p>
+
+<p>group :development, :test do</p>
+
+<pre>gem 'cucumber-rails-training-wheels'
+gem 'database_cleaner'
+gem 'capybara'
+gem 'launchy'
+gem 'rspec-rails'
+gem 'simplecov'
+gem 'sqlite3'
+gem 'authlogic'</pre>
+
+<p>end</p>
+
+<p># Gems used only for assets and not required # in production environments
+by default. group :assets do</p>
+
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">'coffee-rails'</span>, <span class="ruby-string">'~&gt; 3.2.1'</span>
+
+<span class="ruby-comment"># See https://github.com/sstephenson/execjs#readme for more supported runtimes</span>
+<span class="ruby-comment"># gem 'therubyracer', :platforms =&gt; :ruby</span>
+
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'uglifier'</span>, <span class="ruby-string">'&gt;= 1.0.3'</span>
+</pre>
+
+<p>end</p>
+
+<p>gem ‘jquery-rails’</p>
+
+<p># To use ActiveModel has_secure_password # gem ‘bcrypt-ruby’, ‘~&gt; 3.0.0’</p>
+
+<p># To use Jbuilder templates for JSON # gem ‘jbuilder’</p>
+
+<p># Use unicorn as the app server # gem ‘unicorn’</p>
+
+<p># Deploy with Capistrano # gem ‘capistrano’</p>
+
+<p># To use debugger # gem ‘debugger’</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

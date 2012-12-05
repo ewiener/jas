@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class StudentsController - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/students_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-destroy">#destroy</a>
+    
+    <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-new">#new</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./Scripts and Stuff_txt.html">Scripts and Stuff</a>
+  
+    <li class="file"><a href="./public/robots_txt.html">robots</a>
+  
+    <li class="file"><a href="./tools/course/cs169_txt.html">cs169</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Ptast.html">Ptast</a>
+  
+    <li><a href="./Ptast/Application.html">Ptast::Application</a>
+  
+    <li><a href="./AddCourseTable.html">AddCourseTable</a>
+  
+    <li><a href="./AddCreateSessionsTable.html">AddCreateSessionsTable</a>
+  
+    <li><a href="./AddEnrollmentTable.html">AddEnrollmentTable</a>
+  
+    <li><a href="./AddPtaInstructorTable.html">AddPtaInstructorTable</a>
+  
+    <li><a href="./AddSemesterTable.html">AddSemesterTable</a>
+  
+    <li><a href="./AddStudentTable.html">AddStudentTable</a>
+  
+    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+  
+    <li><a href="./AddUserTable.html">AddUserTable</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./Enrollment.html">Enrollment</a>
+  
+    <li><a href="./EnrollmentsController.html">EnrollmentsController</a>
+  
+    <li><a href="./HtmlSelectorsHelpers.html">HtmlSelectorsHelpers</a>
+  
+    <li><a href="./Login.html">Login</a>
+  
+    <li><a href="./NavigationHelpers.html">NavigationHelpers</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Prickle_helper.html">Prickle_helper</a>
+  
+    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+  
+    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+  
+    <li><a href="./Semester.html">Semester</a>
+  
+    <li><a href="./SemestersController.html">SemestersController</a>
+  
+    <li><a href="./Student.html">Student</a>
+  
+    <li><a href="./StudentsController.html">StudentsController</a>
+  
+    <li><a href="./Teacher.html">Teacher</a>
+  
+    <li><a href="./TeachersController.html">TeachersController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSession.html">UserSession</a>
+  
+    <li><a href="./UserSessionsController.html">UserSessionsController</a>
+  
+    <li><a href="./ValidateLoginController.html">ValidateLoginController</a>
+  
+    <li><a href="./WithinHelpers.html">WithinHelpers</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class StudentsController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/students_controller.rb, line 35</span>
+ <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
+
+   <span class="ruby-ivar">@student</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:student</span>])
+   <span class="ruby-comment">#return unless student_is_valid(@student,&quot;Could not initialize a student object.&quot;)</span>
+   <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@student</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = [[<span class="ruby-value">:student</span>,<span class="ruby-string">&quot;Could not initialize a student object.&quot;</span>]]
+     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_semester_student_path</span>(<span class="ruby-ivar">@semester</span>)
+     <span class="ruby-keyword">return</span>
+   <span class="ruby-keyword">end</span>
+
+   <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">semester_id</span> = <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>
+
+   <span class="ruby-string">&quot;&quot;</span><span class="ruby-string">&quot;
+   @courses = Course.find_all_by_id(params[:courses])
+   if @courses
+     @student.courses = @courses
+   end
+   &quot;</span><span class="ruby-string">&quot;&quot;</span>
+   <span class="ruby-ivar">@teacher</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:teacher</span>]
+   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@teacher</span>
+     <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">teacher_id</span> = <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">id</span>
+   <span class="ruby-keyword">else</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = [[<span class="ruby-value">:teacher</span>,<span class="ruby-string">&quot;A valid teacher was not selected.&quot;</span>]]
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:student</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-value">:student</span>]
+     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_semester_student_path</span>(<span class="ruby-ivar">@semester</span>)
+     <span class="ruby-keyword">return</span>
+   <span class="ruby-keyword">end</span>
+
+   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">save</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;#{@student.first_name} #{@student.last_name} was successfully added to the database.&quot;</span>
+     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_students_path</span>
+   <span class="ruby-keyword">else</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">errors</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:student</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-value">:student</span>]
+     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_semester_student_path</span>(<span class="ruby-ivar">@semester</span>)
+   <span class="ruby-keyword">end</span>
+<span class="ruby-comment">   @student = @semester.students.create(params[:student])
+   if @student.new_record?
+     flash[:warning] = @student.errors
+     flash[:student] = @student
+     redirect_to new_semester_student_path(@semester)
+     return
+   else
+     flash[:notice] = &quot;#{@student.first_name} #{@student.last_name} was successfully added to the database.&quot;
+     redirect_to semester_students_path
+   end
+</span> <span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/students_controller.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@student</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">student_is_valid</span>(<span class="ruby-ivar">@student</span>)
+
+  <span class="ruby-identifier">name</span> = <span class="ruby-node">&quot;#{@student.first_name} #{@student.last_name}&quot;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>]= <span class="ruby-node">&quot;#{name} was successfully deleted.&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">errors</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_students_path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/students_controller.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
+  <span class="ruby-ivar">@classes</span> = <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-ivar">@semester</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc&quot;</span>)
+  <span class="ruby-identifier">teachers1</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade = ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name asc&quot;</span>)
+  <span class="ruby-identifier">teachers2</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade != ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;grade asc&quot;</span>,<span class="ruby-string">&quot;name asc&quot;</span>)
+  <span class="ruby-ivar">@teachers</span> = <span class="ruby-identifier">teachers1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">teachers2</span>
+  <span class="ruby-ivar">@student</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-ivar">@classes</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-constant">Course</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Select Item:&quot;</span>))
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">student_is_valid</span>(<span class="ruby-ivar">@student</span>)
+  <span class="ruby-ivar">@enrollments</span> = <span class="ruby-constant">Enrollment</span>.<span class="ruby-identifier">find_all_by_student_id</span>(<span class="ruby-ivar">@student</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:course</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc&quot;</span>)
+
+  <span class="ruby-ivar">@classes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">course</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">course</span>.<span class="ruby-identifier">modify_name_for_enrollments</span>(<span class="ruby-ivar">@student</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">key?</span> <span class="ruby-value">:enrollment</span>
+    <span class="ruby-ivar">@enrollment</span> = <span class="ruby-constant">Enrollment</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">flash</span>[<span class="ruby-value">:enrollment</span>])
+    <span class="ruby-identifier">render</span> <span class="ruby-string">'edit'</span>
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@enrollment</span> = <span class="ruby-constant">Enrollment</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- edit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- edit-method -->
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/students_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+    <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@semester</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = [[<span class="ruby-value">:semester_id</span>, <span class="ruby-string">&quot;Unable to locate the specified semester.&quot;</span>]]
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semesters_path</span>
+      <span class="ruby-keyword">return</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = [[<span class="ruby-value">:semester_id</span>, <span class="ruby-string">&quot;No semester was given.&quot;</span>]]
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semesters_path</span>
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@students</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-ivar">@semester</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;first_name asc, last_name asc&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- index-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- index-method -->
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/students_controller.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
+  <span class="ruby-comment">#@classes = Course.where( :semester_id =&gt; @semester) #not currently used in new</span>
+  <span class="ruby-identifier">teachers1</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade = ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name asc&quot;</span>)
+  <span class="ruby-identifier">teachers2</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade != ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;grade asc&quot;</span>,<span class="ruby-string">&quot;name asc&quot;</span>)
+  <span class="ruby-ivar">@teachers</span> = <span class="ruby-identifier">teachers1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">teachers2</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">key?</span> <span class="ruby-value">:student</span>
+    <span class="ruby-ivar">@student</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">flash</span>[<span class="ruby-value">:student</span>])
+    <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@student</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/students_controller.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
+  <span class="ruby-ivar">@student</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">student_is_valid</span>(<span class="ruby-ivar">@student</span>)
+
+  <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">assign_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:student</span>])
+
+  <span class="ruby-string">&quot;&quot;</span><span class="ruby-string">&quot;
+  @courses = Course.find_all_by_id(params[:courses])
+  if @courses
+    @student.courses = @courses
+  else
+    @student.courses = nil
+  end
+  &quot;</span><span class="ruby-string">&quot;&quot;</span>
+
+  <span class="ruby-ivar">@teacher</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:teacher</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@teacher</span>
+    <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">teacher_id</span> = <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = [[<span class="ruby-value">:teacher</span>,<span class="ruby-string">&quot;A valid teacher was not selected.&quot;</span>]]
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:student</span>] = <span class="ruby-ivar">@student</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_semester_student_path</span>(<span class="ruby-ivar">@semester</span>)
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;#{@student.first_name} #{@student.last_name}'s information was successfully updated.&quot;</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_students_path</span>(<span class="ruby-ivar">@semester</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@student</span>.<span class="ruby-identifier">errors</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:student</span>] = <span class="ruby-ivar">@student</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_semester_student_path</span>(<span class="ruby-ivar">@semester</span>,<span class="ruby-ivar">@student</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

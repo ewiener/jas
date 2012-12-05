@@ -38,13 +38,13 @@ class Teacher < ActiveRecord::Base
   end
 
   public
-  # Verifies that the name is valid
+  # Verifies that the name is valid by checking name is not nil, string, and at least 1 character
   def name_is_valid?
     return false unless not_nil_and_string(self.name)
     return self.name.length > 0
   end
 
-  # Verifies that the grade is valid
+  # Verifies that the grade is valid by checking if grade is part of K-5
   def grade_is_valid?
     if not_nil_and_string(self.grade)
       if GRADES.include? self.grade
@@ -55,19 +55,14 @@ class Teacher < ActiveRecord::Base
     return false
   end
 
-  # Verifies that the classroom is valid
+  # Verifies that the classroom is valid by checking that is not nil, string, and is at least 1 character
   def classroom_is_valid?
     return false unless not_nil_and_string(self.classroom)
     return self.classroom.length > 0
   end
 
+  #Tests that teacher is not linked to any course or student so it can be deleted
   def can_be_deleted?
-=begin
-    @semester = Semester.find_by_id self.semester
-    if @semester == nil
-      return true
-    end
-=end
     courses = Course.where(:semester_id => self.semester, :teacher_id => self.id)
     students = Student.where(:semester_id => self.semester, :teacher_id => self.id)
 

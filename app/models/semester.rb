@@ -5,8 +5,7 @@ class Semester < ActiveRecord::Base
   serialize :dates_with_no_classes
   serialize :individual_dates_with_no_classes
 
-  # Attributes
-  # :name, :start_date
+
   attr_accessible :name,
                   :start_date,
                   :end_date,
@@ -16,7 +15,7 @@ class Semester < ActiveRecord::Base
                   :fee,
                   :dates_with_no_classes_day,
                   :individual_dates_with_no_classes
-                  #:start_date_as_date
+
 
   validate :name_is_valid
 
@@ -44,14 +43,14 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  # Verifies that the name is valid
+  # Verifies that the name is valid by checking name is not nil, is a string,and at least 1 character. Returns true or false
   def name_is_valid?
     return false unless not_nil_and_string(self.name)
     return self.name.length > 0
   end
 
   private
-  # Verifies that the start date comes before the end date
+  # Verifies that the start date comes before the end date and returns true or false
   def start_date_before_end_date
     begin
       date_start = USDateParse(self.start_date)
@@ -72,7 +71,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  # Verifies that the start date can be parsed
+  # Verifies that the start date can be parsed and returns true or false
   def start_date_is_valid?
     begin
       date = USDateParse(self.start_date)
@@ -90,7 +89,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  # Verifies that the end date can be parsed
+  # Verifies that the end date can be parsed and returns true or false
   def end_date_is_valid?
     begin
       date = USDateParse(self.end_date)
@@ -102,7 +101,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  # verifys the date range can be parsed (works for single date and range of the form date-date, also adds all dates to a set for use later in caculating number of class meetings
+  # Verifies the date range can be parsed (works for single date and range of the form date-date, also adds all dates to a set for use later in caculating number of class meetings. Returns true or false
   def dates_in_span_valid?(date_string)
     dates_array = date_string.split("-")
     start_range = dates_array[0]
@@ -147,25 +146,6 @@ class Semester < ActiveRecord::Base
       self.individual_dates_with_no_classes = Array.new
       return
     end
-=begin
-    begin
-      begin_parse = USDateParse(self.start_date)
-      end_parse = USDateParse(self.end_date)
-    rescue
-      errors.add(:dates_with_no_classes, 'Could not verify that the dates with no classes fall within the session because the start and/or end dates are not parseable.')
-      return
-    end
-    self.dates_with_no_classes.each do |date|
-      begin
-        date_parsed = USDateParse(date)
-      rescue
-        errors.add(:dates_with_no_classes, 'The date, "#{date}", could not be parsed.')
-      end
-      if date_parsed > end_parse or date_parsed < begin_parse
-        errors.add(:dates_with_no_classes, 'The date, "#{date}", does not reside within the semester.')
-      end
-    end
-=end
   end
 
   private
@@ -186,7 +166,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  # Verifies that the registration date can be parsed
+  # Verifies that the registration date can be parsed and returns true or false
   def registration_date_is_valid?
     begin
       USDateParse(self.registration_deadline)
@@ -214,6 +194,8 @@ class Semester < ActiveRecord::Base
   end
 
   public
+
+#Tests that ptainstructor and teacher exist before creating course and returns true or false
   def can_create_course?
     ptainstructors = Ptainstructor.find_by_semester_id(self.id)
     teachers = Teacher.find_by_semester_id(self.id)
@@ -224,11 +206,13 @@ class Semester < ActiveRecord::Base
   end
 
   public
+  #Returns start_date as date object
   def start_date_as_date
     return USDateParse(self.start_date)
   end
 
   private
+  #Returns true if not nil and string
   def not_nil_and_string(str)
     return true unless ((str == nil) or (not str.instance_of? String))
     return false
@@ -251,6 +235,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
+  #Removes date from holiday array and become school day
   def delete_date(date)
     if self.dates_with_no_classes.delete(date) == nil
       errors.add(:dates_with_no_classes, 'Could not find date in holiday array.')
@@ -273,6 +258,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
+  #Transfers ptainstructors, students, and courses from one semester to another semester
   def import(semester_to_import)
     if not semester_to_import
       errors.add(:semester_to_import,"Was given a nil semester to import.")
@@ -318,6 +304,7 @@ class Semester < ActiveRecord::Base
   end
 
   private
+  #Copies teacher for new course
   def duplicate_teacher_for_course(newcourse, oldteacher, teachers_cloned)
     if teachers_cloned[oldteacher.id]
       newcourse.teacher_id = teachers_cloned[oldteacher.id]
@@ -332,6 +319,7 @@ class Semester < ActiveRecord::Base
   end
 
   private
+  #Copies ptainstructor for new course
   def duplicate_ptainstructor_for_course(newcourse, oldptainstructor, ptainstructors_cloned)
     if ptainstructors_cloned[oldptainstructor.id]
       newcourse.ptainstructor_id = ptainstructors_cloned[oldptainstructor.id]
@@ -346,6 +334,7 @@ class Semester < ActiveRecord::Base
   end
 
   private
+  #Copies teacher to semester
   def duplicate_teacher(oldteacher,teachers_cloned)
     newteacher = oldteacher.dup
     newteacher.semester_id = self.id
@@ -355,6 +344,7 @@ class Semester < ActiveRecord::Base
   end
 
   private
+  #Copies ptainstructor to semester
   def duplicate_ptainstructor(oldptainstructor)
     newptainstructor = oldptainstructor.dup
     newptainstructor.semester_id = self.id
@@ -363,6 +353,7 @@ class Semester < ActiveRecord::Base
   end
 
   private
+  #Copies student to semester
   def duplicate_student(oldstudent, teachers_cloned)
     newstudent = oldstudent.dup
     newstudent.semester_id = self.id

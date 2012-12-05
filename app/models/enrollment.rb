@@ -23,33 +23,41 @@ class Enrollment < ActiveRecord::Base
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
 
   private
+  #Adds errors if dismisal_is_valid returns false
   def dismissal_is_valid
     errors.add(:dismissal, 'Invalid dismissal value.') unless dismissal_is_valid?
   end
 
   public
+  #Tests that enrollment's dismissal is not nil and is between 0 and 3. Returns true or false
   def dismissal_is_valid?
     return false unless self.dismissal != nil
     return ((self.dismissal >= 0) and (self.dismissal <= 3))
   end
 
   private
+  #Adds errors if scholarship_is_valid? returns false
   def scholarship_is_valid
     errors.add(:scholarship, "Invalid scholarship type was selected.") unless scholarship_is_valid?
   end
 
+
   public
+  #Tests that enrollment's scholarship is not nil and that is it between 0 and 2. Returns true or false
   def scholarship_is_valid?
     return false unless self.scholarship != nil
     return ((self.scholarship >= 0) and (self.scholarship <= 2))
   end
 
   private
+  #Adds errors if scholarship_amount_is_valid? returns false
   def scholarship_amount_is_valid
     errors.add(:scholarship_amount, "An invalid scholarship amount was given.") unless scholarship_amount_is_valid?
   end
 
+
   public
+   #Tests that enrollment's scholarship_amount is not nil, that there exists a course for this enrollment and that the scholarship_amount is between 0 and total fee for course. Returns true or false
   def scholarship_amount_is_valid?
     return false unless self.scholarship_amount != nil
     course = Course.find_by_id(self.course_id)
@@ -58,65 +66,75 @@ class Enrollment < ActiveRecord::Base
   end
 
   private
+  #Adds errors if enrollment_is_valid? returns false
   def enrolled_is_valid
     errors.add(:enrolled, "An invalid enrollment value was selected.") unless enrollment_is_valid?
   end
 
+
   public
+  #Tests that enrolled value was initialized and non-nil. Returns true or false
   def enrollment_is_valid?
-    #Just check and make sure the value was initialized and non-nil
     return false unless self.enrolled != nil
     return true
   end
 
   private
+  #Adds errors if semester_id_is_valid? returns false
   def semester_id_is_valid
     errors.add(:semester_id, "An invalid or non-existant semester id was specified.") unless semester_id_is_valid?
   end
 
+
   public
+  #Tests that semester for the enrollment's semester_id exists and returns true or false.
   def semester_id_is_valid?
     return ( Semester.find_by_id(self.semester_id) != nil )
   end
 
   private
+  #Adds errors if course_is_is_valid? returns false
   def course_id_is_valid
     errors.add(:course_id, "No valid class was selected.") unless course_id_is_valid?
   end
 
+
   public
+   #Tests that course for enrollment's course_id exists and returns true or false.
   def course_id_is_valid?
     return ( Course.find_by_id(self.course_id) != nil )
   end
 
   private
+  #Adds errors if student_not_already_enrolled returns false
   def student_not_already_enrolled
     errors.add(:course_id, "The student is already enrolled in the selected course.") unless student_not_already_enrolled?
   end
 
+
   public
+  #Tests that student is not already linked to a course in enrollment and returns true or false.
   def student_not_already_enrolled?
-=begin
-    course = Course.find_by_id(self.course_id)
-    return false unless course != nil
-    student = Student.find_by_id(self.student_id)
-    return false unless student != nil
-=end
     enrollments = Enrollment.where(:student_id => self.student_id, :course_id => self.course_id )
     return enrollments.length == 0
   end
 
   private
+  #Adds errors if student_id_is_valid? returns false
   def student_id_is_valid
     errors.add(:student_id, "An invalid or non-existant student id was specified.") unless student_id_is_valid?
   end
 
+
   public
+  #Tests that enrollment's student exists and returns true or false.
   def student_id_is_valid?
     return ( Student.find_by_id(self.student_id) != nil )
   end
 
+
   public
+  #Returns the corresponding value in the DISMISSAL array based on enrollment's dismissal value
   def dismissal_to_s
     if self.dismissal < DISMISSAL.length;return DISMISSAL[self.dismissal];end
     return "Invalid Value"
@@ -124,6 +142,7 @@ class Enrollment < ActiveRecord::Base
 
 
   public
+  #Return status of if enrolled or not
   def enrolled_to_s
     return "Not Enrolled, Lottery" unless self.enrolled
     return "Enrolled"

@@ -7,8 +7,8 @@ Feature: Register Students to courses
 Background: populate db with all information for a session
 
   Given the following sessions exist:
-  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline |
-  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            |
+  | name        | start_date    | end_date  | lottery_deadline  | registration_deadline | fee |
+  | Fall 2011   | 09/15/2011    | 12/15/2011| 09/09/2011        | 09/14/2011            | 15  |
   
   Given the following classrooms are in the database:
   | name    | grade | classroom | semester  |

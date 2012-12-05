@@ -153,13 +153,15 @@ class Student < ActiveRecord::Base
     total = 0
     enrollments = Enrollment.find_all_by_student_id(self.id)
     semester = self.semester
+    register = false
     enrollments.each do |enrollment|
+      next unless enrollment.enrolled
+      register = true
       total += enrollment.course.total_fee
-
       total -= enrollment.scholarship_amount
     end
 
-    total += semester.fee
+    if register;total += semester.fee;end
 
     return total
   end

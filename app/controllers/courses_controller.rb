@@ -14,8 +14,10 @@ class CoursesController  < ApplicationController
   def new
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @ptainstructors = Ptainstructor.where( :semester_id => @semester )
-    @teachers = Teacher.where( :semester_id => @semester )
+    @ptainstructors = Ptainstructor.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
+    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
+    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
+    @teachers = teachers1 + teachers2
     @ptainstructors.unshift(Ptainstructor.new(:first_name => "Select", :last_name => "Item:")) #add item to the beginning of the ptainstructor's list
     @teachers.unshift(Teacher.new(:classroom => "Select Item:"))
     if flash.key? :course
@@ -56,8 +58,10 @@ class CoursesController  < ApplicationController
       redirect_to semester_courses_path
       return
     end
-    @ptainstructors = Ptainstructor.find_all_by_semester_id @semester
-    @teachers = Teacher.find_all_by_semester_id @semester
+     @ptainstructors = Ptainstructor.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
+    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
+    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
+    @teachers = teachers1 + teachers2
     if flash.key? :course
       course_id = @course.id
       @course = Course.new(flash[:course])

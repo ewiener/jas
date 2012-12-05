@@ -21,9 +21,9 @@ class StudentsController < ApplicationController
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
     #@classes = Course.where( :semester_id => @semester) #not currently used in new
-    @teachers = Teacher.where( :semester_id => @semester )
-    #@classes.unshift(Course.new(:name => "Select Item:")) #not currently used in new
-    @teachers.unshift(Teacher.new(:name => "Select Item:"))
+    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
+    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
+    @teachers = teachers1 + teachers2
     if flash.key? :student
       @student = Student.new(flash[:student])
       render 'new'
@@ -87,12 +87,14 @@ class StudentsController < ApplicationController
   def edit
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
-    @classes = Course.find_all_by_semester_id(@semester, :order => "name")
-    @teachers = Teacher.where(:semester_id => @semester)
+    @classes = Course.find_all_by_semester_id(@semester, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
+    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
+    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
+    @teachers = teachers1 + teachers2
     @student = Student.find_by_id params[:id]
     @classes.unshift(Course.new(:name => "Select Item:"))
     return unless student_is_valid(@student)
-    @enrollments = Enrollment.find_all_by_student_id @student.id
+    @enrollments = Enrollment.find_all_by_student_id(@student.id, :joins => :course, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
 
     @classes.each do |course|
       course.modify_name_for_enrollments(@student.id)

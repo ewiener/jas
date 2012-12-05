@@ -68,9 +68,6 @@
                   = date
                 %td.cell_center
                   = submit_tag 'Delete Date', :class => "btn btn-danger edit-delete"
-                  //= button_to "Delete Date", @semester.delete_date(), :class => "btn btn-danger edit-delete"
-                  //currently deletes the semester instead of the date
-                  //= button_to "Delete", date, :method => :delete, :class => "btn btn-danger"
           = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
             %tr
               %td

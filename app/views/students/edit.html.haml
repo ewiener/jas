@@ -64,6 +64,28 @@
                   ="-"
                 %td.cell_center
                   ="-"
+            %tr.no_contents
+              %td.cell_center
+                ="-"
+              %td.cell_center
+                ="-"
+              %td.cell_center
+                ="-"
+              %td.cell_center
+                ="-"
+              %td.cell_center
+                ="-"
+              %td.cell_center
+                ="-"
+              %td.cell_center
+                ="-"
+            %tr
+              %td.cell_center
+                %b{:style=>"font-size:1.5em;"}
+                  Total Fee
+              %td.cell_center
+                %b{:style=>"font-size:1.5em;"}
+                  = "$" + number_with_precision(@student.grand_total, , :precision => 2)
         .clear
         .vspace40
 

@@ -16,31 +16,123 @@
       = link_to "+ Add New Student", new_semester_student_path, :style=>"float:right;"
       .clear
       .vspace10
-      %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
+      %table.students.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
           %tr
             %td
-              Last
+              %span.sort-by#sort-by-first
+                First
             %td
-              First
+              %span.sort-by#sort-by-last
+                Last
             %td
-              Grade
+              %span.sort-by#sort-by-grade
+                Grade
             %td
               Edit Entry
             %td
               Delete Entry
         %tbody
           - @students.each do |student|
-            %tr
-              %td.cell_center
-                = student.last_name
-              %td.cell_center
+            %tr.student-info
+              %td.cell_center.student-first
                 = student.first_name
-              %td.cell_center
+              %td.cell_center.student-last
+                = student.last_name
+              %td.cell_center.student-grade
                 = student.grade
               %td.cell_center
                 = button_to "Edit", edit_semester_student_path(@semester,student), :method => :get, :class => "btn btn-warning"
               %td.cell_center
                 = button_to "Delete", semester_student_path(@semester, student), :method => :delete, :class => "btn btn-danger"
     :javascript
-      $("#navbar-students").addClass('active');
+      $(function() {
+        $("#navbar-students").addClass('active');
+
+        rows = [];
+        $("table.students tbody tr.student-info").each(function() {
+          $tr = $(this);
+          $studentFirstName = $.trim($tr.children(".student-first").text());
+          $studentLastName = $.trim($tr.children(".student-last").text());
+          $studentGrade = $.trim($tr.children(".student-grade").text());
+          if ($studentGrade == 'K' || $studentGrade == 'k') {
+            $studentGrade = '0';
+          }
+          rows.push({
+            'tr': $tr,
+            'first': $studentFirstName,
+            'last':  $studentLastName,
+            'grade': $studentGrade,
+          });
+        });
+        console.log(rows);
+
+        function teacherSort(property, reverse) {
+          reverse = (typeof reverse === "undefined") ? 0 : reverse;
+          rows.sort(function(a,b) {
+            if (reverse) {
+              return a[property] < b[property];
+            } else {
+              return a[property] > b[property];
+            }
+          });
+          $("table.students tbody").html(rows[0].tr);
+          // start with the second
+          for (var i=1; i<rows.length; i++) {
+            $("table.students tbody").append(rows[i].tr);
+          }
+        }
+
+        $("#sort-by-first").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('first', reverse);
+        });
+        $("#sort-by-last").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('last', reverse);
+        });
+        $("#sort-by-grade").click(function() {
+          // clear other elements' formatting
+
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('grade', reverse);
+        });
+      });

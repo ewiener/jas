@@ -42,25 +42,29 @@ Background: populate db with all information for a session
 @javascript  
 Scenario: Register Student after adding them to the database
   Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
-  And I press "Add Enrollment"
+  And I press "Add New Enrollment"
   Then I should see "Artistic Dance" 3 times
   #^^ once for listing in the tabel, once in the dropdown, and once in the flash message
   
 Scenario: Invalidly register student for course
-  And I press "Add Enrollment"
+  And I press "Add New Enrollment"
   Then I should see "Invalid dismissal value."
   Then I should see "An invalid enrollment value was selected."
- 
-@javascript
-Scenario: Add then edit student course registration
-  Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
-  And I press "Add Enrollment"
-  And I press "Edit"
-  And I press "Add Enrollment"
 
 @javascript
 Scenario: Add then delete student course registration
   Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
-  And I press "Add Enrollment"
+  And I press "Add New Enrollment"
   And I press "Delete"
   Then I should see "Successfully deleted"
+
+@javascript  
+Scenario: Edit student enrollment
+  Given I fill out the registration form correctly with class "Artistic Dance", "Full" scholarship, "Pick Up" dismissal, and "Enrolled"
+  And I press "Add New Enrollment"
+  Then I press "Edit"
+  Then I press "Edit Artistic Dance"
+  
+Scenario: Attempt to edit students in an invalid semester
+  Given I am on the "Fall 2111" "Abby" Edit Students Page
+  Then I should see "Error: Unable to find the semester for the student."

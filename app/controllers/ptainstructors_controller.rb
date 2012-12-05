@@ -1,12 +1,6 @@
 class PtainstructorsController < ApplicationController
   protect_from_forgery
 
-  def show
-    #Not currently used
-    #@ptainstructor = Ptainstructor.find_by_id params[:id]
-    #return unless ptainstructor_is_valid(@ptainstructor)
-  end
-
   def index
     if params[:semester_id]
       @semester = Semester.find_by_id params[:semester_id]
@@ -51,8 +45,7 @@ class PtainstructorsController < ApplicationController
   end
 
   def edit
-    #check if admin or if not, check to see if the logged in ptainstructor id is the id
-    #of the ptainstructor being edited
+    #check if admin or if not, check to see if the logged in ptainstructor id is the id of the ptainstructor being edited
     @semester = Semester.find_by_id params[:semester_id]
     return unless semester_is_valid(@semester)
     @ptainstructor = Ptainstructor.find_by_id params[:id]
@@ -75,8 +68,7 @@ class PtainstructorsController < ApplicationController
   end
 
   def destroy
-    #Check is the ptainstructor is an admin.  Only admin's should be able to delete ptainstructors
-    #@semester = Semester.find_by_id params[:semester_id]
+    #Check is the ptainstructor is an admin.  Only admins should be able to delete ptainstructors
     @ptainstructor = Ptainstructor.find_by_id params[:id]
     return unless ptainstructor_is_valid(@ptainstructor)
 

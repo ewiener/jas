@@ -16,25 +16,29 @@
       = link_to "+ Add New PTA Instructor", new_semester_ptainstructor_path(@semester), :style=>"float:right;"
       .clear
       .vspace10
-      %table.ptainstructors.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
+      %table.ptainstructors.table-bordered.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
           %tr
             %td
-              First Name
+              %span.sort-by#sort-by-first
+                First Name
             %td
-              Last Name
+              %span.sort-by#sort-by-last
+                Last Name
             %td
-              Email
+              %span.sort-by#sort-by-email
+                Email
             %td
-              Phone
+              %span.sort-by#sort-by-phone
+                Phone
             %td
             %td
         %tbody
           - @ptainstructors.each do |ptainstructor|
             %tr.ptainstructor-info.padding-rows
-              %td.cell_center.ptainstructor-last_name
+              %td.cell_center.ptainstructor-last
                 = ptainstructor.first_name
-              %td.cell_center.ptainstructor-first_name
+              %td.cell_center.ptainstructor-first
                 = ptainstructor.last_name
               %td.cell_center.ptainstructor-email
                 = ptainstructor.email
@@ -54,4 +58,108 @@
       $(function() {
         $("#navbar-ptainstructors").addClass('active');
         $("span.referenced-tooltip").tooltip();
+
+        rows = [];
+        $("table.ptainstructors tbody tr.ptainstructor-info").each(function() {
+          $tr = $(this);
+          $ptainstructorFirstName = $.trim($tr.children(".ptainstructor-first").text());
+          $ptainstructorLastName = $.trim($tr.children(".ptainstructor-last").text());
+          $ptainstructorEmail = $.trim($tr.children(".ptainstructor-email").text());
+          $ptainstructorPhone = $.trim($tr.children(".ptainstructor-phone").text());
+          rows.push({
+            'tr': $tr,
+            'first': $ptainstructorFirstName,
+            'last':  $ptainstructorLastName,
+            'email': $ptainstructorEmail,
+            'phone': $ptainstructorPhone,
+          });
+        });
+        console.log(rows);
+
+        function teacherSort(property, reverse) {
+          reverse = (typeof reverse === "undefined") ? 0 : reverse;
+          rows.sort(function(a,b) {
+            if (reverse) {
+              return a[property] < b[property];
+            } else {
+              return a[property] > b[property];
+            }
+          });
+          $("table.ptainstructors tbody").html(rows[0].tr);
+          // start with the second
+          for (var i=1; i<rows.length; i++) {
+            $("table.ptainstructors tbody").append(rows[i].tr);
+          }
+        }
+
+        $("#sort-by-first").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('first', reverse);
+        });
+        $("#sort-by-last").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('last', reverse);
+        });
+        $("#sort-by-email").click(function() {
+          // clear other elements' formatting
+
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('email', reverse);
+        });
+        $("#sort-by-phone").click(function() {
+          // clear other elements' formatting
+
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('phone', reverse);
+        });
       });

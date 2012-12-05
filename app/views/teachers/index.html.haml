@@ -13,27 +13,18 @@
       = render :partial => "partial/flash_messages"
       %h1{:style=>"text-align:center;"}
         Current Classroom Teachers
-      .vspace20
       = link_to "+ Add New Classroom Teacher", new_semester_teacher_path, :style => "float:right;"
       .clear
       .vspace10
-      %table.teachers.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
+      %table.teachers.table-bordered.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
         %thead
           %tr.no-select
             %td
-              Teacher Name
-              %span.sort-by#sort-by-lastname
-                A
-                %span
-                  ="~"
-                Z
+              %span.sort-by#sort-by-name
+                Teacher Name
             %td
-              Grade
               %span.sort-by#sort-by-grade
-                K
-                %span
-                  ="~"
-                5
+                Grade
             %td
               Location
             %td
@@ -71,9 +62,6 @@
           if ($teacherGrade == 'K' || $teacherGrade == 'k') {
             $teacherGrade = '0';
           }
-          // $teacherClassroom = $.trim($tr.children(".teacher-classroom").text());
-          // $teacherEdit = $tr.children(".teacher-edit");
-          // $teacherDelete = $tr.children(".teacher-delete");
           rows.push({
             'tr': $tr,
             'lastname': $teacherLastName,
@@ -99,10 +87,8 @@
           }
         }
 
-        $("#sort-by-lastname").click(function() {
+        $("#sort-by-name").click(function() {
           // clear other elements' formatting, first line has to be for this element too
-          $(".sort-by").removeClass('highlight-green highlight-red');
-          $(this).siblings(".sort-by").children('span').html('~');
            
           temp = $(this).attr('data-reverse');
           $(".sort-by").removeAttr('data-reverse');
@@ -111,11 +97,9 @@
           if ($(this).attr('data-reverse') == 1) {
             reverse = 1;
             $(this).removeAttr('data-reverse');
-            $(this).addClass('highlight-red');
             $(this).children('span').html('&larr;');
           } else {
             $(this).attr('data-reverse',1);
-            $(this).addClass('highlight-green');
             $(this).children('span').html('&rarr;');
           }
           teacherSort('lastname', reverse);
@@ -123,8 +107,6 @@
 
         $("#sort-by-grade").click(function() {
           // clear other elements' formatting
-          $(".sort-by").removeClass('highlight-green highlight-red');
-          $(this).siblings(".sort-by").children('span').html('~');
 
           temp = $(this).attr('data-reverse');
           $(".sort-by").removeAttr('data-reverse');
@@ -134,23 +116,11 @@
           if ($(this).attr('data-reverse') == 1) {
             reverse = 1;
             $(this).removeAttr('data-reverse');
-            $(this).addClass('highlight-red');
             $(this).children('span').html('&larr;');
           } else {
             $(this).attr('data-reverse',1);
-            $(this).addClass('highlight-green');
             $(this).children('span').html('&rarr;');
           }
           teacherSort('grade', reverse);
         });
       });
-
-
-
-
-
-
-
-
-
-

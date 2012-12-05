@@ -56,19 +56,5 @@
               = submit_tag 'Save Semester', :class => "btn btn-info"
               = link_to 'Cancel', semesters_path, :class => "btn btn-info"
 
-        
-          /%div.control-group
-          /  = label :semester, :start_label, 'Start Date', :class => "control-label"
-          /  %div.controls
-          /    = date_select :semester, :start,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
-    
-          /%div.control-group
-          /  = label :semester, :end_label, 'End Date', :class => "control-label"
-          /  %div.controls
-          /    = date_select :semester, :end,{:use_short_month => true, :order => [:month, :day, :year]}, {:class => "shrink"}
-              
-          /%div.control-group
-          /  %div.controls
-          /    = submit_tag 'Save Changes'
     :javascript
       $("#navbar-new-session").addClass('active');

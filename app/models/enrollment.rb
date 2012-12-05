@@ -103,7 +103,9 @@ class Enrollment < ActiveRecord::Base
     return false unless student != nil
 =end
     enrollments = Enrollment.where(:student_id => self.student_id, :course_id => self.course_id )
-    return enrollments.length == 0
+    return true unless enrollments.length > 0
+    return true unless self.id != enrollments[0].id
+    return false
   end
 
   private
@@ -128,4 +130,5 @@ class Enrollment < ActiveRecord::Base
     return "Not Enrolled, Lottery" unless self.enrolled
     return "Enrolled"
   end
+
 end

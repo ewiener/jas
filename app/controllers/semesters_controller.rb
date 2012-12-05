@@ -15,7 +15,7 @@ class SemestersController < ApplicationController
 
   def new
     if flash.key? :semester
-      @semester = flash[:semester]
+      @semester = Semester.new(flash[:semester])
       render 'new'
       return
     end
@@ -25,7 +25,7 @@ class SemestersController < ApplicationController
     @semester = Semester.create(params[:semester])
     if @semester.new_record?
       flash[:warning] = @semester.errors
-      flash[:semester] = @semester
+      flash[:semester] = params[:semester]
       redirect_to new_semester_path
       return
     else
@@ -33,13 +33,6 @@ class SemestersController < ApplicationController
     end
     redirect_to semesters_path
   end
-
-=begin
-  def edit
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-  end
-=end
 
   def add_days_off(update_hash)
     day_span = update_hash[:dates_with_no_classes_day]
@@ -138,14 +131,5 @@ class SemestersController < ApplicationController
     end
     return true
   end
-
-=begin
-  private
-  def errors_string(semester)
-    error_messages = ""
-    semester.errors.each{|attr,msg| error_messages += "#{attr} - #{msg}\n"}
-    return error_messages
-  end
-=end
 end
 

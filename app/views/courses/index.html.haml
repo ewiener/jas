@@ -15,32 +15,26 @@
         Courses
       = link_to "+ Add New Course", new_semester_course_path, :style => "float:right;"
       .clear
-      .vspace20
-      %table.courses.table-striped.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}
+      .vspace10
+      %table.courses.table-bordered.table-striped.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}
         %thead
           %tr.no-select
             %td
-              Name
               %span.sort-by#sort-by-name
-                A
-                %span
-                  ="~"
-                Z
+                Name
             %td
-              PTA Instructor
               %span.sort-by#sort-by-ptainstructor
-                A
-                %span
-                  ="~"
-                Z
+                PTA Instructor
             %td
               Days
             %td
               Time
             %td
-              Room
+              %span.sort-by#sort-by-room
+                Room
             %td
-              Enrolled
+              %span.sort-by#sort-by-enrolled
+                Enrolled
             %td
             %td
         %tbody
@@ -81,4 +75,106 @@
     :javascript
       $(function() {
         $("#navbar-courses").addClass('active');
+
+        rows = [];
+        $("table.courses tbody tr.course-info").each(function() {
+          $tr = $(this);
+          $courseName = $.trim($tr.children(".course-name").text());
+          $coursePtainstructor = $.trim($tr.children(".course-ptainstructor").text());
+          $courseRoom = $.trim($tr.children(".course-room").text());
+          $courseEnrolled = $.trim($tr.children(".course-enrolled").text());
+          rows.push({
+            'tr': $tr,
+            'name':  $courseName,
+            'ptainstructor': $coursePtainstructor,
+            'room': $courseRoom,
+            'enrolled': $courseEnrolled,
+          });
+        });
+        console.log(rows);
+
+        function teacherSort(property, reverse) {
+          reverse = (typeof reverse === "undefined") ? 0 : reverse;
+          rows.sort(function(a,b) {
+            if (reverse) {
+              return a[property] < b[property];
+            } else {
+              return a[property] > b[property];
+            }
+          });
+          $("table.courses tbody").html(rows[0].tr);
+          // start with the second
+          for (var i=1; i<rows.length; i++) {
+            $("table.courses tbody").append(rows[i].tr);
+          }
+        }
+
+        $("#sort-by-name").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('name', reverse);
+        });
+        $("#sort-by-ptainstructor").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('ptainstructor', reverse);
+        });
+        $("#sort-by-room").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('room', reverse);
+        });
+        $("#sort-by-enrolled").click(function() {
+          // clear other elements' formatting, first line has to be for this element too
+           
+          temp = $(this).attr('data-reverse');
+          $(".sort-by").removeAttr('data-reverse');
+          $(this).attr('data-reverse',temp);
+          reverse = 0;
+          if ($(this).attr('data-reverse') == 1) {
+            reverse = 1;
+            $(this).removeAttr('data-reverse');
+            $(this).children('span').html('&larr;');
+          } else {
+            $(this).attr('data-reverse',1);
+            $(this).children('span').html('&rarr;');
+          }
+          teacherSort('enrolled', reverse);
+        });
       });

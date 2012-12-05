@@ -20,38 +20,6 @@ describe Semester do
     end
   end
 
-=begin
-  describe 'Check if name_is_valid add errors' do
-    it 'I test name_is_valid with invalid name and it should return errors' do
-      @semester = Semester.new
-      @semester.name = ""
-      @semester.errors.should_receive(:add).with({:name => "Invalid empty string for name"})
-    end
-
-    it 'I test name_is_valid with valid name and it should not return errors' do
-      @semester = Semester.new
-      @semester.name = "Mary Lane"
-      @semester.errors.should_not_receive(:add).with({:name => "Invalid empty string for name"})
-    end
-  end
-=end
-
-=begin
-  describe 'Check if valid_start_date adds errors' do
-    it 'I test valid_start_date with invalid date and it should return errors' do
-      @semester = Semester.new
-      @semester.start_date = "10/32/2012"
-      @semester.errors.should_receive(:add).with({:start_date => "The start date cannot be parsed"}) #not sure if errors is accessible
-    end
-
-    it 'I test valid_start_date with valid date and it should not return errors' do
-      @semester = Semester.new
-      @semester.start_date = "10/31/2012"
-      @semester.errors.should_not_receive(:add).with({:start_date => "The start date cannot be parsed"})
-    end
-  end
-=end
-
   describe 'Check if start date is valid' do
     it 'I test if valid start date is valid and it should be' do
       @semester = Semester.new
@@ -102,21 +70,6 @@ describe Semester do
     end
   end
 
-=begin
-  describe 'Check if valid_end_date adds errors' do
-    it 'I test valid_end_date with invalid date and it should return errors' do
-      @semester = Semester.new
-      @semester.end_date = "10/32/2012"
-      @semester.errors.should_receive(:add).with({:end_date => "The end date cannot be parsed"})
-    end
-
-    it 'I test valid_end_date with valid date and it should not return errors' do
-      @semester = Semester.new
-      @semester.end_date = "10/31/2012"
-      @semester.errors.should_not_receive(:add).with({:end_date => "The end date cannot be parsed"})
-    end
-  end
-=end
   describe 'Check if registration deadline is valid' do
     it 'I test if valid registration deadline is valid and it should be' do
       @semester = Semester.new
@@ -142,38 +95,6 @@ describe Semester do
     end
   end
 
-
-=begin
-  describe 'Check if valid_registration_date adds errors' do
-    it 'I test if valid_registration_date with invalid registration deadline and it should add errors' do
-      @semester = Semester.new
-      @semester.registration_deadline = "10/32/2012"
-      @semester.errors.should_receive(:add).with({:registration_deadline => "The registration deadline could not be parsed."})
-    end
-
-    it 'I test if valid_registration_date with valid registration deadline and it should not add errors' do
-      @semester = Semester.new
-      @semester.registration_deadline = "10/31/2012"
-      @semester.errors.should_not_receive(:add).with({:registration_deadline => "The registration deadline could not be parsed"})
-    end
-  end
-=end
-
-=begin
-  describe 'Check if valid_lottery_date adds errors' do
-    it 'I test if valid_lottery_date with invalid date and it should add errors' do
-      @semester = Semester.new
-      @semester.lottery_deadline = "9/32/2012"
-      @semester.errors.should_receive (:add).with({:lottery_deadline => "The lottery deadline could not be parsed"})
-      end
-
-    it 'I test if valid_lottery_date with valid date and it should not add errors' do
-      @semester = Semester.new
-      @semester.lottery_deadline = "9/30/2012"
-      @semester.errors.should_not_receive(:add).with({:lottery_deadline => "The lottery deadline could not be parsed"}) #needs to deal with create
-    end
-  end
-=end
 
   describe 'Check if course can be created' do
     it 'I test can_create_course? when ptainstructor and teacher exist' do
@@ -284,8 +205,6 @@ describe Semester do
     end
 
   end
-
-
 
 
   describe 'Check if correct number of days is calculated in semester' do
@@ -454,8 +373,6 @@ describe Semester do
       @course_test.ptainstructor_id = 2
       @course_test.teacher_id = 3
       @courses.should == @course_test
-
-
 
     end
   end

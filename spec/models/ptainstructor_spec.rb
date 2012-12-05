@@ -27,10 +27,10 @@ describe Ptainstructor do
       @ptainstructor.last_name_is_valid?.should == true
     end
 
-    it 'I test last_name_is_valid? with invalid name "" ' do
+    it 'I test last_name_is_valid? with valid name "" ' do
       @ptainstructor = Ptainstructor.new
       @ptainstructor.last_name = ""
-      @ptainstructor.last_name_is_valid?.should == false
+      @ptainstructor.last_name_is_valid?.should == true
     end
 
     it 'I test last_name_is_valid? with invalid name nil' do
@@ -56,13 +56,7 @@ describe Ptainstructor do
       @ptainstructor = Ptainstructor.new
       @ptainstructor.email_is_valid?.should == false
     end
-=begin
-    it 'I test email_is_valid? with invalid email john@gmail' do
-      @ptainstructor = Ptainstructor.new
-      @ptainstructor.email = "john@gmail"
-      @ptainstructor.email_is_valid?.should == false
-    end
-=end
+
     it 'I test email_is_valid? with invalid email john.com' do
       @ptainstructor = Ptainstructor.new
       @ptainstructor.email = "john.com"

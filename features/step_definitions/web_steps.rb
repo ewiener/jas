@@ -78,9 +78,6 @@ end
 
 Given /^the following sessions exist:$/ do |table|
   table.hashes.each do |session|
-    #need to change the input so that field is not requited in this case
-    #no_classes = Array.new
-    #session[:dates_with_no_classes] = Array.new << session[:dates_with_no_classes]
     Semester.create(session)
   end
 end
@@ -119,8 +116,6 @@ Given /^the following students are in the database:$/ do |table|
   table.hashes.each do |student|
     sem_id = Semester.find_by_name(student[:semester])
     student[:semester] = sem_id
-    #course_id = Ptainstructor.find_by_name(student[:courses])
-    #student[:courses] = course_id
     classroom_id = Teacher.find_by_name(student[:teacher])
     student[:teacher] = classroom_id
     Student.create(student)
@@ -141,8 +136,6 @@ Then /I should see no populated courses/ do
 end
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-  #  ensure that that e1 occurs before e2.
-  #  page.content  is the entire content of the page as a string.
   match1 = /#{e1}/ =~ page.body
   match2 = /#{e2}/ =~ page.body
   if (match1 == nil)
@@ -154,21 +147,14 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   if (match1 >= match2)
     flunk "#{e1} does not occur before #{e2}"
   end
-  #flunk "Unimplemented"
 end
 
 When /^I confirm popup$/ do
-  #page.evaluate_script('window.confirm = function() { return true; }')
-  #page.click('OK')
   page.driver.browser.switch_to.alert.accept
-  #popup.confirm
 end
 
 When /^I dismiss popup$/ do
   page.driver.browser.switch_to.alert.dismiss
-  #page.evaluate_script('window.confirm = function() { return true; }')
-  #page.click('Cancel')
-  #popup.dismiss
 end
 
 When /^I fill in the new pta form correctly with name "(.*)"$/ do |name|
@@ -200,7 +186,6 @@ end
 
 def fill_in_new_create_class_form_correcctly(subject, pta_inst, room)
   fill_in("course_name", :with => subject)
-  #fill_in("course_ptainstructor", :with => "")
   fill_in("course_description", :with => "A class about numbers")
   check("course_wednesday")
   fill_in("course_start_time", :with => "2:10pm")
@@ -286,26 +271,12 @@ When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
 end
 
-# Use this to fill in an entire form with data from a table. Example:
-#
-#   When I fill in the following:
-#     | Account Number | 5002       |
-#     | Expiry date    | 2009-11-01 |
-#     | Note           | Nice guy   |
-#     | Wants Email?   |            |
-#
-# TODO: Add support for checkbox, select or option
-# based on naming conventions.
-#
-
 Then /^the "([^"]*)" drop-down should contain the option "([^"]*)"$/ do |id, value|
   page.has_select?(id, :options => [value]).should == true
-  #page.should.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
 end
 
 Then /^the "([^"]*)" drop-down should not contain the option "([^"]*)"$/ do |id, value|
   page.has_select?(id, :options => [value]).should == false
-  #page.should_not.have_xpath "//select[@id = '#{id}']/option[text() = '#{value}']"
 end
 
 When /^(?:|I )fill in the following:$/ do |fields|
@@ -346,16 +317,6 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
   end
 end
 
-Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
-  regexp = Regexp.new(regexp)
-
-  if page.respond_to? :should
-    page.should have_xpath('//*', :text => regexp)
-  else
-    assert page.has_xpath?('//*', :text => regexp)
-  end
-end
-
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_no_content(text)
@@ -363,18 +324,6 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
     assert page.has_no_content?(text)
   end
 end
-
-# Are the supposed to be two of theses?  This one and the one above. -------------------------------------------------------------
-Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
-  regexp = Regexp.new(regexp)
-
-  if page.respond_to? :should
-    page.should have_no_xpath('//*', :text => regexp)
-  else
-    assert page.has_no_xpath?('//*', :text => regexp)
-  end
-end
-
 
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do

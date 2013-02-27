@@ -10,31 +10,23 @@ require 'ostruct'
 
 puts "Seeding..."
 
-User.create(:username => "admin", :password => "asdf", :password_confirmation => "asdf")
+User.create(:username => "admin", :password => "jrocks", :password_confirmation => "jrocks")
 
 semesters = []
 semesters.push(OpenStruct.new({
   :name => 'Fall 2012',
-  :start_date => '08/22/2012',
-  :end_date => '10/24/2012',
-  :lottery_deadline => '08/22/2012',
-  :registration_deadline => '08/22/2012',
+  :start_date => '09/22/2012',
+  :end_date => '12/15/2012',
+  :lottery_deadline => '09/15/2012',
+  :registration_deadline => '09/08/2012',
   :fee => 1000,
 }))
 semesters.push(OpenStruct.new({
-  :name => 'Spring 2012',
-  :start_date => '01/28/2012',
-  :end_date => '03/14/2012',
-  :lottery_deadline => '08/22/2012',
-  :registration_deadline => '08/22/2012',
-  :fee => 2000,
-}))
-semesters.push(OpenStruct.new({
-  :name => 'Winter 2012',
-  :start_date => '11/28/2012',
-  :end_date => '12/14/2012',
-  :lottery_deadline => '08/22/2012',
-  :registration_deadline => '08/22/2012',
+  :name => 'Spring 2013',
+  :start_date => '02/04/2013',
+  :end_date => '05/03/2013',
+  :lottery_deadline => '01/18/2013',
+  :registration_deadline => '01/25/2013',
   :fee => 2000,
 }))
 semesters.each do |semester|
@@ -50,8 +42,8 @@ semesters.each do |semester|
 
   # Adding PTA Instructors
   currentSemester = Semester.find_by_name(semester.name)
-  ptainstructors_first_names = ['Benny', 'David', 'Steve']
-  ptainstructors_last_names = ['Benassi', 'Guetta', 'Aoki']
+  ptainstructors_first_names = ['Kalen', 'Lolly', 'Henri']
+  ptainstructors_last_names = ['Meyer', 'Watanabe', 'Ducharme']
   number_of_ptainstructors = 3
   number_of_ptainstructors.times do |t|
     currentSemester.ptainstructors.create(
@@ -66,8 +58,8 @@ semesters.each do |semester|
   # Adding Teachers
   grades = 'K,1,2,3,4,5'.split(',')
   number_of_teachers = 3
-  teacher_names = ['Lil Wayne', 'Jay Z', 'Rick Ross']
-  students_names = ['Aubrey Drake', 'Jermaine Cole', 'Something Wale']
+  teacher_names = ['Anna Wong', 'Barry Fike', 'Barb Wenger']
+  students_names = ['Italo Calvino', 'John Barth', 'Jorge Borges']
   number_of_teachers.times do |t|
     randomGrade = grades[rand(grades.length)]
     teacher = currentSemester.teachers.create(
@@ -79,7 +71,7 @@ semesters.each do |semester|
 
   # Adding Courses
   grades = 'K,1,2,3,4,5'.split(',')
-  courses = ['Fun Math', 'Beautiful Photography', 'Rubik\'s Cube']
+  courses = ['Constructing Art', 'Fun with Mandarin', 'Skilly Circus']
   ps = []
   ts = []
   Ptainstructor.all.each do |ptainstructa|

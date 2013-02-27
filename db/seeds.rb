@@ -88,13 +88,14 @@ semesters.each do |semester|
     teacherId = ts[rand(ts.length)]
     teacher = Teacher.find_by_id(teacherId)
 
-    currentSemester.students.create(
+    Student.create(
       first_name: students_first_names[t],
       last_name: students_last_names[t],
       grade: "#{randomGrade}",
       parent_phone: "1234567890",
       parent_name: "Mr. Parent",
       parent_email: "parent#{t+1}@gmail.com",
+      semester: currentSemester,
       teacher: teacher,
     )
   end

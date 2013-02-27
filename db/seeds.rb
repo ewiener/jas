@@ -40,8 +40,9 @@ semesters.each do |semester|
     fee: 1000.0
   )
 
-  # Adding PTA Instructors
   currentSemester = Semester.find_by_name(semester.name)
+
+  # Adding PTA Instructors
   ptainstructors_first_names = ['Kalen', 'Lolly', 'Henri']
   ptainstructors_last_names = ['Meyer', 'Watanabe', 'Ducharme']
   number_of_ptainstructors = 3
@@ -59,7 +60,6 @@ semesters.each do |semester|
   grades = 'K,1,2,3,4,5'.split(',')
   number_of_teachers = 3
   teacher_names = ['Anna Wong', 'Barry Fike', 'Barb Wenger']
-  students_names = ['Italo Calvino', 'John Barth', 'Jorge Borges']
   number_of_teachers.times do |t|
     randomGrade = grades[rand(grades.length)]
     teacher = currentSemester.teachers.create(
@@ -69,9 +69,6 @@ semesters.each do |semester|
     )
   end
 
-  # Adding Courses
-  grades = 'K,1,2,3,4,5'.split(',')
-  courses = ['Constructing Art', 'Fun with Mandarin', 'Skilly Circus']
   ps = []
   ts = []
   Ptainstructor.all.each do |ptainstructa|
@@ -80,6 +77,31 @@ semesters.each do |semester|
   Teacher.all.each do |teacha|
     ts.push(teacha.id)
   end
+
+  # Adding Students 
+  students_first_names = ['Italo', 'John', 'Jorge']
+  students_last_names = ['Calvino', 'Barth', 'Borges']
+  number_of_students = 3
+  number_of_students.times do |t|
+
+    randomGrade = grades[rand(grades.length)]
+    teacherId = ts[rand(ts.length)]
+    teacher = Teacher.find_by_id(teacherId)
+
+    currentSemester.students.create(
+      first_name: students_first_names[t],
+      last_name: students_last_names[t],
+      grade: "#{randomGrade}",
+      parent_phone: "1234567890",
+      parent_name: "Mr. Parent",
+      parent_email: "parent#{t+1}@gmail.com",
+      teacher: teacher,
+    )
+  end
+
+  # Adding Courses
+  grades = 'K,1,2,3,4,5'.split(',')
+  courses = ['Constructing Art', 'Fun with Mandarin', 'Skilly Circus']
   number_of_courses = 3
   number_of_courses.times do |t|
 
@@ -117,11 +139,6 @@ semesters.each do |semester|
     )
   end
 end
-
-
-
-
-
 
 
 puts "Seeding Done!"

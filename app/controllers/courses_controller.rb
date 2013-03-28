@@ -2,120 +2,87 @@ class CoursesController  < ApplicationController
   protect_from_forgery
 
   def index
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @courses = Course.find_all_by_semester_id(@semester, :order => "sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
-    @enrollmentHash = {}
-    @courses.each do |course|
-      @enrollmentHash[course.id] = course.students.length
-    end
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
+    
+    @courses = @semester.courses
+    @course_size = Hash[@courses.map {|course| [course.id, course.students.length]}]
   end
 
   def new
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @ptainstructors = Ptainstructor.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
-    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
-    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
-    @teachers = teachers1 + teachers2
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
+    
+    @ptainstructors = @semester.ptainstructors
     @ptainstructors.unshift(Ptainstructor.new(:first_name => "Select", :last_name => "Item:")) #add item to the beginning of the ptainstructor's list
+    @teachers = @semester.teachers
     @teachers.unshift(Teacher.new(:classroom => "Select Item:"))
-    if flash.key? :course
-      @course = Course.new(flash[:course])
-      render 'new'
-      return
-    end
-    @course = Course.new
-  end
-
-  #Returns the fee of the course
-  def coursefee
-    course = Course.find(params[:id])
-    @coursefee = course.total_fee.to_json
-    return
+    
+    @course = flash.key?(:course) ? Course.new(flash[:course]) : Course.new
   end
 
   def create
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the class.")
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester, semester_courses_path)
+    
     @course = @semester.courses.create(params[:course])
-    if @course.new_record?
+    if not @course.new_record?
+    	redirect_to semester_courses_path, :notice => "Successfully created #{@course.name}."
+    else
       flash[:warning] = @course.errors
-      flash[:course] = params[:course] #save fields so the user doesn't have to re-enter everything again
+      flash[:course] = params[:course] # Save fields so the user doesn't have to re-enter everything again
       redirect_to new_semester_course_path
-      return
     end
-    flash[:notice] = "Successfully created #{@course.name}."
-    redirect_to semester_courses_path(@semester)
   end
 
   def edit
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @course = Course.find_by_id params[:id]
-    if not @course
-      flash[:warning] = [[:id, "Unable to locate the course given for modification."]]
-      redirect_to semester_courses_path
-      return
-    end
-     @ptainstructors = Ptainstructor.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
-    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
-    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
-    @teachers = teachers1 + teachers2
-    if flash.key? :course
-      course_id = @course.id
-      @course = Course.new(flash[:course])
-      @course.id = course_id
-      render 'edit'
-      return
+    @course = Course.find(params[:id])
+    return unless valid_course?(@course)
+
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
+    return unless valid_semester?(@semester)
+
+    @ptainstructors = @semester.ptainstructors
+    @teachers = @semester.teachers
+  end
+
+  def update
+    @course = Course.find(params[:id])
+    return unless valid_course?(@course)
+
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
+    return unless valid_semester?(@semester)
+    
+    if @course.update_attributes(params[:course])
+      redirect_to semester_courses_path(@semester), :notice => "#{@course.name} in #{@semester.name} was successfully updated."
+    else
+      flash[:warning] = @course.errors
+      flash[:course] = params[:course] # Save fields so the user doesn't have to re-enter everything again
+      redirect_to edit_course_path
     end
   end
 
   def destroy
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @course = Course.find_by_id params[:id]
-    if not @course
-      flash[:warning] = [[:id,"Could not find the course to be destroyed."]]
-      redirect_to semester_courses_path(@semester)
-      return
-    end
-    course_name = @course.name
+    @course = Course.find(params[:id])
+    return unless valid_course?(@course)
+
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
+    return unless valid_semester?(@semester)
+    
     if @course.destroy
-      flash[:notice] = "#{course_name} was successfully removed from the database."
+      flash[:notice] = "#{@course.name} was successfully deleted."
     else
       flash[:warning] = @course.errors
     end
+    
     redirect_to semester_courses_path(@semester)
   end
 
-  def update
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-
-    @course = Course.find_by_id params[:id]
-    if not @course
-      flash[:warning] = [[:id, "The given course for updating could not be found."]]
-      redirect_to semester_courses_path(@semester)
-      return
-    end
-    if @course.update_attributes(params[:course])
-      if params[:course].length > 0
-          flash[:notice] = "#{@course.name} in #{@semester.name} was successfully updated."
-      end
-      redirect_to semester_courses_path(@semester)
-    else
-      flash[:warning] = @course.errors
-      flash[:course] = params[:course]
-      redirect_to edit_semester_course_path
-    end
-  end
-
-  public
   #Returns the number of times a class meets in a semester. Called from javascript, with a hash of the days of the week that are checked
   def calculate_meetings
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester, :no_redirect)
+    
     class_meetings = 0
     class_meetings_hash = @semester.specific_days_in_semester
     params.each do |d, value|
@@ -125,19 +92,14 @@ class CoursesController  < ApplicationController
         class_meetings += class_meetings_hash[day_of_week]
       end
     end
-
-    @calculate_meetings = class_meetings.to_json
-    render :text => @calculate_meetings
+ 
+    render :json => class_meetings.to_json
   end
 
-  private
-  def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
-    if not semester
-      flash[:warning] = [[:semester_id, message]]
-      redirect_to semesters_path, :method => :get
-      return false
-    end
-    return true
-  end
+  def course_fee
+    course = Course.find(params[:id])
+    return unless valid_course(course, :no_redirect)
+    render :json => course.total_fee.to_json
+  end  
 
 end

@@ -2,105 +2,72 @@ class PtainstructorsController < ApplicationController
   protect_from_forgery
 
   def index
-    if params[:semester_id]
-      @semester = Semester.find_by_id params[:semester_id]
-      if not @semester
-        flash[:warning] = [[:semester_id, "Unable to locate the specified semester."]]
-        redirect_to semesters_path
-        return
-      end
-    else
-      flash[:warning] = [[:semester_id, "No semester was given."]]
-      redirect_to semesters_path
-      return
-    end
-    @ptainstructors = Ptainstructor.find_all_by_semester_id(@semester, :order => "first_name asc, last_name asc")
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
+
+    @ptainstructors = @semester.ptainstructors
   end
 
   def new
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    if flash.key? :ptainstructor
-      @ptainstructor = flash[:ptainstructor]
-      render 'new'
-      return
-    end
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
+    
+    @ptainstructor = flash.key?(:ptainstructor) ? Ptainstructor.new(flash[:ptainstructor]) : Ptainstructor.new
   end
 
   def create
-    #check for admin
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
 
     @ptainstructor = @semester.ptainstructors.create(params[:ptainstructor])
-    if @ptainstructor.new_record?
-      flash[:warning] = @ptainstructor.errors
-      flash[:ptainstructor] = @ptainstructor
-      redirect_to new_semester_ptainstructor_path(@semester)
-      return
+    if not @ptainstructor.new_record?
+    	redirect_to semester_ptainstructors_path(@semester), 
+    	    :notice => "#{@ptainstructor.first_name} #{@ptainstructor.last_name} was successfully added to the database."
     else
-      flash[:notice] = "#{@ptainstructor.first_name} #{@ptainstructor.last_name} was successfully added to the database."
-      redirect_to semester_ptainstructors_path(@semester)
+      flash[:warning] = @ptainstructor.errors
+      flash[:ptainstructor] = params[:ptainstructor] # Save fields so the user doesn't have to re-enter everything again
+      redirect_to new_semester_ptainstructor_path
     end
   end
 
   def edit
-    #check if admin or if not, check to see if the logged in ptainstructor id is the id of the ptainstructor being edited
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @ptainstructor = Ptainstructor.find_by_id params[:id]
-    return unless ptainstructor_is_valid(@ptainstructor)
+    @ptainstructor = Ptainstructor.find(params[:id])
+    return unless valid_ptainstructor?(@ptainstructor)
+    
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @ptainstructor.semester
+    return unless valid_semester?(@semester)
   end
 
   def update
-    #Check if admin or if the current ptainstructor matches the id of the ptainstructor being modified
-    @semester = Semester.find_by_id params[:semester_id]
-    @ptainstructor = Ptainstructor.find_by_id params[:id]
-    return unless ptainstructor_is_valid(@ptainstructor)
+    @ptainstructor = Ptainstructor.find(params[:id])
+    return unless valid_ptainstructor?(@ptainstructor)
+
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @ptainstructor.semester
+    return unless valid_semester?(@semester)
 
     if @ptainstructor.update_attributes(params[:ptainstructor])
-      flash[:notice] = "#{@ptainstructor.first_name} #{@ptainstructor.last_name}'s information was successfully updated."
-      redirect_to semester_ptainstructors_path(@semester)
+      redirect_to semester_ptainstructors_path(@semester),
+          :notice => "#{@ptainstructor.first_name} #{@ptainstructor.last_name}'s information was successfully updated."
     else
       flash[:warning] = @ptainstructor.errors
-      redirect_to edit_semester_ptainstructor_path(@semester,@ptainstructor)
+      flash[:ptainstructor] = params[:ptainstructor] # Save fields so the user doesn't have to re-enter everything again
+      redirect_to edit_ptainstructor_path
     end
   end
 
   def destroy
-    #Check is the ptainstructor is an admin.  Only admins should be able to delete ptainstructors
     @ptainstructor = Ptainstructor.find_by_id params[:id]
-    return unless ptainstructor_is_valid(@ptainstructor)
+    return unless valid_ptainstructor?(@ptainstructor)
 
-    first_name = @ptainstructor.first_name
-    last_name = @ptainstructor.last_name
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @ptainstructor.semester
+    return unless valid_semester?(@semester)
 
     if @ptainstructor.destroy
-      flash[:notice] = "#{first_name} #{last_name} was successfully deleted."
+      flash[:notice] = "#{@ptainstructor.first_name} #{@ptainstructor.last_name} was successfully deleted."
     else
       flash[:warning] = @ptainstructor.errors
     end
 
-    redirect_to semester_ptainstructors_path
-  end
-
-  def ptainstructor_is_valid(user)
-    if(user == nil)
-      flash[:warning] = [[:id, "Could not find the corresponding PTA instructor."]]
-      redirect_to semester_ptainstructors_path
-      return false
-    end
-    return true
-  end
-
-  private
-  def semester_is_valid(semester, message="Error: Unable to find the semester for the ptainstructor.")
-    if not semester
-      flash[:warning] = [[:semester_id, message]]
-      redirect_to semesters_path, :method => :get
-      return false
-    end
-    return true
+    redirect_to semester_ptainstructors_path(@semester)
   end
 end
-

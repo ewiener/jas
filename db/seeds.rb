@@ -31,7 +31,7 @@ semesters.push(OpenStruct.new({
 }))
 semesters.each do |semester|
   # Adding Semesters
-  Semester.create(
+  current_semester = Semester.create(
     name: semester.name,
     start_date: semester.start_date,
     end_date: semester.end_date,
@@ -40,14 +40,12 @@ semesters.each do |semester|
     fee: 1000.0
   )
 
-  currentSemester = Semester.find_by_name(semester.name)
-
   # Adding PTA Instructors
   ptainstructors_first_names = ['Kalen', 'Lolly', 'Henri']
   ptainstructors_last_names = ['Meyer', 'Watanabe', 'Ducharme']
   number_of_ptainstructors = 3
   number_of_ptainstructors.times do |t|
-    currentSemester.ptainstructors.create(
+    current_semester.ptainstructors.create(
       first_name: ptainstructors_first_names[t],
       last_name: ptainstructors_last_names[t],
       email: "ptainstructor#{t+1}@gmail.com",
@@ -62,21 +60,15 @@ semesters.each do |semester|
   teacher_names = ['Anna Wong', 'Barry Fike', 'Barb Wenger']
   number_of_teachers.times do |t|
     randomGrade = grades[rand(grades.length)]
-    teacher = currentSemester.teachers.create(
+    teacher = current_semester.teachers.create(
       name: teacher_names[t],
       grade: "#{randomGrade}",
       classroom: "A classroom somewhere",
     )
   end
 
-  ps = []
-  ts = []
-  Ptainstructor.all.each do |ptainstructa|
-    ps.push(ptainstructa.id)
-  end
-  Teacher.all.each do |teacha|
-    ts.push(teacha.id)
-  end
+  ps = current_semester.ptainstructors.map { |p| p.id }
+  ts = current_semester.teachers.map { |t| t.id }
 
   # Adding Students 
   students_first_names = ['Italo', 'John', 'Jorge']
@@ -88,14 +80,13 @@ semesters.each do |semester|
     teacherId = ts[rand(ts.length)]
     teacher = Teacher.find_by_id(teacherId)
 
-    Student.create(
+    current_semester.students.create(
       first_name: students_first_names[t],
       last_name: students_last_names[t],
       grade: "#{randomGrade}",
       parent_phone: "1234567890",
       parent_name: "Mr. Parent",
       parent_email: "parent#{t+1}@gmail.com",
-      semester: currentSemester,
       teacher: teacher,
     )
   end
@@ -116,7 +107,7 @@ semesters.each do |semester|
     ptainstructor = Ptainstructor.find_by_id(ptainstructorId)
     teacher = Teacher.find_by_id(teacherId)
 
-    currentSemester.courses.create(
+    current_semester.courses.create(
       name: courses[t],
       description: courses[t],
       sunday: true,
@@ -140,6 +131,5 @@ semesters.each do |semester|
     )
   end
 end
-
 
 puts "Seeding Done!"

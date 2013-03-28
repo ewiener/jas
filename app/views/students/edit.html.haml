@@ -31,8 +31,8 @@
               %td
                 Delete Entry
           %tbody
-            - if @enrollments.length != 0
-              - @enrollments.each do |enrollment|
+            - if @student.enrollments.length != 0
+              - @student.enrollments.each do |enrollment|
                 %tr
                   %td.cell_center.enrollment-course{:id=>"enrollment_course_#{enrollment.course.id}"}
                     = enrollment.course.name
@@ -45,9 +45,9 @@
                   %td.cell_center.enrollment-pickup{:id=>"enrollment_#{enrollment.id}_fee_#{enrollment.dismissal}"}
                     = enrollment.dismissal_to_s
                   %td.cell_center.edit-td
-                    = button_to "Edit", edit_semester_student_enrollment_path(@semester, @student, enrollment), :method => :get, :class => "btn btn-warning edit-delete enrollment-edit", :id => "enrollment_#{enrollment.id}"
+                    = button_to "Edit", edit_student_path(@student), :class => "btn btn-warning edit-delete enrollment-edit", :id => "enrollment_#{enrollment.id}"
                   %td.cell_center
-                    = button_to "Delete", semester_student_enrollment_path(@semester, @student, enrollment), :method => :delete, :class => "btn btn-danger edit-delete"
+                    = button_to "Delete", unenroll_student_path(@student, :course_id => enrollment.course_id), :method => :post, :class => "btn btn-danger edit-delete"
             - else
               %tr
                 %td.cell_center
@@ -122,7 +122,7 @@
         %h1{:style=>"text-align:center;"}
           Edit Student
         .vspace20
-        = form_tag semester_student_path(@semester, @student), :class =>"form-horizontal", :method => :put, :style=>"display:inline;" do
+        = form_tag student_path(@student), :class =>"form-horizontal", :method => :put, :style=>"display:inline;" do
           %div.control-group
             = label :student, :first_name, 'First Name:', :class => "control-label"
             %div.controls
@@ -141,7 +141,7 @@
           %div.control-group
             = label :teacher, 'Classroom Teacher:', :class => "control-label"
             %div.controls
-              = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name, @student.teacher_id),:class => "course_select"
+              = select_tag :teacher, options_from_collection_for_select(@semester.teachers, :id, :name, @student.teacher_id),:class => "course_select"
 
           %div.control-group
             = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"
@@ -175,9 +175,9 @@
 
       %div#enrollment{:style=>"float:left;width:460px;outline:1px solid #ddd;height:650px;position:relative;top:1px;left:9px;"}
         %h1#enrollment_header{:style=>"text-align:center;"}
-          New Student Enrollment
+          Add Enrollment
         .vspace20
-        = form_tag semester_student_enrollments_path(@semester, @student), :class =>"form-horizontal", :style=>"display:inline;" do
+        = form_tag enroll_student_path(@student), :method => :post, :class =>"form-horizontal", :style=>"display:inline;" do
           %div.control-group
             = label "enrollment[course_id]", 'Select Class:', :class => "control-label"
             %div.controls
@@ -266,7 +266,7 @@
           courseid = $("#enrollment_course_id").val();
           if ($("#enrollment_scholarship_1").attr('checked')) {
             $.ajax({
-              url: "/coursefee/" + courseid
+              url: "/courses/" + courseid + "/fee"
             }).done(function(data) {
               $("#enrollment_scholarship_amount").val(data);
             });
@@ -275,7 +275,7 @@
         $("#enrollment_cancel").click(function(event) {
           event.preventDefault();
           $("#enrollment_course_id").val("");
-          $("#enrollment_header").text("New Student Enrollment");
+          $("#enrollment_header").text("Add Enrollment");
           $("#enrollment_scholarship_0").click();
           $("#dismissal_loc input").prop("checked", false);
           $("#enrollment_status input").prop("checked", false);
@@ -312,7 +312,7 @@
             $tmp.siblings(".edit-td").children().children().children().click();
           }
           else{
-            $("#enrollment_header").text("New Student Enrollment");
+            $("#enrollment_header").text("Add Enrollment");
             $("#enrollment_scholarship_0").click();
             $("#dismissal_loc input").prop("checked", false);
             $("#enrollment_status input").prop("checked", false);
@@ -331,7 +331,7 @@
           $("#enrollment-amount-div").css('visibility','visible');
           courseid = $("#enrollment_course_id").val();
           $.ajax({
-            url: "/coursefee/" + courseid
+            url: "/course_fee/" + courseid
           }).done(function(data) {
             $("#enrollment_scholarship_amount").val(data);
           });

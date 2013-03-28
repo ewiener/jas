@@ -14,9 +14,6 @@ class Student < ActiveRecord::Base
                   :parent_name,
                   :parent_email,
                   :health_alert,
-                  :semester,
-                  :teacher,
-                  :courses
                   :teacher_id
 
   validate :first_name_is_valid
@@ -25,6 +22,9 @@ class Student < ActiveRecord::Base
   validate :parent_phone_is_valid
   validate :parent_phone2_is_valid
   validate :parent_email_is_valid
+  
+  scope :alphabetical, order("last_name asc, first_name asc")
+  default_scope alphabetical
 
   private
   #Adds errors if first_name_is_valid? returns false
@@ -150,20 +150,15 @@ class Student < ActiveRecord::Base
 
   public
   def grand_total
-    total = 0
-    enrollments = Enrollment.find_all_by_student_id(self.id)
-    semester = self.semester
-    register = false
-    enrollments.each do |enrollment|
-      next unless enrollment.enrolled
-      register = true
-      total += enrollment.course.total_fee
-      total -= enrollment.scholarship_amount
-    end
-
-    if register;total += semester.fee;end
-
-    return total
+    total = enrollments.inject(0) { |sum, enrollment| sum + enrollment.amount_due }
+    total > 0 ? total += semester.fee : 0
   end
 
+  def find_enrollment(course_id)
+  	enrollments.where(:course_id => course_id).first
+  end
+  
+  def create_enrollment(attrs)
+  	enrollments.create(attrs)
+  end
 end

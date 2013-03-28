@@ -65,11 +65,11 @@
                 %td.cell_center.course-room
                   = course.teacher.classroom || "-"
                 %td.cell_center.course-enrolled
-                  = @enrollmentHash[course.id]
+                  = @course_size[course.id]
                 %td.cell_center.course-edit
-                  = button_to "Edit", edit_semester_course_path(@semester,course), :method=>"get", :class=>"btn btn-warning edit-delete"
+                  = button_to "Edit", edit_course_path(course), :method=> :get, :class=>"btn btn-warning edit-delete"
                 %td.cell_center.course-delete
-                  = button_to "Delete", semester_course_path(@semester, course), :method => :delete, :class => "btn btn-danger edit-delete", :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" }
+                  = button_to "Delete", course_path(course), :method => :delete, :class => "btn btn-danger edit-delete", :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" }
       .vspace10
 
     :javascript

@@ -15,7 +15,7 @@
       %h1.center
         Edit PTA Instructor
       %div.span8.offset2
-        = form_tag semester_ptainstructor_path(@semester,@ptainstructor), :method => "put", :class =>"form-horizontal" do
+        = form_tag ptainstructor_path(@ptainstructor), :method => "put", :class =>"form-horizontal" do
           %div.control-group 
             = label :ptainstructor, :first_name, 'First Name:', :class => "control-label"
             %div.controls

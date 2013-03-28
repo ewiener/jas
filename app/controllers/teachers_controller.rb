@@ -2,95 +2,70 @@ class TeachersController < ApplicationController
   protect_from_forgery
 
   def index
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    teachers1 = Teacher.where("semester_id = ? AND grade = ?", @semester.id, "K").order("name asc")
-    teachers2 = Teacher.where("semester_id = ? AND grade != ?", @semester.id, "K").order("grade asc","name asc")
-    @teachers = teachers1 + teachers2
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
+    
+    @teachers = @semester.teachers
   end
 
   def new
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    if flash.key? :course
-      @course = flash[:course]
-      render 'new'
-      return
-    end
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
+    
+    @teacher = flash.key?(:course) ? Teacher.new(flash[:course]) : Teacher.new
   end
 
   def create
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester,"Error: Unable to find a semester to associated with the teacher.")
+    @semester = Semester.find(params[:semester_id])
+    return unless valid_semester?(@semester)
 
     @teacher = @semester.teachers.create(params[:teacher])
-    if @teacher.new_record?
-      flash[:warning] = @teacher.errors
-      flash[:teacher] = @teacher
-      redirect_to new_semester_teacher_path(@semester)
-      return
+    if not @teacher.new_record?
+      redirect_to semester_teachers_path(@semester), :notice => "Successfully added #{@teacher.name} to the database."
     else
-      flash[:notice] = "Successfully added #{@teacher.name} to the database."
-      redirect_to semester_teachers_path(@semester)
+      flash[:warning] = @teacher.errors
+      flash[:teacher] = params[:teacher]
+      redirect_to new_semester_teacher_path(@semester)
     end
   end
 
   def edit
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @teacher = Teacher.find_by_id params[:id]
-    return unless teacher_is_valid(@teacher)
+    @teacher = Teacher.find(params[:id])
+    return unless valid_teacher?(@teacher)
+    
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @teacher.semester
+    return unless valid_semester?(@semester)
   end
 
   def update
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
-    @teacher = Teacher.find_by_id params[:id]
-    return unless teacher_is_valid(@teacher)
+    @teacher = Teacher.find(params[:id])
+    return unless valid_teacher?(@teacher)
+    
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @teacher.semester
+    return unless valid_semester?(@semester)
 
     if @teacher.update_attributes(params[:teacher])
-      flash[:notice] = "#{@teacher.name}'s entry was successfully updated."
-      redirect_to semester_teachers_path(@semester)
+      redirect_to semester_teachers_path(@semester), :notice => "#{@teacher.name}'s entry was successfully updated."
     else
       flash[:warning] = @teacher.errors
-      redirect_to edit_semester_teacher_path(@semester, @teacher)
+      flash[:teacher] = params[:teacher] # Save fields so the user doesn't have to re-enter everything again
+      redirect_to edit_teacher_path
     end
   end
 
   def destroy
-    @teacher = Teacher.find_by_id(params[:id])
-    return unless teacher_is_valid(@teacher)
+    @teacher = Teacher.find(params[:id])
+    return unless valid_teacher?(@teacher)
 
-    name = @teacher.name
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @teacher.semester
+    return unless valid_semester?(@semester)
 
     if @teacher.destroy
-      flash[:notice] = "#{name} was successfully deleted from the database."
+      flash[:notice] = "#{@teacher.name} was successfully deleted."
     else
       flash[:warning] = @teacher.errors
     end
 
-    redirect_to semester_teachers_path
+    redirect_to semester_teachers_path(@semester)
   end
-
-  private
-  def teacher_is_valid(teacher)
-    if(teacher == nil)
-      flash[:warning] = [[:id, "Could not find the corresponding teacher."]]
-      redirect_to semester_teachers_path
-      return false
-    end
-    return true
-  end
-
-
-  private
-  def semester_is_valid(semester, message="Error: Unable to find the semester for the course.")
-    if not semester
-      flash[:warning] = [[:semester_id, message]]
-      redirect_to semesters_path, :method => :get
-      return false
-    end
-    return true
-  end
-
 end

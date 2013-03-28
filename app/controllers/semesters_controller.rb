@@ -1,24 +1,19 @@
 class SemestersController < ApplicationController
   protect_from_forgery
 
-  def show
-    @semester = Semester.find_by_id params[:id]
-    return unless semester_is_valid(@semester)
-    @semesters = Semester.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
-    @courses = @semester.courses
-  end
-
   def index
-    #this should show the Jefferson PTA - Sessions home page, listing all semesters, and links to other things
     @semesters = Semester.all.sort_by{|semester| semester.start_date_as_date}.reverse
+  end
+  
+  def show
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
+    
+    @semesters = Semester.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
   end
 
   def new
-    if flash.key? :semester
-      @semester = Semester.new(flash[:semester])
-      render 'new'
-      return
-    end
+    @semester = flash.key?(:semester) ? Semester.new(flash[:semester]) : Semester.new
   end
 
   def create
@@ -27,11 +22,9 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
       flash[:semester] = params[:semester]
       redirect_to new_semester_path
-      return
     else
-      flash[:notice] = "Successfully created #{@semester.name}."
+      redirect_to semesters_path, :notice => "Successfully created #{@semester.name}."
     end
-    redirect_to semesters_path
   end
 
   def add_days_off(update_hash)
@@ -53,8 +46,9 @@ class SemestersController < ApplicationController
   end
 
   def update
-    @semester = Semester.find_by_id params[:id]
-    return unless semester_is_valid(@semester)
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
+    
     update_hash = params[:semester]
     if update_hash.include?(:dates_with_no_classes_day)
       update_hash, valid = add_days_off(update_hash)
@@ -65,8 +59,7 @@ class SemestersController < ApplicationController
       return
     end
     if @semester.update_attributes(update_hash)
-      flash[:notice] = "#{@semester.name} was successfully updated."
-      redirect_to semester_path(@semester)
+      redirect_to semester_path(@semester), :notice => "#{@semester.name} was successfully updated."
     else
       flash[:warning] = @semester.errors
       redirect_to edit_semester_path
@@ -74,13 +67,11 @@ class SemestersController < ApplicationController
   end
 
   def destroy
-    @semester = Semester.find_by_id params[:id]
-    return unless semester_is_valid(@semester)
-
-    name = @semester.name
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
 
     if @semester.destroy
-      flash[:notice] = "#{name} was successfully deleted."
+      flash[:notice] = "#{@semester.name} was successfully deleted."
     else
       flash[:warning] = @semester.errors
     end
@@ -89,19 +80,16 @@ class SemestersController < ApplicationController
   end
 
   def import
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
 
     if params[:import_semester_id]
-      semester_to_import = Semester.find_by_id params[:import_semester_id]
-      if semester_to_import
-        if @semester.import(semester_to_import)
-          flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
-        else
-          flash[:warning] = @semester.errors
-        end
+      semester_to_import = Semester.find(params[:import_semester_id])
+      return unless valid_semester?(semester_to_import, semester_path(@semester), "Invalid import semester")
+      if @semester.import(semester_to_import)
+        flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
       else
-        flash[:warning] = [[:import_semester_id,"The semeste id of the semester to import did not correspond to any semesters in the database."]]
+      	flash[:warning] = @semester.errors
       end
     else
       flash[:warning] = [[:import_semester_id, "The semester id of the semester to import was not found."]]
@@ -109,9 +97,9 @@ class SemestersController < ApplicationController
     redirect_to semester_path(@semester)
   end
 
-  def delete_date
-    @semester = Semester.find_by_id params[:semester_id]
-    return unless semester_is_valid(@semester)
+  def delete_days_off
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
 
     date = params[:date]
     if @semester.delete_date(date)
@@ -120,16 +108,6 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
     end
     redirect_to semester_path(@semester)
-  end
-
-  private
-  def semester_is_valid(semester)
-    if(semester == nil)
-      flash[:warning] = [[:id,"Could not find the corresponding semester."]]
-      redirect_to semesters_path
-      return false
-    end
-    return true
   end
 end
 

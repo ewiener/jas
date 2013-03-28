@@ -15,13 +15,22 @@ class Enrollment < ActiveRecord::Base
   validate :scholarship_is_valid
   validate :scholarship_amount_is_valid
   validate :enrolled_is_valid
-  validate :semester_id_is_valid
   validate :course_id_is_valid
   validate :student_id_is_valid
   validate :student_not_already_enrolled
+  
+  scope :by_course_day_and_name, joins(:course).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
 
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
-
+  
+  def total_fee
+  	course.total_fee - scholarship_amount
+  end
+    
+  def amount_due
+    enrolled ? total_fee : 0
+  end
+  
   private
   #Adds errors if dismisal_is_valid returns false
   def dismissal_is_valid
@@ -77,19 +86,6 @@ class Enrollment < ActiveRecord::Base
   def enrollment_is_valid?
     return false unless self.enrolled != nil
     return true
-  end
-
-  private
-  #Adds errors if semester_id_is_valid? returns false
-  def semester_id_is_valid
-    errors.add(:semester_id, "An invalid or non-existant semester id was specified.") unless semester_id_is_valid?
-  end
-
-
-  public
-  #Tests that semester for the enrollment's semester_id exists and returns true or false.
-  def semester_id_is_valid?
-    return ( Semester.find_by_id(self.semester_id) != nil )
   end
 
   private

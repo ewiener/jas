@@ -42,9 +42,9 @@
               %td.cell_center.student-grade
                 = student.grade
               %td.cell_center
-                = button_to "Edit", edit_semester_student_path(@semester,student), :method => :get, :class => "btn btn-warning"
+                = button_to "Edit", edit_student_path(student), :method => :get, :class => "btn btn-warning"
               %td.cell_center
-                = button_to "Delete", semester_student_path(@semester, student), :method => :delete, :class => "btn btn-danger"
+                = button_to "Delete", student_path(student), :method => :delete, :class => "btn btn-danger"
     :javascript
       $(function() {
         $("#navbar-students").addClass('active');

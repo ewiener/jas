@@ -156,7 +156,7 @@
           jsonObj[6] = $("#course_saturday").attr('checked');
           $.ajax({
             type: "POST",
-            url: "#{calculate_meetings_path}",
+            url: "#{calculate_meetings_for_course_path}",
             dataType: "json",
             data: jsonObj
           }).done(function(data) {

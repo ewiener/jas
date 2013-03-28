@@ -35,7 +35,7 @@
           %div.control-group
             = label :teacher, 'Jefferson Classroom Teacher:', :class => "control-label"
             %div.controls
-              = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name, @student.teacher_id),:class => "course_select"
+              = select_tag :teacher, options_from_collection_for_select(@semester.teachers, :id, :name, @student.teacher_id),:class => "course_select"
 
           %div.control-group
             = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"

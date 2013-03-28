@@ -5,7 +5,6 @@ class Ptainstructor < ActiveRecord::Base
   belongs_to :semester
   has_many :students, :through => :courses
 
-
   attr_accessible :first_name,
                   :last_name,
                   :email,
@@ -19,6 +18,9 @@ class Ptainstructor < ActiveRecord::Base
   validate :email_is_valid
   validate :phone_is_valid
   validate :address_is_valid
+
+  scope :alphabetical, order("last_name asc, first_name asc")
+  default_scope alphabetical
 
   private
   #Adds errors if first_name_is_valid? returns false

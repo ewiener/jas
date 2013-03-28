@@ -1,29 +1,31 @@
 Ptast::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+  root :to => "home#index"
 
-  #resources :logins
-  #root :to => "logins#index"
-
-  resources :user_sessions
-  root :to => "user_sessions#new"
-  resources :semesters do
-    resources :courses
+  resources :user_sessions, :only => [:new, :create]
+  resources :semesters, :shallow => true do
+  	member do
+  		put 'import'
+  		delete 'days_off', :action => :delete_days_off, :as => 'days_off_for'
+  	end
+    resources :courses do
+      member do
+      	get 'fee', :action => :fee, :as => 'fee_for'
+  		  get 'calculate_meetings', :as => 'calculate_meetings_for'
+      end
+    end
     resources :teachers
     resources :ptainstructors
     resources :students do
-      resources :enrollments
+      member do
+        post 'enroll'
+        post 'unenroll'
+      end
     end
-    collection do
-    end
+    resources :enrollments
   end
-  match '/semesters/:semester_id/import' => 'semesters#import', :as=>'semester_import', :via=>[:put]
-  match '/semesters/:semester_id/date' => 'semesters#delete_date', :as=>'semester_delete_date', :via=>[:put]
-  match '/semesters/:semester_id/calculate_meetings' => 'courses#calculate_meetings', :as=>'calculate_meetings'
-  #match '/calculate_total_fees' => 'courses#calculate_total_fees', :as=>'calculate_total_fees'
-  match '/coursefee/:id' => 'courses#coursefee', :as => 'coursefee'
-  match '/user_session/destroy' => 'user_sessions#destroy', :as => 'user_session_destroy'
-  #resources :teachers
+
+  match '/user_session/destroy' => 'user_sessions#destroy', :as => 'destroy_user_session'
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

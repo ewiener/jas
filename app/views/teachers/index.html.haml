@@ -40,10 +40,10 @@
                 %td.cell_center.teacher-classroom
                   = teacher.classroom
                 %td.cell_center.teacher-edit
-                  = button_to "Edit", edit_semester_teacher_path(@semester,teacher), :method=>"get", :class=>"btn btn-warning edit-delete"
+                  = button_to "Edit", edit_teacher_path(teacher), :method=> :get, :class=>"btn btn-warning edit-delete"
                 %td.cell_center.teacher-delete
                   - if teacher.can_be_deleted?
-                    = button_to "Delete", semester_teacher_path(@semester, teacher), :method => :delete, :class => "btn btn-danger edit-delete"
+                    = button_to "Delete", teacher_path(teacher), :method => :delete, :class => "btn btn-danger edit-delete"
                   - else
                     %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses or students. Remove the teacher from all referencing courses and students to delete."}
                       = "Referenced"

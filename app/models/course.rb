@@ -54,6 +54,9 @@ class Course < ActiveRecord::Base
   validate :total_fee_is_valid
   validate :ptainstructor_is_valid
   validate :teacher_is_valid
+  
+  scope :alphabetical_by_day, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
+  default_scope alphabetical_by_day
 
   private
   #Add errors if name_is_valid? returns false

@@ -5,7 +5,6 @@ class AddEnrollmentTable < ActiveRecord::Migration
       t.integer    'scholarship'
       t.float      'scholarship_amount'
       t.boolean    'enrolled'
-      t.references 'semester'
       t.references 'course'
       t.references 'student'
     end

@@ -16,7 +16,7 @@
       %h1.center
         Edit Classroom Teacher
       %div.span8.offset2
-        = form_tag semester_teacher_path(@semester, @teacher),:method => :put, :class =>"form-horizontal" do
+        = form_tag teacher_path(@teacher),:method => :put, :class =>"form-horizontal" do
           %div.control-group 
             = label :teacher, :name, 'Teacher Name:', :class => "control-label"
             %div.controls

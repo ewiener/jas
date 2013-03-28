@@ -1,7 +1,8 @@
 class Teacher < ActiveRecord::Base
 
   has_many :courses
-
+  belongs_to :semester
+  
   GRADES = ["K","k","1","2","3","4","5"]
 
   attr_accessible :name,
@@ -9,11 +10,13 @@ class Teacher < ActiveRecord::Base
                   :classroom,
                   :semester
 
-  belongs_to :semester
-
   validate :name_is_valid
   validate :grade_is_valid
   validate :classroom_is_valid
+  
+  scope :alphabetical, order("name asc")
+  scope :alphabetical_by_grade, order("case when grade = 'K' then '0' else grade end asc, name asc")
+  default_scope alphabetical_by_grade
 
   private
   # Used by validation check to verify that the name is valid
@@ -33,15 +36,13 @@ class Teacher < ActiveRecord::Base
 
   # Used by validation to check if the type is not nil and that it is of type String
   def not_nil_and_string(str)
-    return true unless str == nil or not str.instance_of? String
-    return false
+    return !str.nil? && str.instance_of?(String)
   end
 
   public
   # Verifies that the name is valid by checking name is not nil, string, and at least 1 character
   def name_is_valid?
-    return false unless not_nil_and_string(self.name)
-    return self.name.length > 0
+    return not_nil_and_string(self.name) && self.name.length > 0
   end
 
   # Verifies that the grade is valid by checking if grade is part of K-5
@@ -57,8 +58,7 @@ class Teacher < ActiveRecord::Base
 
   # Verifies that the classroom is valid by checking that is not nil, string, and is at least 1 character
   def classroom_is_valid?
-    return false unless not_nil_and_string(self.classroom)
-    return self.classroom.length > 0
+    return not_nil_and_string(self.classroom) && self.classroom.length > 0
   end
 
   #Tests that teacher is not linked to any course or student so it can be deleted

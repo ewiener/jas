@@ -2,9 +2,14 @@
 class Semester < ActiveRecord::Base
   require 'date'
 
+  has_many :courses, :dependent => :destroy
+  has_many :students, :dependent => :destroy
+  has_many :ptainstructors, :dependent => :destroy
+  has_many :teachers, :dependent => :destroy
+  has_many :enrollments, :through => :courses
+
   serialize :dates_with_no_classes
   serialize :individual_dates_with_no_classes
-
 
   attr_accessible :name,
                   :start_date,
@@ -27,12 +32,6 @@ class Semester < ActiveRecord::Base
 
   validate :valid_lottery_date
   validate :valid_registration_date
-
-  has_many :courses, :dependent => :destroy
-  has_many :students, :through => :courses, :dependent => :destroy
-  has_many :ptainstructors, :dependent => :destroy
-  has_many :teachers, :dependent => :destroy
-  has_many :enrollments, :dependent => :destroy
 
 
   #TODO Validate fee

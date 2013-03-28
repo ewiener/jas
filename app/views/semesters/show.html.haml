@@ -24,7 +24,7 @@
         %div{:style=>"width:400px;float:left;"}
           %h2
             Import
-          = form_tag semester_import_path(@semester), :method => :put, :class => "form-horizontal" do
+          = form_tag import_semester_path(@semester), :method => :put, :class => "form-horizontal" do
             = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
             %button.btn.btn-info{:type=>"submit"}
               Import
@@ -59,7 +59,7 @@
             %td Day or Span
             %td Remove
           - @semester.dates_with_no_classes.each do |date|
-            = form_tag semester_delete_date_path(@semester), :method => :put, :class => "form-horizontal" do
+            = form_tag days_off_for_semester_path(@semester), :method => :delete, :class => "form-horizontal" do
               = hidden_field_tag(:date,date)
               %tr
                 %td.cell_center

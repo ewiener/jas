@@ -7,7 +7,7 @@
       %li#navbar-new-session
         %a{:href=>"#{new_semester_path}"} Create New Session
       %li#navbar-user_session
-        %a{:href=>"#{user_session_destroy_path}"}
+        %a{:href=>"#{destroy_user_session_path}"}
           = "Logout #{@current_user.username}"
 
 .vspace40

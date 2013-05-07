@@ -210,7 +210,7 @@ class StudentsController < ApplicationController
     @course = Course.find(params[:course_id])
     return unless valid_course?(@course)
 
-    @enrollment = @student.find_enrollment(@course.id)
+    @enrollment = @student.find_enrollment(@course)
     if @enrollment.nil?
       flash[:warning] = [[:enrollment, "Couldn't unenroll, the given student is not enrolled for the given course."]]
       redirect_to edit_student_path

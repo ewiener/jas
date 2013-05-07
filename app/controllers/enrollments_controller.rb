@@ -19,7 +19,7 @@ class EnrollmentsController < ApplicationController
     	@dismissal = dismissals[params[:dismissal].to_i]
     end
 
-    @enrollments = @semester.enrollments.with_teacher(params[:teacher]).with_dismissal(params[:dismissal]).by_course_day_and_student_name
+    @enrollments = @semester.enrollments.enrolled.with_teacher(params[:teacher]).with_dismissal(params[:dismissal]).by_course_day_and_student_name
     
     @enrollments_by_day = Hash.new { |hash, key| hash[key] = Array.new }
     @enrollments.each do |enrollment|

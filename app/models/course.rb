@@ -89,8 +89,32 @@ class Course < ActiveRecord::Base
     return [self.students.count, self.class_max]
   end
   
-	def name_with_grade_level
-		course_name = self.name
+  def num_total_enrollments
+  	return enrollments.count
+  end
+  
+  def num_valid_enrollments
+  	return enrollments.enrolled.count
+  end
+  
+  def overenrolled?
+  	return self.class_max && self.num_valid_enrollments > self.class_max
+  end
+  
+  def overenrolled_by
+  	return self.class_max ? [self.num_valid_enrollments - self.class_max, 0].max : 0
+  end
+  
+  def underenrolled?
+  	return self.class_min && self.num_valid_enrollments < self.class_min
+  end
+  
+  def underenrolled_by
+  	return self.class_min ? [self.class_min - self.num_valid_enrollments, 0].max : 0
+  end
+  
+  def name_with_grade_level
+		course_name = String.new(self.name)
 		if self.grade_range && !self.grade_range.empty?
 			course_name << " (" << self.grade_range << ")"
 		end
@@ -103,7 +127,19 @@ class Course < ActiveRecord::Base
 	end
 	
 	def time_range
-		"#{self.start_time} - #{self.end_time}"
+		if self.start_time || self.end_time
+		  "#{self.start_time} - #{self.end_time}"
+		else
+			""
+	  end
+	end
+	
+	def class_min_max_range
+		if self.class_min || self.class_max
+		  "#{self.class_min} - #{self.class_max}"
+		else
+			""
+		end
 	end
 
   def calculate_number_of_classes

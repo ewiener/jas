@@ -16,6 +16,7 @@ class Enrollment < ActiveRecord::Base
   validate :student_id_is_valid
   validate :student_not_already_enrolled
   
+  scope :enrolled, where(:enrolled => true)
   scope :by_course_day_and_course_name, joins(:course).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
   scope :by_course_day_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, last_name asc, first_name asc")
   scope :by_student_name, joins(:student).order("last_name asc, first_name asc")
@@ -25,7 +26,7 @@ class Enrollment < ActiveRecord::Base
 
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
   SCHOLARSHIP = ["None", "Full", "Partial"]
-  STATUS = ["Enrolled", "Wait list (lottery)"]
+  STATUS = ["Enrolled", "Disenrolled"]
   
   after_initialize do
 	  if self.new_record?
@@ -33,6 +34,12 @@ class Enrollment < ActiveRecord::Base
       self.dismissal = 0
       self.enrolled = true
 	  end
+	end
+	
+	after_validation do
+		if SCHOLARSHIP[self.scholarship] == "Full"
+			self.scholarship_amount = course.total_fee
+		end
 	end
 	
 	def total_fee

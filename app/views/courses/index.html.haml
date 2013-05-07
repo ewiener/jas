@@ -7,16 +7,16 @@
   .span12.module#class-table
     %ul.nav.nav-tabs
       %li.active
-        = link_to "All", "#"
+        = link_to "All", semester_courses_path(@semester)
       %li 
-        = link_to "Active", "#"
+        = link_to "Overenrolled", semester_courses_path(@semester, :filter => 'overenrolled')
       %li
-        = link_to "Inactive", "#"
+        = link_to "Underenrolled", semester_courses_path(@semester, :filter => 'underenrolled')
       %li.pull-right
         = link_to "+ Add Class", new_semester_course_path
         
     .module-content
-      %table.data-table.table.table-striped.table-hover.full-width#courses
+      %table.data-table.full-width#courses
         %thead
           %tr.no-select
             %td
@@ -53,8 +53,11 @@
                 %td.course-room
                   - if course.teacher
                     = course.teacher.classroom
-                %td.course-enrolled
-                  = @course_size[course.id]
+                %td.course-enrolled{:class => course.overenrolled? || course.underenrolled? ? "warning" : ""}
+                  = course.num_valid_enrollments
+                  - if course.class_min_max_range && !course.class_min_max_range.blank?
+                    &nbsp;
+                    %span.muted= "(#{course.class_min_max_range})"
                 %td.course-delete
                   = button_to "Delete", course_path(course), :method => :delete, :class => "btn btn-danger btn-mini edit-delete", 
                       :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" }

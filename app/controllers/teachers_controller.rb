@@ -11,6 +11,15 @@ class TeachersController < ApplicationController
     return unless valid_semester?(@semester)
     
     @teachers = @semester.teachers
+    @filter = Hash.new
+    
+    if (params[:filter_active] == 'true')
+    	@teachers = @teachers.select{|teacher| teacher.active?}
+    	@filter[:active] = 'true'
+    elsif (params[:filter_active] == 'false')
+    	@teachers = @teachers.select{|teacher| !teacher.active?}
+    	@filter[:active] = 'false'
+    end
   end
 
   def show

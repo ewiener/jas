@@ -1,35 +1,4 @@
-module ApplicationHelper	 
-	SITE_SECTIONS = {
-	 	:semesters_section => {
-	 		:name => 'Sessions',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semesters_path}
-	 	},
-	 	:students_section => {
-	 		:name => 'Students',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_students_path(semester)}
-	 	},
-	 	:instructors_section => {
-	 		:name => 'Instructors',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_ptainstructors_path(semester)}
-	 	},
-	 	:teachers_section => {
-	 		:name => 'Rooms',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_teachers_path(semester)}
-	 	},
-	 	:courses_section => {
-	 		:name => 'Classes',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_courses_path(semester)}
-	 	},
-	 	:enrollments_section => {
-	 		:name => 'Rolls',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_enrollments_path(semester)}
-	 	},
-	 	:users_section => {
-	 		:name => 'Users',
-	 		:path => lambda {|semester| ''}
-	 	},
-	}
-	 
+module ApplicationHelper
 	DAYS = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 	WEEKDAYS = [:monday, :tuesday, :wednesday, :thursday, :friday]
 	
@@ -38,13 +7,13 @@ module ApplicationHelper
 		{:name=>"JAZ",:id=>1},
 		{:name=>"BEARS",:id=>2},
 		{:name=>"Walk",:id=>3}]
-	 
-  def site_sections
-  	SITE_SECTIONS
+  
+  def maybe_class(class_name, condition)
+    condition ? {:class => class_name} : {}
   end
   
-  def link_to_section(section, semester)
-  	 link_to site_sections[section][:name], site_sections[section][:path].call(semester)
+  def active_if(condition)
+    maybe_class("active", condition)
   end
   
   def print_mode?

@@ -12,14 +12,15 @@ class EnrollmentsController < ApplicationController
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
-    if (params[:teacher])
-    	@teacher = @semester.teachers.find(params[:teacher])
+    @filter = Hash.new
+    if (params[:filter_teacher])
+    	@filter[:teacher] = @semester.teachers.find(params[:filter_teacher])
     end
-    if (params[:dismissal])
-    	@dismissal = dismissals[params[:dismissal].to_i]
+    if (params[:filter_dismissal])
+    	@filter[:dismissal] = dismissals[params[:filter_dismissal].to_i]
     end
 
-    @enrollments = @semester.enrollments.enrolled.with_teacher(params[:teacher]).with_dismissal(params[:dismissal]).by_course_day_and_student_name
+    @enrollments = @semester.enrollments.enrolled.with_teacher(params[:filter_teacher]).with_dismissal(params[:filter_dismissal]).by_course_day_and_student_name
     
     @enrollments_by_day = Hash.new { |hash, key| hash[key] = Array.new }
     @enrollments.each do |enrollment|

@@ -22,8 +22,11 @@ class Ptainstructor < ActiveRecord::Base
 
   #Tests that ptainstructor is not linked to any courses in the semester and returns true or false.
   def can_be_deleted?
-    courses = Course.where(:semester_id => self.semester, :ptainstructor_id => self.id)
-    return courses.length == 0
+  	!has_courses?
+  end
+  
+  def has_courses?
+  	courses.count > 0
   end
 
   #Returns last_name, first_name or just first_name if no last_name exists

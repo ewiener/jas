@@ -11,6 +11,15 @@ class PtainstructorsController < ApplicationController
     return unless valid_semester?(@semester)
 
     @ptainstructors = @semester.ptainstructors
+    @filter = Hash.new
+    
+    if (params[:filter_active] == 'true')
+    	@ptainstructors = @ptainstructors.select{|ptainstructor| ptainstructor.has_courses?}
+    	@filter[:active] = 'true'
+    elsif (params[:filter_active] == 'false')
+    	@ptainstructors = @ptainstructors.select{|ptainstructor| !ptainstructor.has_courses?}
+    	@filter[:active] = 'false'
+    end
   end
   
   def show

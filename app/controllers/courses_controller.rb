@@ -11,6 +11,15 @@ class CoursesController  < ApplicationController
     return unless valid_semester?(@semester)
     
     @courses = @semester.courses
+    @filter = Hash.new
+
+    if (params[:filter_enrollment] == 'overenrolled')
+    	@courses = @courses.select{|course| course.overenrolled?}
+    	@filter[:enrollment] = 'overenrolled'
+    elsif (params[:filter_enrollment] == 'underenrolled')
+    	@courses = @courses.select{|course| course.underenrolled?}
+    	@filter[:enrollment] = 'underenrolled'
+    end
     @course_size = Hash[@courses.map {|course| [course.id, course.students.length]}]
   end
   

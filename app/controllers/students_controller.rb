@@ -11,7 +11,15 @@ class StudentsController < ApplicationController
     return unless valid_semester?(@semester)
     
     @students = @semester.students
-    @num_classes = Hash[@students.map {|student| [student.id, student.courses.length]}]
+    @filter = Hash.new
+
+    if (params[:filter_enrolled] == 'true')
+    	@students = @students.select{|student| student.enrolled?}
+    	@filter[:enrolled] = 'true'
+    elsif (params[:filter_enrolled] == 'false')
+    	@students = @students.select{|student| !student.enrolled?}
+    	@filter[:enrolled] = 'false'
+    end
   end
   
   def show

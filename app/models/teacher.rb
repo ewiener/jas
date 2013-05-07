@@ -22,12 +22,11 @@ class Teacher < ActiveRecord::Base
 
   #Tests that teacher is not linked to any course or student so it can be deleted
   def can_be_deleted?
-    #courses = Course.where(:semester_id => self.semester, :teacher_id => self.id)
-    #students = Student.where(:semester_id => self.semester, :teacher_id => self.id)
-
-    #return ((courses.length + students.length) == 0)
-    
-    return !courses.any? && !students.any?
+    return !active?
+  end
+  
+  def active?
+  	return courses.any? || students.any?
   end
   
   def allowable_grades

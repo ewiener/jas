@@ -6,12 +6,12 @@
 .row
   .span12#student-list
     %ul.nav.nav-tabs
-      %li.active
-        = link_to "All", "#"
-      %li 
-        = link_to "Enrolled", "#"
-      %li
-        = link_to "Not Enrolled", "#"
+      %li{active_if(@filter.empty?)}
+        = link_to "All", semester_students_path(@semester)
+      %li{active_if(@filter[:enrolled] == 'true')}
+        = link_to "Enrolled", semester_students_path(@semester, :filter_enrolled => 'true')
+      %li{active_if(@filter[:enrolled] == 'false')}
+        = link_to "Not Enrolled", semester_students_path(@semester, :filter_enrolled => 'false')
       %li.pull-right
         = link_to "+ Add Student", new_semester_student_path
 
@@ -37,21 +37,26 @@
             %td
               
         %tbody
-          - @students.each do |student|
+          - if !@students.empty?
+            - @students.each do |student|
+              %tr
+                %td.student-first
+                  = link_to student.first_name, student_path(student)
+                %td.student-last
+                  = link_to student.last_name, student_path(student)
+                %td.student-grade
+                  = student.grade
+                %td.student-teacher
+                  = student.teacher ? link_to(student.teacher.name, teacher_path(student.teacher)) : ""
+                %td.student-classes
+                  = student.num_valid_enrollments
+                %td.student-delete
+                  = link_to "Delete", student_path(student), :method => :delete, :class => "btn btn-danger btn-mini"
+          - else
             %tr
-              %td.student-first
-                = link_to student.first_name, student_path(student)
-              %td.student-last
-                = link_to student.last_name, student_path(student)
-              %td.student-grade
-                = student.grade
-              %td.student-teacher
-                = student.teacher ? link_to(student.teacher.name, teacher_path(student.teacher)) : ""
-              %td.student-classes
-                = @num_classes[student.id]
-              %td.student-delete
-                = link_to "Delete", student_path(student), :method => :delete, :class => "btn btn-danger btn-mini"
-          
+              %td.centered(colspan=6)
+                None
+                          
 - content_for :js do
   :javascript
     $(function() {

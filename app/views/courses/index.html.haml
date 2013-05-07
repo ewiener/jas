@@ -6,12 +6,12 @@
 .row
   .span12.module#class-table
     %ul.nav.nav-tabs
-      %li.active
+      %li{active_if(@filter.empty?)}
         = link_to "All", semester_courses_path(@semester)
-      %li 
-        = link_to "Overenrolled", semester_courses_path(@semester, :filter => 'overenrolled')
-      %li
-        = link_to "Underenrolled", semester_courses_path(@semester, :filter => 'underenrolled')
+      %li{active_if(@filter[:enrollment] == 'overenrolled')}
+        = link_to "Overenrolled", semester_courses_path(@semester, :filter_enrollment => 'overenrolled')
+      %li{active_if(@filter[:enrollment] == 'underenrolled')}
+        = link_to "Underenrolled", semester_courses_path(@semester, :filter_enrollment => 'underenrolled')
       %li.pull-right
         = link_to "+ Add Class", new_semester_course_path
         
@@ -37,7 +37,7 @@
                 Enrolled
             %td
         %tbody
-          - if @courses
+          - if !@courses.empty?
             - @courses.each do |course|
               %tr.course-info
                 %td.course-name
@@ -61,6 +61,10 @@
                 %td.course-delete
                   = button_to "Delete", course_path(course), :method => :delete, :class => "btn btn-danger btn-mini edit-delete", 
                       :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" }
+          - else
+            %tr
+              %td.centered(colspan=7)
+                None
 
 - content_for :js do
   :javascript

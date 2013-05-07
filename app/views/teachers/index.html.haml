@@ -6,17 +6,17 @@
 .row
   .span12#student-list
     %ul.nav.nav-tabs
-      %li.active
-        = link_to "All", "#"
-      %li 
-        = link_to "Active", "#"
-      %li
-        = link_to "Inactive", "#"
+      %li{active_if(@filter.empty?)}
+        = link_to "All", semester_teachers_path(@semester)
+      %li{active_if(@filter[:active] == 'true')}
+        = link_to "Active", semester_teachers_path(@semester, :filter_active => "true")
+      %li{active_if(@filter[:active] == 'false')}
+        = link_to "Inactive", semester_teachers_path(@semester, :filter_active => "false")
       %li.pull-right
         = link_to "+ Add New Room", new_semester_teacher_path
 
     .module-content
-      %table.data-table.table.table-striped.table-hover.full-width#teachers
+      %table.data-table.full-width#teachers
         %thead
           %tr.no-select
             %td
@@ -29,23 +29,27 @@
               %span.sort-by#sort-by-grade
                 Grade
             %td
-            %td
         %tbody
-          - @teachers.each do |teacher|
-            %tr.teacher-info
-              %td.teacher-classroom
-                = link_to teacher.classroom, teacher_path(teacher)
-              %td.teacher-name
-                = link_to teacher.name, teacher_path(teacher)
-              %td.teacher-grade
-                = teacher.grade
-              %td.teacher-delete
-                - if teacher.can_be_deleted?
-                  = button_to "Delete", teacher_path(teacher), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
-                - else
-                  %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses or students. Remove the teacher from all referencing courses and students to delete."}
-                    = "Referenced"
-                    
+          - if !@teachers.empty?
+            - @teachers.each do |teacher|
+              %tr.teacher-info
+                %td.teacher-classroom
+                  = link_to teacher.classroom, teacher_path(teacher)
+                %td.teacher-name
+                  = link_to teacher.name, teacher_path(teacher)
+                %td.teacher-grade
+                  = teacher.grade
+                %td.teacher-delete
+                  - if teacher.can_be_deleted?
+                    = button_to "Delete", teacher_path(teacher), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
+                  - else
+                    %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses or students. Remove the teacher from all referencing courses and students to delete."}
+                      = "Referenced"
+          - else
+            %tr
+              %td.centered(colspan=4)   
+                None
+                                             
 - content_for :js do
   :javascript
     $(function() {

@@ -6,17 +6,17 @@
 .row
   .span12.module#instructor-table
     %ul.nav.nav-tabs
-      %li.active
-        = link_to "All", "#"
-      %li 
-        = link_to "Active", "#"
-      %li
-        = link_to "Inactive", "#"
+      %li{active_if(@filter.empty?)}
+        = link_to "All", semester_ptainstructors_path(@semester)
+      %li{active_if(@filter[:active] == 'true')}
+        = link_to "Active", semester_ptainstructors_path(@semester, :filter_active => "true")
+      %li{active_if(@filter[:active] == 'false')}
+        = link_to "Inactive", semester_ptainstructors_path(@semester, :filter_active => "false")
       %li.pull-right
         = link_to "+ Add Instructor", new_semester_ptainstructor_path(@semester)
         
     .module-content
-      %table.data-table.table.table-striped.table-hover.full-width#instructors
+      %table.data-table.full-width#instructors
         %thead
           %tr
             %td
@@ -34,22 +34,28 @@
             %td
             %td
         %tbody
-          - @ptainstructors.each do |ptainstructor|
-            %tr.instructor-info
-              %td.instructor-last
-                = link_to ptainstructor.first_name, ptainstructor_path(ptainstructor)
-              %td.instructor-first
-                = link_to ptainstructor.last_name, ptainstructor_path(ptainstructor)
-              %td.instructor-email
-                = ptainstructor.email
-              %td.instructor-phone
-                = ptainstructor.phone
-              %td.instructor-delete
-                - if ptainstructor.can_be_deleted?
-                  = button_to "Delete", ptainstructor_path(ptainstructor), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
-                - else
-                  %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses. Remove the instructor from all referencing courses to delete."}
-                    = "Referenced"
+          - if !@ptainstructors.empty?
+            - @ptainstructors.each do |ptainstructor|
+              %tr.instructor-info
+                %td.instructor-last
+                  = link_to ptainstructor.first_name, ptainstructor_path(ptainstructor)
+                %td.instructor-first
+                  = link_to ptainstructor.last_name, ptainstructor_path(ptainstructor)
+                %td.instructor-email
+                  = ptainstructor.email
+                %td.instructor-phone
+                  = ptainstructor.phone
+                %td.instructor-delete
+                  - if ptainstructor.can_be_deleted?
+                    = button_to "Delete", ptainstructor_path(ptainstructor), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
+                  - else
+                    %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses. Remove the instructor from all referencing courses to delete."}
+                      = "Referenced"
+          - else
+            %tr
+              %td.centered(colspan=5)   
+                None
+                                
 - content_for :js do
   :javascript
     $(function() {

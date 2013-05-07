@@ -6,24 +6,24 @@
 .row
   .span12#enrollment-list
     %ul.nav.nav-tabs
-      %li{:class => @teacher.nil? && @dismissal.nil? ? "active" : ""}
+      %li{active_if(@filter.empty?)}
         = link_to "All", semester_enrollments_path(@semester)
-      %li.dropdown{:class => @teacher ? "active" : ""}
+      %li.dropdown{active_if(@filter[:teacher])}
         = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
-          #{@teacher ? @teacher.name : "By Teacher"}
+          #{@filter[:teacher] ? @filter[:teacher].name : "By Teacher"}
           %b.caret
         %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
           - @all_teachers.each do |t|
             %li
-              = link_to t.name, semester_enrollments_path(@semester, :teacher => t.id), :tabindex => '-1' 
-      %li.dropdown{:class => @dismissal ? "active" : ""}
+              = link_to t.name, semester_enrollments_path(@semester, :filter_teacher => t.id), :tabindex => '-1' 
+      %li.dropdown{active_if(@filter[:dismissal])}
         = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
-          #{@dismissal ? @dismissal[:name] : "By Dismissal"}
+          #{@filter[:dismissal] ? @filter[:dismissal][:name] : "By Dismissal"}
           %b.caret
         %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
           - @all_dismissals.each do |d|
             %li
-              = link_to d[:name], semester_enrollments_path(@semester, :dismissal => d[:id]), :tabindex => '-1' 
+              = link_to d[:name], semester_enrollments_path(@semester, :filter_dismissal => d[:id]), :tabindex => '-1' 
       %li.pull-right
 
     .module-content   
@@ -32,7 +32,7 @@
         - days.each do |day|
           %tbody
             %tr.success
-              %td(colspan=6 style="text-align:center;")
+              %td.centered(colspan=6)
                 %b= day.to_s.capitalize
           - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
             %thead
@@ -47,8 +47,9 @@
                   Time
                 %td
                   Room
-                %td
-                  Dismissal
+                - if !@filter[:dismissal]
+                  %td
+                    Dismissal
             %tbody
               - @enrollments_by_day[day].each do |enrollment|
                 %tr
@@ -63,11 +64,12 @@
                   %td.enrollment-loc{:id=>"enrollment_course_loc_#{enrollment.id}"}
                     - if enrollment.course.teacher
                       = enrollment.course.teacher.classroom
-                  %td.enrollment-dismissal{:id=>"enrollment_dismissal_#{enrollment.id}"}
-                    = enrollment.dismissal_to_s
+                  - if !@filter[:dismissal]
+                    %td.enrollment-dismissal{:id=>"enrollment_dismissal_#{enrollment.id}"}
+                      = enrollment.dismissal_to_s
           - else
             %tr
-              %td(colspan=6 style="text-align:center;")
+              %td.centered(colspan=6)
                 None
 
 - content_for :js do

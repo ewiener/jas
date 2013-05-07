@@ -1,0 +1,55 @@
+.module
+  .module-heading
+    .module-heading-title Enrolled Students
+    .module-heading-action= link_to 'Less Detail', course_path(course)
+  
+  .module-content
+    %table.data-table.table.table-striped.table-hover.full-width#enrollment-table
+      %thead
+        %tr
+          %td
+            = '#'
+          %td
+            Name
+          %td
+            Grade
+          %td
+            Classroom
+          %td
+            Dismissal
+          %td
+            Parent
+          %td
+            Phone
+          %td
+            Email
+          %td
+            Health Alert
+      %tbody
+        - if course.enrollments.length != 0
+          - course.enrollments.by_student_name.each_with_index do |enrollment, index|
+            - student = enrollment.student
+            %tr
+              %td
+                = index + 1
+              %td
+                = link_to student.full_name, student_path(student)
+              %td
+                = student.grade
+              %td
+                = link_to "#{student.teacher.classroom}", teacher_path(student.teacher)
+              %td
+                = enrollment.dismissal_to_s
+              %td
+                = student.parent_name
+              %td
+                = student.parent_phone
+                = student.parent_phone2
+              %td
+                = student.parent_email
+              %td
+                = student.health_alert
+        - else
+          %tr
+            %td(colspan=8)
+              No enrollments yet

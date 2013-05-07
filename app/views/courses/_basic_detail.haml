@@ -1,0 +1,74 @@
+.module
+  .module-heading
+    .module-heading-title= course.name
+    .module-heading-action= link_to 'Edit', edit_course_path(course)
+    
+  .module-content
+    %table.attribute-table
+      %tr
+        %td.attribute-label
+          Instructor:
+        %td.attribute-value
+          - if course.ptainstructor
+            = link_to course.ptainstructor.full_name_first_last, ptainstructor_path(course.ptainstructor)
+      %tr
+        %td.attribute-label
+          Description:
+        %td.attribute-value
+          = course.description
+      %tr
+        %td.attribute-label
+          Day:
+        %td.attribute-value
+          = course.abbrev_days.join(", ")     
+      %tr
+        %td.attribute-label
+          Start time:
+        %td.attribute-value
+          = course.start_time
+      %tr
+        %td.attribute-label
+          End time:
+        %td.attribute-value
+          = course.end_time
+      %tr
+        %td.attribute-label
+          Room:
+        %td.attribute-value
+          - if course.teacher
+            = link_to "#{course.teacher.classroom} (#{course.teacher.name})", teacher_path(course.teacher)
+      %tr
+        %td.attribute-label
+          Eligible grades:
+        %td.attribute-value
+          = course.grade_range
+      %tr
+        %td.attribute-label
+          Min. class size:
+        %td.attribute-value
+          = course.class_min
+      %tr
+        %td.attribute-label
+          Max. class size:
+        %td.attribute-value
+          = course.class_max
+      %tr
+        %td.attribute-label
+          Number of meetings:
+        %td.attribute-value
+          = course.number_of_classes
+      %tr
+        %td.attribute-label
+          Per meeting fee:
+        %td.attribute-value
+          #{sprintf("$%0.2f", course.fee_per_meeting)}
+      %tr
+        %td.attribute-label
+          Material fee:
+        %td.attribute-value
+          #{sprintf("$%0.2f", course.fee_for_additional_materials)}
+      %tr
+        %td.attribute-label
+          Total fee:
+        %td.attribute-value
+          #{sprintf("$%0.2f", course.total_fee)}

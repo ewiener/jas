@@ -1,0 +1,54 @@
+-# This file is app/views/students/show.html.haml
+!!! 5
+
+- content_for :title, "#{@student.full_name}"
+
+.row
+  .span5.module#student-detail
+    .module-heading
+      .module-heading-title= @student.full_name
+      .module-heading-action= link_to 'Edit', edit_student_path
+      
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Grade:
+          %td.attribute-value
+            = @student.grade
+        %tr
+          %td.attribute-label
+            Teacher:
+          %td.attribute-value
+            - if @student.teacher
+              = link_to "#{@student.teacher.name}", teacher_path(@student.teacher)
+        %tr
+          %td.attribute-label
+            Parent Phone:
+          %td.attribute-value
+            = @student.parent_phone
+        %tr
+          %td.attribute-label
+            Parent Phone 2:
+          %td.attribute-value
+            = @student.parent_phone2
+        %tr
+          %td.attribute-label
+            Parent Email:
+          %td.attribute-value
+            = @student.parent_email
+        %tr
+          %td.attribute-label
+            Health Alert:
+          %td.attribute-value
+            = @student.health_alert
+
+  .span6.offset1.module#student-enrollments
+    .module#enrollment-list
+      = render :partial => 'students/enrollments/list', :locals => {:semester => @semester, :student => @student}
+    .module#enrollment-detail
+    
+- content_for :js do
+  :javascript
+
+

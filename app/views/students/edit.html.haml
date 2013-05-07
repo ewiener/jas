@@ -1,280 +1,117 @@
 -# This file is app/views/students/edit.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      Edit Student
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/flash_messages"
-      .clear
-      %div.enrollmentTable
-        %table.table-striped.table-bordered.table-hover{:style=>"width:100%;text-align:center;"}
-          %thead
-            %tr
-              %td
-                Course
-              %td
-                Status
-              %td
-                Scholarship Amount
-              %td
-                Class Fees
-              %td
-                Dismissal
-              %td
-                Edit Entry
-              %td
-                Delete Entry
-          %tbody
-            - if @student.enrollments.length != 0
-              - @student.enrollments.each do |enrollment|
-                %tr
-                  %td.cell_center.enrollment-course{:id=>"enrollment_course_#{enrollment.course.id}"}
-                    = enrollment.course.name
-                  %td.cell_center.enrollment-enrolled{:id=>"enrollment_#{enrollment.id}_status_#{enrollment.enrolled}"}
-                    = enrollment.enrolled_to_s
-                  %td.cell_center.enrollment-scholarship{:id=>"enrollment_#{enrollment.id}_scholarship_#{enrollment.scholarship}"}
-                    = "$" + number_with_precision(enrollment.scholarship_amount, :precision => 2)
-                  %td.cell_center.enrollment-fee
-                    = "$" + number_with_precision(enrollment.course.total_fee, :precision => 2)
-                  %td.cell_center.enrollment-pickup{:id=>"enrollment_#{enrollment.id}_fee_#{enrollment.dismissal}"}
-                    = enrollment.dismissal_to_s
-                  %td.cell_center.edit-td
-                    = button_to "Edit", edit_student_path(@student), :class => "btn btn-warning edit-delete enrollment-edit", :id => "enrollment_#{enrollment.id}"
-                  %td.cell_center
-                    = button_to "Delete", unenroll_student_path(@student, :course_id => enrollment.course_id), :method => :post, :class => "btn btn-danger edit-delete"
-            - else
-              %tr
-                %td.cell_center
-                  ="-"
-                %td.cell_center
-                  ="-"
-                %td.cell_center
-                  ="-"
-                %td.cell_center
-                  ="-"
-                %td.cell_center
-                  ="-"
-                %td.cell_center
-                  ="-"
-                %td.cell_center
-                  ="-"
-            %tr.no_contents
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
+- content_for :title, "Edit Student"
 
-            %tr
-              %td.cell_center
-                %b{:style=>"font-size:1.2em;"}
-                  Registration Fee
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                %b{:style=>"font-size:1.2em;"}
-                  = "$" + number_with_precision(@semester.fee, :precision => 2)
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-            %tr
-              %td.cell_center
-                %b{:style=>"font-size:1.2em;"}
-                  Total Fee
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                %b{:style=>"font-size:1.2em;"}
-                  = "$" + number_with_precision(@student.grand_total, :precision => 2)
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-              %td.cell_center
-                ="-"
-        .clear
-        .vspace40
+.row
+  .span5.module#student-edit
+    .module-heading
+      .module-heading-title Edit Student
+  
+    .module-content
+      = form_tag student_path(@student), :class =>"form-horizontal", :method => :put do
+        .control-group
+          = label :student, :first_name, 'First name', :class => "control-label"
+          .controls
+            = text_field :student, :first_name
+            
+        .control-group
+          = label :student, :last_name, 'Last name', :class => "control-label"
+          .controls
+            = text_field :student, :last_name
+    
+        .control-group
+          = label :student, :grade, 'Grade', :class => "control-label"
+          .controls
+            = select_tag "student[grade]", grade_options_for_select(@student.allowable_grades, @student.grade),
+                :prompt => 'Select Grade'
+    
+        .control-group
+          = label :teacher, 'Classroom teacher', :class => "control-label"
+          .controls
+            = select_tag :teacher, options_from_collection_for_select(@semester.teachers, :id, :name, @student.teacher_id), 
+                :prompt => 'Select Teacher', :class => "course_select"
+    
+        .control-group
+          = label :student, :parent_phone, 'Parent phone', :class => "control-label"
+          .controls
+            = phone_field :student, :parent_phone
+    
+        .control-group
+          = label :student, :parent_phone2, 'Parent phone 2', :class => "control-label"
+          .controls
+            = phone_field :student, :parent_phone2
+    
+        .control-group
+          = label :student, :parent_email, 'Parent email', :class => "control-label"
+          .controls
+            = email_field :student, :parent_email
+    
+        .control-group
+          = label :student, :health_alert, 'Health alert', :class => "control-label"
+          .controls
+            = text_area :student, :health_alert, :rows => 5
+    
+        .control-group
+          .controls
+            = submit_tag 'Update', :class => "btn btn-warning"
+            = link_to 'Cancel', student_path , :class => "btn btn-info"
 
-
-      %div#student-edit{:style=>"float:left;width:430px;border:1px solid #ddd;margin-right:15px;height:650px;"}
-        %h1{:style=>"text-align:center;"}
-          Edit Student
-        .vspace20
-        = form_tag student_path(@student), :class =>"form-horizontal", :method => :put, :style=>"display:inline;" do
-          %div.control-group
-            = label :student, :first_name, 'First Name:', :class => "control-label"
-            %div.controls
-              = text_field :student, :first_name
-              
-          %div.control-group
-            = label :student, :last_name, 'Last Name:', :class => "control-label"
-            %div.controls
-              = text_field :student, :last_name
-
-          %div.control-group
-            = label :student, :grade, 'Grade:', :class => "control-label"
-            %div.controls
-              = text_field :student, :grade
-
-          %div.control-group
-            = label :teacher, 'Classroom Teacher:', :class => "control-label"
-            %div.controls
-              = select_tag :teacher, options_from_collection_for_select(@semester.teachers, :id, :name, @student.teacher_id),:class => "course_select"
-
-          %div.control-group
-            = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"
-            %div.controls
-              = phone_field :student, :parent_phone
-
-          %div.control-group
-            = label :student, :parent_phone2, 'Parent Phone 2:', :class => "control-label"
-            %div.controls
-              = phone_field :student, :parent_phone2
-
-          %div.control-group
-            = label :student, :parent_email, 'Parent Email:', :class => "control-label"
-            %div.controls
-              = email_field :student, :parent_email
-
-          %div.control-group
-            = label :student, :health_alert, 'Health Alert:', :class => "control-label"
-            %div.controls
-              = text_area :student, :health_alert, :rows => 5
-
-          %div.control-group
-            %div.controls
-              = submit_tag 'Update Student Information', :class => "btn btn-warning", :style=>"width:220px;"
-              %br
-              .vspace10
-              %div{:style=>"width:190px;"}
-                = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info", :style=>"width:100%;"
-          .clear
-          .vspace80
-
-      %div#enrollment{:style=>"float:left;width:460px;outline:1px solid #ddd;height:650px;position:relative;top:1px;left:9px;"}
-        %h1#enrollment_header{:style=>"text-align:center;"}
-          Add Enrollment
-        .vspace20
-        = form_tag enroll_student_path(@student), :method => :post, :class =>"form-horizontal", :style=>"display:inline;" do
-          %div.control-group
-            = label "enrollment[course_id]", 'Select Class:', :class => "control-label"
-            %div.controls
-              = select_tag "enrollment[course_id]", options_from_collection_for_select(@classes, :id, :name),:class => "course_select"
-
-          %div.control-group{:style=>"margin-bottom:0;"}
-            = label "enrollment[scholarship]", 'Scholarship:', :class => "control-label radio inline", :style=>"position:relative;left:-18px;"
-            / Scholarship:
-
-            %div{:style=>"width:215px;height:90px;position:relative;left:180px;top:-18px;"}
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:50px;"}
-                  None:
-                = radio_button_tag "enrollment[scholarship]", "0", true, :style=>"position:relative;top:-3px;"
-              .clear
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:50px;"}
-                  Full:
-                = radio_button_tag "enrollment[scholarship]", "1", false, :style=>"position:relative;top:-3px;"
-              .clear
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:50px;"}
-                  Partial:
-                = radio_button_tag "enrollment[scholarship]", "2", false, :style=>"position:relative;top:-3px;"
-              .clear
-
-          %div.control-group#enrollment-amount-div
-            = label "enrollment[scholarship]", :amount, 'Amount:', :class => "control-label"
-            %div.controls
-              = text_field "enrollment", :scholarship_amount
-
-          %div.control-group#dismissal_loc{:style=>"margin-bottom:10px;"}
-            = label "enrollment[dismissal]", 'Dismissal Location:', :class => "control-label radio inline", :style=>"position:relative;left:-18px;"
-
-            %div{:style=>"width:100px;height:90px;position:relative;left:180px;top:-20px;"}
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:60px;"}
-                  Pick Up:
-                = radio_button_tag "enrollment[dismissal]", "0", false, :style=>"position:relative;top:-3px;"
-
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:60px;"}
-                  JAZ:
-                = radio_button_tag "enrollment[dismissal]", "1", false, :style=>"position:relative;top:-3px;"
-
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:60px;"}
-                  BEARS:
-                = radio_button_tag "enrollment[dismissal]", "2", false, :style=>"position:relative;top:-3px;"
-
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:60px;"}
-                  Walk:
-                = radio_button_tag "enrollment[dismissal]", "3", false, :style=>"position:relative;top:-3px;"
-
-          %div.control-group#enrollment_status{:style=>"margin-bottom:0;"}
-            = label :status, 'Status:', :class => "control-label radio inline", :style=>"position:relative;left:-18px;"
-
-            %div{:style=>"width:240px;height:80px;position:relative;left:180px;top:-20px;"}
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:140px;"}
-                  Enrolled:
-                = radio_button_tag "enrollment[enrolled]", "true", false, :style=>"position:relative;top:-3px;"
-
-              %div{:style=>"width:100%;float:left;"}
-                %div{:style=>"float:left;width:140px;"}
-                  Not Enrolled Lottery:
-                = radio_button_tag "enrollment[enrolled]", "false", false, :style=>"position:relative;top:-3px;"
-
-          %div.control-group
-            %div.controls
-              = submit_tag 'Add New Enrollment', :id => "enrollment_submit", :class => "btn btn-info", :style=>"width:220px;"
-              %br
-              .vspace10
-              = link_to 'Cancel', semester_students_path(@semester) , :id => "enrollment_cancel", :class => "btn btn-info", :style=>"width:190px;"
-          .clear
-          .vspace80
-
-    :javascript
-      $(function() {
-        $("#navbar-students").addClass('active');
-        $("#enrollment_scholarship_amount").val(0);
+- content_for :js do
+  :javascript
+    $(function() {
+      $('#enrollments').load('#{enrollments_for_student_path(@student)}');
+      $("#enrollment_scholarship_amount").val(0);
+      $("#enrollment_scholarship_0").click();
+      $("#enrollment-amount-div").css('visibility','hidden');
+      $("#enrollment_course_id").change(function() {
+        courseid = $("#enrollment_course_id").val();
+        if ($("#enrollment_scholarship_1").attr('checked')) {
+          $.ajax({
+            url: "/courses/" + courseid + "/fee"
+          }).done(function(data) {
+            $("#enrollment_scholarship_amount").val(data);
+          });
+        }
+      });
+      $("#enrollment_cancel").click(function(event) {
+        event.preventDefault();
+        $("#enrollment_course_id").val("");
+        $("#enrollment_header").text("Add Enrollment");
         $("#enrollment_scholarship_0").click();
-        $("#enrollment-amount-div").css('visibility','hidden');
-        $("#enrollment_course_id").change(function() {
-          courseid = $("#enrollment_course_id").val();
-          if ($("#enrollment_scholarship_1").attr('checked')) {
-            $.ajax({
-              url: "/courses/" + courseid + "/fee"
-            }).done(function(data) {
-              $("#enrollment_scholarship_amount").val(data);
-            });
-          }
-        });
-        $("#enrollment_cancel").click(function(event) {
-          event.preventDefault();
-          $("#enrollment_course_id").val("");
+        $("#dismissal_loc input").prop("checked", false);
+        $("#enrollment_status input").prop("checked", false);
+        $("#enrollment_submit").val("Add New Enrollment");
+        $("#enrollment_submit").addClass("btn-info");
+        $("#enrollment_submit").removeClass("btn-warning");
+      });
+      $(".enrollment-editx").click(function(event) {
+      
+        event.preventDefault();
+        $courseId = $(this).attr("id").split("_")[2];
+        alert($courseId);
+        $enrollmentStatus = $td.siblings(".enrollment-enrolled").attr("id").split("_")[3];
+        $scholarship = $td.siblings(".enrollment-scholarship").attr("id").split("_")[3];
+        $scholarshipAmount = $.trim($td.siblings(".enrollment-scholarship").text());
+        $("#enrollment_header").text("Edit Enrollment for "+$courseName);
+        $("#enrollment_course_id").val($courseID);
+        //$("#enrollment_course_id").parent().parent().hide();
+        $("#enrollment_scholarship_"+$scholarship).click();
+        if($scholarship == "2"){
+           $("#enrollment_scholarship_amount").val($scholarshipAmount);
+        }
+        $("#enrollment_enrolled_"+$enrollmentStatus).click();
+        $("#enrollment_submit").val("Edit "+$courseName);
+        $("#enrollment_submit").removeClass("btn-info");
+        $("#enrollment_submit").addClass("btn-warning");
+  
+      });
+      $("#enrollment_course_idx").change(function(event) {
+        $tmp = $("#enrollment_course_"+$(this).val());
+        if($tmp.length > 0){
+          $tmp.siblings(".edit-td").children().children().children().click();
+        }
+        else{
           $("#enrollment_header").text("Add Enrollment");
           $("#enrollment_scholarship_0").click();
           $("#dismissal_loc input").prop("checked", false);
@@ -282,63 +119,26 @@
           $("#enrollment_submit").val("Add New Enrollment");
           $("#enrollment_submit").addClass("btn-info");
           $("#enrollment_submit").removeClass("btn-warning");
-        });
-        $(".enrollment-edit").click(function(event) {
-          event.preventDefault();
-          $td = $(this).parent().parent().parent();
-          $courseName = $.trim($td.siblings(".enrollment-course").text());
-          $courseID = $td.siblings(".enrollment-course").attr("id").split("_")[2];
-          $enrollmentStatus = $td.siblings(".enrollment-enrolled").attr("id").split("_")[3];
-          $scholarship = $td.siblings(".enrollment-scholarship").attr("id").split("_")[3];
-          $scholarshipAmount = $.trim($td.siblings(".enrollment-scholarship").text());
-          $pickup = $td.siblings(".enrollment-pickup").attr("id").split("_")[3];
-          $("#enrollment_header").text("Edit Enrollment for "+$courseName);
-          $("#enrollment_course_id").val($courseID);
-          //$("#enrollment_course_id").parent().parent().hide();
-          $("#enrollment_scholarship_"+$scholarship).click();
-          if($scholarship == "2"){
-             $("#enrollment_scholarship_amount").val($scholarshipAmount);
-          }
-          $("#enrollment_dismissal_"+$pickup).click();
-          $("#enrollment_enrolled_"+$enrollmentStatus).click();
-          $("#enrollment_submit").val("Edit "+$courseName);
-          $("#enrollment_submit").removeClass("btn-info");
-          $("#enrollment_submit").addClass("btn-warning");
-
-        });
-        $("#enrollment_course_id").change(function(event) {
-          $tmp = $("#enrollment_course_"+$(this).val());
-          if($tmp.length > 0){
-            $tmp.siblings(".edit-td").children().children().children().click();
-          }
-          else{
-            $("#enrollment_header").text("Add Enrollment");
-            $("#enrollment_scholarship_0").click();
-            $("#dismissal_loc input").prop("checked", false);
-            $("#enrollment_status input").prop("checked", false);
-            $("#enrollment_submit").val("Add New Enrollment");
-            $("#enrollment_submit").addClass("btn-info");
-            $("#enrollment_submit").removeClass("btn-warning");
-          }
-        });
-        $("#enrollment_scholarship_0").click(function() {
-          // None
-          $("#enrollment_scholarship_amount").val(0);
-          $("#enrollment-amount-div").css('visibility','hidden');
-        });
-        $("#enrollment_scholarship_1").click(function() {
-          // Full
-          $("#enrollment-amount-div").css('visibility','visible');
-          courseid = $("#enrollment_course_id").val();
-          $.ajax({
-            url: "/course_fee/" + courseid
-          }).done(function(data) {
-            $("#enrollment_scholarship_amount").val(data);
-          });
-        });
-        $("#enrollment_scholarship_2").click(function() {
-          // Partial
-          $("#enrollment-amount-div").css('visibility','visible');
+        }
+      });
+      $("#enrollment_scholarship_0").click(function() {
+        // None
+        $("#enrollment_scholarship_amount").val(0);
+        $("#enrollment-amount-div").css('visibility','hidden');
+      });
+      $("#enrollment_scholarship_1").click(function() {
+        // Full
+        $("#enrollment-amount-div").css('visibility','visible');
+        courseid = $("#enrollment_course_id").val();
+        $.ajax({
+          url: "/course_fee/" + courseid
+        }).done(function(data) {
+          $("#enrollment_scholarship_amount").val(data);
         });
       });
+      $("#enrollment_scholarship_2").click(function() {
+        // Partial
+        $("#enrollment-amount-div").css('visibility','visible');
+      });
+    });
 

@@ -1,0 +1,31 @@
+.row
+  .span6
+    .module-heading
+      .module-heading-title=@course.name
+      .module-heading-action
+        = link_to "Edit", "#",
+            :onclick => "$('#enrollment-detail').load('#{edit_enrollment_for_student_path(@student, :course_id => @enrollment.course.id)} #main')"
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Scholarship:
+          %td.attribute-value
+            = @enrollment.scholarship_to_s
+        - if (@enrollment.has_scholarship?)
+          %tr
+            %td.attribute-label
+              Scholarship Amount:
+            %td.attribute-value
+              - if @enrollment.scholarship_amount
+                #{sprintf("$%0.2f", @enrollment.scholarship_amount)}
+        %tr
+          %td.attribute-label
+            Dismissal:
+          %td.attribute-value
+            = @enrollment.dismissal_to_s
+        %tr
+          %td.attribute-label
+            Status:
+          %td.attribute-value
+            = @enrollment.enrolled_to_s

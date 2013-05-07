@@ -1,88 +1,59 @@
 -# This file is app/views/semesters/show.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      = "Semester: #{@semester.name}"
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      / %h1.span6.offset3
-      %ul.pager{:style=>"margin-top:0;"}
-        %li.previous
-          %a{:href=>"#{semesters_path}"}
-            &larr; Back to All Semesters
-      .center
-        %h1 Session: #{@semester.name}
-      = render :partial => "partial/semester_error"
+- content_for :title, "#{@semester.name}"
 
-      // hero-unit: _Import_
-      .hero-unit
-        %div{:style=>"width:400px;float:left;"}
-          %h2
-            Import
-          = form_tag import_semester_path(@semester), :method => :put, :class => "form-horizontal" do
-            = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
-            %button.btn.btn-info{:type=>"submit"}
-              Import
-        %div{:style=>"width:450px;float:right;"}
-          %h2
-            Fees
-          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
-            %div{:style=>"float:left;"}
-              = label :semester, :fee, 'Registration Fee: $', :class => "control-label", :style => "width:auto;margin-right:10px;"
-              = text_field :semester, :fee, :class => "span2"
-            = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px"
-        .clear
-        .vspace30
-      // END hero-unit: _Fees_
-      .vspace30
-
-      // hero-unit: _Schedule_
-      .hero-unit
-        %h2
-          Schedule
-        = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
-          %div{:style=>"float:left;"}
-            = label :semester, :start_date, 'Start Date:', :class => "control-label", :style => "width:auto;margin-right:10px;"
-            = text_field :semester, :start_date, :class => "span2"
-          %div{:style=>"float:left;"}
-            = label :semester, :end_date, 'End Date:', :class => "control-label", :style => "width:auto;margin-left:20px;margin-right:10px;"
-            = text_field :semester, :end_date, :class => "span2"
-          = submit_tag 'Update', :class => "btn btn-info", :style => "margin-left:10px;"
-        .vspace30
-        %table.table-striped.table-bordered.table-hover{:id=>"table_days_off",:style=>"width:100%;text-align:center;"}
-          %thead{:style=>"text-decoration:underline;"}
-            %td Day or Span
-            %td Remove
-          - @semester.dates_with_no_classes.each do |date|
-            = form_tag days_off_for_semester_path(@semester), :method => :delete, :class => "form-horizontal" do
-              = hidden_field_tag(:date,date)
-              %tr
-                %td.cell_center
-                  = date
-                %td.cell_center
-                  = submit_tag 'Delete Date', :class => "btn btn-danger edit-delete"
-          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+.row
+  .span12.module#semester-detail
+    .module-heading
+      .module-heading-title #{@semester.name}
+      .module-heading-action
+        = link_to "Edit", edit_semester_path
+        
+    .module-content
+      .row
+        .span5
+          %table.attribute-table
             %tr
-              %td
-                = text_field :semester, :dates_with_no_classes_day, {:placeholder => "11/23/12 or 11/23/12-11/24/12", :style=>"vertical-align:middle; margin-bottom:0px;"}
-                = submit_tag 'Add Days Off', :class => "btn btn-info"
-        .vspace30
-      // END hero-unit: _Schedule_
+              %td.attribute-label
+                Start date:
+              %td.attribute-value
+                = @semester.start_date
+            %tr
+              %td.attribute-label
+                End date:
+              %td.attribute-value
+                = @semester.end_date
+            %tr
+              %td.attribute-label
+                Registration fee:
+              %td.attribute-value
+                = sprintf "$%0.2f", @semester.fee || 0
+            %tr
+              %td.attribute-label
+                Registration deadline:
+              %td.attribute-value
+                = @semester.registration_deadline
+            %tr
+              %td.attribute-label
+                Lottery deadline:
+              %td.attribute-value
+                = @semester.lottery_deadline
 
-      // hero-unit: _Semester Admin_
-      .vspace30
-      .hero-unit
-        %h2 Semester Admin
-        .vspace10
-        = button_to "Delete #{@semester.name}", semester_path(@semester), :method => :delete, :style => "display:block;margin-left:auto;margin-right:auto;", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete the \"#{@semester.name}\" session from the database.  Specific information that is only associated with this semester will also be deleted.  Data deleted will not be recoverable.  Are you really sure you want to delete the \"#{@semester.name}\" from the database?"}
-        .vspace30
-      .vspace80
-      // END hero-unit: _Semester Admin_
+        .span5.offset1
+          %table.table.table-striped{:id=>"table_days_off"}
+            %thead
+              %tr
+                %td Holidays
+            - if @semester.dates_with_no_classes.length > 0
+              - @semester.dates_with_no_classes.each do |date|
+                %tr
+                  %td
+                    = date
+            - else
+              %tr
+                %td
+                  None
 
-    :javascript
-      $("#navbar-semester").addClass('active');
+- content_for :js do
+  :javascript

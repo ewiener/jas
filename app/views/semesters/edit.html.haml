@@ -1,0 +1,71 @@
+-# This file is app/views/semesters/edit.html.haml
+!!! 5
+
+- content_for :title, "Edit Session"
+
+.row
+  .span12.module#semester-edit
+    .module-heading
+      .module-heading-title Edit Session
+
+    .module-content
+      .row
+        .span5
+          = form_tag semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            .control-group
+              = label :semester, :name, 'Name', :class => "control-label"
+              .controls
+                = text_field :semester, :name
+            .control-group
+              = label :semester, :start_date, 'Start date', :class => "control-label"
+              .controls
+                = text_field :semester, :start_date
+            .control-group
+              = label :semester, :end_date, 'End date', :class => "control-label"
+              .controls
+                = text_field :semester, :end_date
+            .control-group
+              = label :semester, :registration_deadline, 'Registration deadline', :class => "control-label"
+              .controls
+                = text_field :semester, :registration_deadline
+            .control-group
+              = label :semester, :lottery_deadline, 'Lottery deadline', :class => "control-label"
+              .controls
+                = text_field :semester, :lottery_deadline
+            .control-group
+              = label :semester, :fee, 'Registration fee', :class => "control-label"
+              .controls
+                .input-prepend
+                  %span.add-on $
+                  = text_field :semester, :fee, :value => sprintf("%0.2f", @semester.fee || 0), :class => "span1"
+            .control-group
+              .controls
+                = submit_tag 'Update', :class => "btn btn-warning"
+                = link_to 'Cancel', semester_path(@semester), :class => "btn btn-info"
+
+        .span5.offset1
+          %table.table.table-striped{:id=>"table_days_off"}
+            %thead
+              %tr
+                %td(colspan=2) Holidays
+            - @semester.dates_with_no_classes.each do |date|
+              %tr
+                %td
+                  = date
+                %td
+                  = button_to 'Delete', days_off_for_semester_path(@semester, :date => date, :keep_editing => "true"), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
+            = form_tag semester_path(@semester, :keep_editing => "true"), :method => :put do
+              %tr
+                %td
+                  = text_field :semester, :dates_with_no_classes_day, {:placeholder => "11/23/12 or 11/23/12-11/24/12"}
+                %td
+                  = submit_tag 'Add Holiday', :class => "btn btn-info"
+                  
+          %hr
+      
+          = form_tag import_semester_path(@semester), :method => :put, :class => "form-horizontal" do
+            = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
+            = submit_tag 'Import', :class => 'btn btn-info'
+
+- content_for :js do
+  :javascript

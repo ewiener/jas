@@ -1,0 +1,18 @@
+- flash.each do |name, msg|
+  - if msg.is_a?(String)
+    %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+      %a.close{"data-dismiss" => "alert"} ×
+      = content_tag :div, msg, :id => "flash_#{name}"
+      
+
+- if flash[:warning]
+  - if flash[:warning].instance_of?(ActiveModel::Errors)
+    - flash[:warning].full_messages.each do |msg|
+      .alert.alert-error
+        %a.close{"data-dismiss" => "alert"} ×
+        = msg
+  - else
+    - flash[:warning].each do |attr, msg|
+      .alert.alert-error
+        %a.close{"data-dismiss" => "alert"} ×
+        = msg

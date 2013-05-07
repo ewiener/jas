@@ -1,0 +1,22 @@
+-# This file is app/views/courses/show.html.haml
+!!! 5
+
+- content_for :title, "#{@course.name}"
+
+- if full_mode?
+  .row
+    .span12
+      = render :partial => 'full_detail', :locals => {:semester => @semester, :course => @course}
+  .row
+    .span12
+      = render :partial => 'full_enrollments', :locals => {:semester => @semester, :course => @course}
+- else
+  .row
+    .span5#class-detail
+      = render :partial => 'basic_detail', :locals => {:semester => @semester, :course => @course}
+              
+    .span6.offset1#class-enrollments
+      = render :partial => 'basic_enrollments', :locals => {:semester => @semester, :course => @course}
+
+- content_for :js do
+  :javascript       

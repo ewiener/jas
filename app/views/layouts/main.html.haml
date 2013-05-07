@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %title= content_for?(:title) ? yield(:title) : ""
+    %meta{:name => "description", :content => ""}
+    %meta{:name => "author", :content => ""}
+    = stylesheet_link_tag "main", :media => "all"
+    = javascript_include_tag "main"
+    %style{:type => "text/css"}
+      = yield(:css)
+    = csrf_meta_tags
+    = yield(:head)
+  %body
+    - if !print_mode?
+      = render :partial => 'partial/navbar', :locals => {:semester => @semester}
+    %header
+      .container
+        = render :partial => print_mode? ? 'partial/print_header' : 'partial/breadcrumb', :locals => {:semester => @semester}
+    #main{:role => "main"}
+      .container
+        .content
+          = render 'partial/messages'
+          = content_for?(:content) ? yield(:content) : yield
+      %footer
+    = yield(:js)

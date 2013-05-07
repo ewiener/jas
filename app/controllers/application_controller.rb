@@ -2,12 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper :all
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :all_semesters, :site_section
 
   before_filter :require_user
 
   private
-  
   def current_user_session
     @current_user_session ||= UserSession.find
   end
@@ -15,11 +14,15 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= current_user_session && current_user_session.user
   end
+  
+  def all_semesters
+  	@all_semesters = Semester.all.sort_by{|semester| semester.start_date_as_date}.reverse
+  end
 
   def require_user
     unless current_user
       save_location
-      redirect_to new_user_session_path
+      redirect_to login_path
       return false
     end
   end
@@ -39,6 +42,9 @@ class ApplicationController < ActionController::Base
   def redirect_to_saved_location(default)
     redirect_to saved_location || default
     clear_saved_location
+  end
+  
+  def site_section
   end
 
   def valid_semester?(semester, redirect_path=:root, message="Could not find the given semester.")

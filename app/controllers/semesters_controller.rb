@@ -1,5 +1,10 @@
 class SemestersController < ApplicationController
   protect_from_forgery
+  layout "main"
+
+  def site_section
+  	:semesters_section
+  end
 
   def index
     @semesters = Semester.all.sort_by{|semester| semester.start_date_as_date}.reverse
@@ -8,12 +13,17 @@ class SemestersController < ApplicationController
   def show
     @semester = Semester.find(params[:id])
     return unless valid_semester?(@semester)
-    
-    @semesters = Semester.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
   end
 
   def new
     @semester = flash.key?(:semester) ? Semester.new(flash[:semester]) : Semester.new
+  end
+  
+  def edit
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
+    
+    @semesters = Semester.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
   end
 
   def create
@@ -55,11 +65,12 @@ class SemestersController < ApplicationController
     end
     if valid == false
       flash[:warning] = @semester.errors
-      redirect_to semester_path(@semester)
+      redirect_to edit_semester_path(@semester)
       return
     end
     if @semester.update_attributes(update_hash)
-      redirect_to semester_path(@semester), :notice => "#{@semester.name} was successfully updated."
+    	path = params[:keep_editing] ? edit_semester_path : semester_path
+      redirect_to path, :notice => "#{@semester.name} was successfully updated."
     else
       flash[:warning] = @semester.errors
       redirect_to edit_semester_path
@@ -103,11 +114,11 @@ class SemestersController < ApplicationController
 
     date = params[:date]
     if @semester.delete_date(date)
-      flash[:notice] = "Successfully deleted #{date} from #{@semester.name}"
+      flash[:notice] = "Successfully deleted #{date} as a holiday from #{@semester.name}"
     else
       flash[:warning] = @semester.errors
     end
-    redirect_to semester_path(@semester)
+    redirect_to edit_semester_path(@semester)
   end
 end
 

@@ -1,11 +1,24 @@
 class TeachersController < ApplicationController
   protect_from_forgery
+  layout "main"
+
+  def site_section
+  	:teachers_section
+  end
 
   def index
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
     @teachers = @semester.teachers
+  end
+
+  def show
+    @teacher = Teacher.find(params[:id])
+    return unless valid_teacher?(@teacher)
+    
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @teacher.semester
+    return unless valid_semester?(@semester)
   end
 
   def new
@@ -21,7 +34,7 @@ class TeachersController < ApplicationController
 
     @teacher = @semester.teachers.create(params[:teacher])
     if not @teacher.new_record?
-      redirect_to semester_teachers_path(@semester), :notice => "Successfully added #{@teacher.name} to the database."
+      redirect_to semester_teachers_path(@semester), :notice => "Successfully added #{@teacher.classroom} to the database."
     else
       flash[:warning] = @teacher.errors
       flash[:teacher] = params[:teacher]
@@ -45,7 +58,7 @@ class TeachersController < ApplicationController
     return unless valid_semester?(@semester)
 
     if @teacher.update_attributes(params[:teacher])
-      redirect_to semester_teachers_path(@semester), :notice => "#{@teacher.name}'s entry was successfully updated."
+      redirect_to teacher_path(@teacher), :notice => "#{@teacher.classroom}'s entry was successfully updated."
     else
       flash[:warning] = @teacher.errors
       flash[:teacher] = params[:teacher] # Save fields so the user doesn't have to re-enter everything again
@@ -61,7 +74,7 @@ class TeachersController < ApplicationController
     return unless valid_semester?(@semester)
 
     if @teacher.destroy
-      flash[:notice] = "#{@teacher.name} was successfully deleted."
+      flash[:notice] = "#{@teacher.classroom} was successfully deleted."
     else
       flash[:warning] = @teacher.errors
     end

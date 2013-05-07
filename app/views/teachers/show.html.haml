@@ -1,0 +1,28 @@
+-# This file is app/views/teachers/show.html.haml
+!!! 5
+
+- content_for :title, "#{@teacher.classroom}"
+
+.row
+  .span5#teacher-detail
+    .module-heading
+      .module-heading-title= @teacher.classroom
+      .module-heading-action= link_to 'Edit', edit_teacher_path
+      
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Teacher:
+          %td.attribute-value
+            = @teacher.name
+        %tr
+          %td.attribute-label
+            Grade:
+          %td.attribute-value
+            = @teacher.grade
+  
+- content_for :js do
+  :javascript
+
+

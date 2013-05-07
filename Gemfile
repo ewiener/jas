@@ -10,7 +10,7 @@ gem 'rails', '3.2.11'
 gem 'haml-rails'
 
 gem 'bootstrap-sass'
-gem 'twitter-bootstrap-rails'
+#gem 'twitter-bootstrap-rails'
 gem 'sass-rails',   '~> 3.2.3'
 
 gem 'rdoc'

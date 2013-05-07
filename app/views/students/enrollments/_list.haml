@@ -1,0 +1,64 @@
+.module-heading
+  .module-heading-title Enrolled Classes
+  .module-heading-action
+    = link_to "+ Add Class", "#",
+        :onclick => "$('#enrollment-detail').load('#{new_enrollment_for_student_path(student)} #main')"
+
+.module-content
+  %table.data-table.table.table-striped.table-hover.full-width#enrollment-table
+    %thead
+      %tr
+        %td
+          = '#'
+        %td
+          Name
+        %td
+          Status
+        %td
+          Fee
+        %td
+
+    %tbody
+      - if student.enrollments.length != 0
+        - student.enrollments.each_with_index do |enrollment, index|
+          %tr
+            %td.enrollment-index{:id=>"enrollment_index_#{enrollment.course.id}"}
+              = link_to "#{index+1}", "#", 
+                  :class => "enrollment-edit", :id => "enrollment_index_#{enrollment.course.id}_link",
+                  :onclick => "$('#enrollment-detail').load('#{show_enrollment_for_student_path(student, :course_id => enrollment.course.id)} #main')"
+            %td.enrollment-course{:id=>"enrollment_course_#{enrollment.course.id}"}
+              = link_to course_name_with_day_and_grade_level(enrollment.course), course_path(enrollment.course)
+            %td.enrollment-enrolled{:id=>"enrollment_#{enrollment.id}_status_#{enrollment.enrolled}"}
+              = enrollment.enrolled_to_s
+            %td.enrollment-fee
+              - if enrollment.total_fee
+                = "$" + number_with_precision(enrollment.total_fee, :precision => 2)
+            %td.delete-td
+              = button_to "Delete", destroy_enrollment_for_student_path(student, :course_id => enrollment.course_id), :method => :post, :class => "btn btn-danger btn-mini edit-delete"
+      - else
+        %tr
+          %td.cell_center
+            ="-"
+          %td.cell_center
+            ="-"
+          %td.cell_center
+            ="-"
+          %td.cell_center
+            ="-"
+      %tr
+        %td.text-right(colspan=3)
+          %b
+            Registration Fee
+        %td
+          %b
+            = "$" + number_with_precision(semester.fee, :precision => 2)
+        %td
+      %tr
+        %td.right-aligned(colspan=3)
+          %b
+            Total Fee
+        %td
+          %b
+            - if (student.grand_total)
+              = "$" + number_with_precision(student.grand_total, :precision => 2)
+        %td

@@ -21,32 +21,13 @@ class Semester < ActiveRecord::Base
                   :dates_with_no_classes_day,
                   :individual_dates_with_no_classes
 
-
-  validate :name_is_valid
-
+  validates :name, :presence => true
   validate :valid_start_date
   validate :valid_end_date
   validate :start_date_before_end_date
-
   validate :dates_with_no_classes_in_session
-
   validate :valid_lottery_date
   validate :valid_registration_date
-
-
-  #TODO Validate fee
-  private
-  # Used by validation check to verify that the name is valid
-  def name_is_valid
-    errors.add(:name,"Invalid string for name.") unless name_is_valid?
-  end
-
-  public
-  # Verifies that the name is valid by checking name is not nil, is a string,and at least 1 character. Returns true or false
-  def name_is_valid?
-    return false unless not_nil_and_string(self.name)
-    return self.name.length > 0
-  end
 
   private
   # Verifies that the start date comes before the end date and returns true or false
@@ -55,18 +36,17 @@ class Semester < ActiveRecord::Base
       date_start = USDateParse(self.start_date)
       date_end = USDateParse(self.end_date)
     rescue
-      errors.add(:start_date, 'Could not verify that the start date is before the end date because the start and/or end dates are not parsable.')
       return
     end
     if date_start >= date_end
-      errors.add(:start_date, "Start date must be before end date.")
+      errors.add(:start_date, "must be before end date.")
     end
   end
 
   private
   # Used by validation check to verify that the start date can be parsed
   def valid_start_date
-    errors.add(:start_date, 'The start date cannot be parsed.') unless start_date_is_valid?
+    errors.add(:start_date, 'invalid.') unless start_date_is_valid?
   end
 
   public
@@ -84,7 +64,7 @@ class Semester < ActiveRecord::Base
   private
   # Used by validation check to verify that the end date can be parsed
   def valid_end_date
-    errors.add(:end_date, 'The end date cannot be parsed.') unless end_date_is_valid?
+    errors.add(:end_date, 'invalid.') unless end_date_is_valid?
   end
 
   public
@@ -108,7 +88,7 @@ class Semester < ActiveRecord::Base
       start_range = USDateParse(start_range)
       self.individual_dates_with_no_classes += [start_range]
     rescue
-      errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the date is not parsable.')
+      errors.add(:base, 'Invalid holiday ' + date_string)
       return false
     end
     #also need to check if startdate is before enddate
@@ -117,7 +97,7 @@ class Semester < ActiveRecord::Base
       begin
         end_range = USDateParse(end_range)
         if end_range < start_range
-          errors.add(:dates_with_no_classes_day, 'Could not add the date range because end date is before start date.')
+          errors.add(:dates_with_no_classes_day, 'invalid.')
           return false
         end
         date = start_range
@@ -126,11 +106,11 @@ class Semester < ActiveRecord::Base
           self.individual_dates_with_no_classes += [date]
         end
       rescue
-        errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the date is not parsable.')
+        errors.add(:dates_with_no_classes_day, 'invalid.')
         return false
       end
     elsif dates_array.length > 2
-      errors.add(:dates_with_no_classes_day, 'Could not verify the date range because the range is not parsable.')
+      errors.add(:dates_with_no_classes_day, 'invalid.')
       return false
     end
     return true
@@ -150,10 +130,11 @@ class Semester < ActiveRecord::Base
   private
   # Verifies that the lottery date can be parsed
   def valid_lottery_date
+  	return true if self.lottery_deadline.nil? || self.lottery_deadline.empty?
     begin
       USDateParse(self.lottery_deadline)
     rescue
-      errors.add(:lottery_deadline, 'The lottery deadline could not be parsed.')
+      errors.add(:lottery_deadline, 'invalid.')
     end
   end
 
@@ -161,12 +142,13 @@ class Semester < ActiveRecord::Base
 
   # Used by the validation check to make sure that the registration date can be parsed.
   def valid_registration_date
-    errors.add(:registration_deadline, 'The registration deadline could not be parsed.') unless registration_date_is_valid?
+    errors.add(:registration_deadline, 'invalid.') unless registration_date_is_valid?
   end
 
   public
   # Verifies that the registration date can be parsed and returns true or false
   def registration_date_is_valid?
+  	return true if self.registration_deadline.nil? || self.registration_deadline.empty?
     begin
       USDateParse(self.registration_deadline)
     rescue
@@ -237,7 +219,7 @@ class Semester < ActiveRecord::Base
   #Removes date from holiday array and become school day
   def delete_date(date)
     if self.dates_with_no_classes.delete(date) == nil
-      errors.add(:dates_with_no_classes, 'Could not find date in holiday array.')
+      errors.add(:dates_with_no_classes, 'not found.')
       return false
 
     else

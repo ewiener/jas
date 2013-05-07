@@ -1,7 +1,7 @@
 Ptast::Application.routes.draw do
   root :to => "home#index"
 
-  resources :user_sessions, :only => [:new, :create]
+  resources :user_sessions, :only => [:create]
   resources :semesters, :shallow => true do
   	member do
   		put 'import'
@@ -17,14 +17,20 @@ Ptast::Application.routes.draw do
     resources :ptainstructors
     resources :students do
       member do
-        post 'enroll'
-        post 'unenroll'
+      	get 'index_enrollments', :as => 'enrollments_for'
+      	get 'show_enrollment', :as => 'show_enrollment_for'
+      	get 'new_enrollment', :as => 'new_enrollment_for'
+      	get 'edit_enrollment', :as => 'edit_enrollment_for'
+        post 'create_enrollment', :as => 'create_enrollment_for'
+        post 'update_enrollment', :action => 'create_enrollment', :as => 'update_enrollment_for'
+        post 'destroy_enrollment', :as => 'destroy_enrollment_for'
       end
     end
-    resources :enrollments
+    resources :enrollments, :only => [:index]
   end
 
-  match '/user_session/destroy' => 'user_sessions#destroy', :as => 'destroy_user_session'
+  match '/login' => 'user_sessions#new', :as => 'login'
+  match '/logout' => 'user_sessions#destroy', :as => 'logout'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

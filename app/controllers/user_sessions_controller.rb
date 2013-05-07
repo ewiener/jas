@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :require_user, :only => [:new, :create]
+  layout "headerless"
 
   def new
     if current_user

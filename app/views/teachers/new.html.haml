@@ -1,43 +1,36 @@
 -# This file is app/views/teachers/new.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      New Classroom Teacher
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/flash_messages"
-      .clear
-      %h1.center
-        Add New Classroom Teacher
-      %div.span8.offset2
-        = form_tag semester_teachers_path(@semester), :class =>"form-horizontal" do
-          %div.control-group 
-            = label :teacher, :name, 'Teacher Name:', :class => "control-label"
-            %div.controls
-              = text_field :teacher, :name
+- content_for :title, "New Classroom"
 
-          %div.control-group
-            = label :teacher, :grade, 'Grade:', :class => "control-label"
-            %div.controls
-              = text_field :teacher, :grade
+.row
+  .span5.module#teacher-edit
+    .module-heading
+      .module-heading-title New Classroom
+      
+    .module-content
+      = form_tag semester_teachers_path(@semester), :class =>"form-horizontal" do
+        .control-group
+          = label :teacher, :classroom, 'Classroom', :class => "control-label"
+          .controls
+            = text_field :teacher, :classroom
 
-          %div.control-group
-            = label :teacher, :classroom, 'Classroom:', :class => "control-label"
-            %div.controls
-              = text_field :teacher, :classroom
+        .control-group 
+          = label :teacher, :name, 'Teacher', :class => "control-label"
+          .controls
+            = text_field :teacher, :name
 
-          %div.control-group
-            %div.controls
-              = submit_tag 'Add Classroom Teacher', :class => "btn btn-info"
-              = link_to 'Cancel', semester_teachers_path(@semester) , :class => "btn btn-info"
-          .clear
-          .vspace80
+        .control-group
+          = label :teacher, :grade, 'Grade', :class => "control-label"
+          .controls
+            = select_tag "teacher[grade]", grade_options_for_select(@teacher.allowable_grades, @teacher.grade),
+                :prompt => 'Select Grade'
 
-    :javascript
-      $("#navbar-teachers").addClass('active');
+        .control-group
+          .controls
+            = submit_tag 'Add Classroom', :class => "btn btn-info"
+            = link_to 'Cancel', semester_teachers_path(@semester) , :class => "btn btn-info"
+
+- content_for :js do
+  :javascript
 

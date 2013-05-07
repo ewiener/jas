@@ -2,43 +2,36 @@
 
 !!! 5
 
-%html
-  %head
-    %title
-      Edit Classroom Teacher
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/flash_messages"
-      .clear
-      %h1.center
-        Edit Classroom Teacher
-      %div.span8.offset2
-        = form_tag teacher_path(@teacher),:method => :put, :class =>"form-horizontal" do
-          %div.control-group 
-            = label :teacher, :name, 'Teacher Name:', :class => "control-label"
-            %div.controls
-              = text_field :teacher, :name
+- content_for :title, "Edit Classroom"
 
-          %div.control-group
-            = label :teacher, :grade, 'Grade:', :class => "control-label"
-            %div.controls
-              = text_field :teacher, :grade
+.row
+  .span5.module#teacher-edit
+    .module-heading
+      .module-heading-title Edit Classroom
+  
+    .module-content
+      = form_tag teacher_path(@teacher), :method => :put, :class =>"form-horizontal" do
+        .control-group
+          = label :teacher, :classroom, 'Classroom', :class => "control-label"
+          .controls
+            = text_field :teacher, :classroom
 
-          %div.control-group
-            = label :teacher, :classroom, 'Classroom:', :class => "control-label"
-            %div.controls
-              = text_field :teacher, :classroom
+        .control-group 
+          = label :teacher, :name, 'Teacher', :class => "control-label"
+          .controls
+            = text_field :teacher, :name
 
-          %div.control-group
-            %div.controls
-              = submit_tag 'Finish Editing Classroom Teacher', :class => "btn btn-warning"
-              = link_to 'Cancel', ".." , :class => "btn btn-info"
-          .clear
-          .vspace80
+        .control-group
+          = label :teacher, :grade, 'Grade', :class => "control-label"
+          .controls
+            = select_tag "teacher[grade]", grade_options_for_select(@teacher.allowable_grades, @teacher.grade),
+                :prompt => 'Select Grade'
 
-    :javascript
-      $("#navbar-teachers").addClass('active');
+        .control-group
+          .controls
+            = submit_tag 'Update', :class => "btn btn-warning"
+            = link_to 'Cancel', teacher_path(@teacher) , :class => "btn btn-info"
+              
+- content_for :js do
+  :javascript
 

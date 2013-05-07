@@ -1,0 +1,90 @@
+@import "bootstrap"
+body
+  padding-top: 60px
+@import "bootstrap-responsive"
+@import "css3_mixins"
+
+.clear
+  clear: both
+
+.sort-by
+  text-decoration: underline
+  cursor: pointer
+
+#login
+  h1
+    text-align: center
+  label
+    font-size: 1.3em
+    text-align: center
+  input[type="text"], input[type="password"]
+    width: 70%
+    font-size: 1.8em
+    height: 40px
+    text-align: center
+    display: block
+    margin: 0 auto
+  #login_submit
+    font-size: 1.5em
+    width: 150px
+    height: 50px
+    display: block
+    margin: 0 auto
+
+form
+  margin: 0
+  
+.module
+  margin-bottom: 30px
+
+.module-heading
+  float: left
+  width: 100%
+  border-bottom: 1px solid #ddd
+  margin-bottom: 12px
+  padding-bottom: 4px
+  
+.module-heading-title
+  float: left
+  font-weight: bold
+  font-size: 1.3em
+  
+.module-heading-filter
+  float: left
+  
+.module-heading-action
+  float: right
+  
+.module-content
+  clear: both
+  
+.full-width
+  width: 100%
+  
+.centered
+  margin-left: auto
+  margin-right: auto
+  
+.right-aligned
+  text-align: right
+  
+table.data-table
+  @extend .table
+  @extend .table-striped
+  @extend .table-hover
+    
+table.attribute-table
+  td.attribute-label
+    text-align: left
+    padding: 2px 8px 2px 0px
+  td.attribute-value
+    text-align: left
+    padding: 2px 0px 2px 8px
+
+.dropdown-menu
+  li
+    display: block
+    
+.breadcrumb
+  a:hover
+    text-decoration: none

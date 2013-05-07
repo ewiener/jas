@@ -1,69 +1,62 @@
 -# This file is app/views/students/new.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      New Student
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/flash_messages"
-      .clear
-      %h1.center
-        Register New Student
-      .vspace20
-      %div.span8.offset2
-        = form_tag semester_students_path(@semester), :class =>"form-horizontal" do
-          %div.control-group
-            = label :student, :first_name, 'First Name:', :class => "control-label"
-            %div.controls
-              = text_field :student, :first_name
-              
-          %div.control-group
-            = label :student, :last_name, 'Last Name:', :class => "control-label"
-            %div.controls
-              = text_field :student, :last_name
+- content_for :title, "New Student"
 
-          %div.control-group
-            = label :student, :grade, 'Grade:', :class => "control-label"
-            %div.controls
-              = text_field :student, :grade
+.row
+  .span6.offset3.module#student-edit
+    .module-heading
+      .module-heading-title New Student
+      
+    .module-content
+      = form_tag semester_students_path(@semester), :class =>"form-horizontal" do
+        .control-group
+          = label :student, :first_name, 'First name', :class => "control-label"
+          .controls
+            = text_field :student, :first_name
+            
+        .control-group
+          = label :student, :last_name, 'Last name', :class => "control-label"
+          .controls
+            = text_field :student, :last_name
+  
+        .control-group
+          = label :student, :grade, 'Grade', :class => "control-label"
+          .controls
+            = select_tag "student[grade]", grade_options_for_select(@student.allowable_grades, @student.grade),
+                :prompt => 'Select Grade'
+            
+        .control-group
+          = label :teacher, 'Classroom teacher', :class => "control-label"
+          .controls
+            = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name, @student.teacher_id), 
+                :prompt => 'Select Teacher', :class => "course_select"
+  
+        .control-group
+          = label :student, :parent_phone, 'Parent phone', :class => "control-label"
+          .controls
+            = phone_field :student, :parent_phone
+  
+        .control-group
+          = label :student, :parent_phone2, 'Parent phone 2', :class => "control-label"
+          .controls
+            = phone_field :student, :parent_phone2
+  
+        .control-group
+          = label :student, :parent_email, 'Parent email', :class => "control-label"
+          .controls
+            = email_field :student, :parent_email
+  
+        .control-group
+          = label :student, :health_alert, 'Health alert', :class => "control-label"
+          .controls
+            = text_area :student, :health_alert, :rows => 5
+  
+        .control-group
+          .controls
+            = submit_tag 'Register Student', :class => "btn btn-info"
+            = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
 
-          %div.control-group
-            = label :teacher, 'Jefferson Classroom Teacher:', :class => "control-label"
-            %div.controls
-              = select_tag :teacher, options_from_collection_for_select(@semester.teachers, :id, :name, @student.teacher_id),:class => "course_select"
-
-          %div.control-group
-            = label :student, :parent_phone, 'Parent Phone:', :class => "control-label"
-            %div.controls
-              = phone_field :student, :parent_phone
-
-          %div.control-group
-            = label :student, :parent_phone2, 'Parent Phone 2:', :class => "control-label"
-            %div.controls
-              = phone_field :student, :parent_phone2
-
-          %div.control-group
-            = label :student, :parent_email, 'Parent Email:', :class => "control-label"
-            %div.controls
-              = email_field :student, :parent_email
-
-          %div.control-group
-            = label :student, :health_alert, 'Health Alert:', :class => "control-label"
-            %div.controls
-              = text_area :student, :health_alert, :rows => 5
-
-          %div.control-group
-            %div.controls
-              = submit_tag 'Register Student', :class => "btn btn-info"
-              = link_to 'Cancel', semester_students_path(@semester) , :class => "btn btn-info"
-          .clear
-          .vspace80
-
-    :javascript
-      $("#navbar-students").addClass('active');
+- content_for :js do
+  :javascript
 

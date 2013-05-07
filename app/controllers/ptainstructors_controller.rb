@@ -1,11 +1,24 @@
 class PtainstructorsController < ApplicationController
   protect_from_forgery
+  layout "main"
+
+  def site_section
+  	:instructors_section
+  end
 
   def index
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
 
     @ptainstructors = @semester.ptainstructors
+  end
+  
+  def show
+    @ptainstructor = Ptainstructor.find(params[:id])
+    return unless valid_ptainstructor?(@ptainstructor)
+    
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @ptainstructor.semester
+    return unless valid_semester?(@semester)
   end
 
   def new
@@ -46,7 +59,7 @@ class PtainstructorsController < ApplicationController
     return unless valid_semester?(@semester)
 
     if @ptainstructor.update_attributes(params[:ptainstructor])
-      redirect_to semester_ptainstructors_path(@semester),
+      redirect_to ptainstructor_path(@ptainstructor),
           :notice => "#{@ptainstructor.first_name} #{@ptainstructor.last_name}'s information was successfully updated."
     else
       flash[:warning] = @ptainstructor.errors

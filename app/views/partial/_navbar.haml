@@ -1,0 +1,34 @@
+.navbar.navbar-inverse.navbar-fixed-top
+  #nav.navbar-inner
+    .container
+      %button.btn.btn-navbar(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "EnrollerCoaster", root_path, :class => 'brand'
+      .nav-collapse.collapse.navbar-responsive-collapse
+        %ul.nav
+          - if semester && !semester.new_record?
+            %li#navbar-students{class: site_section == :students_section && 'active'}
+              = link_to_section :students_section, semester
+            %li#navbar-instructors{class: site_section == :instructors_section && 'active'}
+              = link_to_section :instructors_section, semester
+            %li#navbar-teachers{class: site_section == :teachers_section && 'active'}
+              = link_to_section :teachers_section, semester
+            %li#navbar-courses{class: site_section == :courses_section && 'active'}
+              = link_to_section :courses_section, semester
+            %li#navbar-enrollments{class: site_section == :enrollments_section && 'active'}
+              = link_to_section :enrollments_section, semester
+
+          %li.dropdown
+            = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
+              Admin
+              %b.caret
+            %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
+              %li
+                = link_to 'Users', '#', :tabindex => '-1'
+                
+        %ul.nav.pull-right
+          %li#navbar-user_session
+            = link_to "Logout #{@current_user.username}", logout_path
+ 

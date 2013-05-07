@@ -1,5 +1,10 @@
 class CoursesController  < ApplicationController
   protect_from_forgery
+  layout "main"
+  
+  def site_section
+  	:courses_section
+  end
 
   def index
     @semester = Semester.find(params[:semester_id])
@@ -8,15 +13,21 @@ class CoursesController  < ApplicationController
     @courses = @semester.courses
     @course_size = Hash[@courses.map {|course| [course.id, course.students.length]}]
   end
+  
+  def show
+    @course = Course.find(params[:id])
+    return unless valid_course?(@course)
+
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
+    return unless valid_semester?(@semester)
+  end
 
   def new
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
     @ptainstructors = @semester.ptainstructors
-    @ptainstructors.unshift(Ptainstructor.new(:first_name => "Select", :last_name => "Item:")) #add item to the beginning of the ptainstructor's list
     @teachers = @semester.teachers
-    @teachers.unshift(Teacher.new(:classroom => "Select Item:"))
     
     @course = flash.key?(:course) ? Course.new(flash[:course]) : Course.new
   end
@@ -54,7 +65,7 @@ class CoursesController  < ApplicationController
     return unless valid_semester?(@semester)
     
     if @course.update_attributes(params[:course])
-      redirect_to semester_courses_path(@semester), :notice => "#{@course.name} in #{@semester.name} was successfully updated."
+      redirect_to course_path(@course), :notice => "#{@course.name} in #{@semester.name} was successfully updated."
     else
       flash[:warning] = @course.errors
       flash[:course] = params[:course] # Save fields so the user doesn't have to re-enter everything again

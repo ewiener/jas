@@ -1,58 +1,50 @@
--# This file is app/views/courses/new.html.haml
+-# This file is app/views/ptainstructors/new.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      New PTA Instructor
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/ptainstructor_error"
-      .clear
-      %h1.center
-        Add New PTA Instructor
-      %div.span8.offset2
-        = form_tag semester_ptainstructors_path(@semester), :class =>"form-horizontal" do
-          %div.control-group 
-            = label :ptainstructor, :first_name, 'First Name:', :class => "control-label"
-            %div.controls
-              = text_field :ptainstructor, :first_name
+- content_for :title, "New Instructor"
 
-          %div.control-group
-            = label :ptainstructor, :last_name, 'Last Name:', :class => "control-label"
-            %div.controls
-              = text_field :ptainstructor, :last_name
-          
-          %div.control-group
-            = label :ptainstructor, :email, 'Email:', :class => "control-label"
-            %div.controls
-              = text_field :ptainstructor, :email
+.row
+  .span5.module#instructor-edit
+    .module-heading
+      .module-heading-title New Instructor
+      
+    .module-content
+      = form_tag semester_ptainstructors_path(@semester), :class =>"form-horizontal" do
+        .control-group 
+          = label :ptainstructor, :first_name, 'First name', :class => "control-label"
+          .controls
+            = text_field :ptainstructor, :first_name
+  
+        .control-group
+          = label :ptainstructor, :last_name, 'Last name', :class => "control-label"
+          .controls
+            = text_field :ptainstructor, :last_name
+        
+        .control-group
+          = label :ptainstructor, :email, 'Email', :class => "control-label"
+          .controls
+            = text_field :ptainstructor, :email
+  
+        .control-group
+          = label :ptainstructor, :phone, 'Phone number', :class => "control-label"
+          .controls
+            = text_field :ptainstructor, :phone
+  
+        .control-group
+          = label :ptainstructor, :address, 'Address', :class => "control-label"
+          .controls
+            = text_area :ptainstructor, :address, :rows => 5
+  
+        .control-group
+          = label :ptainstructor, :bio, 'Biography', :class => "control-label"
+          .controls
+            = text_area :ptainstructor, :bio, :rows => 5
+  
+        .control-group
+          .controls
+            = submit_tag 'Add New Instructor', :class => "btn btn-warning"
+            = link_to 'Cancel', semester_ptainstructors_path(@semester), :class => "btn btn-info"
 
-          %div.control-group
-            = label :ptainstructor, :phone, 'Phone Number:', :class => "control-label"
-            %div.controls
-              = text_field :ptainstructor, :phone
-
-          %div.control-group
-            = label :ptainstructor, :address, 'Address:', :class => "control-label"
-            %div.controls
-              = text_area :ptainstructor, :address, :rows => 5
-
-          %div.control-group
-            = label :ptainstructor, :bio, 'Biography:', :class => "control-label"
-            %div.controls
-              = text_area :ptainstructor, :bio, :rows => 5
-
-          %div.control-group
-            %div.controls
-              = submit_tag 'Add New PTA Instructor', :class => "btn btn-info"
-              = link_to 'Cancel', semester_ptainstructors_path(@semester), :class => "btn btn-info"
-          .clear
-          .vspace80
-
-    :javascript
-      $("#navbar-ptainstructors").addClass('active');
+- content_for :js do
+  :javascript
 

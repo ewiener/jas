@@ -1,0 +1,76 @@
+-# This file is app/views/enrollments/index.html.haml
+!!! 5
+
+- content_for :title, "Rolls"
+
+.row
+  .span12#enrollment-list
+    %ul.nav.nav-tabs
+      %li{:class => @teacher.nil? && @dismissal.nil? ? "active" : ""}
+        = link_to "All", semester_enrollments_path(@semester)
+      %li.dropdown{:class => @teacher ? "active" : ""}
+        = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
+          #{@teacher ? @teacher.name : "By Teacher"}
+          %b.caret
+        %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
+          - @all_teachers.each do |t|
+            %li
+              = link_to t.name, semester_enrollments_path(@semester, :teacher => t.id), :tabindex => '-1' 
+      %li.dropdown{:class => @dismissal ? "active" : ""}
+        = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
+          #{@dismissal ? @dismissal[:name] : "By Dismissal"}
+          %b.caret
+        %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
+          - @all_dismissals.each do |d|
+            %li
+              = link_to d[:name], semester_enrollments_path(@semester, :dismissal => d[:id]), :tabindex => '-1' 
+      %li.pull-right
+
+    .module-content   
+      %table.data-table.full-width
+        %thead
+        - days.each do |day|
+          %tbody
+            %tr.success
+              %td(colspan=6 style="text-align:center;")
+                %b= day.to_s.capitalize
+          - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
+            %thead
+              %tr
+                %td
+                  First Name
+                %td
+                  Last Name
+                %td
+                  Class
+                %td
+                  Time
+                %td
+                  Room
+                %td
+                  Dismissal
+            %tbody
+              - @enrollments_by_day[day].each do |enrollment|
+                %tr
+                  %td.enrollment-firstname{:id=>"enrollment_firstname_#{enrollment.id}"}
+                    = link_to enrollment.student.first_name, student_path(enrollment.student)
+                  %td.enrollment-lasttname{:id=>"enrollment_lasttname_#{enrollment.id}"}
+                    = link_to enrollment.student.last_name, student_path(enrollment.student)
+                  %td.enrollment-course{:id=>"enrollment_course_name_#{enrollment.id}"}
+                    = link_to course_name_with_day_and_grade_level(enrollment.course), course_path(enrollment.course)
+                  %td.enrollment-time{:id=>"enrollment_course_time_#{enrollment.id}"}
+                    = enrollment.course.start_time + " - " + enrollment.course.end_time
+                  %td.enrollment-loc{:id=>"enrollment_course_loc_#{enrollment.id}"}
+                    - if enrollment.course.teacher
+                      = enrollment.course.teacher.classroom
+                  %td.enrollment-dismissal{:id=>"enrollment_dismissal_#{enrollment.id}"}
+                    = enrollment.dismissal_to_s
+          - else
+            %tr
+              %td(colspan=6 style="text-align:center;")
+                None
+
+- content_for :js do
+  :javascript
+
+

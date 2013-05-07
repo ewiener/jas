@@ -1,22 +1,22 @@
 -# This file is app/views/semesters/index.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      Session List
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/flash_messages"
-      %h1{:style=>"text-align:center;"}
-        Courses
-      = link_to "+ Add New Course", new_semester_course_path, :style => "float:right;"
-      .clear
-      .vspace10
-      %table.courses.table-bordered.table-striped.table-hover{:style=>"width:100%;text-align:center;font-size:0.9em;"}
+- content_for :title, "Classes"
+
+.row
+  .span12.module#class-table
+    %ul.nav.nav-tabs
+      %li.active
+        = link_to "All", "#"
+      %li 
+        = link_to "Active", "#"
+      %li
+        = link_to "Inactive", "#"
+      %li.pull-right
+        = link_to "+ Add Class", new_semester_course_path
+        
+    .module-content
+      %table.data-table.table.table-striped.table-hover.full-width#courses
         %thead
           %tr.no-select
             %td
@@ -24,9 +24,9 @@
                 Name
             %td
               %span.sort-by#sort-by-ptainstructor
-                PTA Instructor
+                Instructor
             %td
-              Days
+              Day
             %td
               Time
             %td
@@ -36,145 +36,131 @@
               %span.sort-by#sort-by-enrolled
                 Enrolled
             %td
-            %td
         %tbody
           - if @courses
             - @courses.each do |course|
               %tr.course-info
-                %td.cell_center.course-name
-                  = course.name
-                %td.cell_center.course-ptainstructor
-                  = "#{course.ptainstructor.first_name} #{course.ptainstructor.last_name}"
-                %td.cell_center.course-days
-                  - if course.sunday
-                    Su
-                  - if course.monday
-                    M
-                  - if course.tuesday
-                    Tu
-                  - if course.wednesday
-                    W
-                  - if course.thursday
-                    Th
-                  - if course.friday
-                    F
-                  - if course.saturday
-                    Sa
-                %td.cell_center.course-time
-                  = "#{course.start_time} - #{course.end_time}"
-                %td.cell_center.course-room
-                  = course.teacher.classroom || "-"
-                %td.cell_center.course-enrolled
+                %td.course-name
+                  = link_to course.name, course_path(course)
+                %td.course-instructor
+                  - if course.ptainstructor
+                    = link_to "#{course.ptainstructor.first_name} #{course.ptainstructor.last_name}", ptainstructor_path(course.ptainstructor)
+                %td.course-days
+                  = course.abbrev_days.join(", ")
+                %td.course-time
+                  - if course.start_time && course.end_time
+                    = "#{course.start_time} - #{course.end_time}"
+                %td.course-room
+                  - if course.teacher
+                    = course.teacher.classroom
+                %td.course-enrolled
                   = @course_size[course.id]
-                %td.cell_center.course-edit
-                  = button_to "Edit", edit_course_path(course), :method=> :get, :class=>"btn btn-warning edit-delete"
-                %td.cell_center.course-delete
-                  = button_to "Delete", course_path(course), :method => :delete, :class => "btn btn-danger edit-delete", :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" }
-      .vspace10
+                %td.course-delete
+                  = button_to "Delete", course_path(course), :method => :delete, :class => "btn btn-danger btn-mini edit-delete", 
+                      :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" }
 
-    :javascript
-      $(function() {
-        $("#navbar-courses").addClass('active');
-
-        rows = [];
-        $("table.courses tbody tr.course-info").each(function() {
-          $tr = $(this);
-          $courseName = $.trim($tr.children(".course-name").text());
-          $coursePtainstructor = $.trim($tr.children(".course-ptainstructor").text());
-          $courseRoom = $.trim($tr.children(".course-room").text());
-          $courseEnrolled = $.trim($tr.children(".course-enrolled").text());
-          rows.push({
-            'tr': $tr,
-            'name':  $courseName,
-            'ptainstructor': $coursePtainstructor,
-            'room': $courseRoom,
-            'enrolled': $courseEnrolled,
-          });
-        });
-        console.log(rows);
-
-        function teacherSort(property, reverse) {
-          reverse = (typeof reverse === "undefined") ? 0 : reverse;
-          rows.sort(function(a,b) {
-            if (reverse) {
-              return a[property] < b[property];
-            } else {
-              return a[property] > b[property];
-            }
-          });
-          $("table.courses tbody").html(rows[0].tr);
-          // start with the second
-          for (var i=1; i<rows.length; i++) {
-            $("table.courses tbody").append(rows[i].tr);
-          }
-        }
-
-        $("#sort-by-name").click(function() {
-          // clear other elements' formatting, first line has to be for this element too
-           
-          temp = $(this).attr('data-reverse');
-          $(".sort-by").removeAttr('data-reverse');
-          $(this).attr('data-reverse',temp);
-          reverse = 0;
-          if ($(this).attr('data-reverse') == 1) {
-            reverse = 1;
-            $(this).removeAttr('data-reverse');
-            $(this).children('span').html('&larr;');
-          } else {
-            $(this).attr('data-reverse',1);
-            $(this).children('span').html('&rarr;');
-          }
-          teacherSort('name', reverse);
-        });
-        $("#sort-by-ptainstructor").click(function() {
-          // clear other elements' formatting, first line has to be for this element too
-           
-          temp = $(this).attr('data-reverse');
-          $(".sort-by").removeAttr('data-reverse');
-          $(this).attr('data-reverse',temp);
-          reverse = 0;
-          if ($(this).attr('data-reverse') == 1) {
-            reverse = 1;
-            $(this).removeAttr('data-reverse');
-            $(this).children('span').html('&larr;');
-          } else {
-            $(this).attr('data-reverse',1);
-            $(this).children('span').html('&rarr;');
-          }
-          teacherSort('ptainstructor', reverse);
-        });
-        $("#sort-by-room").click(function() {
-          // clear other elements' formatting, first line has to be for this element too
-           
-          temp = $(this).attr('data-reverse');
-          $(".sort-by").removeAttr('data-reverse');
-          $(this).attr('data-reverse',temp);
-          reverse = 0;
-          if ($(this).attr('data-reverse') == 1) {
-            reverse = 1;
-            $(this).removeAttr('data-reverse');
-            $(this).children('span').html('&larr;');
-          } else {
-            $(this).attr('data-reverse',1);
-            $(this).children('span').html('&rarr;');
-          }
-          teacherSort('room', reverse);
-        });
-        $("#sort-by-enrolled").click(function() {
-          // clear other elements' formatting, first line has to be for this element too
-           
-          temp = $(this).attr('data-reverse');
-          $(".sort-by").removeAttr('data-reverse');
-          $(this).attr('data-reverse',temp);
-          reverse = 0;
-          if ($(this).attr('data-reverse') == 1) {
-            reverse = 1;
-            $(this).removeAttr('data-reverse');
-            $(this).children('span').html('&larr;');
-          } else {
-            $(this).attr('data-reverse',1);
-            $(this).children('span').html('&rarr;');
-          }
-          teacherSort('enrolled', reverse);
+- content_for :js do
+  :javascript
+    $(function() {
+      rows = [];
+      $("table#courses tbody tr.course-info").each(function() {
+        $tr = $(this);
+        $courseName = $.trim($tr.children(".course-name").text());
+        $courseInstructor = $.trim($tr.children(".course-instructor").text());
+        $courseRoom = $.trim($tr.children(".course-room").text());
+        $courseEnrolled = $.trim($tr.children(".course-enrolled").text());
+        rows.push({
+          'tr': $tr,
+          'name':  $courseName,
+          'instructor': $coursePtainstructor,
+          'room': $courseRoom,
+          'enrolled': $courseEnrolled,
         });
       });
+      console.log(rows);
+
+      function teacherSort(property, reverse) {
+        reverse = (typeof reverse === "undefined") ? 0 : reverse;
+        rows.sort(function(a,b) {
+          if (reverse) {
+            return a[property] < b[property];
+          } else {
+            return a[property] > b[property];
+          }
+        });
+        $("table#courses tbody").html(rows[0].tr);
+        // start with the second
+        for (var i=1; i<rows.length; i++) {
+          $("table#courses tbody").append(rows[i].tr);
+        }
+      }
+
+      $("#sort-by-name").click(function() {
+        // clear other elements' formatting, first line has to be for this element too
+         
+        temp = $(this).attr('data-reverse');
+        $(".sort-by").removeAttr('data-reverse');
+        $(this).attr('data-reverse',temp);
+        reverse = 0;
+        if ($(this).attr('data-reverse') == 1) {
+          reverse = 1;
+          $(this).removeAttr('data-reverse');
+          $(this).children('span').html('&larr;');
+        } else {
+          $(this).attr('data-reverse',1);
+          $(this).children('span').html('&rarr;');
+        }
+        teacherSort('name', reverse);
+      });
+      $("#sort-by-instructor").click(function() {
+        // clear other elements' formatting, first line has to be for this element too
+         
+        temp = $(this).attr('data-reverse');
+        $(".sort-by").removeAttr('data-reverse');
+        $(this).attr('data-reverse',temp);
+        reverse = 0;
+        if ($(this).attr('data-reverse') == 1) {
+          reverse = 1;
+          $(this).removeAttr('data-reverse');
+          $(this).children('span').html('&larr;');
+        } else {
+          $(this).attr('data-reverse',1);
+          $(this).children('span').html('&rarr;');
+        }
+        teacherSort('instructor', reverse);
+      });
+      $("#sort-by-room").click(function() {
+        // clear other elements' formatting, first line has to be for this element too
+         
+        temp = $(this).attr('data-reverse');
+        $(".sort-by").removeAttr('data-reverse');
+        $(this).attr('data-reverse',temp);
+        reverse = 0;
+        if ($(this).attr('data-reverse') == 1) {
+          reverse = 1;
+          $(this).removeAttr('data-reverse');
+          $(this).children('span').html('&larr;');
+        } else {
+          $(this).attr('data-reverse',1);
+          $(this).children('span').html('&rarr;');
+        }
+        teacherSort('room', reverse);
+      });
+      $("#sort-by-enrolled").click(function() {
+        // clear other elements' formatting, first line has to be for this element too
+         
+        temp = $(this).attr('data-reverse');
+        $(".sort-by").removeAttr('data-reverse');
+        $(this).attr('data-reverse',temp);
+        reverse = 0;
+        if ($(this).attr('data-reverse') == 1) {
+          reverse = 1;
+          $(this).removeAttr('data-reverse');
+          $(this).children('span').html('&larr;');
+        } else {
+          $(this).attr('data-reverse',1);
+          $(this).children('span').html('&rarr;');
+        }
+        teacherSort('enrolled', reverse);
+      });
+    });

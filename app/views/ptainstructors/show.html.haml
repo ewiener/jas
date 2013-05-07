@@ -1,0 +1,42 @@
+-# This file is app/views/ptainstructors/show.html.haml
+!!! 5
+
+- content_for :title, "#{@ptainstructor.full_name_first_last}"
+
+.row
+  .span5#instructor-detail
+    .module-heading
+      .module-heading-title= @ptainstructor.full_name_first_last
+      .module-heading-action= link_to 'Edit', edit_ptainstructor_path
+      
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Email:
+          %td.attribute-value
+            = @ptainstructor.email
+        %tr
+          %td.attribute-label
+            Phone:
+          %td.attribute-value
+            = @ptainstructor.phone
+        %tr
+          %td.attribute-label
+            Address:
+          %td.attribute-value
+            = @ptainstructor.address
+        %tr
+          %td.attribute-label
+            Bio:
+          %td.attribute-value
+            = @ptainstructor.bio
+
+  .span7#instructor-classes
+    .module#class-list
+      -#= render :partial => 'ptainstructors/classes', :locals => {:semester => @semester, :ptainstructor => @ptainstructor}
+    
+- content_for :js do
+  :javascript
+
+

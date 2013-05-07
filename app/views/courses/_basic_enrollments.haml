@@ -1,0 +1,27 @@
+.module
+  .module-heading
+    .module-heading-title Enrolled Students
+    .module-heading-action= link_to 'Details', course_path(course, :full => 'true')
+  
+  .module-content
+    %table.data-table.table.table-striped.table-hover.full-width#enrollment-table
+      %thead
+        %tr
+          %td
+            = '#'
+          %td
+            Name
+      %tbody
+        - if course.students.length != 0
+          - course.students.each_with_index do |student, index|
+            %tr
+              %td
+                = index + 1
+              %td
+                = link_to student.full_name, student_path(student)
+        - if course.class_max && course.students.length < course.class_max
+          - (course.students.length+1..course.class_max).each do |index|
+            %tr
+              %td
+                = index
+              %td

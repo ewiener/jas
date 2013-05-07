@@ -1,35 +1,40 @@
--# This file is app/views/logins/index.html.haml
+-# This file is app/views/user_sessions/new.html.haml
 !!! 5
 
-%html
-  %head
-    %title
-      Logins
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    = #render :partial => "partials/topbar"
-    %div#container
-
-      .vspace30
-      %div.hero-unit.section#login{:style=>'padding-bottom:5px;'}
-        %h1
-          JAS Administration
-        %h2
-          = render :partial => "partial/user_sessions_messages"
-        .vspace20
-        = form_tag user_sessions_path, :method => :post, :id=> 'login_form' do
-          %label Username:
-          / %input{:type => "text", :name => "username", :class => "text"}
-          = text_field :user_session, :username
-          %br
-          %label Password:
-          %div
-          / %input{:type => "password", :name => "password"}
-          = password_field :user_session, :password
-          .vspace20
-          = submit_tag 'Login', :id => 'login_submit', :class => 'btn btn-info'
-          .vspace20
-      .vspace20
+- content_for :title, "JAS: Login"
+- content_for :css do
+  :css
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin-heading {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+- content_for :content do
+  = form_tag user_sessions_path, :method => :post, :id=> 'login_form', :class => 'form-signin' do
+    %h2.form-signin-heading 
+      EnrollerCoaster
+    = render 'partial/user_sessions_messages'
+    = text_field :user_session, :username, :class => "input-block-level", :placeholder => "Username"
+    = password_field :user_session, :password, :class => "input-block-level", :placeholder => "Password"
+    = submit_tag 'Sign in', :id => 'login_submit', :class => 'btn btn-large btn-primary'
 
 

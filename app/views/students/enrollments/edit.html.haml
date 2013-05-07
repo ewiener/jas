@@ -1,0 +1,60 @@
+.row
+  .span6
+    .module-heading
+      .module-heading-title= @course.name
+    
+    .module-content
+      = form_tag update_enrollment_for_student_path(@student), :method => :post, :class =>"form-horizontal" do
+        = hidden_field_tag "enrollment[course_id]", @course.id
+      
+        .control-group
+          .control-label Scholarship
+          .controls
+            = label :enrollment, :scholarship, :class => "radio inline" do
+              = radio_button :enrollment, :scholarship, 0
+              None
+            = label :enrollment, :scholarship, :class => "radio inline" do
+              = radio_button :enrollment, :scholarship, 1
+              Full
+            = label :enrollment, :scholarship, :class => "radio inline" do
+              = radio_button :enrollment, :scholarship, 2
+              Partial
+
+      
+        .control-group#enrollment-amount-div
+          = label :enrollment, :scholarship_amount, 'Scholarship amount', :class => "control-label"
+          .controls
+            .input-prepend
+              %span.add-on $
+              = text_field :enrollment, :scholarship_amount, :value => sprintf("%0.2f", @enrollment.scholarship_amount), :class => "span1"
+            
+        .control-group
+          .control-label Dismissal
+          .controls
+            = label :enrollment, :dismissal, :class => "radio inline" do
+              = radio_button :enrollment, :dismissal, 0
+              Pickup
+            = label :enrollment, :dismissal, :class => "radio inline" do
+              = radio_button :enrollment, :dismissal, 1
+              JAZ
+            = label :enrollment, :dismissal, :class => "radio inline" do
+              = radio_button :enrollment, :dismissal, 2
+              BEARS
+            = label :enrollment, :dismissal, :class => "radio inline" do
+              = radio_button :enrollment, :dismissal, 3
+              Walk
+
+        .control-group
+          .control-label Status
+          .controls
+            = label :enrollment, :enrolled, :class => "radio inline" do
+              = radio_button :enrollment, :enrolled, true
+              Enrolled
+            = label :enrollment, :enrolled, :class => "radio inline" do
+              = radio_button :enrollment, :enrolled, false
+              Wait list (lottery)
+
+        .control-group
+          .controls
+            = submit_tag 'Update', :id => "enrollment_submit", :class => "btn btn-warning"
+            = link_to 'Cancel', student_path(@student) , :id => "enrollment_cancel", :class => "btn btn-info"

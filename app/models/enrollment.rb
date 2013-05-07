@@ -1,5 +1,4 @@
 class Enrollment < ActiveRecord::Base
-  belongs_to :semester
   belongs_to :course
   belongs_to :student
 
@@ -7,143 +6,117 @@ class Enrollment < ActiveRecord::Base
                   :scholarship,
                   :scholarship_amount,
                   :enrolled,
-                  :semester_id,
                   :course_id,
                   :student_id
 
-  validate :dismissal_is_valid
-  validate :scholarship_is_valid
+  validates :dismissal, :numericality => {:only_integer => true, :less_than_or_equal_to => 3}
+  validates :scholarship, :numericality => {:only_integer => true, :less_than_or_equal_to => 2}
   validate :scholarship_amount_is_valid
-  validate :enrolled_is_valid
   validate :course_id_is_valid
   validate :student_id_is_valid
   validate :student_not_already_enrolled
   
-  scope :by_course_day_and_name, joins(:course).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
+  scope :by_course_day_and_course_name, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
+  scope :by_course_day_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, last_name asc, first_name asc")
+  scope :by_student_name, joins(:student).order("last_name asc, first_name asc")
+  
+  scope :with_teacher, lambda {|teacher| teacher.present? ? where(:students => {:teacher_id => teacher}) : {}}
+  scope :with_dismissal, lambda {|dismissal| dismissal.present? ? where(:dismissal => dismissal) : {}}
 
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
+  SCHOLARSHIP = ["None", "Full", "Partial"]
+  STATUS = ["Enrolled", "Wait list (lottery)"]
   
-  def total_fee
-  	course.total_fee - scholarship_amount
+  after_initialize do
+	  if self.new_record?
+      self.scholarship = 0
+      self.dismissal = 0
+      self.enrolled = true
+	  end
+	end
+	
+	def total_fee
+  	(course.total_fee || 0) - (scholarship_amount || 0)
   end
     
   def amount_due
     enrolled ? total_fee : 0
   end
   
-  private
-  #Adds errors if dismisal_is_valid returns false
-  def dismissal_is_valid
-    errors.add(:dismissal, 'Invalid dismissal value.') unless dismissal_is_valid?
-  end
-
-  public
-  #Tests that enrollment's dismissal is not nil and is between 0 and 3. Returns true or false
-  def dismissal_is_valid?
-    return false unless self.dismissal != nil
-    return ((self.dismissal >= 0) and (self.dismissal <= 3))
+  def has_scholarship?
+  	self.scholarship > 0
   end
 
   private
-  #Adds errors if scholarship_is_valid? returns false
-  def scholarship_is_valid
-    errors.add(:scholarship, "Invalid scholarship type was selected.") unless scholarship_is_valid?
-  end
-
-
-  public
-  #Tests that enrollment's scholarship is not nil and that is it between 0 and 2. Returns true or false
-  def scholarship_is_valid?
-    return false unless self.scholarship != nil
-    return ((self.scholarship >= 0) and (self.scholarship <= 2))
-  end
-
-  private
-  #Adds errors if scholarship_amount_is_valid? returns false
   def scholarship_amount_is_valid
-    errors.add(:scholarship_amount, "An invalid scholarship amount was given.") unless scholarship_amount_is_valid?
+    errors.add(:scholarship_amount, "is invalid.") unless scholarship_amount_is_valid?
   end
 
-
   public
-   #Tests that enrollment's scholarship_amount is not nil, that there exists a course for this enrollment and that the scholarship_amount is between 0 and total fee for course. Returns true or false
   def scholarship_amount_is_valid?
-    return false unless self.scholarship_amount != nil
+    return true if self.scholarship_amount.nil?
     course = Course.find_by_id(self.course_id)
     return false unless course #make sure course is non-nil
     return ((self.scholarship_amount >= 0) and (self.scholarship_amount <= course.total_fee)) #Make sure the scholarship fee is non-negative and that it is also less than or equal to the total course fee
   end
 
   private
-  #Adds errors if enrollment_is_valid? returns false
   def enrolled_is_valid
-    errors.add(:enrolled, "An invalid enrollment value was selected.") unless enrollment_is_valid?
+    errors.add(:enrolled, "is invalid.") unless enrollment_is_valid?
   end
 
-
   public
-  #Tests that enrolled value was initialized and non-nil. Returns true or false
   def enrollment_is_valid?
-    return false unless self.enrolled != nil
     return true
   end
 
   private
-  #Adds errors if course_is_is_valid? returns false
   def course_id_is_valid
-    errors.add(:course_id, "No valid class was selected.") unless course_id_is_valid?
+    errors.add(:course_id, "is missing or invalid.") unless course_id_is_valid?
   end
 
-
   public
-   #Tests that course for enrollment's course_id exists and returns true or false.
   def course_id_is_valid?
-    return ( Course.find_by_id(self.course_id) != nil )
+    return self.course_id? && Course.find_by_id(self.course_id)
   end
 
   private
-  #Adds errors if student_not_already_enrolled returns false
   def student_not_already_enrolled
-    errors.add(:course_id, "The student is already enrolled in the selected course.") unless student_not_already_enrolled?
+    errors.add(:base, "The student is already enrolled in the selected course.") unless student_not_already_enrolled?
   end
 
-
   public
-  #Tests that student is not already linked to a course in enrollment and returns true or false.
   def student_not_already_enrolled?
     enrollments = Enrollment.where(:student_id => self.student_id, :course_id => self.course_id )
-    return true unless enrollments.length > 0
-    return true unless self.id != enrollments[0].id
-    return false
+    return enrollments.length == 0 || self.id == enrollments[0].id
   end
 
   private
-  #Adds errors if student_id_is_valid? returns false
   def student_id_is_valid
-    errors.add(:student_id, "An invalid or non-existant student id was specified.") unless student_id_is_valid?
+    errors.add(:student_id, "is missing or invalid.") unless student_id_is_valid?
   end
 
-
   public
-  #Tests that enrollment's student exists and returns true or false.
   def student_id_is_valid?
-    return ( Student.find_by_id(self.student_id) != nil )
+    return self.student_id? && Student.find_by_id(self.student_id)
   end
 
-
   public
-  #Returns the corresponding value in the DISMISSAL array based on enrollment's dismissal value
+  def scholarship_to_s
+    if self.scholarship && self.scholarship < SCHOLARSHIP.length
+    	return SCHOLARSHIP[self.scholarship]
+    end	
+  end
+  
   def dismissal_to_s
-    if self.dismissal < DISMISSAL.length;return DISMISSAL[self.dismissal];end
-    return "Invalid Value"
+    if self.dismissal && self.dismissal < DISMISSAL.length
+    	return DISMISSAL[self.dismissal]
+    end
   end
-
-
+  
   public
-  #Return status of if enrolled or not
   def enrolled_to_s
-    return "Not Enrolled, Lottery" unless self.enrolled
-    return "Enrolled"
+    return self.enrolled ? STATUS[0] : STATUS[1]
   end
 
 end

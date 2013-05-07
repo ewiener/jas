@@ -1,0 +1,25 @@
+!!!
+%ul.breadcrumb
+  %li
+    = link_to 'Jefferson PTA', semesters_path
+    %span.divider /
+  - if semester && !semester.new_record?
+    %li.dropdown
+      = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
+        #{semester.name}
+        %b.caret
+      %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
+        - all_semesters.each do |s|
+          %li
+            = link_to s.name, semester_path(s), :tabindex => '-1'                
+        %li.divider
+        %li
+          = link_to 'Manage Sessions...', semesters_path, :tabindex => '-1'
+      %span.divider /
+  - if site_section
+    %li.active
+      = link_to_section site_section, semester
+  
+  %li.pull-right
+    = link_to url_for(params.merge(:print => "true")) do
+      <i class="icon-print"></i> Print

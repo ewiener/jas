@@ -1,126 +1,123 @@
 -# This file is app/views/teacher/index.html.haml
 !!! 5
 
-%html{:lang => "en"}
-  %head
-    %title
-      Session List
-    = stylesheet_link_tag("frontpage")
-    = javascript_include_tag("application")
-  %body
-    %div#container
-      = render :partial => "partial/topbar", :locals => {:semester => @semester}
-      = render :partial => "partial/flash_messages"
-      %h1{:style=>"text-align:center;"}
-        Current Classroom Teachers
-      = link_to "+ Add New Classroom Teacher", new_semester_teacher_path, :style => "float:right;"
-      .clear
-      .vspace10
-      %table.teachers.table-bordered.table-striped.table-hover{:style=>"width:100%;text-align:center;"}
+- content_for :title, "Rooms"
+
+.row
+  .span12#student-list
+    %ul.nav.nav-tabs
+      %li.active
+        = link_to "All", "#"
+      %li 
+        = link_to "Active", "#"
+      %li
+        = link_to "Inactive", "#"
+      %li.pull-right
+        = link_to "+ Add New Room", new_semester_teacher_path
+
+    .module-content
+      %table.data-table.table.table-striped.table-hover.full-width#teachers
         %thead
           %tr.no-select
             %td
+              %span.sort-by#sort-by-room
+                Classroom
+            %td
               %span.sort-by#sort-by-name
-                Teacher Name
+                Teacher
             %td
               %span.sort-by#sort-by-grade
                 Grade
             %td
-              Location
-            %td
             %td
         %tbody
-          - if @teachers
-            - @teachers.each do |teacher|
-              %tr.teacher-info.padding-rows
-                %td.cell_center.teacher-name
-                  = teacher.name
-                %td.cell_center.teacher-grade
-                  = teacher.grade
-                %td.cell_center.teacher-classroom
-                  = teacher.classroom
-                %td.cell_center.teacher-edit
-                  = button_to "Edit", edit_teacher_path(teacher), :method=> :get, :class=>"btn btn-warning edit-delete"
-                %td.cell_center.teacher-delete
-                  - if teacher.can_be_deleted?
-                    = button_to "Delete", teacher_path(teacher), :method => :delete, :class => "btn btn-danger edit-delete"
-                  - else
-                    %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses or students. Remove the teacher from all referencing courses and students to delete."}
-                      = "Referenced"
-      .vspace10
+          - @teachers.each do |teacher|
+            %tr.teacher-info
+              %td.teacher-classroom
+                = link_to teacher.classroom, teacher_path(teacher)
+              %td.teacher-name
+                = link_to teacher.name, teacher_path(teacher)
+              %td.teacher-grade
+                = teacher.grade
+              %td.teacher-delete
+                - if teacher.can_be_deleted?
+                  = button_to "Delete", teacher_path(teacher), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
+                - else
+                  %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses or students. Remove the teacher from all referencing courses and students to delete."}
+                    = "Referenced"
+                    
+- content_for :js do
+  :javascript
+    $(function() {
+      $("span.referenced-tooltip").tooltip();
 
-    :javascript
-      $(function() {
-        $("#navbar-teachers").addClass('active');
-        $("span.referenced-tooltip").tooltip();
-
-        rows = [];
-        $("table.teachers tbody tr.teacher-info").each(function() {
-          $tr = $(this);
-          $teacherLastName = $.trim($tr.children(".teacher-name").text()).split(' ')[1];
-          $teacherGrade = $.trim($tr.children(".teacher-grade").text());
-          if ($teacherGrade == 'K' || $teacherGrade == 'k') {
-            $teacherGrade = '0';
-          }
-          rows.push({
-            'tr': $tr,
-            'lastname': $teacherLastName,
-            'grade': $teacherGrade,
-          });
-        });
-        console.log(rows);
-
-        function teacherSort(property, reverse) {
-          reverse = (typeof reverse === "undefined") ? 0 : reverse;
-          // property: 'lastname' or 'grade'
-          rows.sort(function(a,b) {
-            if (reverse) {
-              return a[property] < b[property];
-            } else {
-              return a[property] > b[property];
-            }
-          });
-          $("table.teachers tbody").html(rows[0].tr);
-          // start with the second
-          for (var i=1; i<rows.length; i++) {
-            $("table.teachers tbody").append(rows[i].tr);
-          }
+      rows = [];
+      $("table#teachers tbody tr.teacher-info").each(function() {
+        $tr = $(this);
+        $teacherLastName = $.trim($tr.children(".teacher-name").text()).split(' ')[1];
+        $teacherGrade = $.trim($tr.children(".teacher-grade").text());
+        if ($teacherGrade == 'K' || $teacherGrade == 'k') {
+          $teacherGrade = '0';
         }
-
-        $("#sort-by-name").click(function() {
-          // clear other elements' formatting, first line has to be for this element too
-           
-          temp = $(this).attr('data-reverse');
-          $(".sort-by").removeAttr('data-reverse');
-          $(this).attr('data-reverse',temp);
-          reverse = 0;
-          if ($(this).attr('data-reverse') == 1) {
-            reverse = 1;
-            $(this).removeAttr('data-reverse');
-            $(this).children('span').html('&larr;');
-          } else {
-            $(this).attr('data-reverse',1);
-            $(this).children('span').html('&rarr;');
-          }
-          teacherSort('lastname', reverse);
-        });
-
-        $("#sort-by-grade").click(function() {
-          // clear other elements' formatting
-
-          temp = $(this).attr('data-reverse');
-          $(".sort-by").removeAttr('data-reverse');
-          $(this).attr('data-reverse',temp);
-
-          reverse = 0;
-          if ($(this).attr('data-reverse') == 1) {
-            reverse = 1;
-            $(this).removeAttr('data-reverse');
-            $(this).children('span').html('&larr;');
-          } else {
-            $(this).attr('data-reverse',1);
-            $(this).children('span').html('&rarr;');
-          }
-          teacherSort('grade', reverse);
+        rows.push({
+          'tr': $tr,
+          'lastname': $teacherLastName,
+          'grade': $teacherGrade,
         });
       });
+      console.log(rows);
+
+      function teacherSort(property, reverse) {
+        reverse = (typeof reverse === "undefined") ? 0 : reverse;
+        // property: 'lastname' or 'grade'
+        rows.sort(function(a,b) {
+          if (reverse) {
+            return a[property] < b[property];
+          } else {
+            return a[property] > b[property];
+          }
+        });
+        $("table#teachers tbody").html(rows[0].tr);
+        // start with the second
+        for (var i=1; i<rows.length; i++) {
+          $("table#teachers tbody").append(rows[i].tr);
+        }
+      }
+
+      $("#sort-by-name").click(function() {
+        // clear other elements' formatting, first line has to be for this element too
+         
+        temp = $(this).attr('data-reverse');
+        $(".sort-by").removeAttr('data-reverse');
+        $(this).attr('data-reverse',temp);
+        reverse = 0;
+        if ($(this).attr('data-reverse') == 1) {
+          reverse = 1;
+          $(this).removeAttr('data-reverse');
+          $(this).children('span').html('&larr;');
+        } else {
+          $(this).attr('data-reverse',1);
+          $(this).children('span').html('&rarr;');
+        }
+        teacherSort('lastname', reverse);
+      });
+
+      $("#sort-by-grade").click(function() {
+        // clear other elements' formatting
+
+        temp = $(this).attr('data-reverse');
+        $(".sort-by").removeAttr('data-reverse');
+        $(this).attr('data-reverse',temp);
+
+        reverse = 0;
+        if ($(this).attr('data-reverse') == 1) {
+          reverse = 1;
+          $(this).removeAttr('data-reverse');
+          $(this).children('span').html('&larr;');
+        } else {
+          $(this).attr('data-reverse',1);
+          $(this).children('span').html('&rarr;');
+        }
+        teacherSort('grade', reverse);
+      });
+    });

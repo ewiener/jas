@@ -30,26 +30,20 @@
           .control-label Day
           .controls
             = label :course, 'Mon', :class => "checkbox inline" do
-              = check_box :course, :monday
+              = check_box :course, :monday, :id => "course_monday"
               Mon
             = label :course, 'Tue', :class => "checkbox inline" do
-              = check_box :course, :tuesday
+              = check_box :course, :tuesday, :id => "course_tuesday"
               Tue
             = label :course, 'Wed', :class => "checkbox inline" do
-              = check_box :course, :wednesday
+              = check_box :course, :wednesday, :id => "course_wednesday"
               Wed
             = label :course, 'Thu', :class => "checkbox inline" do
-              = check_box :course, :thursday
+              = check_box :course, :thursday, :id => "course_thursday"
               Thu
             = label :course, 'Fri', :class => "checkbox inline" do
-              = check_box :course, :friday
+              = check_box :course, :friday, :id => "course_friday"
               Fri
-            = label :course, 'Sat', :class => "checkbox inline" do
-              = check_box :course, :saturday
-              Sat
-            = label :course, 'Sun', :class => "checkbox inline" do
-              = check_box :course, :sunday
-              Sun
 
         .control-group
           = label :course, :start_time, 'Start time', :class => "control-label"
@@ -82,11 +76,11 @@
           .controls
             = text_field :course, :class_max, :class => "span1"
 
-        .control-group
-          = label :course, :number_of_classes, 'Number of meetings', :class => "control-label"
-          .controls
-            = text_field :course, :number_of_classes, :class => "span1"
-            = link_to "Calculate", "#", :id => "calc_meeting_number"
+          -# .control-group
+          -#   = label :course, :number_of_classes, 'Number of meetings', :class => "control-label"
+          -#   .controls
+          -#     = text_field :course, :number_of_classes, :class => "span1", :id => "course_number_of_classes"
+          -#     = link_to "Calculate", "#", :id => "calc_meeting_number"
 
         .control-group
           = label :course, :fee_per_meeting, 'Per meeting fee', :class => "control-label"
@@ -128,7 +122,7 @@
         jsonObj[5] = $("#course_friday").attr('checked');
         jsonObj[6] = $("#course_saturday").attr('checked');
         $.ajax({
-          type: "POST",
+          type: "GET",
           url: "#{calculate_meetings_for_course_path}",
           dataType: "json",
           data: jsonObj

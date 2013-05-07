@@ -1,7 +1,7 @@
 .row
   .span6
     .module-heading
-      .module-heading-title=@course.name
+      .module-heading-title= @course.name_with_day_and_grade_level
       .module-heading-action
         = link_to "Edit", "#",
             :onclick => "$('#enrollment-detail').load('#{edit_enrollment_for_student_path(@student, :course_id => @enrollment.course.id)} #main')"

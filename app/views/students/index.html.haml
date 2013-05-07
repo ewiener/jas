@@ -32,6 +32,9 @@
               %span.sort-by#sort-by-teacher
                 Teacher
             %td
+              %span.sort-by#sort-by-classes
+                Classes
+            %td
               
         %tbody
           - @students.each do |student|
@@ -44,6 +47,8 @@
                 = student.grade
               %td.student-teacher
                 = student.teacher ? link_to(student.teacher.name, teacher_path(student.teacher)) : ""
+              %td.student-classes
+                = @num_classes[student.id]
               %td.student-delete
                 = link_to "Delete", student_path(student), :method => :delete, :class => "btn btn-danger btn-mini"
           

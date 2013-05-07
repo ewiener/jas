@@ -32,10 +32,10 @@
           %td.attribute-value
             = @ptainstructor.bio
 
-  .span7#instructor-classes
+  .span6.offset1#instructor-classes
     .module#class-list
-      -#= render :partial => 'ptainstructors/classes', :locals => {:semester => @semester, :ptainstructor => @ptainstructor}
-    
+      = render :partial => 'courses_by_instructor', :locals => {:semester => @semester, :ptainstructor => @ptainstructor}
+
 - content_for :js do
   :javascript
 

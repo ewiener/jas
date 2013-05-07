@@ -57,7 +57,7 @@
                   %td.enrollment-lasttname{:id=>"enrollment_lasttname_#{enrollment.id}"}
                     = link_to enrollment.student.last_name, student_path(enrollment.student)
                   %td.enrollment-course{:id=>"enrollment_course_name_#{enrollment.id}"}
-                    = link_to course_name_with_day_and_grade_level(enrollment.course), course_path(enrollment.course)
+                    = link_to enrollment.course.name_with_day_and_grade_level, course_path(enrollment.course)
                   %td.enrollment-time{:id=>"enrollment_course_time_#{enrollment.id}"}
                     = enrollment.course.start_time + " - " + enrollment.course.end_time
                   %td.enrollment-loc{:id=>"enrollment_course_loc_#{enrollment.id}"}

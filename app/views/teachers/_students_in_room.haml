@@ -1,0 +1,26 @@
+.module-heading
+  .module-heading-title Students in Room
+
+.module-content
+  %table.data-table.full-width#courses
+    %thead
+      %tr.no-select
+        %td
+          = "#"
+        %td
+          Name
+    %tbody
+      - if @teacher.students.any?
+        - @teacher.students.each_with_index do |student, index|
+          %tr.student-info
+            %td.student-index
+              #{index+1}
+            %td.student-name
+              = link_to student.full_name, student_path(student)
+      - else
+        %tr
+          %td(colspan=1 style="text-align:center;")
+            None
+
+- content_for :js do
+  :javascript

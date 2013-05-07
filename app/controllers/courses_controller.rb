@@ -91,16 +91,19 @@ class CoursesController  < ApplicationController
 
   #Returns the number of times a class meets in a semester. Called from javascript, with a hash of the days of the week that are checked
   def calculate_meetings
-    @semester = Semester.find(params[:semester_id])
+    @course = Course.find(params[:id])
+    return unless valid_course?(@course, :no_redirect)
+
+    @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester, :no_redirect)
-    
+        
     class_meetings = 0
-    class_meetings_hash = @semester.specific_days_in_semester
+    class_meetings_by_day = @semester.specific_days_in_semester
     params.each do |d, value|
       day_of_week = d.to_i
       if value != "checked"; next; end
       if ((1 <= day_of_week) and (day_of_week <= 7))
-        class_meetings += class_meetings_hash[day_of_week]
+        class_meetings += class_meetings_by_day[day_of_week]
       end
     end
  

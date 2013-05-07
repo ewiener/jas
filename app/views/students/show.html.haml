@@ -45,7 +45,7 @@
 
   .span6.offset1.module#student-enrollments
     .module#enrollment-list
-      = render :partial => 'students/enrollments/list', :locals => {:semester => @semester, :student => @student}
+      = render :partial => 'students/enrollments/list', :locals => {:semester => @semester, :student => @student, :enrollments => @enrollments}
     .module#enrollment-detail
     
 - content_for :js do

@@ -10,11 +10,8 @@ class StudentsController < ApplicationController
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
-    if (params[:conditions])
-    	@students = @semester.students.where(params[:conditions])
-    else
-      @students = @semester.students
-    end
+    @students = @semester.students
+    @num_classes = Hash[@students.map {|student| [student.id, student.courses.length]}]
   end
   
   def show
@@ -23,6 +20,8 @@ class StudentsController < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
+
+	  @enrollments = @student.enrollments.by_course_day_and_course_name
   end
 
   def new
@@ -31,7 +30,7 @@ class StudentsController < ApplicationController
     
     @student = flash.key?(:student) ? Student.new(flash[:student]) : Student.new
     
-    @teachers = @semester.teachers
+    @teachers = @semester.teachers.with_teacher
   end
 
   def create
@@ -65,6 +64,8 @@ class StudentsController < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
+    
+    @teachers = @semester.teachers.with_teacher
   end
 
   def update
@@ -117,6 +118,8 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
 
+	  @enrollments = @student.enrollments.by_course_day_and_course_name
+	  
   	render 'students/enrollments/index'
   end
   
@@ -130,7 +133,7 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
     
-    @enrollment = @student.find_enrollment(@course.id)
+    @enrollment = @student.find_enrollment(@course)
     return unless valid_enrollment?(@enrollment)
  
   	render 'students/enrollments/show'
@@ -143,11 +146,7 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
 
-    @classes = @semester.courses
-    @classes.unshift(Course.new(:name => "Select Class"))
-    @classes.each do |course|
-      course.modify_name_for_enrollments(@student.id)
-    end
+    @classes = @semester.courses.reject { |course| @student.has_enrollment(course) } 
 
     @enrollment = flash.key?(:enrollment) ? Enrollment.new(flash[:enrollment]) : Enrollment.new
 
@@ -164,14 +163,10 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
     
-    @enrollment = @student.find_enrollment(@course.id)
+    @enrollment = @student.find_enrollment(@course)
     return unless valid_enrollment?(@enrollment)
 
-    @classes = @semester.courses
-    @classes.unshift(Course.new(:name => "Select Class"))
-    @classes.each do |course|
-      course.modify_name_for_enrollments(@student.id)
-    end   
+    @classes = @semester.courses.reject { |course| @student.has_enrollment(course) } 
 
   	render 'students/enrollments/edit'
   end
@@ -186,7 +181,7 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
 
-    @enrollment = @student.find_enrollment(@course.id)
+    @enrollment = @student.find_enrollment(@course)
     if @enrollment.nil?
       # Student not already enrolled, enroll them
       @enrollment = @student.create_enrollment(params[:enrollment])

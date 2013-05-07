@@ -1,7 +1,7 @@
 .row
   .span6
     .module-heading
-      .module-heading-title= @course.name
+      .module-heading-title= @course.name_with_day_and_grade_level
     
     .module-content
       = form_tag update_enrollment_for_student_path(@student), :method => :post, :class =>"form-horizontal" do
@@ -26,7 +26,7 @@
           .controls
             .input-prepend
               %span.add-on $
-              = text_field :enrollment, :scholarship_amount, :value => sprintf("%0.2f", @enrollment.scholarship_amount), :class => "span1"
+              = text_field :enrollment, :scholarship_amount, :value => @enrollment.scholarship_amount ? sprintf("%0.2f", @enrollment.scholarship_amount) : '', :class => "span1"
             
         .control-group
           .control-label Dismissal

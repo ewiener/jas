@@ -36,7 +36,7 @@
           Room:
         %td.attribute-value
           - if course.teacher
-            = link_to "#{course.teacher.classroom} (#{course.teacher.name})", teacher_path(course.teacher)
+            = link_to "#{course.teacher.classroom_with_teacher_name}", teacher_path(course.teacher)
       %tr
         %td.attribute-label
           Eligible grades:

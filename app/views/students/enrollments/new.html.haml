@@ -7,7 +7,8 @@
         .control-group
           = label :enrollment, :course, 'Class', :class => "control-label"
           .controls
-            = select_tag "enrollment[course_id]", options_from_collection_for_select(@classes, :id, :name), :class => "course_select"
+            = select_tag "enrollment[course_id]", options_for_select(@classes.map{|c| [c.name_with_day_and_grade_level, c.id]}), 
+                :prompt => 'Select Class', :class => "course_select"
       
         .control-group
           .control-label Scholarship

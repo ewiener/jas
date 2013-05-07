@@ -1,0 +1,32 @@
+.module-heading
+  .module-heading-title Classes
+
+.module-content
+  %table.data-table.full-width#courses
+    %thead
+      %tr.no-select
+        %td
+          Name
+        %td
+          Time
+        %td
+          Room
+
+    %tbody
+      - if @ptainstructor.courses.any?
+        - @ptainstructor.courses.each do |course|
+          %tr.course-info
+            %td.course-name
+              = link_to course.name_with_day_and_grade_level, course_path(course)
+            %td.course-time
+              = course.time_range
+            %td.course-room
+              - if course.teacher
+                = link_to course.teacher.classroom_with_teacher_name, teacher_path(course.teacher)
+      - else
+        %tr
+          %td(colspan=3 style="text-align:center;")
+            None
+
+- content_for :js do
+  :javascript

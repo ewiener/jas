@@ -4,7 +4,7 @@
 - content_for :title, "#{@teacher.classroom}"
 
 .row
-  .span5#teacher-detail
+  .span5.module#teacher-detail
     .module-heading
       .module-heading-title= @teacher.classroom
       .module-heading-action= link_to 'Edit', edit_teacher_path
@@ -21,6 +21,13 @@
             Grade:
           %td.attribute-value
             = @teacher.grade
+            
+  .span6.offset1
+    .module#course-list
+      = render :partial => 'courses_in_room', :locals => {:semester => @semester, :teacher => @teacher}
+    - if @teacher.name && !@teacher.name.blank?
+      .module#student-list
+        = render :partial => 'students_in_room', :locals => {:semester => @semester, :teacher => @teacher}
   
 - content_for :js do
   :javascript

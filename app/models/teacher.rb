@@ -1,6 +1,7 @@
 class Teacher < ActiveRecord::Base
 
   has_many :courses
+  has_many :students
   belongs_to :semester
   
   GRADES = ["K","1","2","3","4","5"]
@@ -13,6 +14,7 @@ class Teacher < ActiveRecord::Base
   validates :grade, :inclusion => { :in => GRADES, :message => 'must be one of ' + GRADES.join(",")}, :allow_blank => true
   validates :classroom, :presence => true
   
+  scope :with_teacher, where("name <> ''")
   scope :alphabetical_by_teacher, order("name asc")
   scope :alphabetical_by_room, order("classroom asc")
   scope :alphabetical_by_grade, order("case when grade = 'K' then '0' else grade end asc, name asc")
@@ -20,14 +22,27 @@ class Teacher < ActiveRecord::Base
 
   #Tests that teacher is not linked to any course or student so it can be deleted
   def can_be_deleted?
-    courses = Course.where(:semester_id => self.semester, :teacher_id => self.id)
-    students = Student.where(:semester_id => self.semester, :teacher_id => self.id)
+    #courses = Course.where(:semester_id => self.semester, :teacher_id => self.id)
+    #students = Student.where(:semester_id => self.semester, :teacher_id => self.id)
 
-    return ((courses.length + students.length) == 0)
+    #return ((courses.length + students.length) == 0)
+    
+    return !courses.any? && !students.any?
   end
   
   def allowable_grades
   	GRADES
   end
+  
+  def has_teacher?
+  	self.name && !self.name.empty?
+  end
 
+  def classroom_with_teacher_name
+  	str = self.classroom
+  	if has_teacher?
+  		str << " (" << self.name << ")"
+  	end
+  	return str
+  end
 end

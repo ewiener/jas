@@ -2,7 +2,7 @@ class Student < ActiveRecord::Base
   belongs_to :semester
   belongs_to :teacher
   has_many :enrollments, :dependent => :destroy
-  has_many :courses, :through => :enrollment
+  has_many :courses, :through => :enrollments
 
   GRADES = ["K","1","2","3","4","5"]
 
@@ -25,36 +25,6 @@ class Student < ActiveRecord::Base
   
   scope :alphabetical, order("last_name asc, first_name asc")
   default_scope alphabetical
-
-  private
-  def grade_is_valid
-    errors.add(:grade, 'invalid.') unless grade_is_valid?
-  end
-
-  public
-  def grade_is_valid?
-    if not_nil_and_string(self.grade)
-      if GRADES.include? self.grade
-        if self.grade == "k";self.grade = "K";end #force uppercase K
-        return true
-      end
-    end
-    return false
-  end
-
-  private
-  #Returns true if not nil and string
-  def not_nil_and_string(str)
-    return true unless ((str == nil) or (not str.instance_of? String))
-    return false
-  end
-
-  private
-  #Returns true if is nil or empty string
-  def is_nil_or_empty_string(str)
-    return false unless ((str == nil) or (str == ""))
-    return true
-  end
 
   #Formats number
   def formatted_number(number)
@@ -80,8 +50,12 @@ class Student < ActiveRecord::Base
     total > 0 ? total += semester.fee : 0
   end
 
-  def find_enrollment(course_id)
-  	enrollments.where(:course_id => course_id).first
+  def find_enrollment(course)
+  	enrollments.where(:course_id => course.id).first
+  end
+  
+  def has_enrollment(course)
+  	enrollments.where(:course_id => course.id).any?
   end
   
   def create_enrollment(attrs)

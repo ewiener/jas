@@ -19,15 +19,15 @@
         %td
 
     %tbody
-      - if student.enrollments.length != 0
-        - student.enrollments.each_with_index do |enrollment, index|
+      - if enrollments.length != 0
+        - enrollments.each_with_index do |enrollment, index|
           %tr
             %td.enrollment-index{:id=>"enrollment_index_#{enrollment.course.id}"}
               = link_to "#{index+1}", "#", 
                   :class => "enrollment-edit", :id => "enrollment_index_#{enrollment.course.id}_link",
                   :onclick => "$('#enrollment-detail').load('#{show_enrollment_for_student_path(student, :course_id => enrollment.course.id)} #main')"
             %td.enrollment-course{:id=>"enrollment_course_#{enrollment.course.id}"}
-              = link_to course_name_with_day_and_grade_level(enrollment.course), course_path(enrollment.course)
+              = link_to enrollment.course.name_with_day_and_grade_level, course_path(enrollment.course)
             %td.enrollment-enrolled{:id=>"enrollment_#{enrollment.id}_status_#{enrollment.enrolled}"}
               = enrollment.enrolled_to_s
             %td.enrollment-fee

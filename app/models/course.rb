@@ -18,7 +18,6 @@ class Course < ActiveRecord::Base
                   :thursday,
                   :friday,
                   :saturday,
-                  :number_of_classes,
                   :start_time,
                   :end_time,
                   :class_min,
@@ -26,10 +25,12 @@ class Course < ActiveRecord::Base
                   :grade_range,
                   :fee_per_meeting,
                   :fee_for_additional_materials,
-                  :total_fee,
-                  :semester_id,
+                  :course_fee,
                   :ptainstructor_id,
                   :teacher_id
+                  
+  attr_accessor :number_of_classes,
+                :holidays
 
   #has location through teacher
 
@@ -46,18 +47,22 @@ class Course < ActiveRecord::Base
   validates :class_max, :numericality => {:only_integer => true, :greater_than_or_equal_to => :class_min}, :allow_nil => true
   validates :fee_per_meeting, :numericality => true, :allow_nil => true
   validates :fee_for_additional_materials, :numericality => true, :allow_nil => true
-  validates :total_fee, :numericality => true, :allow_nil => true
+  validates :course_fee, :numericality => true, :allow_nil => true
   #validates :ptainstructor
   #validates :teacher
   
-  after_validation :calculate_number_of_classes
+  after_validation :calc_number_of_classes_and_holidays
+  after_initialize :calc_number_of_classes_and_holidays
   
   scope :alphabetical_by_day, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
   default_scope alphabetical_by_day
+  
+  def total_fee
+  	self.course_fee.to_i + (self.number_of_classes.to_i * self.fee_per_meeting.to_i) + self.fee_for_additional_materials.to_i
+  end
 
-  public
   def days
-  	daysarr = []
+  	daysarr = Array.new
   	daysarr << 'Monday' if monday
   	daysarr << 'Tuesday' if tuesday
   	daysarr << 'Wednesday' if wednesday
@@ -69,7 +74,7 @@ class Course < ActiveRecord::Base
   end
   
   def days_of_week
-  	daysarr = []
+  	daysarr = Array.new
   	daysarr << 1 if monday
   	daysarr << 2 if tuesday
   	daysarr << 3 if wednesday
@@ -142,13 +147,22 @@ class Course < ActiveRecord::Base
 		end
 	end
 
-  def calculate_number_of_classes
-    self.number_of_classes = 0
-    class_meetings_by_day = semester.specific_days_in_semester
-    days_of_week.each do |day_of_week|
-      if ((1 <= day_of_week) and (day_of_week <= 7))
-        self.number_of_classes += class_meetings_by_day[day_of_week]
-      end
-    end
+  def calc_number_of_classes_and_holidays
+    num_classes = 0
+    dates_without_classes = Array.new
+    begin
+	    class_meetings_by_day = semester.num_days_by_day_of_week
+	    holidays_by_day = semester.days_off_by_day_of_week
+	    days_of_week.each do |day_of_week|
+	      if 1 <= day_of_week && day_of_week <= 7
+	        num_classes += class_meetings_by_day[day_of_week]
+	        dates_without_classes += holidays_by_day[day_of_week]
+	      end
+	    end
+	    dates_without_classes.sort!
+	  rescue
+	  end
+    self.number_of_classes = num_classes
+    self.holidays = dates_without_classes
   end
 end

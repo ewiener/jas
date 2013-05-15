@@ -10,12 +10,15 @@
   .row
     .span12
       = render :partial => 'full_enrollments', :locals => {:semester => @semester, :course => @course}
+  .row
+    .span12
+      = render :partial => 'full_attendance', :locals => {:semester => @semester, :course => @course}
 - else
   .row
-    .span5#class-detail
+    .span5
       = render :partial => 'basic_detail', :locals => {:semester => @semester, :course => @course}
               
-    .span6.offset1#class-enrollments
+    .span6.offset1
       = render :partial => 'basic_enrollments', :locals => {:semester => @semester, :course => @course}
 
 - content_for :js do

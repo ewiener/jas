@@ -15,8 +15,14 @@ module ApplicationHelper
   def active_if(condition)
     maybe_class("active", condition)
   end
-  
-  def print_mode?
-  	params[:print] == 'true'
+
+  def dollar_amount(val, options = {})
+    if val
+       dollar_amount = "$" + number_with_precision(val, :precision => 2)
+       if options[:starred]
+       	 dollar_amount += "<sup>*</sup>"
+       end
+    end
+    return dollar_amount.html_safe
   end
 end

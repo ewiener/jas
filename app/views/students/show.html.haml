@@ -50,5 +50,19 @@
     
 - content_for :js do
   :javascript
+      $(function() {
+        $('body').on('click', '#scholarship-none', function() {
+          $("#scholarship-amount-group").hide();
+          $("#scholarship-amount").prop("disabled",true);
+        }); 
+        $('body').on('click', '#scholarship-full', function() {
+          $("#scholarship-amount-group").hide();
+          $("#scholarship-amount").prop("disabled",true);
+        });
+        $('body').on('click', '#scholarship-partial', function() {
+          $("#scholarship-amount-group").show();
+          $("#scholarship-amount").prop("disabled",false);
+        });
+      });
 
 

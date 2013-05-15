@@ -1,6 +1,6 @@
 .module
   .module-heading
-    .module-heading-title= course.name
+    .module-heading-title= course.name_with_day_and_grade_level
     .module-heading-action= link_to 'Edit', edit_course_path(course)
     
   .module-content
@@ -11,12 +11,14 @@
             %td.attribute-label
               Instructor:
             %td.attribute-value
-              = link_to course.ptainstructor.full_name_first_last, ptainstructor_path(course.ptainstructor)
+              - if course.ptainstructor
+                = link_to course.ptainstructor.full_name_first_last, ptainstructor_path(course.ptainstructor)
           %tr
             %td.attribute-label
               Room:
             %td.attribute-value
-              = link_to "#{course.teacher.classroom} (#{course.teacher.name})", teacher_path(course.teacher)
+              - if course.teacher
+                = link_to "#{course.teacher.classroom} (#{course.teacher.name})", teacher_path(course.teacher)
           %tr
             %td.attribute-label
               Day:
@@ -44,14 +46,15 @@
             %td.attribute-label
               Holidays:
             %td.attribute-value
+              = course.holidays.map { |date| date.strftime("%m/%d") }.join(", ")
           %tr
             %td.attribute-label
-              Number of meetings:
+              Meetings:
             %td.attribute-value
               = course.number_of_classes
           %tr
             %td.attribute-label
-              Min/max students:
+              Min/max:
             %td.attribute-value
               #{course.class_min}/#{course.class_max}
           %tr

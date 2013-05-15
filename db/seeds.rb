@@ -125,7 +125,7 @@ semesters.each do |semester|
       number_of_classes: randomMin,
       fee_per_meeting: random,
       fee_for_additional_materials: random,
-      total_fee: random,
+      course_fee: random,
       ptainstructor: ptainstructor,
       teacher: teacher,
     )

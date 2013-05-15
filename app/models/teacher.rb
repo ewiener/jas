@@ -8,8 +8,7 @@ class Teacher < ActiveRecord::Base
 
   attr_accessible :name,
                   :grade,
-                  :classroom,
-                  :semester
+                  :classroom
 
   validates :grade, :inclusion => { :in => GRADES, :message => 'must be one of ' + GRADES.join(",")}, :allow_blank => true
   validates :classroom, :presence => true

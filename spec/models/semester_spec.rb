@@ -313,7 +313,7 @@ describe Semester do
       @course.number_of_classes = 10
       @course.fee_per_meeting = 20
       @course.fee_for_additional_materials = 30
-      @course.total_fee = 230
+      @course.course_fee = 100
       @course.semester_id = 2
       @course.ptainstructor_id = 2
       @course.teacher_id = 3
@@ -368,7 +368,7 @@ describe Semester do
       @course_test.number_of_classes = 10
       @course_test.fee_per_meeting = 20
       @course_test.fee_for_additional_materials = 30
-      @course_test.total_fee = 230
+      @course_test.course_fee = 100
       @course_test.semester_id = 3
       @course_test.ptainstructor_id = 2
       @course_test.teacher_id = 3

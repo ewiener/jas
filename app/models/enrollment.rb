@@ -6,8 +6,8 @@ class Enrollment < ActiveRecord::Base
                   :scholarship,
                   :scholarship_amount,
                   :enrolled,
-                  :course_id,
-                  :student_id
+                  :student_id,
+                  :course_id
 
   validates :dismissal, :numericality => {:only_integer => true, :less_than_or_equal_to => 3}
   validates :scholarship, :numericality => {:only_integer => true, :less_than_or_equal_to => 2}
@@ -39,11 +39,13 @@ class Enrollment < ActiveRecord::Base
 	after_validation do
 		if SCHOLARSHIP[self.scholarship] == "Full"
 			self.scholarship_amount = course.total_fee
+	  elsif SCHOLARSHIP[self.scholarship] == "None"
+		  self.scholarship_amount = 0
 		end
 	end
 	
 	def total_fee
-  	(course.total_fee || 0) - (scholarship_amount || 0)
+  	course.total_fee.to_i - scholarship_amount.to_i
   end
     
   def amount_due

@@ -10,7 +10,6 @@ gem 'rails', '3.2.11'
 gem 'haml-rails'
 
 gem 'bootstrap-sass'
-#gem 'twitter-bootstrap-rails'
 gem 'sass-rails',   '~> 3.2.3'
 
 gem 'rdoc'
@@ -48,6 +47,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-tablesorter'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

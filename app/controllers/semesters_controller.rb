@@ -38,19 +38,19 @@ class SemestersController < ApplicationController
   end
 
   def add_days_off(update_hash)
-    day_span = update_hash[:dates_with_no_classes_day]
-    if @semester.dates_in_span_valid?(day_span)
-      valid = true
-      holiday = day_span
-      if @semester.dates_with_no_classes.include?(day_span)
-        valid = false
-        @semester.errors.add(:name,"Date string already entered.")
-      end
-      update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
-      update_hash[:dates_with_no_classes] +=  [holiday]
-      update_hash[:dates_with_no_classes_day] = nil
+  	valid = false
+    days_off = update_hash[:dates_with_no_classes_day]
+    if @semester.valid_date_span?(days_off)
+    	if !@semester.dates_with_no_classes.include?(days_off)
+	      update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
+	      update_hash[:dates_with_no_classes] << days_off
+	      update_hash[:dates_with_no_classes_day] = nil
+	      valid = true
+	    else
+	    	@semester.errors.add(:base, "Already have holiday #{days_off}")
+	    end
     else
-      valid = false
+    	@semester.errors.add(:base, "Invalid date or date range #{days_off}")
     end
     return update_hash, valid
   end
@@ -62,12 +62,12 @@ class SemestersController < ApplicationController
     update_hash = params[:semester]
     if update_hash.include?(:dates_with_no_classes_day)
       update_hash, valid = add_days_off(update_hash)
-    end
-    if valid == false
-      flash[:warning] = @semester.errors
-      redirect_to edit_semester_path(@semester)
-      return
-    end
+	    if !valid
+	      flash[:warning] = @semester.errors
+	      redirect_to edit_semester_path(@semester)
+	      return
+	    end
+	  end
     if @semester.update_attributes(update_hash)
     	path = params[:keep_editing] ? edit_semester_path : semester_path
       redirect_to path, :notice => "#{@semester.name} was successfully updated."

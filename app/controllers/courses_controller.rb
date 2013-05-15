@@ -20,7 +20,6 @@ class CoursesController  < ApplicationController
     	@courses = @courses.select{|course| course.underenrolled?}
     	@filter[:enrollment] = 'underenrolled'
     end
-    @course_size = Hash[@courses.map {|course| [course.id, course.students.length]}]
   end
   
   def show

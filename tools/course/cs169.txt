@@ -11,4 +11,4 @@ $("#course_class_max").attr('value',100);
 $("#course_fee_per_meeting").attr('value',100);
 $("#course_number_of_classes").attr('value',100);
 $("#course_fee_for_additional_materials").attr('value',100);
-$("#course_total_fee").attr('value',100);
+$("#course_course_fee").attr('value',100);

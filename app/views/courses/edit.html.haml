@@ -83,6 +83,13 @@
           -#     = link_to "Calculate", "#", :id => "calc_meeting_number"
 
         .control-group
+          = label :course, :course_fee, 'Per session fee', :class => "control-label"
+          .controls
+            .input-prepend
+              %span.add-on $
+              = text_field :course, :course_fee, :value => sprintf("%0.2f", @course.course_fee), :class => "span1"
+
+        .control-group
           = label :course, :fee_per_meeting, 'Per meeting fee', :class => "control-label"
           .controls
             .input-prepend
@@ -97,49 +104,10 @@
               = text_field :course, :fee_for_additional_materials, :value => sprintf("%0.2f", @course.fee_for_additional_materials), :class => "span1"
 
         .control-group
-          = label :course, :total_fee, 'Total fee', :class => "control-label"
-          .controls
-            .input-prepend
-              %span.add-on $
-              = text_field :course, :total_fee, :value => sprintf("%0.2f", @course.total_fee), :class => "span1"
-            = link_to "Calculate", "#", :id => "calc_total_fee"
-
-        .control-group
           .controls
             = submit_tag 'Update', :class => "btn btn-warning"
             = link_to 'Cancel', course_path, :class => "btn btn-info"
 
 - content_for :js do
   :javascript
-    $("#calc_meeting_number").click(function(event) {
-        event.preventDefault();
-        var jsonObj = {};
-        jsonObj[7] = $("#course_sunday").attr('checked');
-        jsonObj[1] = $("#course_monday").attr('checked');
-        jsonObj[2] = $("#course_tuesday").attr('checked');
-        jsonObj[3] = $("#course_wednesday").attr('checked');
-        jsonObj[4] = $("#course_thursday").attr('checked');
-        jsonObj[5] = $("#course_friday").attr('checked');
-        jsonObj[6] = $("#course_saturday").attr('checked');
-        $.ajax({
-          type: "GET",
-          url: "#{calculate_meetings_for_course_path}",
-          dataType: "json",
-          data: jsonObj
-        }).done(function(data) {
-          $("#course_number_of_classes").val(data);
-        });
-      });
-      $("#calc_total_fee").click(function(event) {
-        event.preventDefault();
-        var course_fee = $("#course_fee_per_meeting").val();
-        var course_number = $("#course_number_of_classes").val();
-        var additional_fees = $("#course_fee_for_additional_materials").val();
-        if(!isNaN(course_fee) && !isNaN(course_number) && !isNaN(additional_fees)){
-          var total = Number(course_fee) * Number(course_number) + Number(additional_fees);
-          $("#course_total_fee").val(total);
-        }else{
-          alert('"Price Per Student Per Meeting", "Number of Meetings", or "Fee for Additional Materials" does not contain a valid number');
-        }
-      });
 

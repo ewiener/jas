@@ -1,56 +1,57 @@
 -# This file is app/views/ptainstructors/index.html.haml
 !!! 5
 
-- content_for :title, "Instructors"
+- content_for :title, instructor_index_heading(@filter)
 
 .row
-  .span12.module#instructor-table
-    %ul.nav.nav-tabs
-      %li{active_if(@filter.empty?)}
+  .span12.module
+    %ul.module-heading-tabs
+      %li.module-heading-tab{active_if(@filter.empty?)}
         = link_to "All", semester_ptainstructors_path(@semester)
-      %li{active_if(@filter[:active] == 'true')}
+      %li.module-heading-tab{active_if(@filter[:active] == 'true')}
         = link_to "Active", semester_ptainstructors_path(@semester, :filter_active => "true")
-      %li{active_if(@filter[:active] == 'false')}
+      %li.module-heading-tab{active_if(@filter[:active] == 'false')}
         = link_to "Inactive", semester_ptainstructors_path(@semester, :filter_active => "false")
-      %li.pull-right
+      %li.module-heading-action
         = link_to "+ Add Instructor", new_semester_ptainstructor_path(@semester)
-        
+    %h3.print-heading-sub
+      = instructor_index_heading(@filter)
+             
     .module-content
       %table.data-table.full-width#instructors
         %thead
           %tr
             %td
-              %span.sort-by#sort-by-first
-                First Name
+              First Name
             %td
-              %span.sort-by#sort-by-last
-                Last Name
+              Last Name
             %td
-              %span.sort-by#sort-by-email
-                Email
+              Email
             %td
-              %span.sort-by#sort-by-phone
-                Phone
-            %td
-            %td
+              Phone
+            %td.action
         %tbody
           - if !@ptainstructors.empty?
             - @ptainstructors.each do |ptainstructor|
-              %tr.instructor-info
-                %td.instructor-last
+              %tr
+                %td
                   = link_to ptainstructor.first_name, ptainstructor_path(ptainstructor)
-                %td.instructor-first
+                %td
                   = link_to ptainstructor.last_name, ptainstructor_path(ptainstructor)
-                %td.instructor-email
+                %td
                   = ptainstructor.email
-                %td.instructor-phone
+                %td
                   = ptainstructor.phone
-                %td.instructor-delete
+                %td.action
+                  = link_to edit_ptainstructor_path(ptainstructor), :class => "edit-delete" do
+                    %i.icon-pencil
                   - if ptainstructor.can_be_deleted?
-                    = button_to "Delete", ptainstructor_path(ptainstructor), :method => :delete, :class => "btn btn-danger btn-mini edit-delete"
+                    = link_to ptainstructor_path(ptainstructor), :method => :delete, :class => "edit-delete",
+                        :data => { :confirm => "Are you sure you want to delete #{ptainstructor.full_name_first_last}?" } do
+                      %i.icon-trash
                   - else
                     %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses. Remove the instructor from all referencing courses to delete."}
-                      = "Referenced"
+                      %i.icon-trash
           - else
             %tr
               %td.centered(colspan=5)   
@@ -60,108 +61,4 @@
   :javascript
     $(function() {
       $("span.referenced-tooltip").tooltip();
-
-      rows = [];
-      $("table#instructors tbody tr.instructor-info").each(function() {
-        $tr = $(this);
-        $ptainstructorFirstName = $.trim($tr.children(".instructor-first").text());
-        $ptainstructorLastName = $.trim($tr.children(".instructor-last").text());
-        $ptainstructorEmail = $.trim($tr.children(".instructor-email").text());
-        $ptainstructorPhone = $.trim($tr.children(".instructor-phone").text());
-        rows.push({
-          'tr': $tr,
-          'first': $instructorFirstName,
-          'last':  $instructorLastName,
-          'email': $instructorEmail,
-          'phone': $instructorPhone,
-        });
-      });
-      console.log(rows);
-
-      function teacherSort(property, reverse) {
-        reverse = (typeof reverse === "undefined") ? 0 : reverse;
-        rows.sort(function(a,b) {
-          if (reverse) {
-            return a[property] < b[property];
-          } else {
-            return a[property] > b[property];
-          }
-        });
-        $("table#instructors tbody").html(rows[0].tr);
-        // start with the second
-        for (var i=1; i<rows.length; i++) {
-          $("table#instructors tbody").append(rows[i].tr);
-        }
-      }
-
-      $("#sort-by-first").click(function() {
-        // clear other elements' formatting, first line has to be for this element too
-         
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('first', reverse);
-      });
-      $("#sort-by-last").click(function() {
-        // clear other elements' formatting, first line has to be for this element too
-         
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('last', reverse);
-      });
-      $("#sort-by-email").click(function() {
-        // clear other elements' formatting
-
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('email', reverse);
-      });
-      $("#sort-by-phone").click(function() {
-        // clear other elements' formatting
-
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('phone', reverse);
-      });
     });

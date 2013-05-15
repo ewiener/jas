@@ -5,7 +5,7 @@
         :onclick => "$('#enrollment-detail').load('#{new_enrollment_for_student_path(student)} #main')"
 
 .module-content
-  %table.data-table.table.table-striped.table-hover.full-width#enrollment-table
+  %table.data-table.full-width
     %thead
       %tr
         %td
@@ -16,25 +16,30 @@
           Status
         %td
           Fee
-        %td
+        %td.action
 
     %tbody
       - if enrollments.length != 0
         - enrollments.each_with_index do |enrollment, index|
           %tr
-            %td.enrollment-index{:id=>"enrollment_index_#{enrollment.course.id}"}
+            %td
               = link_to "#{index+1}", "#", 
                   :class => "enrollment-edit", :id => "enrollment_index_#{enrollment.course.id}_link",
                   :onclick => "$('#enrollment-detail').load('#{show_enrollment_for_student_path(student, :course_id => enrollment.course.id)} #main')"
-            %td.enrollment-course{:id=>"enrollment_course_#{enrollment.course.id}"}
+            %td
               = link_to enrollment.course.name_with_day_and_grade_level, course_path(enrollment.course)
-            %td.enrollment-enrolled{:id=>"enrollment_#{enrollment.id}_status_#{enrollment.enrolled}"}
+            %td
               = enrollment.enrolled_to_s
-            %td.enrollment-fee
-              - if enrollment.total_fee
-                = "$" + number_with_precision(enrollment.total_fee, :precision => 2)
-            %td.delete-td
-              = button_to "Delete", destroy_enrollment_for_student_path(student, :course_id => enrollment.course_id), :method => :post, :class => "btn btn-danger btn-mini edit-delete"
+            %td
+              = dollar_amount(enrollment.total_fee, :starred => (enrollment.scholarship_amount and (enrollment.scholarship_amount > 0)))
+            %td.action
+              = link_to "#", 
+                  :class => "edit-delete", :id => "enrollment_index_#{enrollment.course.id}_link",
+                  :onclick => "$('#enrollment-detail').load('#{edit_enrollment_for_student_path(student, :course_id => enrollment.course.id)} #main')" do
+                %i.icon-pencil
+              = link_to destroy_enrollment_for_student_path(student, :course_id => enrollment.course_id), :method => :post, :class => "edit-delete",
+                  :data => { :confirm => "Are you sure you want to delete the enrollment in #{enrollment.course.name_with_day_and_grade_level}?" } do
+                %i.icon-trash
       - else
         %tr
           %td.cell_center
@@ -45,8 +50,9 @@
             ="-"
           %td.cell_center
             ="-"
+    %tfoot
       %tr
-        %td.text-right(colspan=3)
+        %td.right-aligned(colspan=3)
           %b
             Registration Fee
         %td

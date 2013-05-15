@@ -10,10 +10,9 @@ class Ptainstructor < ActiveRecord::Base
                   :email,
                   :phone,
                   :address,
-                  :bio,
-                  :semester
+                  :bio
 
-  validates :first_name, :last_name, :presence => true
+  validates :last_name, :presence => true
   validates_format_of :email, :with => /@/, :allow_blank => true
   validates_format_of :phone, :with => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :allow_blank => true
 

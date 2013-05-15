@@ -3,6 +3,8 @@ body
   padding-top: 60px
 @import "bootstrap-responsive"
 @import "css3_mixins"
+@import "jquery-tablesorter/theme.bootstrap"
+@import "print-preview"
 
 .clear
   clear: both
@@ -44,19 +46,37 @@ form
   margin-bottom: 12px
   padding-bottom: 4px
   
-.module-heading-title
-  float: left
-  font-weight: bold
-  font-size: 1.3em
+  .module-heading-title
+    float: left
+    font-weight: bold
+    font-size: 1.3em
+    
+  .module-heading-filter
+    float: left
+    
+  .module-heading-action
+    float: right
   
-.module-heading-filter
-  float: left
-  
-.module-heading-action
-  float: right
+.module-heading-tabs
+  @extend .nav
+  @extend .nav-tabs
+  .module-heading-action
+    float: right
   
 .module-content
   clear: both
+  
+.print-heading-main
+  display: none
+  margin-bottom: 30px
+  text-align: center
+  @extend .muted
+
+.print-heading-sub
+  display: none
+  margin-top: 0px
+  margin-bottom: 20px
+  text-align: center
   
 .full-width
   width: 100%
@@ -65,17 +85,19 @@ form
   margin-left: auto
   margin-right: auto
   
-.right-aligned
-  text-align: right
-  
 table.data-table
   @extend .table
   @extend .table-striped
   @extend .table-hover
+  @extend .tablesorter
   td.warning
     background-color: Cornsilk !important
   td.centered
     text-align: center !important
+  td.right-aligned
+    text-align: right !important
+  .tablesorter-header
+    cursor: pointer
     
 table.attribute-table
   td.attribute-label
@@ -85,6 +107,14 @@ table.attribute-table
     text-align: left
     padding: 2px 0px 2px 8px
 
+a.edit-delete
+  &:hover
+    text-decoration: none
+    
+a.disabled
+  text-decoration: none
+  cursor: default
+      
 .dropdown-menu
   li
     display: block

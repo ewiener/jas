@@ -1,57 +1,58 @@
 -# This file is app/views/students/index.html.haml
 !!! 5
 
-- content_for :title, "Students"
+- content_for :title, student_index_heading(@filter)
 
 .row
-  .span12#student-list
-    %ul.nav.nav-tabs
-      %li{active_if(@filter.empty?)}
+  .span12.module
+    %ul.module-heading-tabs
+      %li.module-heading-tab{active_if(@filter.empty?)}
         = link_to "All", semester_students_path(@semester)
-      %li{active_if(@filter[:enrolled] == 'true')}
+      %li.module-heading-tab{active_if(@filter[:enrolled] == 'true')}
         = link_to "Enrolled", semester_students_path(@semester, :filter_enrolled => 'true')
-      %li{active_if(@filter[:enrolled] == 'false')}
+      %li.module-heading-tab{active_if(@filter[:enrolled] == 'false')}
         = link_to "Not Enrolled", semester_students_path(@semester, :filter_enrolled => 'false')
-      %li.pull-right
+      %li.module-heading-action
         = link_to "+ Add Student", new_semester_student_path
-
+    %h3.print-heading-sub
+      = student_index_heading(@filter)
+      
     .module-content
       %table.data-table.full-width#students
         %thead
           %tr
             %td
-              %span.sort-by#sort-by-first
-                First Name
+              First Name
             %td
-              %span.sort-by#sort-by-last
-                Last Name
+              Last Name
             %td
-              %span.sort-by#sort-by-grade
-                Grade
+              Grade
             %td
-              %span.sort-by#sort-by-teacher
-                Teacher
+              Teacher
             %td
-              %span.sort-by#sort-by-classes
-                Classes
-            %td
+              Classes
+            %td.action
               
         %tbody
           - if !@students.empty?
             - @students.each do |student|
               %tr
-                %td.student-first
+                %td
                   = link_to student.first_name, student_path(student)
-                %td.student-last
+                %td
                   = link_to student.last_name, student_path(student)
-                %td.student-grade
+                %td
                   = student.grade
-                %td.student-teacher
+                %td
                   = student.teacher ? link_to(student.teacher.name, teacher_path(student.teacher)) : ""
-                %td.student-classes
+                %td
                   = student.num_valid_enrollments
-                %td.student-delete
-                  = link_to "Delete", student_path(student), :method => :delete, :class => "btn btn-danger btn-mini"
+                %td.action
+                  = link_to edit_student_path(student), :class => "edit-delete" do
+                    %i.icon-pencil
+                  = link_to student_path(student), :method => :delete, :class => "edit-delete",
+                      :data => { :confirm => "Are you sure you want to delete #{student.full_name}?" } do
+                    %i.icon-trash
           - else
             %tr
               %td.centered(colspan=6)
@@ -59,92 +60,4 @@
                           
 - content_for :js do
   :javascript
-    $(function() {
-      rows = [];
-      $("table.students tbody tr.student-info").each(function() {
-        $tr = $(this);
-        $studentFirstName = $.trim($tr.children(".student-first").text());
-        $studentLastName = $.trim($tr.children(".student-last").text());
-        $studentGrade = $.trim($tr.children(".student-grade").text());
-        if ($studentGrade == 'K' || $studentGrade == 'k') {
-          $studentGrade = '0';
-        }
-        rows.push({
-          'tr': $tr,
-          'first': $studentFirstName,
-          'last':  $studentLastName,
-          'grade': $studentGrade,
-        });
-      });
-      console.log(rows);
     
-      function teacherSort(property, reverse) {
-        reverse = (typeof reverse === "undefined") ? 0 : reverse;
-        rows.sort(function(a,b) {
-          if (reverse) {
-            return a[property] < b[property];
-          } else {
-            return a[property] > b[property];
-          }
-        });
-        $("table.students tbody").html(rows[0].tr);
-        // start with the second
-        for (var i=1; i<rows.length; i++) {
-          $("table.students tbody").append(rows[i].tr);
-        }
-      }
-    
-      $("#sort-by-first").click(function() {
-        // clear other elements' formatting, first line has to be for this element too
-         
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('first', reverse);
-      });
-      $("#sort-by-last").click(function() {
-        // clear other elements' formatting, first line has to be for this element too
-         
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('last', reverse);
-      });
-      $("#sort-by-grade").click(function() {
-        // clear other elements' formatting
-    
-        temp = $(this).attr('data-reverse');
-        $(".sort-by").removeAttr('data-reverse');
-        $(this).attr('data-reverse',temp);
-    
-        reverse = 0;
-        if ($(this).attr('data-reverse') == 1) {
-          reverse = 1;
-          $(this).removeAttr('data-reverse');
-          $(this).children('span').html('&larr;');
-        } else {
-          $(this).attr('data-reverse',1);
-          $(this).children('span').html('&rarr;');
-        }
-        teacherSort('grade', reverse);
-      });
-    });
-

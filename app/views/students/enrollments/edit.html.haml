@@ -11,22 +11,23 @@
           .control-label Scholarship
           .controls
             = label :enrollment, :scholarship, :class => "radio inline" do
-              = radio_button :enrollment, :scholarship, 0
+              = radio_button :enrollment, :scholarship, 0, :id => "scholarship-none"
               None
             = label :enrollment, :scholarship, :class => "radio inline" do
-              = radio_button :enrollment, :scholarship, 1
+              = radio_button :enrollment, :scholarship, 1, :id => "scholarship-full"
               Full
             = label :enrollment, :scholarship, :class => "radio inline" do
-              = radio_button :enrollment, :scholarship, 2
+              = radio_button :enrollment, :scholarship, 2, :id => "scholarship-partial"
               Partial
 
       
-        .control-group#enrollment-amount-div
+        .control-group#scholarship-amount-group{:style => @enrollment.scholarship != 2 ? "display:none;" : ""}
           = label :enrollment, :scholarship_amount, 'Scholarship amount', :class => "control-label"
           .controls
             .input-prepend
               %span.add-on $
-              = text_field :enrollment, :scholarship_amount, :value => @enrollment.scholarship_amount ? sprintf("%0.2f", @enrollment.scholarship_amount) : '', :class => "span1"
+              = text_field :enrollment, :scholarship_amount, :value => @enrollment.scholarship_amount ? sprintf("%0.2f", @enrollment.scholarship_amount) : '', 
+                  :class => "span1", :id => "scholarship-amount"
             
         .control-group
           .control-label Dismissal
@@ -52,9 +53,10 @@
               Enrolled
             = label :enrollment, :enrolled, :class => "radio inline" do
               = radio_button :enrollment, :enrolled, false
-              Disenrolled
+              Disenrolled (lottery)
 
         .control-group
           .controls
             = submit_tag 'Update', :id => "enrollment_submit", :class => "btn btn-warning"
             = link_to 'Cancel', student_path(@student) , :id => "enrollment_cancel", :class => "btn btn-info"
+

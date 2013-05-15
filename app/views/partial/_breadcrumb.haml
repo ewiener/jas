@@ -11,7 +11,7 @@
       %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
         - all_semesters.each do |s|
           %li
-            = link_to s.name, semester_path(s), :tabindex => '-1'                
+            = link_to s.name, section_path(site_section, s), :tabindex => '-1'
         %li.divider
         %li
           = link_to 'Manage Sessions...', semesters_path, :tabindex => '-1'
@@ -21,5 +21,10 @@
       = link_to_section site_section, semester
   
   %li.pull-right
-    = link_to url_for(params.merge(:print => "true")) do
+    = link_to '#', :class => "print-preview" do
       <i class="icon-print"></i> Print
+
+%h4.print-heading-main
+  Jefferson PTA After School Classes
+  - if semester && !semester.new_record?
+    = "- #{semester.name} - #{semester.start_date_as_date.strftime("%b %d")} to #{semester.end_date_as_date.strftime("%b %d")}"

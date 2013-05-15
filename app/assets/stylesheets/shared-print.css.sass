@@ -1,0 +1,39 @@
+body
+  padding-top: 0px
+  
+// Show the print-only elements
+.print-heading-main
+  display: block
+.print-heading-sub
+  display: block
+
+// Hide nav and interactive elements
+.breadcrumb
+  display: none
+.navbar
+  display: none
+.noprint
+  display: none
+.module-heading-tabs
+  display: none
+.module-heading-action
+  display: none
+.action
+  display: none
+
+// Bigger font for posted reports
+.print-bigger
+  td
+    font-size: 1.3em
+
+// Turn off hyperlinks
+a
+  text-decoration: none
+  color: black
+  &:hover
+    text-decoration: none
+    color: black
+  &:link:after
+    content: ""
+  &:visited:after
+    content: ""

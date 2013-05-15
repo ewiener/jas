@@ -34,7 +34,11 @@ module SectionHelper
   	SITE_SECTIONS
   end
   
-  def link_to_section(section, semester)
-  	 link_to site_sections[section][:name], site_sections[section][:path].call(semester)
+  def link_to_section(section, semester, *options)
+  	 link_to site_sections[section][:name], site_sections[section][:path].call(semester), *options
+  end
+  
+  def section_path(section, semester)
+    site_sections[section][:path].call(semester)
   end
 end

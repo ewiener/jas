@@ -4,17 +4,11 @@
     .module-heading-action= link_to 'Details', course_path(course, :full => 'true')
   
   .module-content
-    %table.data-table.full-width#enrollment-table
-      %thead
-        %tr
-          %td
-            = '#'
-          %td
-            Name
+    %table.data-table.full-width.print-bigger
       %tbody
         - if course.students.length != 0
           - course.students.each_with_index do |student, index|
-            %tr{:class => index >= course.class_max ? "warning" : ""}
+            %tr{:class => (index >= course.class_max) ? "warning" : ""}
               %td
                 = index + 1
               %td

@@ -15,7 +15,7 @@ Background: populate db with a single class session
   | joe     | 1     | Room 4    | Fall 2011 |
   
   Given the following students are in the database:
-  | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
+  | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | classroom   |
   | Abby        | Davis     | K     | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
   
   Given the following usernames and passwords exist:
@@ -30,7 +30,7 @@ Scenario: add student to db correctly
   Given I am on the "Fall 2011" Students home page
   And I follow "Add New Student"
   Then I should be on the "Fall 2011" New Students Page
-  And I fill in the new student form correctly with name "Jimmy" and teacher "joe"
+  And I fill in the new student form correctly with name "Jimmy" and classroom "joe"
   And I press "Register Student"
   Then I should be on the "Fall 2011" Students home page
   And I should see "Jimmy"

@@ -26,22 +26,22 @@ module NavigationHelpers
     when /^the Session Name Page$/
       '/semesters/new'
       
-    when /^the "(.+)" Classroom Teachers home page$/
+    when /^the "(.+)" Classroom Classrooms home page$/
       begin
         semester_id = Semester.find_by_name($1).id
-        "/semesters/#{semester_id}/teachers"
+        "/semesters/#{semester_id}/classrooms"
       rescue
         semester_id = Semester.all.length + 1
-        "/semesters/#{semester_id}/teachers"
+        "/semesters/#{semester_id}/classrooms"
       end
       
     when /^the "(.+)" Add New Classroom Page$/
       begin
         semester_id = Semester.find_by_name($1).id
-        "/semesters/#{semester_id}/teachers/new"
+        "/semesters/#{semester_id}/classrooms/new"
       rescue
         semester_id = Semester.all.length + 1
-        "/semesters/#{semester_id}/teachers/new"
+        "/semesters/#{semester_id}/classrooms/new"
       end
     
     when /^the "(.+)" Session Name Page$/
@@ -88,20 +88,20 @@ module NavigationHelpers
           end
       end
       
-    when /^the "(.+)" "(.+)" Classroom Teachers edit page$/
+    when /^the "(.+)" "(.+)" Classroom Classrooms edit page$/
       begin
         semester_id = Semester.find_by_name($1).id
-        classroom_id = Teacher.find_by_name($2).id
-        "/semesters/#{semester_id}/teachers/#{classroom_id}/edit"
+        classroom_id = Classroom.find_by_name($2).id
+        "/semesters/#{semester_id}/classrooms/#{classroom_id}/edit"
       rescue
           begin
             semester_id = Semester.find_by_name($1).id
-            classroom_id = Teacher.all.length + 1
-            "/semesters/#{semester_id}/teachers/#{classroom_id}/edit"
+            classroom_id = Classroom.all.length + 1
+            "/semesters/#{semester_id}/classrooms/#{classroom_id}/edit"
           rescue
             semester_id = Semester.all.length + 1
-            classroom_id = Teacher.all.length + 1
-            "/semesters/#{semester_id}/teachers/#{classroom_id}/edit"
+            classroom_id = Classroom.all.length + 1
+            "/semesters/#{semester_id}/classrooms/#{classroom_id}/edit"
           end
       end
       
@@ -119,26 +119,26 @@ module NavigationHelpers
       rescue
         semester_id = Semester.all.length + 1
       end
-      "/semesters/#{semester_id}/ptainstructors"
+      "/semesters/#{semester_id}/instructors"
       
-    when /^the "(.+)" Add New PTA Teacher Page$/
+    when /^the "(.+)" Add New PTA Classroom Page$/
       semester_id = Semester.find_by_name($1).id
-      "/semesters/#{semester_id}/ptainstructors/new"
+      "/semesters/#{semester_id}/instructors/new"
     
     when /^the "(.+)" "(.+)" PTA Instructor Edit Page$/
       begin
         semester_id = Semester.find_by_name($1).id
-        pta_id = Ptainstructor.find_by_name($2).id
-        "/semesters/#{semester_id}/ptainstructors/#{classroom_id}/edit"
+        pta_id = Instructor.find_by_name($2).id
+        "/semesters/#{semester_id}/instructors/#{classroom_id}/edit"
       rescue
           begin
             semester_id = Semester.find_by_name($1).id
-            classroom_id = Ptainstructor.all.length + 1
-            "/semesters/#{semester_id}/ptainstructors/#{classroom_id}/edit"
+            classroom_id = Instructor.all.length + 1
+            "/semesters/#{semester_id}/instructors/#{classroom_id}/edit"
           rescue
             semester_id = Semester.all.length + 1
-            classroom_id = Ptainstructor.all.length + 1
-            "/semesters/#{semester_id}/ptainstructors/#{classroom_id}/edit"
+            classroom_id = Instructor.all.length + 1
+            "/semesters/#{semester_id}/instructors/#{classroom_id}/edit"
           end
       end
       

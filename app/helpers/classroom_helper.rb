@@ -1,5 +1,5 @@
-module RoomHelper
-	def room_index_heading(filter)
+module ClassroomHelper
+	def classroom_index_heading(filter)
 		if filter.empty?
 			return "All Teachers/Rooms"
 		elsif filter[:active] == 'true'

@@ -137,7 +137,7 @@
   
     <li><a href="./AddStudentTable.html">AddStudentTable</a>
   
-    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+    <li><a href="./AddClassroomTable.html">AddClassroomTable</a>
   
     <li><a href="./AddUserTable.html">AddUserTable</a>
   
@@ -163,9 +163,9 @@
   
     <li><a href="./Prickle_helper.html">Prickle_helper</a>
   
-    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+    <li><a href="./Instructor.html">Instructor</a>
   
-    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+    <li><a href="./InstructorsController.html">InstructorsController</a>
   
     <li><a href="./Semester.html">Semester</a>
   
@@ -175,9 +175,9 @@
   
     <li><a href="./StudentsController.html">StudentsController</a>
   
-    <li><a href="./Teacher.html">Teacher</a>
+    <li><a href="./Classroom.html">Classroom</a>
   
-    <li><a href="./TeachersController.html">TeachersController</a>
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
   
     <li><a href="./User.html">User</a>
   
@@ -231,7 +231,7 @@
 
         <div class="method-description">
           
-          <p>Tests that ptainstructor and teacher exist before creating course and
+          <p>Tests that instructor and classroom exist before creating course and
 returns true or false</p>
           
 
@@ -239,9 +239,9 @@ returns true or false</p>
           <div class="method-source-code" id="can_create_course-3F-source">
             <pre><span class="ruby-comment"># File app/models/semester.rb, line 199</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">can_create_course?</span>
-  <span class="ruby-identifier">ptainstructors</span> = <span class="ruby-constant">Ptainstructor</span>.<span class="ruby-identifier">find_by_semester_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
-  <span class="ruby-identifier">teachers</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_semester_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
-  <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">ptainstructors</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">or</span> (<span class="ruby-identifier">teachers</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>))
+  <span class="ruby-identifier">instructors</span> = <span class="ruby-constant">Instructor</span>.<span class="ruby-identifier">find_by_semester_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">classrooms</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_semester_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">instructors</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">or</span> (<span class="ruby-identifier">classrooms</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>))
       <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
@@ -413,7 +413,7 @@ caculating number of class meetings. Returns true or false</p>
 
         <div class="method-description">
           
-          <p>Transfers ptainstructors, students, and courses from one semester to
+          <p>Transfers instructors, students, and courses from one semester to
 another semester</p>
           
 
@@ -431,35 +431,35 @@ another semester</p>
   <span class="ruby-comment">#raise ActiveRecord::Rollback</span>
 
   <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">ptainstructors</span> = <span class="ruby-constant">Ptainstructor</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
-    <span class="ruby-identifier">teachers</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">instructors</span> = <span class="ruby-constant">Instructor</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">classrooms</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
     <span class="ruby-identifier">students</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
     <span class="ruby-identifier">courses</span> = <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
 
-    <span class="ruby-identifier">ptainstructors_cloned</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-identifier">teachers_cloned</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">instructors_cloned</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">classrooms_cloned</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
     <span class="ruby-identifier">courses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">oldcourse</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">newcourse</span> = <span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">dup</span>
-      <span class="ruby-identifier">oldteacher</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">teacher_id</span>)
-      <span class="ruby-identifier">oldptainstructor</span> = <span class="ruby-constant">Ptainstructor</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">ptainstructor_id</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_teacher_for_course</span>(<span class="ruby-identifier">newcourse</span>, <span class="ruby-identifier">oldteacher</span>,<span class="ruby-identifier">teachers_cloned</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_ptainstructor_for_course</span>(<span class="ruby-identifier">newcourse</span>,<span class="ruby-identifier">oldptainstructor</span>,<span class="ruby-identifier">ptainstructors_cloned</span>)
+      <span class="ruby-identifier">oldclassroom</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">classroom_id</span>)
+      <span class="ruby-identifier">oldinstructor</span> = <span class="ruby-constant">Instructor</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">instructor_id</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_classroom_for_course</span>(<span class="ruby-identifier">newcourse</span>, <span class="ruby-identifier">oldclassroom</span>,<span class="ruby-identifier">classrooms_cloned</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_instructor_for_course</span>(<span class="ruby-identifier">newcourse</span>,<span class="ruby-identifier">oldinstructor</span>,<span class="ruby-identifier">instructors_cloned</span>)
       <span class="ruby-identifier">newcourse</span>.<span class="ruby-identifier">semester_id</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
       <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">newcourse</span>.<span class="ruby-identifier">save</span>
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">ptainstructors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ptainstructor</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">ptainstructors_cloned</span>[<span class="ruby-identifier">ptainstructor</span>.<span class="ruby-identifier">id</span>];<span class="ruby-keyword">next</span>;<span class="ruby-keyword">end</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_ptainstructor</span>(<span class="ruby-identifier">ptainstructor</span>)
+    <span class="ruby-identifier">instructors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instructor</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">instructors_cloned</span>[<span class="ruby-identifier">instructor</span>.<span class="ruby-identifier">id</span>];<span class="ruby-keyword">next</span>;<span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_instructor</span>(<span class="ruby-identifier">instructor</span>)
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">teachers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">teacher</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">teachers_cloned</span>[<span class="ruby-identifier">teacher</span>.<span class="ruby-identifier">id</span>];<span class="ruby-keyword">next</span>;<span class="ruby-keyword">end</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_teacher</span>(<span class="ruby-identifier">teacher</span>,<span class="ruby-identifier">teachers_cloned</span>)
+    <span class="ruby-identifier">classrooms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">classroom</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">classrooms_cloned</span>[<span class="ruby-identifier">classroom</span>.<span class="ruby-identifier">id</span>];<span class="ruby-keyword">next</span>;<span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_classroom</span>(<span class="ruby-identifier">classroom</span>,<span class="ruby-identifier">classrooms_cloned</span>)
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-identifier">students</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">student</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_student</span>(<span class="ruby-identifier">student</span>,<span class="ruby-identifier">teachers_cloned</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_student</span>(<span class="ruby-identifier">student</span>,<span class="ruby-identifier">classrooms_cloned</span>)
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>

@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class TeachersController - RDoc Documentation</title>
+<title>class ClassroomsController - RDoc Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/controllers/teachers_controller.rb
+    <li>app/controllers/classrooms_controller.rb
   </ul>
 </nav>
 
@@ -129,7 +129,7 @@
   
     <li><a href="./AddStudentTable.html">AddStudentTable</a>
   
-    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+    <li><a href="./AddClassroomTable.html">AddClassroomTable</a>
   
     <li><a href="./AddUserTable.html">AddUserTable</a>
   
@@ -155,9 +155,9 @@
   
     <li><a href="./Prickle_helper.html">Prickle_helper</a>
   
-    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+    <li><a href="./Instructor.html">Instructor</a>
   
-    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+    <li><a href="./InstructorsController.html">InstructorsController</a>
   
     <li><a href="./Semester.html">Semester</a>
   
@@ -167,9 +167,9 @@
   
     <li><a href="./StudentsController.html">StudentsController</a>
   
-    <li><a href="./Teacher.html">Teacher</a>
+    <li><a href="./Classroom.html">Classroom</a>
   
-    <li><a href="./TeachersController.html">TeachersController</a>
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
   
     <li><a href="./User.html">User</a>
   
@@ -188,7 +188,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class TeachersController</h1>
+  <h1 class="class">class ClassroomsController</h1>
 
   <div id="description" class="description">
     
@@ -228,20 +228,20 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/teachers_controller.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/controllers/classrooms_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>,<span class="ruby-string">&quot;Error: Unable to find a semester to associated with the teacher.&quot;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>,<span class="ruby-string">&quot;Error: Unable to find a semester to associated with the classroom.&quot;</span>)
 
-  <span class="ruby-ivar">@teacher</span> = <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">teachers</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:teacher</span>])
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">new_record?</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">errors</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:teacher</span>] = <span class="ruby-ivar">@teacher</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_semester_teacher_path</span>(<span class="ruby-ivar">@semester</span>)
+  <span class="ruby-ivar">@classroom</span> = <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">classrooms</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:classroom</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">new_record?</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">errors</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:classroom</span>] = <span class="ruby-ivar">@classroom</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_semester_classroom_path</span>(<span class="ruby-ivar">@semester</span>)
     <span class="ruby-keyword">return</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Successfully added #{@teacher.name} to the database.&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_teachers_path</span>(<span class="ruby-ivar">@semester</span>)
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Successfully added #{@classroom.teacher} to the database.&quot;</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_classrooms_path</span>(<span class="ruby-ivar">@semester</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
@@ -270,20 +270,20 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/teachers_controller.rb, line 60</span>
+            <pre><span class="ruby-comment"># File app/controllers/classrooms_controller.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-ivar">@teacher</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">teacher_is_valid</span>(<span class="ruby-ivar">@teacher</span>)
+  <span class="ruby-ivar">@classroom</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">classroom_is_valid</span>(<span class="ruby-ivar">@classroom</span>)
 
-  <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">name</span>
+  <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">name</span>
 
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">destroy</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;#{name} was successfully deleted from the database.&quot;</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">errors</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">errors</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_teachers_path</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_classrooms_path</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- destroy-source -->
           
@@ -311,12 +311,12 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/teachers_controller.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/controllers/classrooms_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
-  <span class="ruby-ivar">@teacher</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">teacher_is_valid</span>(<span class="ruby-ivar">@teacher</span>)
+  <span class="ruby-ivar">@classroom</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">classroom_is_valid</span>(<span class="ruby-ivar">@classroom</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -344,13 +344,13 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/teachers_controller.rb, line 4</span>
+            <pre><span class="ruby-comment"># File app/controllers/classrooms_controller.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
-  <span class="ruby-identifier">teachers1</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade = ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name asc&quot;</span>)
-  <span class="ruby-identifier">teachers2</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade != ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;grade asc&quot;</span>,<span class="ruby-string">&quot;name asc&quot;</span>)
-  <span class="ruby-ivar">@teachers</span> = <span class="ruby-identifier">teachers1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">teachers2</span>
+  <span class="ruby-identifier">classrooms1</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade = ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name asc&quot;</span>)
+  <span class="ruby-identifier">classrooms2</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;semester_id = ? AND grade != ?&quot;</span>, <span class="ruby-ivar">@semester</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&quot;K&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;grade asc&quot;</span>,<span class="ruby-string">&quot;name asc&quot;</span>)
+  <span class="ruby-ivar">@classrooms</span> = <span class="ruby-identifier">classrooms1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">classrooms2</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -378,7 +378,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/teachers_controller.rb, line 12</span>
+            <pre><span class="ruby-comment"># File app/controllers/classrooms_controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
@@ -414,19 +414,19 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/teachers_controller.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/controllers/classrooms_controller.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@semester</span> = <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:semester_id</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">semester_is_valid</span>(<span class="ruby-ivar">@semester</span>)
-  <span class="ruby-ivar">@teacher</span> = <span class="ruby-constant">Teacher</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">teacher_is_valid</span>(<span class="ruby-ivar">@teacher</span>)
+  <span class="ruby-ivar">@classroom</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">classroom_is_valid</span>(<span class="ruby-ivar">@classroom</span>)
 
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:teacher</span>])
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;#{@teacher.name}'s entry was successfully updated.&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_teachers_path</span>(<span class="ruby-ivar">@semester</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:classroom</span>])
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;#{@classroom.teacher}'s entry was successfully updated.&quot;</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">semester_classrooms_path</span>(<span class="ruby-ivar">@semester</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@teacher</span>.<span class="ruby-identifier">errors</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_semester_teacher_path</span>(<span class="ruby-ivar">@semester</span>, <span class="ruby-ivar">@teacher</span>)
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>] = <span class="ruby-ivar">@classroom</span>.<span class="ruby-identifier">errors</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_semester_classroom_path</span>(<span class="ruby-ivar">@semester</span>, <span class="ruby-ivar">@classroom</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- update-source -->

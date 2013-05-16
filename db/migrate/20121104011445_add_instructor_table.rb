@@ -1,6 +1,6 @@
-class AddPtaInstructorTable < ActiveRecord::Migration
+class AddInstructorTable < ActiveRecord::Migration
   def up
-    create_table 'ptainstructors' do |t|
+    create_table 'instructors' do |t|
       t.text       'first_name'
       t.text       'last_name'
       t.text       'email'
@@ -8,10 +8,11 @@ class AddPtaInstructorTable < ActiveRecord::Migration
       t.text       'address'
       t.text       'bio'
       t.references 'semester'
+      t.timestamps
     end
   end
 
   def down
-    drop_table 'ptainstructors'
+    drop_table 'instructors'
   end
 end

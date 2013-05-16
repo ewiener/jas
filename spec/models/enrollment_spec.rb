@@ -86,8 +86,8 @@ describe Enrollment do
       @course.fee_for_additional_materials = 30
       @course.total_fee = 230
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @enrollment = Enrollment.new
       @enrollment.scholarship_amount = 0
@@ -117,8 +117,8 @@ describe Enrollment do
       @course.fee_for_additional_materials = 30
       @course.total_fee = 230
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @enrollment = Enrollment.new
       @enrollment.scholarship_amount = 230
@@ -148,8 +148,8 @@ describe Enrollment do
       @course.fee_for_additional_materials = 30
       @course.total_fee = 230
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @enrollment = Enrollment.new
       @enrollment.scholarship_amount = 1000
@@ -179,8 +179,8 @@ describe Enrollment do
       @course.fee_for_additional_materials = 30
       @course.total_fee = 230
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @enrollment = Enrollment.new
       @enrollment.scholarship_amount = 230
@@ -276,8 +276,8 @@ describe Enrollment do
       @course.fee_for_additional_materials = 30
       @course.total_fee = 230
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @enrollment = Enrollment.new
       @enrollment.course_id = 4
@@ -306,8 +306,8 @@ describe Enrollment do
       @course.fee_for_additional_materials = 30
       @course.total_fee = 230
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @enrollment = Enrollment.new
       @enrollment.course_id = 3
@@ -328,7 +328,7 @@ describe Enrollment do
       @student.parent_email = "jjohnson@gmail.com"
       @student.health_alert = "Allergic to peanuts"
       @student.semester_id = 2
-      @student.teacher_id = 2
+      @student.classroom_id = 2
       @student.save
       @enrollment = Enrollment.new
       @enrollment.student_id = 1
@@ -347,7 +347,7 @@ describe Enrollment do
       @student.parent_email = "jjohnson@gmail.com"
       @student.health_alert = "Allergic to peanuts"
       @student.semester_id = 2
-      @student.teacher_id = 2
+      @student.classroom_id = 2
       @student.save
       @enrollment = Enrollment.new
       @enrollment.student_id = 2

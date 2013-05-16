@@ -41,16 +41,16 @@
                 %td
                   = link_to course.name_with_grade_level, course_path(course)
                 %td
-                  - if course.ptainstructor
-                    = link_to "#{course.ptainstructor.first_name} #{course.ptainstructor.last_name}", ptainstructor_path(course.ptainstructor)
+                  - if course.instructor
+                    = link_to "#{course.instructor.first_name} #{course.instructor.last_name}", instructor_path(course.instructor)
                 %td
                   = course.abbrev_days.join(", ")
                 %td
                   - if course.start_time && course.end_time
                     = "#{course.start_time} - #{course.end_time}"
                 %td
-                  - if course.teacher
-                    = course.teacher.classroom
+                  - if course.classroom
+                    = course.classroom.name
                 %td.course-enrolled{:class => course.overenrolled? || course.underenrolled? ? "warning" : ""}
                   = course.num_valid_enrollments
                   - if course.class_min_max_range && !course.class_min_max_range.blank?

@@ -21,8 +21,8 @@ Scenario: Access the home page
    Given I am on the home page
    Then I should be on the login page
 
-Scenario: Access classroom teachers home page
-   Given I am on the "Fall 2011" Classroom Teachers home page
+Scenario: Access classroom classrooms home page
+   Given I am on the "Fall 2011" Classroom Classrooms home page
    Then I should be on the login page
    
 Scenario: Access the courses home page

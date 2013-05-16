@@ -1,7 +1,6 @@
 class AddUserTable < ActiveRecord::Migration
   def up
     create_table 'users' do |t|
-      t.timestamps
       t.string  :username, :null => false
       t.string :crypted_password, :null => false
       t.string :password_salt, :null => false
@@ -12,14 +11,10 @@ class AddUserTable < ActiveRecord::Migration
       t.datetime :current_login_at
       t.string :last_login_ip
       t.string :current_login_ip
-      #t.text    'name'
-      #t.text    'email'
-      #t.text    'phone'
-      #t.text    'address'
-      #t.text    'bio'
-      #t.text    'password_hash'
-      #t.text    'password_salt'
-      #t.integer 'type'
+      t.integer :role
+      t.integer :last_semester_id
+      t.references :program
+      t.timestamps
     end
 
     add_index :users, :username

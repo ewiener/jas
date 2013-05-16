@@ -10,12 +10,12 @@
         = link_to "All", semester_enrollments_path(@semester)
       %li.module-heading-tab.dropdown{active_if(@filter[:teacher])}
         = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
-          #{@filter[:teacher] ? @filter[:teacher].name : "By Teacher"}
+          #{@filter[:teacher] ? @filter[:teacher].teacher : "By Teacher"}
           %b.caret
         %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
           - @all_teachers.each do |t|
             %li
-              = link_to t.name, semester_enrollments_path(@semester, :filter_teacher => t.id), :tabindex => '-1' 
+              = link_to t.teacher, semester_enrollments_path(@semester, :filter_teacher => t.id), :tabindex => '-1' 
       %li.module-heading-tab.dropdown{active_if(@filter[:dismissal])}
         = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
           #{@filter[:dismissal] ? @filter[:dismissal][:name] : "By Dismissal"}
@@ -55,19 +55,19 @@
             %tbody
               - @enrollments_by_day[day].each do |enrollment|
                 %tr
-                  %td.enrollment-firstname{:id=>"enrollment_firstname_#{enrollment.id}"}
+                  %td
                     = link_to enrollment.student.first_name, student_path(enrollment.student)
-                  %td.enrollment-lasttname{:id=>"enrollment_lasttname_#{enrollment.id}"}
+                  %td
                     = link_to enrollment.student.last_name, student_path(enrollment.student)
-                  %td.enrollment-course{:id=>"enrollment_course_name_#{enrollment.id}"}
+                  %td
                     = link_to enrollment.course.name_with_grade_level, course_path(enrollment.course)
-                  %td.enrollment-time{:id=>"enrollment_course_time_#{enrollment.id}"}
+                  %td
                     = enrollment.course.time_range
-                  %td.enrollment-loc{:id=>"enrollment_course_loc_#{enrollment.id}"}
-                    - if enrollment.course.teacher
-                      = enrollment.course.teacher.classroom
+                  %td
+                    - if enrollment.course.classroom
+                      = link_to enrollment.course.classroom.name, classroom_path(enrollment.course.classroom)
                   - if !@filter[:dismissal]
-                    %td.enrollment-dismissal{:id=>"enrollment_dismissal_#{enrollment.id}"}
+                    %td
                       = enrollment.dismissal_to_s
           - else
             %tr

@@ -21,7 +21,7 @@ class Enrollment < ActiveRecord::Base
   scope :by_course_day_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, last_name asc, first_name asc")
   scope :by_student_name, joins(:student).order("last_name asc, first_name asc")
   
-  scope :with_teacher, lambda {|teacher| teacher.present? ? where(:students => {:teacher_id => teacher}) : {}}
+  scope :with_teacher, lambda {|teacher| teacher.present? ? where(:students => {:classroom_id => teacher}) : {}}
   scope :with_dismissal, lambda {|dismissal| dismissal.present? ? where(:dismissal => dismissal) : {}}
 
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
@@ -30,9 +30,9 @@ class Enrollment < ActiveRecord::Base
   
   after_initialize do
 	  if self.new_record?
-      self.scholarship = 0
-      self.dismissal = 0
-      self.enrolled = true
+      self.scholarship ||= 0
+      self.dismissal ||= 0
+      self.enrolled ||= true
 	  end
 	end
 	

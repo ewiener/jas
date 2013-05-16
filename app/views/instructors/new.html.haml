@@ -1,0 +1,50 @@
+-# This file is app/views/instructors/new.html.haml
+!!! 5
+
+- content_for :title, "New Instructor"
+
+.row
+  .span5.module#instructor-edit
+    .module-heading
+      .module-heading-title New Instructor
+      
+    .module-content
+      = form_tag semester_instructors_path(@semester), :class =>"form-horizontal" do
+        .control-group 
+          = label :instructor, :first_name, 'First name', :class => "control-label"
+          .controls
+            = text_field :instructor, :first_name
+  
+        .control-group
+          = label :instructor, :last_name, 'Last name', :class => "control-label"
+          .controls
+            = text_field :instructor, :last_name
+        
+        .control-group
+          = label :instructor, :email, 'Email', :class => "control-label"
+          .controls
+            = text_field :instructor, :email
+  
+        .control-group
+          = label :instructor, :phone, 'Phone number', :class => "control-label"
+          .controls
+            = text_field :instructor, :phone
+  
+        .control-group
+          = label :instructor, :address, 'Address', :class => "control-label"
+          .controls
+            = text_area :instructor, :address, :rows => 5
+  
+        .control-group
+          = label :instructor, :bio, 'Biography', :class => "control-label"
+          .controls
+            = text_area :instructor, :bio, :rows => 5
+  
+        .control-group
+          .controls
+            = submit_tag 'Add Instructor', :class => "btn btn-warning"
+            = link_to 'Cancel', semester_instructors_path(@semester), :class => "btn btn-info"
+
+- content_for :js do
+  :javascript
+

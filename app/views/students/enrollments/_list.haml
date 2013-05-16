@@ -19,7 +19,7 @@
         %td.action
 
     %tbody
-      - if enrollments.length != 0
+      - if enrollments.length > 0
         - enrollments.each_with_index do |enrollment, index|
           %tr
             %td
@@ -42,29 +42,24 @@
                 %i.icon-trash
       - else
         %tr
-          %td.cell_center
-            ="-"
-          %td.cell_center
-            ="-"
-          %td.cell_center
-            ="-"
-          %td.cell_center
-            ="-"
-    %tfoot
-      %tr
-        %td.right-aligned(colspan=3)
-          %b
-            Registration Fee
-        %td
-          %b
-            = "$" + number_with_precision(semester.fee, :precision => 2)
-        %td
-      %tr
-        %td.right-aligned(colspan=3)
-          %b
-            Total Fee
-        %td
-          %b
-            - if (student.grand_total)
-              = "$" + number_with_precision(student.grand_total, :precision => 2)
-        %td
+          %td.centered(colspan=5)
+            None
+    - if enrollments.length > 0
+      %tfoot
+        %tr
+          %td.right-aligned(colspan=3)
+            %b
+              Registration Fee
+          %td
+            %b
+              = "$" + number_with_precision(semester.fee, :precision => 2)
+          %td
+        %tr
+          %td.right-aligned(colspan=3)
+            %b
+              Total Fee
+          %td
+            %b
+              - if (student.grand_total)
+                = "$" + number_with_precision(student.grand_total, :precision => 2)
+          %td

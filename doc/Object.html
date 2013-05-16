@@ -128,7 +128,7 @@
   
     <li><a href="./AddStudentTable.html">AddStudentTable</a>
   
-    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+    <li><a href="./AddClassroomTable.html">AddClassroomTable</a>
   
     <li><a href="./AddUserTable.html">AddUserTable</a>
   
@@ -154,9 +154,9 @@
   
     <li><a href="./Prickle_helper.html">Prickle_helper</a>
   
-    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+    <li><a href="./Instructor.html">Instructor</a>
   
-    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+    <li><a href="./InstructorsController.html">InstructorsController</a>
   
     <li><a href="./Semester.html">Semester</a>
   
@@ -166,9 +166,9 @@
   
     <li><a href="./StudentsController.html">StudentsController</a>
   
-    <li><a href="./Teacher.html">Teacher</a>
+    <li><a href="./Classroom.html">Classroom</a>
   
-    <li><a href="./TeachersController.html">TeachersController</a>
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
   
     <li><a href="./User.html">User</a>
   
@@ -243,9 +243,9 @@ gems installed from the root of your application.</p>
           <div class="method-source-code" id="fill_in_new_classroom_form_correcctly-source">
             <pre><span class="ruby-comment"># File features/step_definitions/web_steps.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fill_in_new_classroom_form_correcctly</span>(<span class="ruby-identifier">location</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;teacher_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Mary&quot;</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;teacher_grade&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;5&quot;</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;teacher_classroom&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">location</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;classroom_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Mary&quot;</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;classroom_grade&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;5&quot;</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;classroom_classroom&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">location</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- fill_in_new_classroom_form_correcctly-source -->
           
@@ -288,8 +288,8 @@ gems installed from the root of your application.</p>
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;course_fee_for_additional_materials&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;15&quot;</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;course_total_fee&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;100&quot;</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;course_class_max&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;20&quot;</span>)
-  <span class="ruby-identifier">select</span>(<span class="ruby-identifier">pta_inst</span>, <span class="ruby-value">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'course_ptainstructor_id'</span>)
-  <span class="ruby-identifier">select</span>(<span class="ruby-identifier">room</span>, <span class="ruby-value">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'course_teacher_id'</span>)
+  <span class="ruby-identifier">select</span>(<span class="ruby-identifier">pta_inst</span>, <span class="ruby-value">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'course_instructor_id'</span>)
+  <span class="ruby-identifier">select</span>(<span class="ruby-identifier">room</span>, <span class="ruby-value">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'course_classroom_id'</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- fill_in_new_create_class_form_correcctly-source -->
           
@@ -319,12 +319,12 @@ gems installed from the root of your application.</p>
           <div class="method-source-code" id="fill_in_new_pta_form_correcctly-source">
             <pre><span class="ruby-comment"># File features/step_definitions/web_steps.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fill_in_new_pta_form_correcctly</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;ptainstructor_first_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;ptainstructor_last_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;ptainstructor_email&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;michelle@gmail.com&quot;</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;ptainstructor_phone&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;234-456-7890&quot;</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;ptainstructor_address&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1600 Pennsylvania Avenue&quot;</span>)
-  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;ptainstructor_bio&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Info about me&quot;</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;instructor_first_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;instructor_last_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;instructor_email&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;michelle@gmail.com&quot;</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;instructor_phone&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;234-456-7890&quot;</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;instructor_address&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1600 Pennsylvania Avenue&quot;</span>)
+  <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;instructor_bio&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Info about me&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- fill_in_new_pta_form_correcctly-source -->
           
@@ -375,7 +375,7 @@ gems installed from the root of your application.</p>
         
         <div class="method-heading">
           <span class="method-name">fill_in_new_student_form_correcctly</span><span
-            class="method-args">(name, teacher)</span>
+            class="method-args">(name, classroom)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -388,13 +388,13 @@ gems installed from the root of your application.</p>
           
           <div class="method-source-code" id="fill_in_new_student_form_correcctly-source">
             <pre><span class="ruby-comment"># File features/step_definitions/web_steps.rb, line 222</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">fill_in_new_student_form_correcctly</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">teacher</span>)
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fill_in_new_student_form_correcctly</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">classroom</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;student_first_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;student_last_name&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;student_grade&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;K&quot;</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;student_parent_phone&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;555 555-5555&quot;</span>)
   <span class="ruby-identifier">fill_in</span>(<span class="ruby-string">&quot;student_parent_email&quot;</span>, <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;asdf@asdf.com&quot;</span>)
-  <span class="ruby-identifier">select</span>(<span class="ruby-identifier">teacher</span>, <span class="ruby-value">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'teacher'</span>)
+  <span class="ruby-identifier">select</span>(<span class="ruby-identifier">classroom</span>, <span class="ruby-value">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'classroom'</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- fill_in_new_student_form_correcctly-source -->
           

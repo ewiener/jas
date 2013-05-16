@@ -44,7 +44,7 @@
                 %td
                   = student.grade
                 %td
-                  = student.teacher ? link_to(student.teacher.name, teacher_path(student.teacher)) : ""
+                  = student.classroom ? link_to(student.classroom.teacher, classroom_path(student.classroom)) : ""
                 %td
                   = student.num_valid_enrollments
                 %td.action

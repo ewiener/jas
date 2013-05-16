@@ -1,9 +1,18 @@
 class SemestersController < ApplicationController
   protect_from_forgery
   layout "main"
-
+  
+  @site_section = :semesters_section
+  
   def site_section
-  	:semesters_section
+  	return @site_section || :semesters_section
+  	#return :semesters_section
+  end
+  
+  def home
+  	@site_section = :semester_home_section
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
   end
 
   def index

@@ -1,0 +1,36 @@
+-# This file is app/views/classrooms/new.html.haml
+!!! 5
+
+- content_for :title, "New Classroom"
+
+.row
+  .span5.module#classroom-edit
+    .module-heading
+      .module-heading-title New Classroom
+      
+    .module-content
+      = form_tag semester_classrooms_path(@semester), :class =>"form-horizontal" do
+        .control-group
+          = label :classroom, :name, 'Name', :class => "control-label"
+          .controls
+            = text_field :classroom, :name
+
+        .control-group 
+          = label :classroom, :teacher, 'Teacher', :class => "control-label"
+          .controls
+            = text_field :classroom, :teacher
+
+        .control-group
+          = label :classroom, :grade, 'Grade', :class => "control-label"
+          .controls
+            = select_tag "classroom[grade]", grade_options_for_select(@classroom.allowable_grades, @classroom.grade),
+                :prompt => 'Select Grade'
+
+        .control-group
+          .controls
+            = submit_tag 'Add Classroom', :class => "btn btn-warning"
+            = link_to 'Cancel', semester_classrooms_path(@semester) , :class => "btn btn-info"
+
+- content_for :js do
+  :javascript
+

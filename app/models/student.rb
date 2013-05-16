@@ -1,6 +1,6 @@
 class Student < ActiveRecord::Base
   belongs_to :semester
-  belongs_to :teacher
+  belongs_to :classroom
   has_many :enrollments, :dependent => :destroy
   has_many :courses, :through => :enrollments
 
@@ -14,7 +14,8 @@ class Student < ActiveRecord::Base
                   :parent_name,
                   :parent_email,
                   :health_alert,
-                  :teacher_id
+                  :classroom_id,
+                  :classroom
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true

@@ -1,7 +1,7 @@
 -# This file is app/views/user_sessions/new.html.haml
 !!! 5
 
-- content_for :title, "JAS: Login"
+- content_for :title, "Login"
 - content_for :css do
   :css
       body {
@@ -31,7 +31,7 @@
 - content_for :content do
   = form_tag user_sessions_path, :method => :post, :id=> 'login_form', :class => 'form-signin' do
     %h2.form-signin-heading 
-      EnrollerCoaster
+      = application_name
     = render 'partial/user_sessions_messages'
     = text_field :user_session, :username, :class => "input-block-level", :placeholder => "Username"
     = password_field :user_session, :password, :class => "input-block-level", :placeholder => "Password"

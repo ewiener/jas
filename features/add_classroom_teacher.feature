@@ -1,8 +1,8 @@
-Feature: Adding classroom teachers to the database
+Feature: Adding classroom classrooms to the database
 
   As an administrator
-  So that I can publish rosters for the classroom teachers
-  I want to add classroom teachers to the database
+  So that I can publish rosters for the classroom classrooms
+  I want to add classroom classrooms to the database
 
 Background: populate db with a single class session
 
@@ -21,56 +21,56 @@ Background: populate db with a single class session
   Given I am on the login page
   And I log in correctly as "admin"
   Given I am on the "Fall 2011" Session Name Page
-  And I follow "Teachers/Classrooms"
-  Then I should be on the "Fall 2011" Classroom Teachers home page
+  And I follow "Classrooms/Classrooms"
+  Then I should be on the "Fall 2011" Classroom Classrooms home page
 
-Scenario: Create invalid classroom teacher:
-  Given I am on the "Fall 2011" Classroom Teachers home page
-  And I follow "Add New Classroom Teacher"
+Scenario: Create invalid classroom classroom:
+  Given I am on the "Fall 2011" Classroom Classrooms home page
+  And I follow "Add New Classroom Classroom"
   Then I should be on the "Fall 2011" Add New Classroom Page
-  And press "Add Classroom Teacher"
+  And press "Add Classroom Classroom"
   Then I should be on the "Fall 2011" Add New Classroom Page
   And I should see "Invalid empty string for name."
   
-Scenario: Update classroom teacher invalidly
-  Given I am on the "Fall 2011" Classroom Teachers home page
+Scenario: Update classroom classroom invalidly
+  Given I am on the "Fall 2011" Classroom Classrooms home page
   And I press "Edit"
-  And I fill in "teacher_name" with ""
-  And I press "Finish Editing Classroom Teacher"
+  And I fill in "classroom_name" with ""
+  And I press "Finish Editing Classroom Classroom"
   And I should see "Invalid empty string for name."
 
-Scenario: Delete classrom teacher/location
-  Given I am on the "Fall 2011" Classroom Teachers home page
+Scenario: Delete classrom classroom/location
+  Given I am on the "Fall 2011" Classroom Classrooms home page
   And I press "Delete"
-  Then I should be on the "Fall 2011" Classroom Teachers home page
+  Then I should be on the "Fall 2011" Classroom Classrooms home page
   And I should see "was successfully deleted from the database."
 
 Scenario: Attempt to access a semester that does not exist
-  Given I am on the "Fall 2111" Classroom Teachers home page
+  Given I am on the "Fall 2111" Classroom Classrooms home page
   Then I should be on the home page
   
-Scenario: Edit classroom teacher/location
-  Given I am on the "Fall 2011" Classroom Teachers home page
+Scenario: Edit classroom classroom/location
+  Given I am on the "Fall 2011" Classroom Classrooms home page
   And I press "Edit"
-  Then I should be on the "Fall 2011" "joe" Classroom Teachers edit page
+  Then I should be on the "Fall 2011" "joe" Classroom Classrooms edit page
   And I fill in "Classroom" with "Room 500"
-  And I press "Finish Editing Classroom Teacher"
-  Then I should be on the "Fall 2011" Classroom Teachers home page
+  And I press "Finish Editing Classroom Classroom"
+  Then I should be on the "Fall 2011" Classroom Classrooms home page
 
-Scenario: Adding new classroom teacher from homepage
-  Then I am on the "Fall 2011" Classroom Teachers home page
-  And I follow "Add New Classroom Teacher"
+Scenario: Adding new classroom classroom from homepage
+  Then I am on the "Fall 2011" Classroom Classrooms home page
+  And I follow "Add New Classroom Classroom"
   Then I should be on the "Fall 2011" Add New Classroom Page
   When I fill in the new classroom form correctly with classroom "Gym"
-  And press "Add Classroom Teacher"
-  Then I should be on the "Fall 2011" Classroom Teachers home page
+  And press "Add Classroom Classroom"
+  Then I should be on the "Fall 2011" Classroom Classrooms home page
   And I should see "Gym"
 
-Scenario: Cancel adding new classroom teacher from homepage
-  Then I am on the "Fall 2011" Classroom Teachers home page
-  And I follow "Add New Classroom Teacher"
+Scenario: Cancel adding new classroom classroom from homepage
+  Then I am on the "Fall 2011" Classroom Classrooms home page
+  And I follow "Add New Classroom Classroom"
   Then I should be on the "Fall 2011" Add New Classroom Page
   When I fill in the new classroom form correctly with classroom "Auditorium"
   And follow "Cancel"
-  Then I should be on the "Fall 2011" Classroom Teachers home page
+  Then I should be on the "Fall 2011" Classroom Classrooms home page
   And the "locations" drop-down should not contain the option "Auditorium"

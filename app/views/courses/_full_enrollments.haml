@@ -26,8 +26,8 @@
           %td
             Health Alert
       %tbody
-        - if course.enrollments.length != 0
-          - course.enrollments.by_student_name.each_with_index do |enrollment, index|
+        - if course.enrollments.enrolled.any?
+          - course.enrollments.enrolled.by_student_name.each_with_index do |enrollment, index|
             - student = enrollment.student
             %tr
               %td
@@ -37,7 +37,7 @@
               %td
                 = student.grade
               %td
-                = link_to "#{student.teacher.classroom}", teacher_path(student.teacher)
+                = link_to "#{student.classroom.name}", classroom_path(student.classroom)
               %td
                 = enrollment.dismissal_to_s
               %td

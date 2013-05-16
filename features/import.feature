@@ -22,11 +22,11 @@ Background: populate db with all information for a session
   | Mia        | Mama      | mia@a.com | 4156891212| 12 Cedar Lane | Some info | Fall 2011 |
   
   Given the following courses have been added:
-    | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | ptainstructor | teacher   |
+    | name    | semester      | description | start_time        | class_min | class_max | grade_range   | fee_per_meeting   | fee_for_additional_materials  | monday    | tuesday   | wednesday | thursday  | friday    | end_time     | sunday | saturday | number_of_classes | total_fee | instructor | classroom   |
     | Artistic Dance     | Fall 2011     | art class   | 2:10pm            | 5         | 15        | K-5           | 10                | 15                            | true      | false       | false     | false     | false     | 3:10pm     | false | false | 12 | 122 | Jim | Room 4 |
   
   Given the following students are in the database:
-  | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | teacher   |
+  | first_name  | last_name | grade | parent_phone  | parent_phone2 | parent_name   | parent_email  | health_alert  | semester  | classroom   |
   | Abby        | Davis     | K     | 6193244565    | 6194354324    | Virginia      | v@gmail.com   | no peanuts    | Fall 2011      | joe       |
   
   Given the following usernames and passwords exist:
@@ -51,8 +51,8 @@ Scenario: verify pta instructors imported
   And I should see "Amy"
   And I should see "Mia"
 
-Scenario: verify classroom teachers imported
-  When I follow "Teachers/Classrooms"
+Scenario: verify classroom classrooms imported
+  When I follow "Classrooms/Classrooms"
   Then I should see "joe"
   And I should see "jim"
   And I should not see "Mia"

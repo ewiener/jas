@@ -1,7 +1,7 @@
-class Ptainstructor < ActiveRecord::Base
+class Instructor < ActiveRecord::Base
 
   has_many :courses
-  has_many :teachers, :through => :courses
+  has_many :classrooms, :through => :courses
   belongs_to :semester
   has_many :students, :through => :courses
 
@@ -19,7 +19,7 @@ class Ptainstructor < ActiveRecord::Base
   scope :alphabetical, order("last_name asc, first_name asc")
   default_scope alphabetical
 
-  #Tests that ptainstructor is not linked to any courses in the semester and returns true or false.
+  #Tests that instructor is not linked to any courses in the semester and returns true or false.
   def can_be_deleted?
   	!has_courses?
   end

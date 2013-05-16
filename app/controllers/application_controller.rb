@@ -61,16 +61,16 @@ class ApplicationController < ActionController::Base
     return false
   end
   
-  def valid_ptainstructor?(instructor, redirect_path=:root, message="Could not find the given instructor.")
+  def valid_instructor?(instructor, redirect_path=:root, message="Could not find the given instructor.")
     return true unless instructor.nil?
-    flash[:warning] = [[:ptainstructor_id,message]]
+    flash[:warning] = [[:instructor_id,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
   
-  def valid_teacher?(teacher, redirect_path=:root, message="Could not find the given teacher.")
-    return true unless teacher.nil?
-    flash[:warning] = [[:teacher,message]]
+  def valid_classroom?(classroom, redirect_path=:root, message="Could not find the given classroom.")
+    return true unless classroom.nil?
+    flash[:warning] = [[:classroom,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end

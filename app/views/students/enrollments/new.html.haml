@@ -7,9 +7,9 @@
         .control-group
           = label :enrollment, :course, 'Class', :class => "control-label"
           .controls
-            = select_tag "enrollment[course_id]", options_for_select(@classes.map{|c| [c.name_with_day_and_grade_level, c.id]}), 
+            = select_tag "enrollment[course_id]", options_for_select(@classes.map{|c| ["#{c.name_with_day_and_grade_level} [#{dollar_amount(c.total_fee)}]", c.id]}), 
                 :prompt => 'Select Class', :class => "course_select"
-      
+                
         .control-group
           .control-label Scholarship
           .controls
@@ -23,7 +23,7 @@
               = radio_button :enrollment, :scholarship, 2, :id => "scholarship-partial"
               Partial
     
-        .control-group#scholarship-amount-group{:style => @enrollment.scholarship <> 2 ? "display:none;" : ""}
+        .control-group#scholarship-amount-group{:style => @enrollment.scholarship != 2 ? "display:none;" : ""}
           = label :enrollment, :scholarship_amount, 'Scholarship amount', :class => "control-label"
           .controls
             .input-prepend

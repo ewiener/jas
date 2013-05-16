@@ -1,0 +1,49 @@
+-# This file is app/views/semesters/home.html.haml
+!!! 5
+
+- content_for :title, "#{@semester.name}"
+
+.hero-unit
+  %h1
+    = @semester.name
+  %p.lead
+    = @semester.program.long_name
+    %br
+    #{@semester.start_date} - #{@semester.end_date}
+.row
+  .span2.wellbtn
+    = link_to_section :courses_section, @semester do
+      .well
+        %h1
+          = @semester.courses.count
+        %h3
+          = section_name :courses_section
+  .span2.wellbtn
+    = link_to_section :instructors_section, @semester do
+      .well
+        %h1
+          = @semester.instructors.count
+        %h3
+          = section_name :instructors_section
+  .span2.wellbtn
+    = link_to_section :classrooms_section, @semester do
+      .well
+        %h1
+          = @semester.classrooms.count
+        %h3
+          Rooms
+  .span2.offset2.wellbtn
+    = link_to_section :students_section, @semester do
+      .well
+        %h1
+          = @semester.students.count
+        %h3
+          = section_name :students_section
+  .span2.wellbtn
+    = link_to_section :enrollments_section, @semester do
+      .well
+        %h1
+          = @semester.enrollments.enrolled.count
+        %h3
+          = section_name :enrollments_section
+      

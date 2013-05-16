@@ -17,7 +17,7 @@ class UserSessionsController < ApplicationController
       redirect_to_saved_location(:root)
     else
       flash[:warning] = "Invalid username or password."
-      redirect_to new_user_session_path
+      redirect_to login_path
     end
   end
 

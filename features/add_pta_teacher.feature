@@ -26,15 +26,15 @@ Background:
 Scenario: Create invalid pta instructor
   Given I am on the "Fall 2011" PTA Instructor home page
   And I follow "Add New PTA Instructor"
-  Then I should be on the "Fall 2011" Add New PTA Teacher Page
+  Then I should be on the "Fall 2011" Add New PTA Classroom Page
   And press "Add New PTA Instructor"
-  Then I should be on the "Fall 2011" Add New PTA Teacher Page
+  Then I should be on the "Fall 2011" Add New PTA Classroom Page
   And I should see "Invalid string for first name."
   
 Scenario: Update pta instructor invalidly
   Given I am on the "Fall 2011" PTA Instructor home page
   And I press "Edit"
-  And I fill in "ptainstructor_first_name" with ""
+  And I fill in "instructor_first_name" with ""
   And I press "Update PTA Instructor"
   And I should see "Invalid string for first name."
 
@@ -65,7 +65,7 @@ Scenario: Delete PTA Instructor
 Scenario: Creating from the PTA Instructor home page
   Given I am on the "Fall 2011" PTA Instructor home page
   And I follow "Add New PTA Instructor"
-  Then I should be on the "Fall 2011" Add New PTA Teacher Page
+  Then I should be on the "Fall 2011" Add New PTA Classroom Page
   When I fill in the new pta form correctly with name "Michelle"
   And press "Add New PTA Instructor"
   Then I should be on the "Fall 2011" PTA Instructor home page
@@ -74,7 +74,7 @@ Scenario: Creating from the PTA Instructor home page
 Scenario: Cancel creating from the PTA Instructor home page
   Given I am on the "Fall 2011" PTA Instructor home page
   And I follow "Add New PTA Instructor"
-  Then I should be on the "Fall 2011" Add New PTA Teacher Page
+  Then I should be on the "Fall 2011" Add New PTA Classroom Page
   When I fill in the new pta form correctly with name "Greg"
   And follow "Cancel"
   Then I should be on the "Fall 2011" PTA Instructor home page

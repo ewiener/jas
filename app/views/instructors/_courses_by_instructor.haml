@@ -13,16 +13,16 @@
           Room
 
     %tbody
-      - if @ptainstructor.courses.any?
-        - @ptainstructor.courses.each do |course|
+      - if @instructor.courses.any?
+        - @instructor.courses.each do |course|
           %tr.course-info
             %td.course-name
               = link_to course.name_with_day_and_grade_level, course_path(course)
             %td.course-time
               = course.time_range
             %td.course-room
-              - if course.teacher
-                = link_to course.teacher.classroom_with_teacher_name, teacher_path(course.teacher)
+              - if course.classroom
+                = link_to course.classroom.name_with_teacher_name, classroom_path(course.classroom)
       - else
         %tr
           %td(colspan=3 style="text-align:center;")

@@ -4,12 +4,12 @@ class Semester < ActiveRecord::Base
 
   has_many :courses, :dependent => :destroy
   has_many :students, :dependent => :destroy
-  has_many :ptainstructors, :dependent => :destroy
-  has_many :teachers, :dependent => :destroy
+  has_many :instructors, :dependent => :destroy
+  has_many :classrooms, :dependent => :destroy
   has_many :enrollments, :through => :courses
+  belongs_to :program
 
   serialize :dates_with_no_classes
-  serialize :individual_dates_with_no_classes
 
   attr_accessible :name,
                   :start_date,
@@ -18,10 +18,11 @@ class Semester < ActiveRecord::Base
                   :lottery_deadline,
                   :registration_deadline,
                   :fee,
-                  :individual_dates_with_no_classes,
                   :dates_with_no_classes_day
                   
-  attr_accessor :num_days_by_day_of_week,
+  attr_accessor :dates_with_no_classes_day,
+                :individual_dates_with_no_classes,
+                :num_days_by_day_of_week,
                 :days_off_by_day_of_week
 
   validates :name, :presence => true
@@ -34,12 +35,14 @@ class Semester < ActiveRecord::Base
   after_validation do
   	self.start_date = start_date_as_date.strftime("%m/%d/%Y")
     self.end_date = end_date_as_date.strftime("%m/%d/%Y")
-    dates_with_no_classes ||= Array.new
+    self.dates_with_no_classes ||= []
     calc_individual_days_off
     calc_data_by_day_of_week
   end
   
   after_initialize do
+  	self.dates_with_no_classes ||= []
+  	calc_individual_days_off
   	calc_data_by_day_of_week
   end
 
@@ -149,11 +152,11 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  #Tests that ptainstructor and teacher exist before creating course and returns true or false
+  #Tests that instructor and classroom exist before creating course and returns true or false
   def can_create_course?
-    ptainstructors = Ptainstructor.find_by_semester_id(self.id)
-    teachers = Teacher.find_by_semester_id(self.id)
-    if ((ptainstructors == nil) or (teachers == nil))
+    instructors = Instructor.find_by_semester_id(self.id)
+    classrooms = Classroom.find_by_semester_id(self.id)
+    if ((instructors == nil) or (classrooms == nil))
         return false
     end
     return true
@@ -179,36 +182,27 @@ class Semester < ActiveRecord::Base
   public
   #Removes date from holiday array and makes it a school day
   def delete_date(date)
-    if self.dates_with_no_classes.delete(date) == nil
-      errors.add(:dates_with_no_classes, 'not found.')
-      return false
-    else
-      dates_array = date.split("-")
-      start_range = dates_array[0]
-      end_range = dates_array[dates_array.length-1]
-      date_start = USDateParse(start_range)
-      date_end = USDateParse(end_range)
-      curr_date = date_start
-      while curr_date <= date_end do
-        self.individual_dates_with_no_classes.delete(curr_date)
-        curr_date += 1
+    if self.dates_with_no_classes && self.dates_with_no_classes.delete(date)
+      if not self.save
+      	return false
       end
+      
+      # Update holidays and counts by day of week
+    	calc_individual_days_off
+      calc_data_by_day_of_week
     end
-    if not self.save
-    	return false
-    end
-    
-    # Update holidays and counts by day of week
-    calc_data_by_day_of_week
-    
     return true
   end
   
   private
   def calc_individual_days_off
-  	dates_with_no_classes.each do |date_span|
-  		self.individual_dates_with_no_classes += parse_dates_from_span(date_span)
-  	end
+  	individual_dates = []
+  	if dates_with_no_classes
+	  	dates_with_no_classes.each do |date_span|
+	  		individual_dates += parse_dates_from_span(date_span)
+	  	end
+	  end
+	  self.individual_dates_with_no_classes = individual_dates
   end
 
   # Returns array of individual dates parsed from a single date or date span like:
@@ -259,7 +253,7 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  #Transfers ptainstructors, students, and courses from one semester to another semester
+  #Transfers instructors, students, and courses from one semester to another semester
   def import(semester_to_import)
     if not semester_to_import
       errors.add(:semester_to_import,"Was given a nil semester to import.")
@@ -271,94 +265,94 @@ class Semester < ActiveRecord::Base
     #raise ActiveRecord::Rollback
 
     ActiveRecord::Base.transaction do
-      ptainstructors = Ptainstructor.find_all_by_semester_id(semester_to_import.id)
-      teachers = Teacher.find_all_by_semester_id(semester_to_import.id)
+      instructors = Instructor.find_all_by_semester_id(semester_to_import.id)
+      classrooms = Classroom.find_all_by_semester_id(semester_to_import.id)
       students = Student.find_all_by_semester_id(semester_to_import.id)
       courses = Course.find_all_by_semester_id(semester_to_import.id)
 
-      ptainstructors_cloned = Hash.new
-      teachers_cloned = Hash.new
+      instructors_cloned = Hash.new
+      classrooms_cloned = Hash.new
       courses.each do |oldcourse|
         newcourse = oldcourse.dup
-        oldteacher = Teacher.find_by_id(oldcourse.teacher_id)
-        oldptainstructor = Ptainstructor.find_by_id(oldcourse.ptainstructor_id)
-        raise ActiveRecord::Rollback unless duplicate_teacher_for_course(newcourse, oldteacher,teachers_cloned)
-        raise ActiveRecord::Rollback unless duplicate_ptainstructor_for_course(newcourse,oldptainstructor,ptainstructors_cloned)
+        oldclassroom = Classroom.find_by_id(oldcourse.classroom_id)
+        oldinstructor = Instructor.find_by_id(oldcourse.instructor_id)
+        raise ActiveRecord::Rollback unless duplicate_classroom_for_course(newcourse, oldclassroom,classrooms_cloned)
+        raise ActiveRecord::Rollback unless duplicate_instructor_for_course(newcourse,oldinstructor,instructors_cloned)
         newcourse.semester_id = self.id
         raise ActiveRecord::Rollback unless newcourse.save
       end
 
-      ptainstructors.each do |ptainstructor|
-        if ptainstructors_cloned[ptainstructor.id];next;end
-        raise ActiveRecord::Rollback unless duplicate_ptainstructor(ptainstructor)
+      instructors.each do |instructor|
+        if instructors_cloned[instructor.id];next;end
+        raise ActiveRecord::Rollback unless duplicate_instructor(instructor)
       end
 
-      teachers.each do |teacher|
-        if teachers_cloned[teacher.id];next;end
-        raise ActiveRecord::Rollback unless duplicate_teacher(teacher,teachers_cloned)
+      classrooms.each do |classroom|
+        if classrooms_cloned[classroom.id];next;end
+        raise ActiveRecord::Rollback unless duplicate_classroom(classroom,classrooms_cloned)
       end
 
       students.each do |student|
-        raise ActiveRecord::Rollback unless duplicate_student(student,teachers_cloned)
+        raise ActiveRecord::Rollback unless duplicate_student(student,classrooms_cloned)
       end
     end
   end
 
   private
-  #Copies teacher for new course
-  def duplicate_teacher_for_course(newcourse, oldteacher, teachers_cloned)
-    if teachers_cloned[oldteacher.id]
-      newcourse.teacher_id = teachers_cloned[oldteacher.id]
+  #Copies classroom for new course
+  def duplicate_classroom_for_course(newcourse, oldclassroom, classrooms_cloned)
+    if classrooms_cloned[oldclassroom.id]
+      newcourse.classroom_id = classrooms_cloned[oldclassroom.id]
     else
-      newteacher = oldteacher.dup
-      newteacher.semester_id = self.id
-      return false unless newteacher.save
-      newcourse.teacher_id = newteacher.id
-      teachers_cloned[oldteacher.id] = newteacher.id
+      newclassroom = oldclassroom.dup
+      newclassroom.semester_id = self.id
+      return false unless newclassroom.save
+      newcourse.classroom_id = newclassroom.id
+      classrooms_cloned[oldclassroom.id] = newclassroom.id
     end
     return true
   end
 
   private
-  #Copies ptainstructor for new course
-  def duplicate_ptainstructor_for_course(newcourse, oldptainstructor, ptainstructors_cloned)
-    if ptainstructors_cloned[oldptainstructor.id]
-      newcourse.ptainstructor_id = ptainstructors_cloned[oldptainstructor.id]
+  #Copies instructor for new course
+  def duplicate_instructor_for_course(newcourse, oldinstructor, instructors_cloned)
+    if instructors_cloned[oldinstructor.id]
+      newcourse.instructor_id = instructors_cloned[oldinstructor.id]
     else
-      newptainstructor = oldptainstructor.dup
-      newptainstructor.semester_id = self.id
-      return false unless newptainstructor.save
-      newcourse.ptainstructor_id = newptainstructor.id
-      ptainstructors_cloned[oldptainstructor.id] = newptainstructor.id
+      newinstructor = oldinstructor.dup
+      newinstructor.semester_id = self.id
+      return false unless newinstructor.save
+      newcourse.instructor_id = newinstructor.id
+      instructors_cloned[oldinstructor.id] = newinstructor.id
     end
     return true
   end
 
   private
-  #Copies teacher to semester
-  def duplicate_teacher(oldteacher,teachers_cloned)
-    newteacher = oldteacher.dup
-    newteacher.semester_id = self.id
-    return false unless newteacher.save
-    teachers_cloned[oldteacher.id] = newteacher.id
+  #Copies classroom to semester
+  def duplicate_classroom(oldclassroom,classrooms_cloned)
+    newclassroom = oldclassroom.dup
+    newclassroom.semester_id = self.id
+    return false unless newclassroom.save
+    classrooms_cloned[oldclassroom.id] = newclassroom.id
     return true
   end
 
   private
-  #Copies ptainstructor to semester
-  def duplicate_ptainstructor(oldptainstructor)
-    newptainstructor = oldptainstructor.dup
-    newptainstructor.semester_id = self.id
-    return false unless newptainstructor.save
+  #Copies instructor to semester
+  def duplicate_instructor(oldinstructor)
+    newinstructor = oldinstructor.dup
+    newinstructor.semester_id = self.id
+    return false unless newinstructor.save
     return true
   end
 
   private
   #Copies student to semester
-  def duplicate_student(oldstudent, teachers_cloned)
+  def duplicate_student(oldstudent, classrooms_cloned)
     newstudent = oldstudent.dup
     newstudent.semester_id = self.id
-    newstudent.teacher_id = teachers_cloned[oldstudent.id]
+    newstudent.classroom_id = classrooms_cloned[oldstudent.id]
     return false unless newstudent.save
     return true
   end

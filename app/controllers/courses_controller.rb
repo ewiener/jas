@@ -34,8 +34,8 @@ class CoursesController  < ApplicationController
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
-    @ptainstructors = @semester.ptainstructors
-    @teachers = @semester.teachers
+    @instructors = @semester.instructors
+    @classrooms = @semester.classrooms
     
     @course = flash.key?(:course) ? Course.new(flash[:course]) : Course.new
   end
@@ -61,8 +61,8 @@ class CoursesController  < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
 
-    @ptainstructors = @semester.ptainstructors
-    @teachers = @semester.teachers
+    @instructors = @semester.instructors
+    @classrooms = @semester.classrooms
   end
 
   def update
@@ -73,7 +73,7 @@ class CoursesController  < ApplicationController
     return unless valid_semester?(@semester)
     
     if @course.update_attributes(params[:course])
-      redirect_to course_path(@course), :notice => "#{@course.name} in #{@semester.name} was successfully updated."
+      redirect_to course_path(@course), :notice => "#{@course.name} was successfully updated."
     else
       flash[:warning] = @course.errors
       flash[:course] = params[:course] # Save fields so the user doesn't have to re-enter everything again

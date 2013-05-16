@@ -14,7 +14,7 @@ class EnrollmentsController < ApplicationController
     
     @filter = Hash.new
     if (params[:filter_teacher])
-    	@filter[:teacher] = @semester.teachers.find(params[:filter_teacher])
+    	@filter[:teacher] = @semester.classrooms.find(params[:filter_teacher])
     end
     if (params[:filter_dismissal])
     	@filter[:dismissal] = dismissals[params[:filter_dismissal].to_i]
@@ -25,27 +25,15 @@ class EnrollmentsController < ApplicationController
     @enrollments_by_day = Hash.new { |hash, key| hash[key] = Array.new }
     @enrollments.each do |enrollment|
       @enrollments_by_day[:sunday] << enrollment if enrollment.course.sunday
-    	if enrollment.course.monday
-    		@enrollments_by_day[:monday] << enrollment
-    	end
-    	if enrollment.course.tuesday
-    		@enrollments_by_day[:tuesday] << enrollment
-    	end
-    	if enrollment.course.wednesday
-    		@enrollments_by_day[:wednesday] << enrollment
-    	end
-    	if enrollment.course.thursday
-    		@enrollments_by_day[:thursday] << enrollment
-    	end
-    	if enrollment.course.friday
-    		@enrollments_by_day[:friday] << enrollment
-    	end
-    	if enrollment.course.saturday
-    		@enrollments_by_day[:saturday] << enrollment
-    	end
+      @enrollments_by_day[:monday] << enrollment if enrollment.course.monday
+      @enrollments_by_day[:tuesday] << enrollment if enrollment.course.tuesday
+  		@enrollments_by_day[:wednesday] << enrollment if enrollment.course.wednesday
+  		@enrollments_by_day[:thursday] << enrollment if enrollment.course.thursday
+  		@enrollments_by_day[:friday] << enrollment if enrollment.course.friday
+  		@enrollments_by_day[:saturday] << enrollment if enrollment.course.saturday
     end
     
-    @all_teachers = @semester.teachers
+    @all_teachers = @semester.classrooms.with_teacher
     @all_dismissals = dismissals
   end
   

@@ -10,8 +10,8 @@
         %td
           Name
     %tbody
-      - if @teacher.students.any?
-        - @teacher.students.each_with_index do |student, index|
+      - if @classroom.students.any?
+        - @classroom.students.each_with_index do |student, index|
           %tr.student-info
             %td.student-index
               #{index+1}

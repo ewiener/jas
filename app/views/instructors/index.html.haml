@@ -1,4 +1,4 @@
--# This file is app/views/ptainstructors/index.html.haml
+-# This file is app/views/instructors/index.html.haml
 !!! 5
 
 - content_for :title, instructor_index_heading(@filter)
@@ -7,13 +7,13 @@
   .span12.module
     %ul.module-heading-tabs
       %li.module-heading-tab{active_if(@filter.empty?)}
-        = link_to "All", semester_ptainstructors_path(@semester)
+        = link_to "All", semester_instructors_path(@semester)
       %li.module-heading-tab{active_if(@filter[:active] == 'true')}
-        = link_to "Active", semester_ptainstructors_path(@semester, :filter_active => "true")
+        = link_to "Active", semester_instructors_path(@semester, :filter_active => "true")
       %li.module-heading-tab{active_if(@filter[:active] == 'false')}
-        = link_to "Inactive", semester_ptainstructors_path(@semester, :filter_active => "false")
+        = link_to "Inactive", semester_instructors_path(@semester, :filter_active => "false")
       %li.module-heading-action
-        = link_to "+ Add Instructor", new_semester_ptainstructor_path(@semester)
+        = link_to "+ Add Instructor", new_semester_instructor_path(@semester)
     %h3.print-heading-sub
       = instructor_index_heading(@filter)
              
@@ -31,23 +31,23 @@
               Phone
             %td.action
         %tbody
-          - if !@ptainstructors.empty?
-            - @ptainstructors.each do |ptainstructor|
+          - if !@instructors.empty?
+            - @instructors.each do |instructor|
               %tr
                 %td
-                  = link_to ptainstructor.first_name, ptainstructor_path(ptainstructor)
+                  = link_to instructor.first_name, instructor_path(instructor)
                 %td
-                  = link_to ptainstructor.last_name, ptainstructor_path(ptainstructor)
+                  = link_to instructor.last_name, instructor_path(instructor)
                 %td
-                  = ptainstructor.email
+                  = instructor.email
                 %td
-                  = ptainstructor.phone
+                  = instructor.phone
                 %td.action
-                  = link_to edit_ptainstructor_path(ptainstructor), :class => "edit-delete" do
+                  = link_to edit_instructor_path(instructor), :class => "edit-delete" do
                     %i.icon-pencil
-                  - if ptainstructor.can_be_deleted?
-                    = link_to ptainstructor_path(ptainstructor), :method => :delete, :class => "edit-delete",
-                        :data => { :confirm => "Are you sure you want to delete #{ptainstructor.full_name_first_last}?" } do
+                  - if instructor.can_be_deleted?
+                    = link_to instructor_path(instructor), :method => :delete, :class => "edit-delete",
+                        :data => { :confirm => "Are you sure you want to delete #{instructor.full_name_first_last}?" } do
                       %i.icon-trash
                   - else
                     %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses. Remove the instructor from all referencing courses to delete."}

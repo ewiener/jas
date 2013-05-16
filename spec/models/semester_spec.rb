@@ -97,7 +97,7 @@ describe Semester do
 
 
   describe 'Check if course can be created' do
-    it 'I test can_create_course? when ptainstructor and teacher exist' do
+    it 'I test can_create_course? when instructor and classroom exist' do
       @semester = Semester.new
       @semester.id = 2
       @semester.name = "Fall 2012"
@@ -108,27 +108,27 @@ describe Semester do
       @semester.registration_deadline = "01/22/12"
       @semester.fee = 200
       @semester.save
-      @ptainstructor = Ptainstructor.new
-      @ptainstructor.id = 2
-      @ptainstructor.first_name = "Mary"
-      @ptainstructor.last_name = "Katherine"
-      @ptainstructor.email = "mary@gmail.com"
-      @ptainstructor.phone = "925-987-1234"
-      @ptainstructor.address = "1000 Main St. SF, CA 94109"
-      @ptainstructor.bio = "I love math"
-      @ptainstructor.semester_id = 2
-      @ptainstructor.save
-      @teacher = Teacher.new
-      @teacher.id = 3
-      @teacher.name = "Jane"
-      @teacher.grade = "2"
-      @teacher.classroom = "Library"
-      @teacher.semester_id = 2
-      @teacher.save
+      @instructor = Instructor.new
+      @instructor.id = 2
+      @instructor.first_name = "Mary"
+      @instructor.last_name = "Katherine"
+      @instructor.email = "mary@gmail.com"
+      @instructor.phone = "925-987-1234"
+      @instructor.address = "1000 Main St. SF, CA 94109"
+      @instructor.bio = "I love math"
+      @instructor.semester_id = 2
+      @instructor.save
+      @classroom = Classroom.new
+      @classroom.id = 3
+      @classroom.teacher = "Jane"
+      @classroom.grade = "2"
+      @classroom.name = "Library"
+      @classroom.semester_id = 2
+      @classroom.save
       @semester.can_create_course?.should == true
     end
 
-    it 'I test can_create_course? when only ptainstructor exists' do
+    it 'I test can_create_course? when only instructor exists' do
       @semester = Semester.new
       @semester.id = 2
       @semester.name = "Fall 2012"
@@ -139,20 +139,20 @@ describe Semester do
       @semester.registration_deadline = "01/22/12"
       @semester.fee = 200
       @semester.save
-      @ptainstructor = Ptainstructor.new
-      @ptainstructor.id = 2
-      @ptainstructor.first_name = "Mary"
-      @ptainstructor.last_name = "Katherine"
-      @ptainstructor.email = "mary@gmail.com"
-      @ptainstructor.phone = "925-987-1234"
-      @ptainstructor.address = "1000 Main St. SF, CA 94109"
-      @ptainstructor.bio = "I love math"
-      @ptainstructor.semester_id = 2
-      @ptainstructor.save
+      @instructor = Instructor.new
+      @instructor.id = 2
+      @instructor.first_name = "Mary"
+      @instructor.last_name = "Katherine"
+      @instructor.email = "mary@gmail.com"
+      @instructor.phone = "925-987-1234"
+      @instructor.address = "1000 Main St. SF, CA 94109"
+      @instructor.bio = "I love math"
+      @instructor.semester_id = 2
+      @instructor.save
       @semester.can_create_course?.should == false
     end
 
-    it 'I test can_create_course? when only teacher exists' do
+    it 'I test can_create_course? when only classroom exists' do
       @semester = Semester.new
       @semester.id = 2
       @semester.name = "Fall 2012"
@@ -163,17 +163,17 @@ describe Semester do
       @semester.registration_deadline = "01/22/12"
       @semester.fee = 200
       @semester.save
-      @teacher = Teacher.new
-      @teacher.id = 3
-      @teacher.name = "Jane"
-      @teacher.grade = "2"
-      @teacher.classroom = "Library"
-      @teacher.semester_id = 2
-      @teacher.save
+      @classroom = Classroom.new
+      @classroom.id = 3
+      @classroom.teacher = "Jane"
+      @classroom.grade = "2"
+      @classroom.name = "Library"
+      @classroom.semester_id = 2
+      @classroom.save
       @semester.can_create_course?.should == false
     end
 
-    it 'I test can_create_course? when ptainstructor and teacher have different semester ids' do
+    it 'I test can_create_course? when instructor and classroom have different semester ids' do
       @semester = Semester.new
       @semester.id = 2
       @semester.name = "Fall 2012"
@@ -184,23 +184,23 @@ describe Semester do
       @semester.registration_deadline = "01/22/12"
       @semester.fee = 200
       @semester.save
-      @ptainstructor = Ptainstructor.new
-      @ptainstructor.id = 2
-      @ptainstructor.first_name = "Mary"
-      @ptainstructor.last_name = "Katherine"
-      @ptainstructor.email = "mary@gmail.com"
-      @ptainstructor.phone = "925-987-1234"
-      @ptainstructor.address = "1000 Main St. SF, CA 94109"
-      @ptainstructor.bio = "I love math"
-      @ptainstructor.semester_id = 1
-      @ptainstructor.save
-      @teacher = Teacher.new
-      @teacher.id = 3
-      @teacher.name = "Jane"
-      @teacher.grade = "2"
-      @teacher.classroom = "Library"
-      @teacher.semester_id = 3
-      @teacher.save
+      @instructor = Instructor.new
+      @instructor.id = 2
+      @instructor.first_name = "Mary"
+      @instructor.last_name = "Katherine"
+      @instructor.email = "mary@gmail.com"
+      @instructor.phone = "925-987-1234"
+      @instructor.address = "1000 Main St. SF, CA 94109"
+      @instructor.bio = "I love math"
+      @instructor.semester_id = 1
+      @instructor.save
+      @classroom = Classroom.new
+      @classroom.id = 3
+      @classroom.teacher = "Jane"
+      @classroom.grade = "2"
+      @classroom.name = "Library"
+      @classroom.semester_id = 3
+      @classroom.save
       @semester.can_create_course?.should == false
     end
 
@@ -277,23 +277,23 @@ describe Semester do
       @semester1.registration_deadline = "01/22/12"
       @semester1.fee = 200
       @semester1.save
-      @ptainstructor = Ptainstructor.new
-      @ptainstructor.id = 2
-      @ptainstructor.first_name = "Mary"
-      @ptainstructor.last_name = "Katherine"
-      @ptainstructor.email = "mary@gmail.com"
-      @ptainstructor.phone = "925-987-1234"
-      @ptainstructor.address = "1000 Main St. SF, CA 94109"
-      @ptainstructor.bio = "I love math"
-      @ptainstructor.semester_id = 2
-      @ptainstructor.save
-      @teacher = Teacher.new
-      @teacher.id = 3
-      @teacher.name = "Jane"
-      @teacher.grade = "2"
-      @teacher.classroom = "Library"
-      @teacher.semester_id = 2
-      @teacher.save
+      @instructor = Instructor.new
+      @instructor.id = 2
+      @instructor.first_name = "Mary"
+      @instructor.last_name = "Katherine"
+      @instructor.email = "mary@gmail.com"
+      @instructor.phone = "925-987-1234"
+      @instructor.address = "1000 Main St. SF, CA 94109"
+      @instructor.bio = "I love math"
+      @instructor.semester_id = 2
+      @instructor.save
+      @classroom = Classroom.new
+      @classroom.id = 3
+      @classroom.teacher = "Jane"
+      @classroom.grade = "2"
+      @classroom.name = "Library"
+      @classroom.semester_id = 2
+      @classroom.save
       @course = Course.new
       @course.id = 4
       @course.name = "Math"
@@ -315,8 +315,8 @@ describe Semester do
       @course.fee_for_additional_materials = 30
       @course.course_fee = 100
       @course.semester_id = 2
-      @course.ptainstructor_id = 2
-      @course.teacher_id = 3
+      @course.instructor_id = 2
+      @course.classroom_id = 3
       @course.save
       @semester2 = Semester.new
       @semester2.id =3
@@ -329,26 +329,26 @@ describe Semester do
       @semester2.fee = 200
       @semester2.import(@semester1)
       @semester2.save
-      @teachers = Teacher.find_by_semester_id(3)
-      @ptainstructors = Ptainstructor.find_by_semester_id(3)
+      @classrooms = Classroom.find_by_semester_id(3)
+      @instructors = Instructor.find_by_semester_id(3)
       @courses = Course.find_by_semester_id(3)
-      @teacher_test = Teacher.new
-      @teacher_test.id = 4
-      @teacher_test.name = "Jane"
-      @teacher_test.grade = "2"
-      @teacher_test.classroom = "Library"
-      @teacher_test.semester_id = 3
-      @teachers.should == @teacher_test
-      @ptainstructor_test = Ptainstructor.new
-      @ptainstructor_test.id = 3
-      @ptainstructor_test.first_name = "Mary"
-      @ptainstructor_test.last_name = "Katherine"
-      @ptainstructor_test.email = "mary@gmail.com"
-      @ptainstructor_test.phone = "925-987-1234"
-      @ptainstructor_test.address = "1000 Main St. SF, CA 94109"
-      @ptainstructor_test.bio = "I love math"
-      @ptainstructor_test.semester_id = 3
-      @ptainstructors.should == @ptainstructor_test
+      @classroom_test = Classroom.new
+      @classroom_test.id = 4
+      @classroom_test.name = "Jane"
+      @classroom_test.grade = "2"
+      @classroom_test.classroom = "Library"
+      @classroom_test.semester_id = 3
+      @classrooms.should == @classroom_test
+      @instructor_test = Instructor.new
+      @instructor_test.id = 3
+      @instructor_test.first_name = "Mary"
+      @instructor_test.last_name = "Katherine"
+      @instructor_test.email = "mary@gmail.com"
+      @instructor_test.phone = "925-987-1234"
+      @instructor_test.address = "1000 Main St. SF, CA 94109"
+      @instructor_test.bio = "I love math"
+      @instructor_test.semester_id = 3
+      @instructors.should == @instructor_test
       @course_test = Course.new
       @course_test.id = 5
       @course_test.name = "Math"
@@ -370,8 +370,8 @@ describe Semester do
       @course_test.fee_for_additional_materials = 30
       @course_test.course_fee = 100
       @course_test.semester_id = 3
-      @course_test.ptainstructor_id = 2
-      @course_test.teacher_id = 3
+      @course_test.instructor_id = 2
+      @course_test.classroom_id = 3
       @courses.should == @course_test
 
     end

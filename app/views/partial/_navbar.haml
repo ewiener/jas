@@ -5,18 +5,20 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to "EnrollerCoaster", root_path, :class => 'brand'
+      = link_to application_name, root_path, :class => 'brand'
       .nav-collapse.collapse.navbar-responsive-collapse
         %ul.nav
           - if semester && !semester.new_record?
-            %li#navbar-students{class: site_section == :students_section && 'active'}
-              = link_to_section :students_section, semester
-            %li#navbar-instructors{class: site_section == :instructors_section && 'active'}
-              = link_to_section :instructors_section, semester
-            %li#navbar-teachers{class: site_section == :teachers_section && 'active'}
-              = link_to_section :teachers_section, semester
+            %li#navbar-semester-home{class: site_section == :semester_home_section && 'active'}
+              = link_to_section :semester_home_section, semester
             %li#navbar-courses{class: site_section == :courses_section && 'active'}
               = link_to_section :courses_section, semester
+            %li#navbar-instructors{class: site_section == :instructors_section && 'active'}
+              = link_to_section :instructors_section, semester
+            %li#navbar-classrooms{class: site_section == :classrooms_section && 'active'}
+              = link_to_section :classrooms_section, semester
+            %li#navbar-students{class: site_section == :students_section && 'active'}
+              = link_to_section :students_section, semester
             %li#navbar-enrollments{class: site_section == :enrollments_section && 'active'}
               = link_to_section :enrollments_section, semester
 

@@ -16,9 +16,9 @@
             = text_field :course, :name
 
         .control-group
-          = label :temp, :ptainstructor_id, 'Instructor', :class => "control-label"
+          = label :temp, :instructor_id, 'Instructor', :class => "control-label"
           .controls
-            = select_tag "course[ptainstructor_id]", options_from_collection_for_select(@ptainstructors, :id, :full_name_first_last, @course.ptainstructor_id), 
+            = select_tag "course[instructor_id]", options_from_collection_for_select(@instructors, :id, :full_name_first_last, @course.instructor_id), 
                 :prompt => 'Select Instructor', :class => "course_select"
 
         .control-group
@@ -58,7 +58,7 @@
         .control-group
           = label :temp, :location, 'Room', :class => "control-label"
           .controls
-            = select_tag "course[teacher_id]", options_from_collection_for_select(@teachers, :id, :classroom, @course.teacher_id), 
+            = select_tag "course[classroom_id]", options_from_collection_for_select(@classrooms, :id, :name, @course.classroom_id), 
                 :prompt => 'Select Room', :class => "course_select"
 
         .control-group
@@ -76,14 +76,8 @@
           .controls
             = text_field :course, :class_max, :class => "span1"
 
-          -# .control-group
-          -#   = label :course, :number_of_classes, 'Number of meetings', :class => "control-label"
-          -#   .controls
-          -#     = text_field :course, :number_of_classes, :class => "span1", :id => "course_number_of_classes"
-          -#     = link_to "Calculate", "#", :id => "calc_meeting_number"
-
         .control-group
-          = label :course, :course_fee, 'Per session fee', :class => "control-label"
+          = label :course, :course_fee, 'Class fee', :class => "control-label"
           .controls
             .input-prepend
               %span.add-on $

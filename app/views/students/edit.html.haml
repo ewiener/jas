@@ -27,9 +27,9 @@
                 :prompt => 'Select Grade'
     
         .control-group
-          = label :teacher, 'Classroom teacher', :class => "control-label"
+          = label :classroom, 'Teacher', :class => "control-label"
           .controls
-            = select_tag :teacher, options_from_collection_for_select(@teachers, :id, :name, @student.teacher_id), 
+            = select_tag :classroom, options_from_collection_for_select(@classrooms, :id, :teacher, @student.classroom_id), 
                 :prompt => 'Select Teacher', :class => "course_select"
     
         .control-group

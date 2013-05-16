@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
     
     @student = flash.key?(:student) ? Student.new(flash[:student]) : Student.new
     
-    @teachers = @semester.teachers.with_teacher
+    @classrooms = @semester.classrooms.with_teacher
   end
 
   def create
@@ -47,11 +47,11 @@ class StudentsController < ApplicationController
 
     @student = @semester.students.build(params[:student])
     
-    @teacher = params[:teacher] && !params[:teacher].empty? ? Teacher.find(params[:teacher]) : nil
-    if @teacher
-      @student.teacher = @teacher
+    @classroom = params[:classroom] && !params[:classroom].empty? ? Classroom.find(params[:classroom]) : nil
+    if @classroom
+      @student.classroom = @classroom
     else
-      flash[:warning] = [[:teacher,"Must select a valid teacher."]]
+      flash[:warning] = [[:classroom,"Must select a valid teacher."]]
       flash[:student] = params[:student] # Save fields so the user doesn't have to re-enter everything again
       redirect_to new_semester_student_path(@semester)
       return
@@ -73,7 +73,7 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
     
-    @teachers = @semester.teachers.with_teacher
+    @classrooms = @semester.classrooms.with_teacher
   end
 
   def update
@@ -85,11 +85,11 @@ class StudentsController < ApplicationController
     
     @student.assign_attributes(params[:student])
 
-    @teacher = Teacher.find(params[:teacher])
-    if @teacher
-      @student.teacher = @teacher
+    @classroom = Classroom.find(params[:classroom])
+    if @classroom
+      @student.classroom = @classroom
     else
-      flash[:warning] = [[:teacher,"A valid teacher was not selected."]]
+      flash[:warning] = [[:classroom,"A valid classroom was not selected."]]
       flash[:student] = params[:student] # Save fields so the user doesn't have to re-enter everything again
       redirect_to edit_student_path
     end

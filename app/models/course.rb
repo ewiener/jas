@@ -2,11 +2,17 @@
 
 class Course < ActiveRecord::Base
   require 'time'
-  serialize :days_of_week
+
   TIME_TYPE = [0, 1, 2] # AM, PM, 24HR
   HOUR12 = Array(1..12)
   HOUR24 = Array(0..23)
   MINUTE = Array(0..59)
+
+  belongs_to :semester
+  belongs_to :instructor
+  belongs_to :classroom
+  has_many :enrollments, :dependent => :destroy
+  has_many :students, :through => :enrollments
 
   # Attributes
   attr_accessible :name,
@@ -26,19 +32,13 @@ class Course < ActiveRecord::Base
                   :fee_per_meeting,
                   :fee_for_additional_materials,
                   :course_fee,
-                  :ptainstructor_id,
-                  :teacher_id
+                  :instructor_id,
+                  :classroom_id,
+                  :instructor,
+                  :classroom
                   
   attr_accessor :number_of_classes,
                 :holidays
-
-  #has location through teacher
-
-  belongs_to :semester
-  belongs_to :ptainstructor
-  belongs_to :teacher
-  has_many :enrollments, :dependent => :destroy
-  has_many :students, :through => :enrollments
 
   validates :name, :presence => true
   #validates :start_time
@@ -48,8 +48,8 @@ class Course < ActiveRecord::Base
   validates :fee_per_meeting, :numericality => true, :allow_nil => true
   validates :fee_for_additional_materials, :numericality => true, :allow_nil => true
   validates :course_fee, :numericality => true, :allow_nil => true
-  #validates :ptainstructor
-  #validates :teacher
+  #validates :instructor
+  #validates :classroom
   
   after_validation :calc_number_of_classes_and_holidays
   after_initialize :calc_number_of_classes_and_holidays

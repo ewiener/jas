@@ -81,12 +81,12 @@ Tue, 04 Dec 2012 23:13:55 -0800
 ./tmp/cache/assets/D16/190/sprockets%2F636487f12d8ea5f0add1c404387e7f90	Tue, 04 Dec 2012 01:28:26 -0800
 ./tmp/cache/assets/C75/260/sprockets%2F32938bb04cb027594b21e9263ba25169	Tue, 04 Dec 2012 01:28:26 -0800
 ./spec/spec_helper.rb	Sun, 02 Dec 2012 22:59:31 -0800
-./spec/models/teacher_spec.rb	Tue, 04 Dec 2012 19:58:49 -0800
+./spec/models/classroom_spec.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./spec/models/enrollment_spec.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./spec/models/course_spec.rb	Sun, 04 Nov 2012 17:02:24 -0800
 ./spec/models/semester_spec.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./spec/models/student_spec.rb	Tue, 27 Nov 2012 13:38:30 -0800
-./spec/models/ptainstructor_spec.rb	Tue, 04 Dec 2012 19:58:49 -0800
+./spec/models/instructor_spec.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./features/support/paths.rb	Tue, 04 Dec 2012 18:22:01 -0800
 ./features/support/selectors.rb	Sun, 21 Oct 2012 04:11:31 -0700
 ./features/support/env.rb	Sun, 02 Dec 2012 23:03:51 -0800
@@ -113,7 +113,7 @@ Tue, 04 Dec 2012 23:13:55 -0800
 ./db/migrate/20121203015603_add_create_sessions_table.rb	Sun, 02 Dec 2012 17:57:07 -0800
 ./db/migrate/20121125012720_add_enrollment_table.rb	Sun, 25 Nov 2012 09:33:28 -0800
 ./db/migrate/20121104011445_add_pta_instructor_table.rb	Fri, 30 Nov 2012 19:05:24 -0800
-./db/migrate/20121101011010_add_teacher_table.rb	Sun, 04 Nov 2012 17:02:24 -0800
+./db/migrate/20121101011010_add_classroom_table.rb	Sun, 04 Nov 2012 17:02:24 -0800
 ./db/migrate/20121020025422_add_semester_table.rb	Wed, 21 Nov 2012 22:17:33 -0800
 ./db/migrate/20121021041637_add_user_table.rb	Sun, 02 Dec 2012 18:11:40 -0800
 ./db/seeds.rb	Tue, 04 Dec 2012 13:34:53 -0800
@@ -123,8 +123,8 @@ Tue, 04 Dec 2012 23:13:55 -0800
 ./Scripts and Stuff.txt	Tue, 30 Oct 2012 14:20:28 -0700
 ./app/models/semester.rb	Tue, 04 Dec 2012 21:34:22 -0800
 ./app/models/login.rb	Sun, 21 Oct 2012 04:11:31 -0700
-./app/models/teacher.rb	Tue, 04 Dec 2012 21:34:22 -0800
-./app/models/ptainstructor.rb	Tue, 04 Dec 2012 21:34:22 -0800
+./app/models/classroom.rb	Tue, 04 Dec 2012 21:34:22 -0800
+./app/models/instructor.rb	Tue, 04 Dec 2012 21:34:22 -0800
 ./app/models/user_session.rb	Sun, 02 Dec 2012 16:11:43 -0800
 ./app/models/course.rb	Tue, 04 Dec 2012 21:34:22 -0800
 ./app/models/user.rb	Tue, 04 Dec 2012 21:34:22 -0800
@@ -133,11 +133,11 @@ Tue, 04 Dec 2012 23:13:55 -0800
 ./app/helpers/application_helper.rb	Sun, 21 Oct 2012 04:11:31 -0700
 ./app/controllers/courses_controller.rb	Tue, 04 Dec 2012 23:02:13 -0800
 ./app/controllers/validate_login_controller.rb	Tue, 04 Dec 2012 19:58:49 -0800
-./app/controllers/teachers_controller.rb	Tue, 04 Dec 2012 21:21:20 -0800
+./app/controllers/classrooms_controller.rb	Tue, 04 Dec 2012 21:21:20 -0800
 ./app/controllers/semesters_controller.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./app/controllers/user_sessions_controller.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./app/controllers/students_controller.rb	Tue, 04 Dec 2012 22:57:36 -0800
 ./app/controllers/enrollments_controller.rb	Tue, 04 Dec 2012 19:42:29 -0800
 ./app/controllers/application_controller.rb	Tue, 04 Dec 2012 19:58:49 -0800
-./app/controllers/ptainstructors_controller.rb	Tue, 04 Dec 2012 19:58:49 -0800
+./app/controllers/instructors_controller.rb	Tue, 04 Dec 2012 19:58:49 -0800
 ./public/robots.txt	Sun, 21 Oct 2012 04:11:31 -0700

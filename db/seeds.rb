@@ -6,128 +6,142 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require 'ostruct'
-
 puts "Seeding..."
 
-User.create(:username => "admin", :password => "jrocks", :password_confirmation => "jrocks")
+# Create Programs
+master = Program.create(
+  :short_name => 'Master',
+  :long_name => 'Master',
+  :abbrev => 'Master',
+  :description => 'Empty placeholder program for attaching the super user'
+)
+jas = Program.create(
+	:short_name => 'Jefferson PTA',
+	:long_name => 'Jefferson PTA After School Classes',
+	:abbrev => 'JAS'
+)
+
+# Create Users
+master.users.create(
+	:username => "super",
+	:password => "super",
+	:password_confirmation => "super",
+	:role => 0
+)
+jas.users.create(
+  :username => "jasadmin", 
+  :password => "jrocks", 
+  :password_confirmation => "jrocks",
+  :role => 1
+)
 
 semesters = []
-semesters.push(OpenStruct.new({
+semesters.push({
   :name => 'Fall 2012',
   :start_date => '09/22/2012',
   :end_date => '12/15/2012',
   :lottery_deadline => '09/15/2012',
   :registration_deadline => '09/08/2012',
-  :fee => 1000,
-}))
-semesters.push(OpenStruct.new({
+  :fee => 10,
+})
+semesters.push({
   :name => 'Spring 2013',
   :start_date => '02/04/2013',
   :end_date => '05/03/2013',
   :lottery_deadline => '01/18/2013',
   :registration_deadline => '01/25/2013',
-  :fee => 2000,
-}))
+  :fee => 20,
+})
 semesters.each do |semester|
-  # Adding Semesters
-  current_semester = Semester.create(
-    name: semester.name,
-    start_date: semester.start_date,
-    end_date: semester.end_date,
-    lottery_deadline: semester.lottery_deadline,
-    registration_deadline: semester.registration_deadline,
-    fee: 1000.0
-  )
+  # Create Semester
+  current_semester = jas.semesters.create(semester)
 
-  # Adding PTA Instructors
-  ptainstructors_first_names = ['Kalen', 'Lolly', 'Henri']
-  ptainstructors_last_names = ['Meyer', 'Watanabe', 'Ducharme']
-  number_of_ptainstructors = 3
-  number_of_ptainstructors.times do |t|
-    current_semester.ptainstructors.create(
-      first_name: ptainstructors_first_names[t],
-      last_name: ptainstructors_last_names[t],
-      email: "ptainstructor#{t+1}@gmail.com",
-      phone: "1234567890",
+  # Add Instructors
+  instructors_first_names = ['Kalen', 'Lolly', 'Henri']
+  instructors_last_names = ['Meyer', 'Watanabe', 'Ducharme']
+  number_of_instructors = 3
+  number_of_instructors.times do |t|
+    current_semester.instructors.create(
+      first_name: instructors_first_names[t],
+      last_name: instructors_last_names[t],
+      email: "instructor#{t+1}@gmail.com",
+      phone: "123-456-7890",
       address: "An address somewhere",
     )
   end
 
-  # Adding Teachers
-  grades = 'K,1,2,3,4,5'.split(',')
-  number_of_teachers = 3
-  teacher_names = ['Anna Wong', 'Barry Fike', 'Barb Wenger']
-  number_of_teachers.times do |t|
-    randomGrade = grades[rand(grades.length)]
-    teacher = current_semester.teachers.create(
-      name: teacher_names[t],
-      grade: "#{randomGrade}",
-      classroom: "A classroom somewhere",
-    )
-  end
+  # Add Classrooms
+  classrooms = []
+  classrooms.push({
+  	:name => '101',
+  	:teacher => 'Anna Wong',
+  	:grade => 'K' 
+  })
+  classrooms.push({
+  	:name => '103',
+  	:teacher => 'Barry Fike',
+  	:grade => '3'
+  })
+  classrooms.push({
+  	:name => '201',
+  	:teacher => 'Barb Wenger',
+  	:grade => '4'
+  }) 
+  current_semester.classrooms.create(classrooms)
 
-  ps = current_semester.ptainstructors.map { |p| p.id }
-  ts = current_semester.teachers.map { |t| t.id }
+  is = current_semester.instructors.map { |p| p.id }
+  cs = current_semester.classrooms.map { |t| t.id }
 
-  # Adding Students 
+  # Add Students 
+  grades = ['K', '1', '2', '3', '4', '5']
   students_first_names = ['Italo', 'John', 'Jorge']
   students_last_names = ['Calvino', 'Barth', 'Borges']
   number_of_students = 3
   number_of_students.times do |t|
-
     randomGrade = grades[rand(grades.length)]
-    teacherId = ts[rand(ts.length)]
-    teacher = Teacher.find_by_id(teacherId)
+    classroom = Classroom.find_by_id(cs[rand(cs.length)])
 
     current_semester.students.create(
       first_name: students_first_names[t],
       last_name: students_last_names[t],
       grade: "#{randomGrade}",
-      parent_phone: "1234567890",
+      parent_phone: "123-456-7890",
       parent_name: "Mr. Parent",
       parent_email: "parent#{t+1}@gmail.com",
-      teacher: teacher,
+      classroom: classroom,
     )
   end
 
-  # Adding Courses
+  # Add Courses
   grades = 'K,1,2,3,4,5'.split(',')
   courses = ['Constructing Art', 'Fun with Mandarin', 'Skilly Circus']
   number_of_courses = 3
   number_of_courses.times do |t|
-
     randomGrade = grades[rand(grades.length)]
-    randomMin = rand(50)
-    randomMax = rand(50) + 50
-    random = rand(100)
-
-    ptainstructorId = ps[rand(ps.length)]
-    teacherId = ts[rand(ts.length)]
-    ptainstructor = Ptainstructor.find_by_id(ptainstructorId)
-    teacher = Teacher.find_by_id(teacherId)
+    
+    instructor = Instructor.find_by_id(is[rand(is.length)])
+    classroom = Classroom.find_by_id(cs[rand(cs.length)])
 
     current_semester.courses.create(
       name: courses[t],
       description: courses[t],
-      sunday: true,
+      sunday: false,
       monday: true,
-      tuesday: true,
-      wednesday: true,
-      thursday: true,
-      friday: true,
-      saturday: true,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
       start_time: "#{t+1}:00pm",
       end_time: "#{t+1}:00pm",
       grade_range: "#{randomGrade}",
-      class_min: randomMin,
-      class_max: randomMax,
-      number_of_classes: randomMin,
-      fee_per_meeting: random,
-      fee_for_additional_materials: random,
-      course_fee: random,
-      ptainstructor: ptainstructor,
-      teacher: teacher,
+      class_min: rand(10),
+      class_max: rand(10) + 10,
+      fee_per_meeting: rand(10),
+      fee_for_additional_materials: rand(10),
+      course_fee: rand(20) + 50,
+      instructor: instructor,
+      classroom: classroom,
     )
   end
 end

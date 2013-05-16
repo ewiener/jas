@@ -16,6 +16,8 @@
           - @semesters.each do |semester|
             %tr
               %td
+                = link_to home_of_semester_path(semester) do
+                  %i.icon-home
                 = link_to semester.name, semester_path(semester)
               %td
                 = semester.start_date + " - " + semester.end_date
@@ -23,5 +25,5 @@
                 = link_to edit_semester_path(semester), :class => "edit-delete" do
                   %i.icon-pencil
                 = link_to semester_path(semester), :method => :delete, :class => "edit-delete", 
-                    :data => { :confirm => "Are you sure you want to delete the \"#{semester.name}\" session?.  All students, classes, instructors and teachers associated with this session will also be deleted.  Data deleted will not be recoverable.  Are you really sure you want to delete the \"#{semester.name}\" session?"} do
+                    :data => { :confirm => "Are you sure you want to delete the \"#{semester.name}\" session?.  All students, classes, instructors and classrooms associated with this session will also be deleted.  Data deleted will not be recoverable.  Are you really sure you want to delete the \"#{semester.name}\" session?"} do
                   %i.icon-trash

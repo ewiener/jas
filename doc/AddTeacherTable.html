@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class AddTeacherTable - RDoc Documentation</title>
+<title>class AddClassroomTable - RDoc Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>db/migrate/20121101011010_add_teacher_table.rb
+    <li>db/migrate/20121101011010_add_classroom_table.rb
   </ul>
 </nav>
 
@@ -121,7 +121,7 @@
   
     <li><a href="./AddStudentTable.html">AddStudentTable</a>
   
-    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+    <li><a href="./AddClassroomTable.html">AddClassroomTable</a>
   
     <li><a href="./AddUserTable.html">AddUserTable</a>
   
@@ -147,9 +147,9 @@
   
     <li><a href="./Prickle_helper.html">Prickle_helper</a>
   
-    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+    <li><a href="./Instructor.html">Instructor</a>
   
-    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+    <li><a href="./InstructorsController.html">InstructorsController</a>
   
     <li><a href="./Semester.html">Semester</a>
   
@@ -159,9 +159,9 @@
   
     <li><a href="./StudentsController.html">StudentsController</a>
   
-    <li><a href="./Teacher.html">Teacher</a>
+    <li><a href="./Classroom.html">Classroom</a>
   
-    <li><a href="./TeachersController.html">TeachersController</a>
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
   
     <li><a href="./User.html">User</a>
   
@@ -180,7 +180,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class AddTeacherTable</h1>
+  <h1 class="class">class AddClassroomTable</h1>
 
   <div id="description" class="description">
     
@@ -220,9 +220,9 @@
 
           
           <div class="method-source-code" id="down-source">
-            <pre><span class="ruby-comment"># File db/migrate/20121101011010_add_teacher_table.rb, line 11</span>
+            <pre><span class="ruby-comment"># File db/migrate/20121101011010_add_classroom_table.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">down</span>
-  <span class="ruby-identifier">drop_table</span> <span class="ruby-string">'teachers'</span>
+  <span class="ruby-identifier">drop_table</span> <span class="ruby-string">'classrooms'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- down-source -->
           
@@ -250,9 +250,9 @@
 
           
           <div class="method-source-code" id="up-source">
-            <pre><span class="ruby-comment"># File db/migrate/20121101011010_add_teacher_table.rb, line 2</span>
+            <pre><span class="ruby-comment"># File db/migrate/20121101011010_add_classroom_table.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">up</span>
-  <span class="ruby-identifier">create_table</span> <span class="ruby-string">'teachers'</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">create_table</span> <span class="ruby-string">'classrooms'</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>    <span class="ruby-string">'name'</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>    <span class="ruby-string">'grade'</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>    <span class="ruby-string">'classroom'</span>

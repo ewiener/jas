@@ -88,10 +88,10 @@ Given /^the following courses have been added:$/ do |table|
     course[:class_max] = Integer(course[:class_max])
     sem_id = Semester.find_by_name(course[:semester])
     course[:semester] = sem_id
-    pta_id = Ptainstructor.find_by_first_name(course[:ptainstructor])
-    course[:ptainstructor] = pta_id
-    classroom_id = Teacher.find_by_classroom(course[:teacher])
-    course[:teacher] = classroom_id
+    pta_id = Instructor.find_by_first_name(course[:instructor])
+    course[:instructor] = pta_id
+    classroom_id = Classroom.find_by_classroom(course[:classroom])
+    course[:classroom] = classroom_id
     Course.create(course)
   end
 end
@@ -100,7 +100,7 @@ Given /^the following classrooms are in the database:$/ do |table|
  table.hashes.each do |classroom|
    sem_id = Semester.find_by_name(classroom[:semester])
    classroom[:semester] = sem_id
-   Teacher.create(classroom)
+   Classroom.create(classroom)
  end
 end
 
@@ -108,7 +108,7 @@ Given /^the following pta instructors exist:$/ do |table|
   table.hashes.each do |instructor|
     sem_id = Semester.find_by_name(instructor[:semester])
     instructor[:semester] = sem_id
-    Ptainstructor.create(instructor)
+    Instructor.create(instructor)
   end
 end
 
@@ -116,8 +116,8 @@ Given /^the following students are in the database:$/ do |table|
   table.hashes.each do |student|
     sem_id = Semester.find_by_name(student[:semester])
     student[:semester] = sem_id
-    classroom_id = Teacher.find_by_name(student[:teacher])
-    student[:teacher] = classroom_id
+    classroom_id = Classroom.find_by_name(student[:classroom])
+    student[:classroom] = classroom_id
     Student.create(student)
   end
 end
@@ -162,12 +162,12 @@ When /^I fill in the new pta form correctly with name "(.*)"$/ do |name|
 end
 
 def fill_in_new_pta_form_correcctly(name)
-  fill_in("ptainstructor_first_name", :with => name)
-  fill_in("ptainstructor_last_name", :with => name)
-  fill_in("ptainstructor_email", :with => "michelle@gmail.com")
-  fill_in("ptainstructor_phone", :with => "234-456-7890")
-  fill_in("ptainstructor_address", :with => "1600 Pennsylvania Avenue")
-  fill_in("ptainstructor_bio", :with => "Info about me")
+  fill_in("instructor_first_name", :with => name)
+  fill_in("instructor_last_name", :with => name)
+  fill_in("instructor_email", :with => "michelle@gmail.com")
+  fill_in("instructor_phone", :with => "234-456-7890")
+  fill_in("instructor_address", :with => "1600 Pennsylvania Avenue")
+  fill_in("instructor_bio", :with => "Info about me")
 end
 
 When /^I fill in the new classroom form correctly with classroom "(.*)"$/ do |location|
@@ -175,9 +175,9 @@ When /^I fill in the new classroom form correctly with classroom "(.*)"$/ do |lo
 end
 
 def fill_in_new_classroom_form_correcctly(location)
-  fill_in("teacher_name", :with => "Mary")
-  fill_in("teacher_grade", :with => "5")
-  fill_in("teacher_classroom", :with => location)
+  fill_in("classroom_name", :with => "Mary")
+  fill_in("classroom_grade", :with => "5")
+  fill_in("classroom_classroom", :with => location)
 end
 
 Then /^I fill in the new create class form correctly with subject "(.*?)", pta instructor "(.*?)", and classroom "(.*?)"$/ do |subject, pta_inst, room|
@@ -198,8 +198,8 @@ def fill_in_new_create_class_form_correcctly(subject, pta_inst, room)
   fill_in("course_fee_for_additional_materials", :with => "15")
   fill_in("course_total_fee", :with => "100")
   fill_in("course_class_max", :with => "20")
-  select(pta_inst, :from => 'course_ptainstructor_id')
-  select(room, :from => 'course_teacher_id')
+  select(pta_inst, :from => 'course_instructor_id')
+  select(room, :from => 'course_classroom_id')
 end
 
 When /^I fill in the new session form correctly with name "(.*)"$/ do |name|
@@ -215,17 +215,17 @@ def fill_in_new_session_form_correcctly(name)
   fill_in("semester_fee", :with => "10")
 end
 
-When /^I fill in the new student form correctly with name "(.*?)" and teacher "(.*?)"$/ do |name, teacher|
-  fill_in_new_student_form_correcctly(name, teacher)
+When /^I fill in the new student form correctly with name "(.*?)" and classroom "(.*?)"$/ do |name, classroom|
+  fill_in_new_student_form_correcctly(name, classroom)
 end
 
-def fill_in_new_student_form_correcctly(name, teacher)
+def fill_in_new_student_form_correcctly(name, classroom)
   fill_in("student_first_name", :with => name)
   fill_in("student_last_name", :with => name)
   fill_in("student_grade", :with => "K")
   fill_in("student_parent_phone", :with => "555 555-5555")
   fill_in("student_parent_email", :with => "asdf@asdf.com")
-  select(teacher, :from => 'teacher')
+  select(classroom, :from => 'classroom')
 end
 
 

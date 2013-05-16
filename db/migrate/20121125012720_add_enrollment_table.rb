@@ -7,6 +7,7 @@ class AddEnrollmentTable < ActiveRecord::Migration
       t.boolean    'enrolled'
       t.references 'course'
       t.references 'student'
+      t.timestamps
     end
   end
 

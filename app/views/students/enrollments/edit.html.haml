@@ -28,6 +28,7 @@
               %span.add-on $
               = text_field :enrollment, :scholarship_amount, :value => @enrollment.scholarship_amount ? sprintf("%0.2f", @enrollment.scholarship_amount) : '', 
                   :class => "span1", :id => "scholarship-amount"
+            (out of #{dollar_amount(@course.total_fee)})
             
         .control-group
           .control-label Dismissal

@@ -6,15 +6,16 @@
   .module-content
     %table.data-table.full-width.print-bigger
       %tbody
-        - if course.students.length != 0
-          - course.students.each_with_index do |student, index|
+        - if course.enrollments.enrolled.any?
+          - students = course.enrollments.enrolled.all.map {|enrollment| enrollment.student}
+          - students.each_with_index do |student, index|
             %tr{:class => (index >= course.class_max) ? "warning" : ""}
               %td
                 = index + 1
               %td
                 = link_to student.full_name, student_path(student)
-        - if course.class_max && course.students.length < course.class_max
-          - (course.students.length+1..course.class_max).each do |index|
+        - if course.class_max && students.length < course.class_max
+          - (students.length+1..course.class_max).each do |index|
             %tr
               %td
                 = index

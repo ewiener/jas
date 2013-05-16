@@ -1,0 +1,60 @@
+-# This file is app/views/classroom/index.html.haml
+!!! 5
+
+- content_for :title, classroom_index_heading(@filter)
+
+.row
+  .span12.module
+    %ul.module-heading-tabs
+      %li.module-heading-tab{active_if(@filter.empty?)}
+        = link_to "All", semester_classrooms_path(@semester)
+      %li.module-heading-tab{active_if(@filter[:active] == 'true')}
+        = link_to "Active", semester_classrooms_path(@semester, :filter_active => "true")
+      %li.module-heading-tab{active_if(@filter[:active] == 'false')}
+        = link_to "Inactive", semester_classrooms_path(@semester, :filter_active => "false")
+      %li.module-heading-action
+        = link_to "+ Add New Room", new_semester_classroom_path
+    %h3.print-heading-sub
+      = classroom_index_heading(@filter)
+
+    .module-content
+      %table.data-table.full-width#rooms
+        %thead
+          %tr
+            %td
+              Classroom
+            %td
+              Teacher
+            %td
+              Grade
+            %td.action
+        %tbody
+          - if !@classrooms.empty?
+            - @classrooms.each do |classroom|
+              %tr
+                %td
+                  = link_to classroom.name, classroom_path(classroom)
+                %td
+                  = link_to classroom.teacher, classroom_path(classroom)
+                %td
+                  = classroom.grade
+                %td.action
+                  = link_to edit_classroom_path(classroom), :class => "edit-delete" do
+                    %i.icon-pencil
+                  - if classroom.can_be_deleted?
+                    = link_to classroom_path(classroom), :method => :delete, :class => "edit-delete",
+                      :data => { :confirm => "Are you sure you want to delete #{classroom.name}?" } do
+                      %i.icon-trash
+                  - else
+                    %span.referenced-tooltip{"data-original-title"=>"Referenced by one or more courses or students. Remove the classroom from all referencing courses and students to delete."}
+                      %i.icon-trash
+          - else
+            %tr
+              %td.centered(colspan=4)   
+                None
+                                             
+- content_for :js do
+  :javascript
+    $(function() {
+      $("span.referenced-tooltip").tooltip();
+    });

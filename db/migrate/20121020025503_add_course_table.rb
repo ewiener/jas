@@ -12,24 +12,16 @@ class AddCourseTable < ActiveRecord::Migration
       t.boolean    'saturday'
       t.text       'start_time'
       t.text       'end_time'
-=begin
-      t.integer    'start_time_hour'
-      t.integer    'start_time_minute'
-      t.integer    'start_time_type'
-      t.integer    'end_time_hour'
-      t.integer    'end_time_minute'
-      t.integer    'end_time_type'
-=end
       t.text       'grade_range'
       t.integer    'class_min'
       t.integer    'class_max'
-      t.integer    'number_of_classes'
       t.float      'fee_per_meeting'
       t.float      'fee_for_additional_materials'
-      t.float      'total_fee'
+      t.float      'course_fee'
       t.references 'semester'
-      t.references 'ptainstructor'
-      t.references 'teacher'
+      t.references 'instructor'
+      t.references 'classroom'
+      t.timestamps
     end
   end
 

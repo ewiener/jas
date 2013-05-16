@@ -1,9 +1,9 @@
 !!!
 %ul.breadcrumb
   %li
-    = link_to 'Jefferson PTA', semesters_path
+    = link_to current_user.program.short_name, semesters_path
     %span.divider /
-  - if semester && !semester.new_record?
+  - if semester && !semester.new_record? && site_section != :semesters_section
     %li.dropdown
       = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
         #{semester.name}
@@ -14,7 +14,7 @@
             = link_to s.name, section_path(site_section, s), :tabindex => '-1'
         %li.divider
         %li
-          = link_to 'Manage Sessions...', semesters_path, :tabindex => '-1'
+          = link_to 'Edit Sessions...', semesters_path, :tabindex => '-1'
       %span.divider /
   - if site_section
     %li.active
@@ -25,6 +25,6 @@
       <i class="icon-print"></i> Print
 
 %h4.print-heading-main
-  Jefferson PTA After School Classes
+  = current_user.program.long_name
   - if semester && !semester.new_record?
     = "- #{semester.name} - #{semester.start_date_as_date.strftime("%b %d")} to #{semester.end_date_as_date.strftime("%b %d")}"

@@ -90,11 +90,11 @@
     
     <li><a href="#method-i-number_of_classes_is_valid-3F">#number_of_classes_is_valid?</a>
     
-    <li><a href="#method-i-ptainstructor_is_valid-3F">#ptainstructor_is_valid?</a>
+    <li><a href="#method-i-instructor_is_valid-3F">#instructor_is_valid?</a>
     
     <li><a href="#method-i-start_time_is_valid-3F">#start_time_is_valid?</a>
     
-    <li><a href="#method-i-teacher_is_valid-3F">#teacher_is_valid?</a>
+    <li><a href="#method-i-classroom_is_valid-3F">#classroom_is_valid?</a>
     
     <li><a href="#method-i-total_fee_is_valid-3F">#total_fee_is_valid?</a>
     
@@ -145,7 +145,7 @@
   
     <li><a href="./AddStudentTable.html">AddStudentTable</a>
   
-    <li><a href="./AddTeacherTable.html">AddTeacherTable</a>
+    <li><a href="./AddClassroomTable.html">AddClassroomTable</a>
   
     <li><a href="./AddUserTable.html">AddUserTable</a>
   
@@ -171,9 +171,9 @@
   
     <li><a href="./Prickle_helper.html">Prickle_helper</a>
   
-    <li><a href="./Ptainstructor.html">Ptainstructor</a>
+    <li><a href="./Instructor.html">Instructor</a>
   
-    <li><a href="./PtainstructorsController.html">PtainstructorsController</a>
+    <li><a href="./InstructorsController.html">InstructorsController</a>
   
     <li><a href="./Semester.html">Semester</a>
   
@@ -183,9 +183,9 @@
   
     <li><a href="./StudentsController.html">StudentsController</a>
   
-    <li><a href="./Teacher.html">Teacher</a>
+    <li><a href="./Classroom.html">Classroom</a>
   
-    <li><a href="./TeachersController.html">TeachersController</a>
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
   
     <li><a href="./User.html">User</a>
   
@@ -592,10 +592,10 @@ returns true or false.</p>
       </div><!-- number_of_classes_is_valid-3F-method -->
 
     
-      <div id="method-i-ptainstructor_is_valid-3F" class="method-detail ">
+      <div id="method-i-instructor_is_valid-3F" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">ptainstructor_is_valid?</span><span
+          <span class="method-name">instructor_is_valid?</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -603,24 +603,24 @@ returns true or false.</p>
 
         <div class="method-description">
           
-          <p>Tests that the course’s ptainstructor_id is not nil and returns true or
+          <p>Tests that the course’s instructor_id is not nil and returns true or
 false.</p>
           
 
           
-          <div class="method-source-code" id="ptainstructor_is_valid-3F-source">
+          <div class="method-source-code" id="instructor_is_valid-3F-source">
             <pre><span class="ruby-comment"># File app/models/course.rb, line 221</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">ptainstructor_is_valid?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ptainstructor_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">instructor_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instructor_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- ptainstructor_is_valid-3F-source -->
+          </div><!-- instructor_is_valid-3F-source -->
           
         </div>
 
         
 
         
-      </div><!-- ptainstructor_is_valid-3F-method -->
+      </div><!-- instructor_is_valid-3F-method -->
 
     
       <div id="method-i-start_time_is_valid-3F" class="method-detail ">
@@ -655,10 +655,10 @@ false.</p>
       </div><!-- start_time_is_valid-3F-method -->
 
     
-      <div id="method-i-teacher_is_valid-3F" class="method-detail ">
+      <div id="method-i-classroom_is_valid-3F" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">teacher_is_valid?</span><span
+          <span class="method-name">classroom_is_valid?</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -666,23 +666,23 @@ false.</p>
 
         <div class="method-description">
           
-          <p>Tests that the course’s teacher_id is not nil and returns true or false.</p>
+          <p>Tests that the course’s classroom_id is not nil and returns true or false.</p>
           
 
           
-          <div class="method-source-code" id="teacher_is_valid-3F-source">
+          <div class="method-source-code" id="classroom_is_valid-3F-source">
             <pre><span class="ruby-comment"># File app/models/course.rb, line 234</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">teacher_is_valid?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">teacher_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">classroom_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">classroom_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- teacher_is_valid-3F-source -->
+          </div><!-- classroom_is_valid-3F-source -->
           
         </div>
 
         
 
         
-      </div><!-- teacher_is_valid-3F-method -->
+      </div><!-- classroom_is_valid-3F-method -->
 
     
       <div id="method-i-total_fee_is_valid-3F" class="method-detail ">

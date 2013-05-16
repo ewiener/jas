@@ -11,14 +11,14 @@
             %td.attribute-label
               Instructor:
             %td.attribute-value
-              - if course.ptainstructor
-                = link_to course.ptainstructor.full_name_first_last, ptainstructor_path(course.ptainstructor)
+              - if course.instructor
+                = link_to course.instructor.full_name_first_last, instructor_path(course.instructor)
           %tr
             %td.attribute-label
               Room:
             %td.attribute-value
-              - if course.teacher
-                = link_to "#{course.teacher.classroom} (#{course.teacher.name})", teacher_path(course.teacher)
+              - if course.classroom
+                = link_to "#{course.classroom.name_with_teacher_name}", classroom_path(course.classroom)
           %tr
             %td.attribute-label
               Day:

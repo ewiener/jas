@@ -20,8 +20,8 @@
           %td.attribute-label
             Teacher:
           %td.attribute-value
-            - if @student.teacher
-              = link_to "#{@student.teacher.name}", teacher_path(@student.teacher)
+            - if @student.classroom
+              = link_to "#{@student.classroom.teacher}", classroom_path(@student.classroom)
         %tr
           %td.attribute-label
             Parent Phone:

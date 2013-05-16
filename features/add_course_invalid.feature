@@ -14,8 +14,8 @@ Background: previous sessions have been added to the database
     
   Given the following pta instructors exist:
   | first_name | last_name | email     | phone     | address       | bio       | semester  |
-  | teacher1   | lastname1 | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
-  | teacher2   | lastname2 | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
+  | classroom1   | lastname1 | jim@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
+  | classroom2   | lastname2 | amy@a.com | 4156891212| 12 Cedar Lane | Some info | Spring 2012 |
   
   Given the following usernames and passwords exist:
   | username       | password | password_confirmation |
@@ -25,6 +25,6 @@ Background: previous sessions have been added to the database
   And I log in correctly as "admin"
   
   
-Scenario: Attempt to add a course when no teachers in db
+Scenario: Attempt to add a course when no classrooms in db
   Given I am on the "Fall 2011" Session Name Page
   #the Add + button should be invalid

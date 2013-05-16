@@ -6,6 +6,7 @@
   .module-content
     %table.data-table.full-width.print-bigger
       %tbody
+        - students = []
         - if course.enrollments.enrolled.any?
           - students = course.enrollments.enrolled.all.map {|enrollment| enrollment.student}
           - students.each_with_index do |student, index|

@@ -47,6 +47,13 @@ class ApplicationController < ActionController::Base
   def site_section
   end
 
+  def valid_program?(program, redirect_path=:root, message="Invalid or inaccessible program.")
+    return true unless program.nil? || program != current_user.program
+    flash[:warning] = [[:program_id, message]]
+    redirect_to redirect_path unless redirect_path == :no_redirect
+    return false
+  end
+  
   def valid_semester?(semester, redirect_path=:root, message="Could not find the given semester.")
     return true unless semester.nil?
     flash[:warning] = [[:semester_id, message]]

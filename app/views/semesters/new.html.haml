@@ -9,7 +9,7 @@
       .module-heading-title New Session
       
     .module-content
-      = form_tag semesters_path, :method => :post, :class => "form-horizontal" do
+      = form_tag program_semesters_path, :method => :post, :class => "form-horizontal" do
         .control-group 
           = label :semester, :name, 'Name:', :class => "control-label"
           .controls
@@ -43,7 +43,7 @@
         .control-group
           .controls
             = submit_tag 'Create', :class => "btn btn-info"
-            = link_to 'Cancel', semesters_path, :class => "btn btn-info"
+            = link_to 'Cancel', program_semesters_path, :class => "btn btn-info"
 
 - content_for :js do
   :javascript

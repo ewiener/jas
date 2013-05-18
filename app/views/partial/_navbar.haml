@@ -8,19 +8,19 @@
       = link_to application_name, root_path, :class => 'brand'
       .nav-collapse.collapse.navbar-responsive-collapse
         %ul.nav
-          - if semester && !semester.new_record?
+          - if semester && !semester.new_record? && site_section != :semesters_section
             %li#navbar-semester-home{class: site_section == :semester_home_section && 'active'}
-              = link_to_section :semester_home_section, semester
+              = link_to_section :semester_home_section, :semester => semester
             %li#navbar-courses{class: site_section == :courses_section && 'active'}
-              = link_to_section :courses_section, semester
+              = link_to_section :courses_section, :semester => semester
             %li#navbar-instructors{class: site_section == :instructors_section && 'active'}
-              = link_to_section :instructors_section, semester
+              = link_to_section :instructors_section, :semester => semester
             %li#navbar-classrooms{class: site_section == :classrooms_section && 'active'}
-              = link_to_section :classrooms_section, semester
+              = link_to_section :classrooms_section, :semester => semester
             %li#navbar-students{class: site_section == :students_section && 'active'}
-              = link_to_section :students_section, semester
+              = link_to_section :students_section, :semester => semester
             %li#navbar-enrollments{class: site_section == :enrollments_section && 'active'}
-              = link_to_section :enrollments_section, semester
+              = link_to_section :enrollments_section, :semester => semester
 
           %li.dropdown
             = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do

@@ -2,35 +2,35 @@ module SectionHelper
 	SITE_SECTIONS = {
 	 	:semesters_section => {
 	 		:name => 'Sessions',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semesters_path}
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.program_semesters_path(context[:program])}
 	 	},
 		:semester_home_section => {
 			:name => 'Home',
-			:path => lambda {|semester| Rails.application.routes.url_helpers.home_of_semester_path(semester)}
+			:path => lambda {|context| Rails.application.routes.url_helpers.home_of_semester_path(context[:semester])}
 		},
 	 	:students_section => {
 	 		:name => 'Students',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_students_path(semester)}
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_students_path(context[:semester])}
 	 	},
 	 	:instructors_section => {
 	 		:name => 'Instructors',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_instructors_path(semester)}
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_instructors_path(context[:semester])}
 	 	},
 	 	:classrooms_section => {
 	 		:name => 'Classrooms',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_classrooms_path(semester)}
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_classrooms_path(context[:semester])}
 	 	},
 	 	:courses_section => {
 	 		:name => 'Classes',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_courses_path(semester)}
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_courses_path(context[:semester])}
 	 	},
 	 	:enrollments_section => {
 	 		:name => 'Enrollments',
-	 		:path => lambda {|semester| Rails.application.routes.url_helpers.semester_enrollments_path(semester)}
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_enrollments_path(context[:semester])}
 	 	},
 	 	:users_section => {
 	 		:name => 'Users',
-	 		:path => lambda {|semester| ''}
+	 		:path => lambda {|context| ''}
 	 	},
 	}
 	 
@@ -38,11 +38,11 @@ module SectionHelper
   	SITE_SECTIONS
   end
   
-  def link_to_section(section, semester, options = {}, &block)
+  def link_to_section(section, context, options = {}, &block)
   	if block.present?
-  		link_to section_path(section, semester), options, &block
+  		link_to section_path(section, context), options, &block
     else
-    	link_to section_name(section), section_path(section, semester), options
+    	link_to section_name(section), section_path(section, context), options
     end
   end
   
@@ -50,7 +50,7 @@ module SectionHelper
   	site_sections[section][:name]
   end
   
-  def section_path(section, semester)
-    site_sections[section][:path].call(semester)
+  def section_path(section, context)
+    site_sections[section][:path].call(context)
   end
 end

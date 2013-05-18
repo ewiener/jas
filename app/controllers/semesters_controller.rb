@@ -16,7 +16,10 @@ class SemestersController < ApplicationController
   end
 
   def index
-    @semesters = Semester.all.sort_by{|semester| semester.start_date_as_date}.reverse
+  	@program = Program.find(params[:program_id])
+    return unless valid_program?(@program)
+    
+    @semesters = @program.semesters.all.sort_by{|semester| semester.start_date_as_date}.reverse
   end
   
   def show
@@ -36,13 +39,16 @@ class SemestersController < ApplicationController
   end
 
   def create
-    @semester = Semester.create(params[:semester])
+  	@program = Program.find(params[:program_id])
+    return unless valid_program?(@program)
+
+    @semester = @program.semesters.create(params[:semester])
     if @semester.new_record?
       flash[:warning] = @semester.errors
       flash[:semester] = params[:semester]
-      redirect_to new_semester_path
+      redirect_to new_program_semester_path
     else
-      redirect_to semesters_path, :notice => "Successfully created #{@semester.name}."
+      redirect_to program_semesters_path, :notice => "Successfully created #{@semester.name}."
     end
   end
 
@@ -96,7 +102,7 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
     end
 
-    redirect_to semesters_path
+    redirect_to program_semesters_path
   end
 
   def import

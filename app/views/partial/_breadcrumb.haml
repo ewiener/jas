@@ -1,7 +1,7 @@
 !!!
 %ul.breadcrumb
   %li
-    = link_to current_user.program.short_name, semesters_path
+    = link_to current_user.program.short_name, program_semesters_path(current_user.program)
     %span.divider /
   - if semester && !semester.new_record? && site_section != :semesters_section
     %li.dropdown
@@ -11,14 +11,14 @@
       %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
         - all_semesters.each do |s|
           %li
-            = link_to s.name, section_path(site_section, s), :tabindex => '-1'
+            = link_to s.name, section_path(site_section, {:program => current_user.program, :semester => s}), :tabindex => '-1'
         %li.divider
         %li
-          = link_to 'Edit Sessions...', semesters_path, :tabindex => '-1'
+          = link_to 'Edit Sessions...', program_semesters_path(current_user.program), :tabindex => '-1'
       %span.divider /
   - if site_section
     %li.active
-      = link_to_section site_section, semester
+      = link_to_section site_section, {:program => current_user.program, :semester => semester}
   
   %li.pull-right
     = link_to '#', :class => "print-preview" do

@@ -7,6 +7,6 @@ class HomeController < ApplicationController
   end
 
   def index
-  	redirect_to semesters_path
+  	redirect_to program_semesters_path(current_user.program)
   end
 end

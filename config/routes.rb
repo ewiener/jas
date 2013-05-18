@@ -2,33 +2,35 @@ Ptast::Application.routes.draw do
   root :to => "home#index"
 
   resources :user_sessions, :only => [:create]
-  resources :semesters, :shallow => true do
-  	member do
-  		get 'home', :as => 'home_of'
-  		put 'import'
-  		delete 'days_off', :action => :delete_days_off, :as => 'days_off_for'
-  	end
-    resources :courses do
-      member do
-      	get 'fee', :action => :fee, :as => 'fee_for'
-  		  get 'calculate_meetings', :as => 'calculate_meetings_for'
-      end
-    end
-    resources :classrooms
-    resources :instructors
-    resources :students do
-      member do
-      	get 'index_enrollments', :as => 'enrollments_for'
-      	get 'show_enrollment', :as => 'show_enrollment_for'
-      	get 'new_enrollment', :as => 'new_enrollment_for'
-      	get 'edit_enrollment', :as => 'edit_enrollment_for'
-        post 'create_enrollment', :as => 'create_enrollment_for'
-        post 'update_enrollment', :action => 'create_enrollment', :as => 'update_enrollment_for'
-        post 'destroy_enrollment', :as => 'destroy_enrollment_for'
-      end
-    end
-    resources :enrollments, :only => [:index]
-  end
+  resources :programs, :shallow => true do
+	  resources :semesters, :shallow => true do
+	  	member do
+	  		get 'home', :as => 'home_of'
+	  		put 'import'
+	  		delete 'days_off', :action => :delete_days_off, :as => 'days_off_for'
+	  	end
+	    resources :courses do
+	      member do
+	      	get 'fee', :action => :fee, :as => 'fee_for'
+	  		  get 'calculate_meetings', :as => 'calculate_meetings_for'
+	      end
+	    end
+	    resources :classrooms
+	    resources :instructors
+	    resources :students do
+	      member do
+	      	get 'index_enrollments', :as => 'enrollments_for'
+	      	get 'show_enrollment', :as => 'show_enrollment_for'
+	      	get 'new_enrollment', :as => 'new_enrollment_for'
+	      	get 'edit_enrollment', :as => 'edit_enrollment_for'
+	        post 'create_enrollment', :as => 'create_enrollment_for'
+	        post 'update_enrollment', :action => 'create_enrollment', :as => 'update_enrollment_for'
+	        post 'destroy_enrollment', :as => 'destroy_enrollment_for'
+	      end
+	    end
+	    resources :enrollments, :only => [:index]
+	  end
+	end
 
   match '/login' => 'user_sessions#new', :as => 'login'
   match '/logout' => 'user_sessions#destroy', :as => 'logout'

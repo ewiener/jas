@@ -28,9 +28,11 @@
               %b.caret
             %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
               %li
-                = link_to 'Users', '#', :tabindex => '-1'
+                = link_to 'Sessions', program_semesters_path(current_user.program), :tabindex => '-1'
+              %li
+                = link_to 'Users', program_users_path(current_user.program), :tabindex => '-1'
                 
         %ul.nav.pull-right
           %li#navbar-user_session
-            = link_to "Logout #{@current_user.username}", logout_path
+            = link_to "Logout #{current_user.username}", logout_path
  

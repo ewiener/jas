@@ -31,7 +31,7 @@ module ApplicationHelper
   
   def page_title(sub_title)
   	title = ""
-  	title << @current_user.program.abbrev if @current_user
+  	title << current_user.program.abbrev if current_user
 	  title << " #{@semester.name}" if @semester
 		title << ": #{sub_title}" if sub_title
   end

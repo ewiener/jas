@@ -1,0 +1,38 @@
+-# This file is app/views/programs/home.html.haml
+!!! 5
+
+- content_for :title, "Home"
+
+.hero-unit
+  %h1
+    = @program.short_name
+  %p.lead
+    = @program.description
+  %p
+    %form{:method => 'get', :class => 'form-inline', :id => 'semester-form'}
+      = select_tag 'url', options_for_select(@semesters.map {|semester| [semester.name, home_of_semester_path(semester)]}),
+          :prompt => 'Choose a Session', :id => 'semester-select'
+      = submit_tag 'Go', :class => "btn", :id => 'semester-submit'
+      %small
+        &nbsp;&nbsp;
+        = link_to 'Edit Sessions', program_semesters_path(@program)
+      
+- content_for :js do
+  :javascript
+    $(function() {
+      $("#semester-select").change(function() {
+        if ($(this).val() != '') {
+          $("#semester-form").attr("action", $(this).val());
+          $("#semester-select").val("");
+          $("#semester-form").submit();
+          return true;
+        }
+        return false;
+      });
+      $("#semester-submit").click(function() {
+        if ($("#semester-select").val() != '') {
+          $("#semester-form").attr("action", $("#semester-select").val()).submit();
+        }
+        return false;
+      });
+    });

@@ -1,5 +1,17 @@
 module SectionHelper	 
 	SITE_SECTIONS = {
+	 	:programs_section => {
+	 		:name => 'Programs',
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.programs_path}
+	 	},	 	
+		:program_home_section => {
+			:name => 'Home',
+			:path => lambda {|context| Rails.application.routes.url_helpers.home_of_program_path(context[:program])}
+		},
+	 	:users_section => {
+	 		:name => 'Users',
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.program_users_path(context[:program])}
+	 	},	 	
 	 	:semesters_section => {
 	 		:name => 'Sessions',
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.program_semesters_path(context[:program])}
@@ -27,11 +39,7 @@ module SectionHelper
 	 	:enrollments_section => {
 	 		:name => 'Enrollments',
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_enrollments_path(context[:semester])}
-	 	},
-	 	:users_section => {
-	 		:name => 'Users',
-	 		:path => lambda {|context| ''}
-	 	},
+	 	}
 	}
 	 
   def site_sections

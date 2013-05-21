@@ -1,15 +1,15 @@
--# This file is app/views/users/new.html.haml
+-# This file is app/views/users/edit.html.haml
 !!! 5
 
-- content_for :title, "New User"
+- content_for :title, "Edit User"
 
 .row
   .span5.module
     .module-heading
-      .module-heading-title New User
+      .module-heading-title Edit User
 
     .module-content
-      = form_tag program_users_path, :method => :post, :class => "form-horizontal" do
+      = form_tag user_path(@user), :method => :put, :class => "form-horizontal" do
         .control-group
           = label :user, :username, 'Username', :class => "control-label"
           .controls
@@ -18,21 +18,23 @@
           .control-label Role
           .controls
             = label :user, :role, :class => "radio inline" do
-              = radio_button :user, :role, 1, :checked => true
+              = radio_button :user, :role, 1
               Admin
         .control-group
-          = label :user, :password, 'Password', :class => "control-label"
+          = label :user, :password, 'New password', :class => "control-label"
           .controls
             = password_field :user, :password
+            .help-block
+              Leave blank to leave password as-is
         .control-group
-          = label :user, :password_confirmation, 'Confirm password', :class => "control-label"
+          = label :user, :password_confirmation, 'Confirm new password', :class => "control-label"
           .controls
             = password_field :user, :password_confirmation
 
         .control-group
           .controls
-            = submit_tag 'Add User', :class => "btn btn-warning"
-            = link_to 'Cancel', program_users_path, :class => "btn btn-info"
+            = submit_tag 'Update', :class => "btn btn-warning"
+            = link_to 'Cancel', user_path(@user), :class => "btn btn-info"
 
 
 - content_for :js do

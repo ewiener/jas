@@ -7,6 +7,6 @@ class HomeController < ApplicationController
   end
 
   def index
-  	redirect_to program_semesters_path(current_user.program)
+  	redirect_to home_of_program_path(current_user.program, :remember_semester => flash[:login])
   end
 end

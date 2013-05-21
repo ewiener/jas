@@ -14,6 +14,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Successfully logged in as #{@user_session.username}"
+      flash[:login] = true  # Flags that we came from login so we can jump to saved semester for user if target is root
       redirect_to_saved_location(:root)
     else
       flash[:warning] = "Invalid username or password."

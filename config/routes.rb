@@ -3,8 +3,13 @@ Ptast::Application.routes.draw do
 
   resources :user_sessions, :only => [:create]
   resources :programs, :shallow => true do
+  	member do
+  		get 'home', :as => 'home_of'
+  	end
+  	resources :users
 	  resources :semesters, :shallow => true do
 	  	member do
+	  		get 'switch'
 	  		get 'home', :as => 'home_of'
 	  		put 'import'
 	  		delete 'days_off', :action => :delete_days_off, :as => 'days_off_for'

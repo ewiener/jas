@@ -10,6 +10,9 @@
     = @semester.program.long_name
     %br
     #{@semester.start_date} - #{@semester.end_date}
+    %br
+    %small
+      = link_to 'Edit', edit_semester_path(@semester)
 .row
   .span2.wellbtn
     = link_to_section :courses_section, :semester => @semester do

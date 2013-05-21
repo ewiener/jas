@@ -7,4 +7,8 @@ class Program < ActiveRecord::Base
   validates :short_name, :presence => true
   validates :long_name, :presence => true
   validates :abbrev, :presence => true
+  
+  def semesters_by_date
+    return semesters.all.sort_by{|semester| semester.start_date_as_date}.reverse
+  end
 end

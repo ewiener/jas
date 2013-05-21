@@ -2,24 +2,38 @@ class SemestersController < ApplicationController
   protect_from_forgery
   layout "main"
   
-  @site_section = :semesters_section
-  
   def site_section
   	return @site_section || :semesters_section
-  	#return :semesters_section
   end
   
   def home
   	@site_section = :semester_home_section
     @semester = Semester.find(params[:id])
     return unless valid_semester?(@semester)
+    
+    # Save last semester in user
+    remember_semester
   end
+  
+  def switch
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
+    
+    # Save last semester in user
+    remember_semester
+    
+    if params[:url]
+    	redirect_to params[:url]
+    else
+    	redirect_to home_of_semester_path(@semester)
+    end
+  end  	
 
   def index
   	@program = Program.find(params[:program_id])
     return unless valid_program?(@program)
     
-    @semesters = @program.semesters.all.sort_by{|semester| semester.start_date_as_date}.reverse
+    @semesters = @program.semesters_by_date
   end
   
   def show
@@ -50,24 +64,6 @@ class SemestersController < ApplicationController
     else
       redirect_to program_semesters_path, :notice => "Successfully created #{@semester.name}."
     end
-  end
-
-  def add_days_off(update_hash)
-  	valid = false
-    days_off = update_hash[:dates_with_no_classes_day]
-    if @semester.valid_date_span?(days_off)
-    	if !@semester.dates_with_no_classes.include?(days_off)
-	      update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
-	      update_hash[:dates_with_no_classes] << days_off
-	      update_hash[:dates_with_no_classes_day] = nil
-	      valid = true
-	    else
-	    	@semester.errors.add(:base, "Already have holiday #{days_off}")
-	    end
-    else
-    	@semester.errors.add(:base, "Invalid date or date range #{days_off}")
-    end
-    return update_hash, valid
   end
 
   def update
@@ -102,7 +98,7 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
     end
 
-    redirect_to program_semesters_path
+    redirect_to program_semesters_path(current_user.program)
   end
 
   def import
@@ -134,6 +130,33 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
     end
     redirect_to edit_semester_path(@semester)
+  end
+  
+  private
+  def add_days_off(update_hash)
+  	valid = false
+    days_off = update_hash[:dates_with_no_classes_day]
+    if @semester.valid_date_span?(days_off)
+    	if !@semester.dates_with_no_classes.include?(days_off)
+	      update_hash[:dates_with_no_classes] = @semester.dates_with_no_classes
+	      update_hash[:dates_with_no_classes] << days_off
+	      update_hash[:dates_with_no_classes_day] = nil
+	      valid = true
+	    else
+	    	@semester.errors.add(:base, "Already have holiday #{days_off}")
+	    end
+    else
+    	@semester.errors.add(:base, "Invalid date or date range #{days_off}")
+    end
+    return update_hash, valid
+  end
+  
+  def remember_semester
+    user = current_user
+    if user
+      user.last_semester_id = @semester.id
+      user.save
+    end
   end
 end
 

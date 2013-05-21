@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user_session && current_user_session.user
   end
   
-  def all_semesters
-  	@all_semesters = Semester.all.sort_by{|semester| semester.start_date_as_date}.reverse
-  end
-
   def require_user
     unless current_user
       save_location
@@ -39,8 +35,9 @@ class ApplicationController < ActionController::Base
   	session[:return_to] = nil
   end
     
-  def redirect_to_saved_location(default)
-    redirect_to saved_location || default
+  def redirect_to_saved_location(default = nil)
+  	redirect_path = saved_location || default || :root
+    redirect_to redirect_path
     clear_saved_location
   end
   
@@ -54,6 +51,13 @@ class ApplicationController < ActionController::Base
     return false
   end
   
+  def valid_user?(user, redirect_path=:root, message="Could not find the given user.")
+    return true unless user.nil?
+    flash[:warning] = [[:semester_id, message]]
+    redirect_to redirect_path unless redirect_path == :no_redirect
+    return false
+  end
+
   def valid_semester?(semester, redirect_path=:root, message="Could not find the given semester.")
     return true unless semester.nil?
     flash[:warning] = [[:semester_id, message]]

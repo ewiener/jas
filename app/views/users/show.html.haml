@@ -1,0 +1,27 @@
+-# This file is app/views/users/show.html.haml
+!!! 5
+
+- content_for :title, "#{@user.username}"
+
+.row
+  .span5.module
+    .module-heading
+      .module-heading-title #{@user.username}
+      .module-heading-action
+        = link_to "Edit", edit_user_path
+        
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Role:
+          %td.attribute-value
+            = @user.role_to_s
+        %tr
+          %td.attribute-label
+            Last login date:
+          %td.attribute-value
+            = @user.last_login_at ? @user.last_login_at.to_formatted_s(:long) : "Never logged in"
+
+- content_for :js do
+  :javascript

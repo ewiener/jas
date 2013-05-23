@@ -33,7 +33,7 @@ class EnrollmentsController < ApplicationController
   		@enrollments_by_day[:saturday] << enrollment if enrollment.course.saturday
     end
     
-    @all_teachers = @semester.classrooms.with_teacher
+    @all_teachers = @semester.classrooms.with_teacher.by_grade_and_teacher
     @all_dismissals = dismissals
   end
   

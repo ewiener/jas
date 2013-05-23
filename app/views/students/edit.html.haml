@@ -29,7 +29,7 @@
         .control-group
           = label :classroom, 'Teacher', :class => "control-label"
           .controls
-            = select_tag :classroom, options_from_collection_for_select(@classrooms, :id, :teacher, @student.classroom_id), 
+            = select_tag :classroom, options_from_collection_for_select(@classrooms, :id, :teacher_with_grade, @student.classroom_id), 
                 :prompt => 'Select Teacher', :class => "course_select"
     
         .control-group

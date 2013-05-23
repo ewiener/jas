@@ -3,7 +3,7 @@ module EnrollmentHelper
 		if filter.empty?
 			return "Full Roster"
 		elsif filter[:teacher]
-			return "Roster for Teacher: " + filter[:teacher].name
+			return "Roster for Teacher: " + filter[:teacher].teacher
 		elsif filter[:dismissal]
 			return filter[:dismissal][:name] + " Students"
 		end

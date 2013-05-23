@@ -18,11 +18,9 @@
           %td
             Dismissal
           %td
-            Parent
+            Parent Phone
           %td
-            Phone
-          %td
-            Email
+            Parent Email
           %td
             Health Alert
       %tbody
@@ -41,10 +39,10 @@
               %td
                 = enrollment.dismissal_to_s
               %td
-                = student.parent_name
-              %td
                 = student.parent_phone
-                = student.parent_phone2
+                - if student.parent_phone2 && student.parent_phone2.length > 0
+                  %br
+                  = student.parent_phone2
               %td
                 = student.parent_email
               %td

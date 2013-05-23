@@ -35,7 +35,7 @@ class CoursesController  < ApplicationController
     return unless valid_semester?(@semester)
     
     @instructors = @semester.instructors
-    @classrooms = @semester.classrooms
+    @classrooms = @semester.classrooms.by_name
     
     @course = flash.key?(:course) ? Course.new(flash[:course]) : Course.new
   end
@@ -62,7 +62,7 @@ class CoursesController  < ApplicationController
     return unless valid_semester?(@semester)
 
     @instructors = @semester.instructors
-    @classrooms = @semester.classrooms
+    @classrooms = @semester.classrooms.by_name
   end
 
   def update

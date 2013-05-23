@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
     
     @student = flash.key?(:student) ? Student.new(flash[:student]) : Student.new
     
-    @classrooms = @semester.classrooms.with_teacher
+    @classrooms = @semester.classrooms.with_teacher.by_grade_and_teacher
   end
 
   def create
@@ -73,7 +73,7 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
     
-    @classrooms = @semester.classrooms.with_teacher
+    @classrooms = @semester.classrooms.with_teacher.by_grade_and_teacher
   end
 
   def update

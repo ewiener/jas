@@ -14,10 +14,11 @@ class Classroom < ActiveRecord::Base
   validates :grade, :inclusion => { :in => GRADES, :message => 'must be one of ' + GRADES.join(",")}, :allow_blank => true
   
   scope :with_teacher, where("teacher <> ''")
-  scope :alphabetical_by_name, order("name asc")
-  scope :alphabetical_by_teacher, order("teacher asc")
-  scope :alphabetical_by_grade, order("case when grade = 'K' then '0' else grade end asc, name asc")
-  default_scope alphabetical_by_name
+  scope :by_name, order("name asc")
+  scope :by_teacher, order("teacher asc")
+  scope :by_grade_and_name, order("case when grade = 'K' then '0' else grade end asc, name asc")
+  scope :by_grade_and_teacher, order("case when grade = 'K' then '0' else grade end asc, teacher asc")
+  default_scope by_name
 
   #Tests that classroom is not linked to any course or student so it can be deleted
   def can_be_deleted?
@@ -37,10 +38,15 @@ class Classroom < ActiveRecord::Base
   end
 
   def name_with_teacher_name
-  	str = self.name
-  	if has_teacher?
-  		str << " (" << self.teacher << ")"
-  	end
+  	str = String.new(self.name)
+    str << " (" << self.teacher << ")" if has_teacher?
+    return str
+  end
+  
+  def teacher_with_grade
+  	str = ""
+  	str << self.teacher if self.teacher
+  	str << " (" << self.grade << ")" if self.grade
   	return str
   end
 end

@@ -16,8 +16,7 @@ class Instructor < ActiveRecord::Base
   validates_format_of :email, :with => /@/, :allow_blank => true
   validates_format_of :phone, :with => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :allow_blank => true
 
-  scope :alphabetical, order("last_name asc, first_name asc")
-  default_scope alphabetical
+  scope :by_name, order("last_name asc, first_name asc")
 
   #Tests that instructor is not linked to any courses in the semester and returns true or false.
   def can_be_deleted?

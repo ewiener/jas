@@ -10,7 +10,7 @@ class CoursesController  < ApplicationController
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
-    @courses = @semester.courses
+    @courses = @semester.courses.by_day_and_name
     @filter = Hash.new
 
     if (params[:filter_enrollment] == 'overenrolled')
@@ -34,7 +34,7 @@ class CoursesController  < ApplicationController
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
     
-    @instructors = @semester.instructors
+    @instructors = @semester.instructors.by_name
     @classrooms = @semester.classrooms.by_name
     
     @course = flash.key?(:course) ? Course.new(flash[:course]) : Course.new
@@ -61,7 +61,7 @@ class CoursesController  < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
 
-    @instructors = @semester.instructors
+    @instructors = @semester.instructors.by_name
     @classrooms = @semester.classrooms.by_name
   end
 

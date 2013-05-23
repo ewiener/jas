@@ -24,8 +24,7 @@ class Student < ActiveRecord::Base
   validates_format_of :parent_phone2, :with => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :allow_blank => true
   validates :grade, :inclusion => { :in => GRADES, :message => 'must be one of ' + GRADES.join(",")}, :allow_blank => true
   
-  scope :alphabetical, order("last_name asc, first_name asc")
-  default_scope alphabetical
+  scope :by_name, order("last_name asc, first_name asc")
 
   #Formats number
   def formatted_number(number)

@@ -10,7 +10,7 @@ class InstructorsController < ApplicationController
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
 
-    @instructors = @semester.instructors
+    @instructors = @semester.instructors.by_name
     @filter = Hash.new
     
     if (params[:filter_active] == 'true')

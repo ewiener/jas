@@ -18,7 +18,6 @@ class Classroom < ActiveRecord::Base
   scope :by_teacher, order("teacher asc")
   scope :by_grade_and_name, order("case when grade = 'K' then '0' else grade end asc, name asc")
   scope :by_grade_and_teacher, order("case when grade = 'K' then '0' else grade end asc, teacher asc")
-  default_scope by_name
 
   #Tests that classroom is not linked to any course or student so it can be deleted
   def can_be_deleted?

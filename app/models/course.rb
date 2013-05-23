@@ -54,8 +54,7 @@ class Course < ActiveRecord::Base
   after_validation :calc_number_of_classes_and_holidays
   after_initialize :calc_number_of_classes_and_holidays
   
-  scope :alphabetical_by_day, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
-  default_scope alphabetical_by_day
+  scope :by_day_and_name, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
   
   def total_fee
   	self.course_fee.to_i + (self.number_of_classes.to_i * self.fee_per_meeting.to_i) + self.fee_for_additional_materials.to_i

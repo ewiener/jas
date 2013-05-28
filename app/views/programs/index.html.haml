@@ -1,0 +1,36 @@
+-# This file is app/views/programs/index.html.haml
+!!! 5
+
+- content_for :title, "Programs"
+
+.row
+  .span12
+    .module-heading
+      .module-heading-title Programs
+      .module-heading-action
+        = link_to "+ Add Program", new_program_path
+
+    .module-content
+      %table.data-table.full-width
+        %thead
+          %tr
+            %th
+              Name
+            %th
+              Latest Session
+            %th
+        %tbody
+          - @programs.each do |program|
+            %tr
+              %td
+                = link_to home_of_program_path(program) do
+                  %i.icon-home
+                = link_to program.short_name, program_path(program)
+              %td
+                = program.latest_semester ? "#{program.latest_semester.name} (#{program.latest_semester.start_date} - #{program.latest_semester.end_date})" : ""
+              %td.action
+                = link_to edit_program_path(program), :class => "edit-delete" do
+                  %i.icon-pencil
+                = link_to program_path(program), :method => :delete, :class => "edit-delete", 
+                    :data => { :confirm => "Are you sure you want to delete the \"#{program.short_name}\" program?.  All sessions, students, classes, instructors and classrooms associated with this program will also be deleted.  Data deleted will not be recoverable.  Are you really sure you want to delete the \"#{program.short_name}\" program?"} do
+                  %i.icon-trash

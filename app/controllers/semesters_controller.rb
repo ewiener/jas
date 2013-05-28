@@ -33,7 +33,7 @@ class SemestersController < ApplicationController
   	@program = Program.find(params[:program_id])
     return unless valid_program?(@program)
     
-    @semesters = @program.semesters_by_date
+    @semesters = @program.semesters.all_by_date
   end
   
   def show
@@ -42,6 +42,9 @@ class SemestersController < ApplicationController
   end
 
   def new
+  	@program = Program.find(params[:program_id])
+    return unless valid_program?(@program)
+    
     @semester = flash.key?(:semester) ? Semester.new(flash[:semester]) : Semester.new
   end
   
@@ -130,6 +133,14 @@ class SemestersController < ApplicationController
       flash[:warning] = @semester.errors
     end
     redirect_to edit_semester_path(@semester)
+  end
+  
+  def scholarship_report
+    @semester = Semester.find(params[:id])
+    return unless valid_semester?(@semester)
+
+    @scholarship_report = ScholarshipReport.new(@semester)
+    render 'reports/scholarship_report'
   end
   
   private

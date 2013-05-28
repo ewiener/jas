@@ -1,0 +1,40 @@
+-# This file is app/views/programs/new.html.haml
+!!! 5
+
+- content_for :title, "New Program"
+
+.row
+  .span6.module
+    .module-heading
+      .module-heading-title New Program
+      
+    .module-content
+      = form_tag programs_path, :method => :post, :class => "form-horizontal" do
+        .control-group 
+          = label :program, :short_name, 'Short name:', :class => "control-label"
+          .controls
+            = text_field :program, :short_name
+    
+        .control-group 
+          = label :program, :abbrev, 'Abbreviation:', :class => "control-label"
+          .controls
+            = text_field :program, :abbrev
+
+        .control-group 
+          = label :program, :long_name, 'Long name:', :class => "control-label"
+          .controls
+            = text_field :program, :long_name
+
+        .control-group
+          = label :program, :description, 'Description', :class => "control-label"
+          .controls
+            = text_area :program, :description, :rows => 5
+    
+        .control-group
+          .controls
+            = submit_tag 'Create', :class => "btn btn-info"
+            = link_to 'Cancel', programs_path, :class => "btn btn-info"
+
+- content_for :js do
+  :javascript
+

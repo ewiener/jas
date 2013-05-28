@@ -22,15 +22,20 @@
             %li#navbar-enrollments{class: site_section == :enrollments_section && 'active'}
               = link_to_section :enrollments_section, :semester => semester
 
-          %li.dropdown
-            = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
-              Admin
-              %b.caret
-            %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
-              %li
-                = link_to 'Sessions', program_semesters_path(current_user.program), :tabindex => '-1'
-              %li
-                = link_to 'Users', program_users_path(current_user.program), :tabindex => '-1'
+          - if current_user.is_program_admin?
+            %li.dropdown
+              = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
+                Admin
+                %b.caret
+              %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
+                - if current_user.is_app_admin?
+                  %li
+                    = link_to 'Programs', programs_path, :tabindex => '-1'
+                - if site_section != :programs_section
+                  %li
+                    = link_to 'Sessions', program_semesters_path(current_program), :tabindex => '-1'
+                  %li
+                    = link_to 'Users', program_users_path(current_program), :tabindex => '-1'
                 
         %ul.nav.pull-right
           %li#navbar-user_session

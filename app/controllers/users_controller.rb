@@ -19,6 +19,9 @@ class UsersController < ApplicationController
   end
   
   def new
+  	@program = Program.find(params[:program_id])
+    return unless valid_program?(@program)
+    
   	@user = flash.key?(:user) ? User.new(flash[:user]) : User.new
   end
   

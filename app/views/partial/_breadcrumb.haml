@@ -1,8 +1,9 @@
 !!!
 %ul.breadcrumb
   %li
-    = link_to current_user.program.short_name, home_of_program_path(current_user.program)
-    %span.divider /
+    - if site_section != :programs_section
+      = link_to current_program.short_name, home_of_program_path(current_program)
+      %span.divider /
     
   - if semester && !semester.new_record? && site_section != :semesters_section
     %li.dropdown
@@ -10,23 +11,23 @@
         #{semester.name}
         %b.caret
       %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
-        - current_user.program.semesters_by_date.each do |s|
+        - current_program.semesters.all_by_date.each do |s|
           %li
-            = link_to s.name, switch_semester_path(s, :url => section_path(site_section, {:program => current_user.program, :semester => s})), :tabindex => '-1'
+            = link_to s.name, switch_semester_path(s, :url => section_path(site_section, {:program => current_program, :semester => s})), :tabindex => '-1'
         %li.divider
         %li
-          = link_to 'Edit Sessions...', program_semesters_path(current_user.program), :tabindex => '-1'
+          = link_to 'Edit Sessions...', program_semesters_path(current_program), :tabindex => '-1'
       %span.divider /
       
   - if site_section
     %li.active
-      = link_to_section site_section, {:program => current_user.program, :semester => semester}
+      = link_to_section site_section, {:program => current_program, :semester => semester}
   
   %li.pull-right
     = link_to '#', :class => "print-preview" do
       <i class="icon-print"></i> Print
 
 %h4.print-heading-main
-  = current_user.program.long_name
+  = current_program.long_name
   - if semester && !semester.new_record?
     = "- #{semester.name} - #{semester.start_date_as_date.strftime("%b %d")} to #{semester.end_date_as_date.strftime("%b %d")}"

@@ -17,9 +17,16 @@
         .control-group
           .control-label Role
           .controls
-            = label :user, :role, :class => "radio inline" do
-              = radio_button :user, :role, 1, :checked => true
-              Admin
+            - if current_user.is_app_admin?
+              = label :user, :role, :class => "radio" do
+                = radio_button :user, :role, 0
+                App Admin
+            = label :user, :role, :class => "radio" do
+              = radio_button :user, :role, 1
+              Program Admin
+            = label :user, :role, :class => "radio" do
+              = radio_button :user, :role, 2, :checked => true
+              Session Admin
         .control-group
           = label :user, :password, 'Password', :class => "control-label"
           .controls

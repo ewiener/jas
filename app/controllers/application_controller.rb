@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper :all
-  helper_method :current_user_session, :current_user, :all_semesters, :site_section
+  helper_method :current_user_session, :current_user, :current_program, :all_semesters, :site_section
 
   before_filter :require_user
 
@@ -14,7 +14,15 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= current_user_session && current_user_session.user
   end
-  
+
+  def current_program
+  	return @program if @program
+  	return @semester.program if @semester
+  	return @user.program if @user
+  	return current_user.program if current_user
+  	return nil
+  end
+
   def require_user
     unless current_user
       save_location
@@ -45,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_program?(program, redirect_path=:root, message="Invalid or inaccessible program.")
-    return true unless program.nil? || program != current_user.program
+    return true unless program.nil? || !(current_user.is_app_admin? || program == current_user.program)
     flash[:warning] = [[:program_id, message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false

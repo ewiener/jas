@@ -1,0 +1,34 @@
+-# This file is app/views/program/show.html.haml
+!!! 5
+
+- content_for :title, "#{@program.short_name}"
+
+.row
+  .span5.module
+    .module-heading
+      .module-heading-title #{@program.short_name}
+      .module-heading-action
+        = link_to "Edit", edit_program_path
+        
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Abbreviation:
+          %td.attribute-value
+            = @program.abbrev
+        %tr
+          %td.attribute-label
+            Long name:
+          %td.attribute-value
+            = @program.long_name
+            
+      %br    
+      %p.noprint
+        Description:
+        %br
+        = @program.description
+                  
+
+- content_for :js do
+  :javascript

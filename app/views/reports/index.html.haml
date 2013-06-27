@@ -1,0 +1,17 @@
+-# This file is app/views/reports/index.html.haml
+!!! 5
+
+- content_for :title, "Reports"
+
+.row
+  .span5
+    .module-heading
+      .module-heading-title Reports
+
+    .module-content
+      %table.table.full-width
+        %tbody
+          - @reports.each do |report|
+            %tr
+              %td
+                = link_to report.name, report_path(report.id)

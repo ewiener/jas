@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Enrollment - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/enrollment.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-course_id_is_valid-3F">#course_id_is_valid?</a>
+    
+    <li><a href="#method-i-dismissal_is_valid-3F">#dismissal_is_valid?</a>
+    
+    <li><a href="#method-i-dismissal_to_s">#dismissal_to_s</a>
+    
+    <li><a href="#method-i-enrolled_to_s">#enrolled_to_s</a>
+    
+    <li><a href="#method-i-enrollment_is_valid-3F">#enrollment_is_valid?</a>
+    
+    <li><a href="#method-i-scholarship_amount_is_valid-3F">#scholarship_amount_is_valid?</a>
+    
+    <li><a href="#method-i-scholarship_is_valid-3F">#scholarship_is_valid?</a>
+    
+    <li><a href="#method-i-semester_id_is_valid-3F">#semester_id_is_valid?</a>
+    
+    <li><a href="#method-i-student_id_is_valid-3F">#student_id_is_valid?</a>
+    
+    <li><a href="#method-i-student_not_already_enrolled-3F">#student_not_already_enrolled?</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./Enrollment.html">Enrollment</a>
+  
+    <li><a href="./EnrollmentsController.html">EnrollmentsController</a>
+  
+    <li><a href="./Login.html">Login</a>
+  
+    <li><a href="./Instructor.html">Instructor</a>
+  
+    <li><a href="./InstructorsController.html">InstructorsController</a>
+  
+    <li><a href="./Semester.html">Semester</a>
+  
+    <li><a href="./SemestersController.html">SemestersController</a>
+  
+    <li><a href="./Student.html">Student</a>
+  
+    <li><a href="./StudentsController.html">StudentsController</a>
+  
+    <li><a href="./Classroom.html">Classroom</a>
+  
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSession.html">UserSession</a>
+  
+    <li><a href="./UserSessionsController.html">UserSessionsController</a>
+  
+    <li><a href="./ValidateLoginController.html">ValidateLoginController</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Enrollment</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="DISMISSAL">DISMISSAL
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-course_id_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">course_id_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that course for enrollment&#39;s course_id exists and returns true or
+false.</p>
+          
+
+          
+          <div class="method-source-code" id="course_id_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">course_id_is_valid?</span>
+  <span class="ruby-keyword">return</span> ( <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">course_id</span>) <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- course_id_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- course_id_is_valid-3F-method -->
+
+    
+      <div id="method-i-dismissal_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dismissal_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that enrollment&#39;s dismissal is not nil and is between 0 and 3.
+Returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="dismissal_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dismissal_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissal</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissal</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissal</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">3</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dismissal_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dismissal_is_valid-3F-method -->
+
+    
+      <div id="method-i-dismissal_to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dismissal_to_s</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the corresponding value in the <a
+href="Enrollment.html#DISMISSAL">DISMISSAL</a> array based on
+enrollment&#39;s dismissal value</p>
+          
+
+          
+          <div class="method-source-code" id="dismissal_to_s-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dismissal_to_s</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissal</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">DISMISSAL</span>.<span class="ruby-identifier">length</span>;<span class="ruby-keyword">return</span> <span class="ruby-constant">DISMISSAL</span>[<span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissal</span>];<span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Invalid Value&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dismissal_to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dismissal_to_s-method -->
+
+    
+      <div id="method-i-enrolled_to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">enrolled_to_s</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return status of if enrolled or not</p>
+          
+
+          
+          <div class="method-source-code" id="enrolled_to_s-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">enrolled_to_s</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Not Enrolled, Lottery&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">enrolled</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Enrolled&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- enrolled_to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- enrolled_to_s-method -->
+
+    
+      <div id="method-i-enrollment_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">enrollment_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that enrolled value was initialized and non-nil. Returns true or
+false</p>
+          
+
+          
+          <div class="method-source-code" id="enrollment_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">enrollment_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">enrolled</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- enrollment_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- enrollment_is_valid-3F-method -->
+
+    
+      <div id="method-i-scholarship_amount_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">scholarship_amount_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that enrollment&#39;s scholarship_amount is not nil, that there
+exists a course for this enrollment and that the scholarship_amount is
+between 0 and total fee for course. Returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="scholarship_amount_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">scholarship_amount_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">scholarship_amount</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">course</span> = <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">course_id</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">course</span> <span class="ruby-comment">#make sure course is non-nil</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">scholarship_amount</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">scholarship_amount</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">course</span>.<span class="ruby-identifier">total_fee</span>)) <span class="ruby-comment">#Make sure the scholarship fee is non-negative and that it is also less than or equal to the total course fee</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- scholarship_amount_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- scholarship_amount_is_valid-3F-method -->
+
+    
+      <div id="method-i-scholarship_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">scholarship_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that enrollment&#39;s scholarship is not nil and that is it between 0
+and 2. Returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="scholarship_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">scholarship_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">scholarship</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">scholarship</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">scholarship</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">2</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- scholarship_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- scholarship_is_valid-3F-method -->
+
+    
+      <div id="method-i-semester_id_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">semester_id_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that semester for the enrollment&#39;s semester_id exists and returns
+true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="semester_id_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">semester_id_is_valid?</span>
+  <span class="ruby-keyword">return</span> ( <span class="ruby-constant">Semester</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">semester_id</span>) <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- semester_id_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- semester_id_is_valid-3F-method -->
+
+    
+      <div id="method-i-student_id_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">student_id_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that enrollment&#39;s student exists and returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="student_id_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">student_id_is_valid?</span>
+  <span class="ruby-keyword">return</span> ( <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">student_id</span>) <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- student_id_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- student_id_is_valid-3F-method -->
+
+    
+      <div id="method-i-student_not_already_enrolled-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">student_not_already_enrolled?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that student is not already linked to a course in enrollment and
+returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="student_not_already_enrolled-3F-source">
+            <pre><span class="ruby-comment"># File app/models/enrollment.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">student_not_already_enrolled?</span>
+  <span class="ruby-identifier">enrollments</span> = <span class="ruby-constant">Enrollment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:student_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">student_id</span>, <span class="ruby-value">:course_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">course_id</span> )
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">enrollments</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">enrollments</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- student_not_already_enrolled-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- student_not_already_enrolled-3F-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

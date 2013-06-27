@@ -1,0 +1,58 @@
+-# This file is app/views/reports/scholarship_report.html.haml
+!!! 5
+
+- content_for :title, report_index_heading(@report)
+
+.row
+  .span12
+    .module-heading
+      .module-heading-title= @report.name
+
+    .module-content   
+      %table.data-table.full-width
+        %thead
+          %tr
+            %td
+              Instructor
+            %td
+              Class
+            %td
+              Student
+            %td
+              Full/Partial
+            %td
+              Amount
+        %tbody
+          - if @report.instructors.length > 0
+            - @report.instructors.each do |instructor|
+              - @report.enrollments(instructor).tap do |enrollments|
+                %tr
+                  %td
+                    = link_to instructor.full_name_first_last, instructor_path(instructor)
+                  %td
+                    %b Total
+                  %td
+                    %b #{enrollments.size} Students
+                  %td
+                  %td
+                    %b= dollar_amount(@report.total_scholarship_amount(instructor))
+                - enrollments.each do |enrollment|
+                  %tr
+                    %td
+                    %td
+                      = link_to enrollment.course.name, course_path(enrollment.course)
+                    %td
+                      = link_to enrollment.student.full_name, student_path(enrollment.student)
+                    %td
+                      = enrollment.scholarship_to_s
+                    %td
+                      = dollar_amount(enrollment.scholarship_amount)
+          - else
+            %tr
+              %td.centered(colspan=5)
+                None
+
+- content_for :js do
+  :javascript
+
+

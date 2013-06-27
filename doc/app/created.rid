@@ -1,0 +1,21 @@
+Mon, 18 Mar 2013 14:53:36 -0700
+doc/README_FOR_APP	Mon, 18 Mar 2013 14:53:01 -0700
+app/controllers/application_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/courses_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/enrollments_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/instructors_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/semesters_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/students_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/classrooms_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/user_sessions_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/controllers/validate_login_controller.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/helpers/application_helper.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/course.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/enrollment.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/login.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/instructor.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/semester.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/student.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/classroom.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/user.rb	Tue, 26 Feb 2013 11:42:03 -0800
+app/models/user_session.rb	Tue, 26 Feb 2013 11:42:03 -0800

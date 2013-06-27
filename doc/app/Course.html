@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Course - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/course.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-class_how_full-3F">#class_how_full?</a>
+    
+    <li><a href="#method-i-class_max_is_valid-3F">#class_max_is_valid?</a>
+    
+    <li><a href="#method-i-class_min_is_valid-3F">#class_min_is_valid?</a>
+    
+    <li><a href="#method-i-days_of_week_are_valid-3F">#days_of_week_are_valid?</a>
+    
+    <li><a href="#method-i-end_time_is_valid-3F">#end_time_is_valid?</a>
+    
+    <li><a href="#method-i-fee_for_additional_materials_is_valid-3F">#fee_for_additional_materials_is_valid?</a>
+    
+    <li><a href="#method-i-fee_per_meeting_is_valid-3F">#fee_per_meeting_is_valid?</a>
+    
+    <li><a href="#method-i-modify_name_for_enrollments">#modify_name_for_enrollments</a>
+    
+    <li><a href="#method-i-name_is_valid-3F">#name_is_valid?</a>
+    
+    <li><a href="#method-i-number_of_classes_is_valid-3F">#number_of_classes_is_valid?</a>
+    
+    <li><a href="#method-i-instructor_is_valid-3F">#instructor_is_valid?</a>
+    
+    <li><a href="#method-i-start_time_is_valid-3F">#start_time_is_valid?</a>
+    
+    <li><a href="#method-i-classroom_is_valid-3F">#classroom_is_valid?</a>
+    
+    <li><a href="#method-i-total_fee_is_valid-3F">#total_fee_is_valid?</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./Enrollment.html">Enrollment</a>
+  
+    <li><a href="./EnrollmentsController.html">EnrollmentsController</a>
+  
+    <li><a href="./Login.html">Login</a>
+  
+    <li><a href="./Instructor.html">Instructor</a>
+  
+    <li><a href="./InstructorsController.html">InstructorsController</a>
+  
+    <li><a href="./Semester.html">Semester</a>
+  
+    <li><a href="./SemestersController.html">SemestersController</a>
+  
+    <li><a href="./Student.html">Student</a>
+  
+    <li><a href="./StudentsController.html">StudentsController</a>
+  
+    <li><a href="./Classroom.html">Classroom</a>
+  
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSession.html">UserSession</a>
+  
+    <li><a href="./UserSessionsController.html">UserSessionsController</a>
+  
+    <li><a href="./ValidateLoginController.html">ValidateLoginController</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Course</h1>
+
+  <div id="description" class="description">
+    
+<p>PTA <a href="Course.html">Course</a> held within a specific <a
+href="Semester.html">Semester</a>. PTA Instructors and Students belong to a
+<a href="Course.html">Course</a>.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="HOUR12">HOUR12
+        
+        <dd class="description">
+        
+      
+        <dt id="HOUR24">HOUR24
+        
+        <dd class="description">
+        
+      
+        <dt id="MINUTE">MINUTE
+        
+        <dd class="description">
+        
+      
+        <dt id="TIME_TYPE">TIME_TYPE
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-class_how_full-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">class_how_full?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns array with number of students in course and class_max.</p>
+          
+
+          
+          <div class="method-source-code" id="class_how_full-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 250</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">class_how_full?</span>
+  <span class="ruby-keyword">return</span> [<span class="ruby-keyword">self</span>.<span class="ruby-identifier">students</span>.<span class="ruby-identifier">count</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- class_how_full-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- class_how_full-3F-method -->
+
+    
+      <div id="method-i-class_max_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">class_max_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that class_max is not nil or that the class_min has not been set. It
+checks that the class_max is greater than 0 and that the class_max is
+greater than the class_min. It returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="class_max_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">class_max_is_valid?</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">or</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_min</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_min</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- class_max_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- class_max_is_valid-3F-method -->
+
+    
+      <div id="method-i-class_min_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">class_min_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that class_min is not nil or that the class_max has not been set. It
+checks that the class_min is greater than 0 and that the class_max is
+greater than the class_min. It returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="class_min_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 152</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">class_min_is_valid?</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_min</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">or</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_min</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_max</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class_min</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- class_min_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- class_min_is_valid-3F-method -->
+
+    
+      <div id="method-i-days_of_week_are_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">days_of_week_are_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that none of the days for course are nil and that the days&#39;s
+values are either true or false and returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="days_of_week_are_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">days_of_week_are_valid?</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sunday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">monday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">tuesday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">wednesday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">thursday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">friday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">saturday</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sunday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sunday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">monday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">monday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">tuesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">tuesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">wednesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">wednesday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">thursday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">thursday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">friday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">friday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">saturday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">saturday</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>)); <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- days_of_week_are_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- days_of_week_are_valid-3F-method -->
+
+    
+      <div id="method-i-end_time_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">end_time_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests if end_time of course is not nil and a string and returns true or
+false</p>
+          
+
+          
+          <div class="method-source-code" id="end_time_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">end_time_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">not_nil_and_string</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_time</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_time</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- end_time_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- end_time_is_valid-3F-method -->
+
+    
+      <div id="method-i-fee_for_additional_materials_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fee_for_additional_materials_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that fee_for_additional_material for course is not nil and greater
+than or equal to 0 and returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="fee_for_additional_materials_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 195</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fee_for_additional_materials_is_valid?</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_for_additional_materials</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>)  <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_for_additional_materials</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fee_for_additional_materials_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fee_for_additional_materials_is_valid-3F-method -->
+
+    
+      <div id="method-i-fee_per_meeting_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fee_per_meeting_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that the fee_per_meeting for course is not nil and greater than or
+equal to 0 and returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="fee_per_meeting_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fee_per_meeting_is_valid?</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_per_meeting</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">fee_per_meeting</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fee_per_meeting_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fee_per_meeting_is_valid-3F-method -->
+
+    
+      <div id="method-i-modify_name_for_enrollments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">modify_name_for_enrollments</span><span
+            class="method-args">(student_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="modify_name_for_enrollments-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 254</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">modify_name_for_enrollments</span>(<span class="ruby-identifier">student_id</span>)
+  <span class="ruby-identifier">enrolled</span> =  <span class="ruby-constant">Enrollment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;student_id = ? AND course_id = ?&quot;</span>, <span class="ruby-identifier">student_id</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">enrolled</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot; (Edit Only)&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- modify_name_for_enrollments-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- modify_name_for_enrollments-method -->
+
+    
+      <div id="method-i-name_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests if the name of course is not nil and is a string and returns true or
+false.</p>
+          
+
+          
+          <div class="method-source-code" id="name_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">not_nil_and_string</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name_is_valid-3F-method -->
+
+    
+      <div id="method-i-number_of_classes_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">number_of_classes_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests if number_of_classes for course is not nil and is greater than 0 and
+returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="number_of_classes_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">number_of_classes_is_valid?</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">number_of_classes</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">number_of_classes</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- number_of_classes_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- number_of_classes_is_valid-3F-method -->
+
+    
+      <div id="method-i-instructor_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">instructor_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that the course&#39;s instructor_id is not nil and returns true or
+false.</p>
+          
+
+          
+          <div class="method-source-code" id="instructor_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 221</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">instructor_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instructor_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- instructor_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- instructor_is_valid-3F-method -->
+
+    
+      <div id="method-i-start_time_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_time_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests if start_time of course is not nil and a string and returns true or
+false.</p>
+          
+
+          
+          <div class="method-source-code" id="start_time_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_time_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">not_nil_and_string</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_time</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_time</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- start_time_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- start_time_is_valid-3F-method -->
+
+    
+      <div id="method-i-classroom_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">classroom_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that the course&#39;s classroom_id is not nil and returns true or
+false.</p>
+          
+
+          
+          <div class="method-source-code" id="classroom_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 234</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">classroom_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">classroom_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- classroom_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- classroom_is_valid-3F-method -->
+
+    
+      <div id="method-i-total_fee_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">total_fee_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that course&#39;s total_fee is not nil and is greater than or equal
+to 0 and returns true or false.</p>
+          
+
+          
+          <div class="method-source-code" id="total_fee_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 208</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total_fee_is_valid?</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_fee</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_fee</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- total_fee_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- total_fee_is_valid-3F-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

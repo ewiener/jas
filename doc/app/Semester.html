@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Semester - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/semester.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-can_create_course-3F">#can_create_course?</a>
+    
+    <li><a href="#method-i-dates_in_span_valid-3F">#dates_in_span_valid?</a>
+    
+    <li><a href="#method-i-delete_date">#delete_date</a>
+    
+    <li><a href="#method-i-end_date_is_valid-3F">#end_date_is_valid?</a>
+    
+    <li><a href="#method-i-import">#import</a>
+    
+    <li><a href="#method-i-name_is_valid-3F">#name_is_valid?</a>
+    
+    <li><a href="#method-i-registration_date_is_valid-3F">#registration_date_is_valid?</a>
+    
+    <li><a href="#method-i-specific_days_in_semester">#specific_days_in_semester</a>
+    
+    <li><a href="#method-i-start_date_as_date">#start_date_as_date</a>
+    
+    <li><a href="#method-i-start_date_is_valid-3F">#start_date_is_valid?</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./Enrollment.html">Enrollment</a>
+  
+    <li><a href="./EnrollmentsController.html">EnrollmentsController</a>
+  
+    <li><a href="./Login.html">Login</a>
+  
+    <li><a href="./Instructor.html">Instructor</a>
+  
+    <li><a href="./InstructorsController.html">InstructorsController</a>
+  
+    <li><a href="./Semester.html">Semester</a>
+  
+    <li><a href="./SemestersController.html">SemestersController</a>
+  
+    <li><a href="./Student.html">Student</a>
+  
+    <li><a href="./StudentsController.html">StudentsController</a>
+  
+    <li><a href="./Classroom.html">Classroom</a>
+  
+    <li><a href="./ClassroomsController.html">ClassroomsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSession.html">UserSession</a>
+  
+    <li><a href="./UserSessionsController.html">UserSessionsController</a>
+  
+    <li><a href="./ValidateLoginController.html">ValidateLoginController</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Semester</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-can_create_course-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">can_create_course?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tests that instructor and classroom exist before creating course and
+returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="can_create_course-3F-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">can_create_course?</span>
+  <span class="ruby-identifier">instructors</span> = <span class="ruby-constant">Instructor</span>.<span class="ruby-identifier">find_by_semester_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">classrooms</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_semester_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">instructors</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">or</span> (<span class="ruby-identifier">classrooms</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>))
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- can_create_course-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- can_create_course-3F-method -->
+
+    
+      <div id="method-i-dates_in_span_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dates_in_span_valid?</span><span
+            class="method-args">(date_string)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Verifies the date range can be parsed (works for single date and range of
+the form date-date, also adds all dates to a set for use later in
+caculating number of class meetings. Returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="dates_in_span_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dates_in_span_valid?</span>(<span class="ruby-identifier">date_string</span>)
+  <span class="ruby-identifier">dates_array</span> = <span class="ruby-identifier">date_string</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;-&quot;</span>)
+  <span class="ruby-identifier">start_range</span> = <span class="ruby-identifier">dates_array</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">start_range</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-identifier">start_range</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">individual_dates_with_no_classes</span> <span class="ruby-operator">+=</span> [<span class="ruby-identifier">start_range</span>]
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:dates_with_no_classes_day</span>, <span class="ruby-string">&#39;Could not verify the date range because the date is not parsable.&#39;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#also need to check if startdate is before enddate</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dates_array</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+    <span class="ruby-identifier">end_range</span> = <span class="ruby-identifier">dates_array</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">end_range</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-identifier">end_range</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">end_range</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">start_range</span>
+        <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:dates_with_no_classes_day</span>, <span class="ruby-string">&#39;Could not add the date range because end date is before start date.&#39;</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">date</span> = <span class="ruby-identifier">start_range</span>
+      <span class="ruby-keyword">while</span> <span class="ruby-identifier">date</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">end_range</span>
+        <span class="ruby-identifier">date</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">individual_dates_with_no_classes</span> <span class="ruby-operator">+=</span> [<span class="ruby-identifier">date</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:dates_with_no_classes_day</span>, <span class="ruby-string">&#39;Could not verify the date range because the date is not parsable.&#39;</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dates_array</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:dates_with_no_classes_day</span>, <span class="ruby-string">&#39;Could not verify the date range because the range is not parsable.&#39;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dates_in_span_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dates_in_span_valid-3F-method -->
+
+    
+      <div id="method-i-delete_date" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_date</span><span
+            class="method-args">(date)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Removes date from holiday array and become school day</p>
+          
+
+          
+          <div class="method-source-code" id="delete_date-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_date</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dates_with_no_classes</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">date</span>) <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:dates_with_no_classes</span>, <span class="ruby-string">&#39;Could not find date in holiday array.&#39;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">dates_array</span> = <span class="ruby-identifier">date</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;-&quot;</span>)
+    <span class="ruby-identifier">start_range</span> = <span class="ruby-identifier">dates_array</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-identifier">end_range</span> = <span class="ruby-identifier">dates_array</span>[<span class="ruby-identifier">dates_array</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+    <span class="ruby-identifier">date_start</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-identifier">start_range</span>)
+    <span class="ruby-identifier">date_end</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-identifier">end_range</span>)
+    <span class="ruby-identifier">curr_date</span> = <span class="ruby-identifier">date_start</span>
+    <span class="ruby-keyword">while</span> <span class="ruby-identifier">curr_date</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">date_end</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">individual_dates_with_no_classes</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">curr_date</span>)
+      <span class="ruby-identifier">curr_date</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>; <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>; <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_date-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_date-method -->
+
+    
+      <div id="method-i-end_date_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">end_date_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Verifies that the end date can be parsed and returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="end_date_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">end_date_is_valid?</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_date</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%m/%d/%y&quot;</span>)
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- end_date_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- end_date_is_valid-3F-method -->
+
+    
+      <div id="method-i-import" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import</span><span
+            class="method-args">(semester_to_import)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Transfers instructors, students, and courses from one semester to
+another semester</p>
+          
+
+          
+          <div class="method-source-code" id="import-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 262</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import</span>(<span class="ruby-identifier">semester_to_import</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">semester_to_import</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:semester_to_import</span>,<span class="ruby-string">&quot;Was given a nil semester to import.&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">failure</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">error_message</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-comment">#raise ActiveRecord::Rollback</span>
+
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">instructors</span> = <span class="ruby-constant">Instructor</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">classrooms</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">students</span> = <span class="ruby-constant">Student</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">courses</span> = <span class="ruby-constant">Course</span>.<span class="ruby-identifier">find_all_by_semester_id</span>(<span class="ruby-identifier">semester_to_import</span>.<span class="ruby-identifier">id</span>)
+
+    <span class="ruby-identifier">instructors_cloned</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">classrooms_cloned</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">courses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">oldcourse</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">newcourse</span> = <span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">dup</span>
+      <span class="ruby-identifier">oldclassroom</span> = <span class="ruby-constant">Classroom</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">classroom_id</span>)
+      <span class="ruby-identifier">oldinstructor</span> = <span class="ruby-constant">Instructor</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">oldcourse</span>.<span class="ruby-identifier">instructor_id</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_classroom_for_course</span>(<span class="ruby-identifier">newcourse</span>, <span class="ruby-identifier">oldclassroom</span>,<span class="ruby-identifier">classrooms_cloned</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_instructor_for_course</span>(<span class="ruby-identifier">newcourse</span>,<span class="ruby-identifier">oldinstructor</span>,<span class="ruby-identifier">instructors_cloned</span>)
+      <span class="ruby-identifier">newcourse</span>.<span class="ruby-identifier">semester_id</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">newcourse</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">instructors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instructor</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">instructors_cloned</span>[<span class="ruby-identifier">instructor</span>.<span class="ruby-identifier">id</span>];<span class="ruby-keyword">next</span>;<span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_instructor</span>(<span class="ruby-identifier">instructor</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">classrooms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">classroom</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">classrooms_cloned</span>[<span class="ruby-identifier">classroom</span>.<span class="ruby-identifier">id</span>];<span class="ruby-keyword">next</span>;<span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_classroom</span>(<span class="ruby-identifier">classroom</span>,<span class="ruby-identifier">classrooms_cloned</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">students</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">student</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Rollback</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">duplicate_student</span>(<span class="ruby-identifier">student</span>,<span class="ruby-identifier">classrooms_cloned</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- import-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- import-method -->
+
+    
+      <div id="method-i-name_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Verifies that the name is valid by checking name is not nil, is a
+string,and at least 1 character. Returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="name_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name_is_valid?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">not_nil_and_string</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name_is_valid-3F-method -->
+
+    
+      <div id="method-i-registration_date_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">registration_date_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Verifies that the registration date can be parsed and returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="registration_date_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 170</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">registration_date_is_valid?</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-constant">USDateParse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">registration_deadline</span>)
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- registration_date_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- registration_date_is_valid-3F-method -->
+
+    
+      <div id="method-i-specific_days_in_semester" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">specific_days_in_semester</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>returns a hash 0f 1-7 (where 1 is monday) of the quantity of that day</p>
+          
+
+          
+          <div class="method-source-code" id="specific_days_in_semester-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">specific_days_in_semester</span>
+  <span class="ruby-identifier">date_start</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_date</span>)<span class="ruby-comment">#USDateParse(self.start_date)</span>
+  <span class="ruby-identifier">date_end</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_date</span>)<span class="ruby-comment">#USDateParse(self.end_date)</span>
+  <span class="ruby-identifier">curr_date</span> = <span class="ruby-identifier">date_start</span>
+  <span class="ruby-identifier">date_hash</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">curr_date</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">date_end</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">individual_dates_with_no_classes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">curr_date</span>))
+      <span class="ruby-identifier">date_hash</span>[<span class="ruby-identifier">curr_date</span>.<span class="ruby-identifier">cwday</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">curr_date</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">date_hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- specific_days_in_semester-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- specific_days_in_semester-method -->
+
+    
+      <div id="method-i-start_date_as_date" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_date_as_date</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns start_date as date object</p>
+          
+
+          
+          <div class="method-source-code" id="start_date_as_date-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_date_as_date</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">USDateParse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_date</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- start_date_as_date-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- start_date_as_date-method -->
+
+    
+      <div id="method-i-start_date_is_valid-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_date_is_valid?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Verifies that the start date can be parsed and returns true or false</p>
+          
+
+          
+          <div class="method-source-code" id="start_date_is_valid-3F-source">
+            <pre><span class="ruby-comment"># File app/models/semester.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_date_is_valid?</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">date</span> = <span class="ruby-constant">USDateParse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_date</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%m/%d/%y&quot;</span>)
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- start_date_is_valid-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- start_date_is_valid-3F-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

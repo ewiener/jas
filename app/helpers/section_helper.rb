@@ -29,7 +29,7 @@ module SectionHelper
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_instructors_path(context[:semester])}
 	 	},
 	 	:classrooms_section => {
-	 		:name => 'Classrooms',
+	 		:name => 'Rooms',
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_classrooms_path(context[:semester])}
 	 	},
 	 	:courses_section => {
@@ -39,6 +39,10 @@ module SectionHelper
 	 	:enrollments_section => {
 	 		:name => 'Enrollments',
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_enrollments_path(context[:semester])}
+	 	},
+	 	:reports_section => {
+	 		:name => 'Reports',
+	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_reports_path(context[:semester])}
 	 	}
 	}
 	 

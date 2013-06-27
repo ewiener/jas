@@ -135,14 +135,6 @@ class SemestersController < ApplicationController
     redirect_to edit_semester_path(@semester)
   end
   
-  def scholarship_report
-    @semester = Semester.find(params[:id])
-    return unless valid_semester?(@semester)
-
-    @scholarship_report = ScholarshipReport.new(@semester)
-    render 'reports/scholarship_report'
-  end
-  
   private
   def add_days_off(update_hash)
   	valid = false

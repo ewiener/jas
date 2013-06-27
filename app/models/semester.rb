@@ -1,4 +1,3 @@
-
 class Semester < ActiveRecord::Base
   require 'date'
 
@@ -44,6 +43,20 @@ class Semester < ActiveRecord::Base
   	self.dates_with_no_classes ||= []
   	calc_individual_days_off
   	calc_data_by_day_of_week
+  	#init_reports
+  end
+  
+  after_create do
+  	#init_reports
+  end
+  
+  def reports
+  	init_reports
+  	@reports
+  end
+  
+  def find_report(id)
+  	self.reports.find {|report| report.id == id}
   end
 
   private
@@ -250,6 +263,18 @@ class Semester < ActiveRecord::Base
 
     self.num_days_by_day_of_week = count_by_day
     self.days_off_by_day_of_week = days_off_by_day
+  end
+  
+  def init_reports
+  	if self.id && (@reports.nil? || @reports.empty?)
+	  	@reports = [
+	  		InstructorFeeReport.new(self, 1),
+	  		ScholarshipReport.new(self, 2),
+	  		RefundReport.new(self, 3)
+  	  ]
+  	else
+  		@reports = []
+    end
   end
 
   public

@@ -21,6 +21,8 @@
               = link_to_section :students_section, :semester => semester
             %li#navbar-enrollments{class: site_section == :enrollments_section && 'active'}
               = link_to_section :enrollments_section, :semester => semester
+            %li#navbar-reports{class: site_section == :reports_section && 'active'}
+              = link_to_section :reports_section, :semester => semester
 
           - if current_user.is_program_admin?
             %li.dropdown

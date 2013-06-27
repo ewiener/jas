@@ -107,4 +107,11 @@ class ApplicationController < ActionController::Base
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
+  
+  def valid_report?(report, redirect_path=:root, message="Could not find the given report.")
+    return true unless report.nil?
+    flash[:warning] = [[:report,message]]
+    redirect_to redirect_path unless redirect_path == :no_redirect
+    return false
+  end
 end

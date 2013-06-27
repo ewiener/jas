@@ -13,7 +13,6 @@ Ptast::Application.routes.draw do
 	  		get 'home', :as => 'home_of'
 	  		put 'import'
 	  		delete 'days_off', :action => :delete_days_off, :as => 'days_off_for'
-	  		get 'scholarship_report', :as => 'scholarship_report_for'
 	  	end
 	    resources :courses do
 	      member do
@@ -35,6 +34,7 @@ Ptast::Application.routes.draw do
 	      end
 	    end
 	    resources :enrollments, :only => [:index]
+	    resources :reports, :only => [:index, :show]
 	  end
 	end
 

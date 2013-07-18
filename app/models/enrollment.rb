@@ -17,6 +17,7 @@ class Enrollment < ActiveRecord::Base
   validate :student_not_already_enrolled
   
   scope :enrolled, where(:enrolled => true)
+  scope :disenrolled, where(:enrolled => false)
   scope :by_course_day_and_course_name, joins(:course).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
   scope :by_course_day_and_course_name_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc, last_name asc, first_name asc")
   scope :by_course_day_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, last_name asc, first_name asc")

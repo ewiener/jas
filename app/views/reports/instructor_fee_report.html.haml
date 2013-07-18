@@ -1,0 +1,62 @@
+-# This file is app/views/reports/instructor_fee_report.html.haml
+!!! 5
+
+- content_for :title, report_index_heading(@report)
+
+.row
+  .span12
+    .module-heading
+      .module-heading-title= @report.name
+
+    .module-content   
+      %table.data-table.full-width
+        %thead
+          %tr
+            %td
+              Instructor
+            %td
+              Class
+            %td.right-aligned
+              Cost/Student
+            %td.right-aligned
+              Students
+            %td.right-aligned
+              Total Due
+        %tbody
+          - if @report.instructors.length > 0
+            - @report.instructors.each do |instructor_data|
+              %tr
+                %td(colspan=2)
+                  = link_to instructor_data.instructor.full_name_first_last, instructor_path(instructor_data.instructor)
+                %td
+                %td.right-aligned
+                  %b Total
+                %td.right-aligned
+                  %b= dollar_amount(instructor_data.total_fee)
+              - instructor_data.courses.each do |course_data|
+                %tr
+                  %td
+                  %td
+                    = link_to course_data.course.name_with_day_and_grade_level, course_path(course_data.course)
+                  %td.right-aligned
+                    = dollar_amount(course_data.course.total_fee)
+                  %td.right-aligned
+                    = course_data.num_students
+                  %td.right-aligned
+                    = dollar_amount(course_data.total_fee)
+            %tr
+              %td(colspan=5)
+                &nbsp;
+          %tr
+            %td
+            %td
+            %td
+            %td.right-aligned
+              %b Grand Total
+            %td.right-aligned
+              %b= dollar_amount(@report.total_fee)
+
+- content_for :js do
+  :javascript
+
+

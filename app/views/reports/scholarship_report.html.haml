@@ -19,38 +19,45 @@
             %td
               Student
             %td
-              Full/Partial
-            %td
+              F/P
+            %td.right-aligned
               Amount
         %tbody
           - if @report.instructors.length > 0
             - @report.instructors.each do |instructor|
               - @report.enrollments(instructor).tap do |enrollments|
                 %tr
-                  %td
+                  %td(colspan=2)
                     = link_to instructor.full_name_first_last, instructor_path(instructor)
                   %td
                     %b Total
                   %td
-                    %b #{enrollments.size} Students
-                  %td
-                  %td
-                    %b= dollar_amount(@report.total_scholarship_amount(instructor))
+                    %b #{enrollments.size}
+                  %td.right-aligned
+                    %b= dollar_amount(@report.total_scholarship_amount_for(instructor))
                 - enrollments.each do |enrollment|
                   %tr
                     %td
                     %td
-                      = link_to enrollment.course.name, course_path(enrollment.course)
+                      = link_to enrollment.course.name_with_day_and_grade_level, course_path(enrollment.course)
                     %td
                       = link_to enrollment.student.full_name, student_path(enrollment.student)
                     %td
-                      = enrollment.scholarship_to_s
-                    %td
+                      = enrollment.scholarship_to_s[0]
+                    %td.right-aligned
                       = dollar_amount(enrollment.scholarship_amount)
-          - else
             %tr
-              %td.centered(colspan=5)
-                None
+              %td(colspan=5)
+                &nbsp;
+          %tr
+            %td
+            %td
+            %td
+              %b Grand Total
+            %td
+              %b #{@report.total_scholarships}
+            %td.right-aligned
+              %b= dollar_amount(@report.total_scholarship_amount)
 
 - content_for :js do
   :javascript

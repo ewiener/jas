@@ -1,0 +1,65 @@
+-# This file is app/views/reports/refund_report.html.haml
+!!! 5
+
+- content_for :title, report_index_heading(@report)
+
+.row
+  .span12
+    .module-heading
+      .module-heading-title= @report.name
+
+    .module-content   
+      %table.data-table.full-width
+        %thead
+          %tr
+            %td
+              Student
+            %td
+              Class
+            %td.right-aligned
+              Fee
+            %td.right-aligned
+              Scholarship
+            %td.right-aligned
+              Class refund
+            %td.right-aligned
+              Total refund
+              %sup *
+        %tbody
+          - if @report.refunds.length > 0
+            - @report.refunds.each do |refund_data|
+              %tr
+                %td
+                  = link_to refund_data.enrollment.student.full_name, student_path(refund_data.enrollment.student)
+                %td
+                  = link_to refund_data.enrollment.course.name_with_day_and_grade_level, course_path(refund_data.enrollment.course)
+                %td.right-aligned
+                  = dollar_amount(refund_data.enrollment.course.total_fee)
+                %td.right-aligned
+                  = dollar_amount(refund_data.enrollment.scholarship_amount)
+                %td.right-aligned
+                  = dollar_amount(refund_data.enrollment_refund)
+                %td.right-aligned
+                  = dollar_amount(refund_data.total_refund)
+            %tr
+              %td(colspan=5)
+                &nbsp;
+          %tr
+            %td
+            %td
+            %td
+            %td.right-aligned
+              %b Total
+            %td.right-aligned
+              %b= dollar_amount(@report.total_enrollment_refund)
+            %td.right-aligned
+              %b= dollar_amount(@report.total_refund)
+              
+      %p
+        %sup *
+        Total refund includes session registration fee if student is not enrolled in any other classes.
+
+- content_for :js do
+  :javascript
+
+

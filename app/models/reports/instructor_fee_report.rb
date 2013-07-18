@@ -17,14 +17,14 @@ class InstructorFeeReport < Report
 			instructor_data.courses = Array.new
 		  instructor.courses.by_day_and_name.each do |course|
 		  	num_students = course.num_valid_enrollments
-		  	if num_students
+		  	if num_students > 0
 		  		course_total_fee = course.total_fee * num_students
 		  		course_data = CourseData.new(course, num_students, course_total_fee)
 		  		instructor_data.courses << course_data
 		  		instructor_data.total_fee = instructor_data.total_fee + course_total_fee
 		  	end
 		  end
-		  if instructor_data.courses.count
+		  if instructor_data.courses.count > 0
 		  	@instructors << instructor_data
 		  	@total_fee = @total_fee + instructor_data.total_fee
 		  end

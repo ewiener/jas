@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   def clear_saved_location
   	session[:return_to] = nil
   end
-    
+  
   def redirect_to_saved_location(default = nil)
   	redirect_path = saved_location || default || :root
     redirect_to redirect_path
@@ -53,62 +53,79 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_program?(program, redirect_path=:root, message="Invalid or inaccessible program.")
-    return true unless program.nil? || !(current_user.is_app_admin? || program == current_user.program)
+    return true if !program.nil? && 
+      (current_user.is_app_admin? || 
+       program == current_user.program)
     flash[:warning] = [[:program_id, message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
   
-  def valid_user?(user, redirect_path=:root, message="Could not find the given user.")
-    return true unless user.nil?
-    flash[:warning] = [[:semester_id, message]]
+  def valid_user?(user, redirect_path=:root, message="Invalid or inaccessible user.")
+    return true if !user.nil? &&
+      (current_user.is_app_admin? ||
+       user == current_user ||
+       (user.program == current_user.program && current_user.is_program_admin?))
+    flash[:warning] = [[:user_id, message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
 
-  def valid_semester?(semester, redirect_path=:root, message="Could not find the given semester.")
-    return true unless semester.nil?
+  def valid_semester?(semester, redirect_path=:root, message="Invalid or inaccessible session.")
+    return true if !semester.nil? && 
+      (current_user.is_app_admin? || 
+       semester.program == current_user.program)
     flash[:warning] = [[:semester_id, message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
   
-  def valid_student?(student, redirect_path=:root, message="Could not find the given student.")
-    return true unless student.nil?
+  def valid_student?(student, redirect_path=:root, message="Invalid or inaccessible student.")
+    return true if !student.nil? && 
+      (current_user.is_app_admin? || 
+       student.semester.program == current_user.program)
     flash[:warning] = [[:student_id,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
   
-  def valid_instructor?(instructor, redirect_path=:root, message="Could not find the given instructor.")
-    return true unless instructor.nil?
+  def valid_instructor?(instructor, redirect_path=:root, message="Invalid or inaccessible instructor.")
+    return true if !instructor.nil? && 
+      (current_user.is_app_admin? || 
+       instructor.semester.program == current_user.program)
     flash[:warning] = [[:instructor_id,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
   
-  def valid_classroom?(classroom, redirect_path=:root, message="Could not find the given classroom.")
-    return true unless classroom.nil?
+  def valid_classroom?(classroom, redirect_path=:root, message="Invalid or inaccessible classroom.")
+    return true if !classroom.nil? &&
+      (current_user.is_app_admin? ||
+       classroom.semester.program == current_user.program)
     flash[:warning] = [[:classroom,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
 
-  def valid_course?(course, redirect_path=:root, message="Could not find the given course.")
-    return true unless course.nil?
+  def valid_course?(course, redirect_path=:root, message="Invalid or inaccessible class.")
+    return true if !course.nil? &&
+      (current_user.is_app_admin? ||
+       course.semester.program == current_user.program)
     flash[:warning] = [[:course_id,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
 
-  def valid_enrollment?(enrollment, redirect_path=:root, message="Could not find the given enrollment.")
-    return true unless enrollment.nil?
+  def valid_enrollment?(enrollment, redirect_path=:root, message="Invalid or inaccessible enrollment.")
+    return true unless enrollment.nil? &&
+      (current_user.is_app_admin? ||
+       enrollment.semester.program == current_user.program)
     flash[:warning] = [[:enrollment,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect
     return false
   end
   
-  def valid_report?(report, redirect_path=:root, message="Could not find the given report.")
+  def valid_report?(report, redirect_path=:root, message="Invalid or inaccessible report.")
     return true unless report.nil?
     flash[:warning] = [[:report,message]]
     redirect_to redirect_path unless redirect_path == :no_redirect

@@ -15,4 +15,4 @@
     - flash[:warning].each do |attr, msg|
       .alert.alert-error
         %a.close{"data-dismiss" => "alert"} ×
-        = msg
+        = content_tag :div, msg, :id => "flash_#error"

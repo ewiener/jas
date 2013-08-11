@@ -10,7 +10,8 @@
         %ul.nav
           - if semester && !semester.new_record? && site_section != :semesters_section
             %li#navbar-semester-home{class: site_section == :semester_home_section && 'active'}
-              = link_to_section :semester_home_section, :semester => semester
+              = link_to_section :semester_home_section, :semester => semester do
+                %i.icon-home
             %li#navbar-courses{class: site_section == :courses_section && 'active'}
               = link_to_section :courses_section, :semester => semester
             %li#navbar-instructors{class: site_section == :instructors_section && 'active'}

@@ -17,7 +17,7 @@ class Program < ActiveRecord::Base
   
   scope :by_name, order("short_name asc")
   
-  def semesters_updated
+  def semesters_updated(semester)
   	@semesters_by_date = nil
   end
   

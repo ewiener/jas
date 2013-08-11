@@ -25,13 +25,13 @@ jas = Program.create(
 master.users.create(
 	:username => "super",
 	:password => "super",
-	:password_confirmation => "super",
+	:password_confirmation => "changeme",
 	:role => 0
 )
 jas.users.create(
   :username => "jasadmin", 
-  :password => "jrocks", 
-  :password_confirmation => "jrocks",
+  :password => "changeme", 
+  :password_confirmation => "changeme",
   :role => 1
 )
 

@@ -154,7 +154,7 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
 
-    @classes = @semester.courses.reject { |course| @student.has_enrollment(course) } 
+    @classes = @semester.courses.by_day_and_name.reject { |course| @student.has_enrollment(course) } 
 
     @enrollment = flash.key?(:enrollment) ? Enrollment.new(flash[:enrollment]) : Enrollment.new
 
@@ -174,7 +174,7 @@ class StudentsController < ApplicationController
     @enrollment = @student.find_enrollment(@course)
     return unless valid_enrollment?(@enrollment)
 
-    @classes = @semester.courses.reject { |course| @student.has_enrollment(course) } 
+    @classes = @semester.courses.by_day_and_name.reject { |course| @student.has_enrollment(course) } 
 
   	render 'students/enrollments/edit'
   end

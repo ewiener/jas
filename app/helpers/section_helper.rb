@@ -37,7 +37,7 @@ module SectionHelper
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_courses_path(context[:semester])}
 	 	},
 	 	:enrollments_section => {
-	 		:name => 'Enrollments',
+	 		:name => 'Rolls',
 	 		:path => lambda {|context| Rails.application.routes.url_helpers.semester_enrollments_path(context[:semester])}
 	 	},
 	 	:reports_section => {

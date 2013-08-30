@@ -25,33 +25,33 @@
             %li
               = link_to d[:name], semester_enrollments_path(@semester, :filter_dismissal => d[:id]), :tabindex => '-1' 
       %li.module-heading-action
-    %h3.print-heading-sub
+    %h4.print-heading-sub
       = enrollment_index_heading(@filter)
 
     .module-content   
       %table.data-table.full-width
         %thead
+          %tr
+            %td
+              First Name
+            %td
+              Last Name
+            %td
+              Class
+            %td
+              Time
+            %td
+              Room
+            - if !@filter[:dismissal] && !@filter[:teacher]
+              %td
+                Dismissal
+        %tbody
         - days.each do |day|
           %tbody
             %tr.success
               %td.centered(colspan=6)
                 %b= day.to_s.capitalize
           - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
-            %thead
-              %tr
-                %td
-                  First Name
-                %td
-                  Last Name
-                %td
-                  Class
-                %td
-                  Time
-                %td
-                  Room
-                - if !@filter[:dismissal] && !@filter[:teacher]
-                  %td
-                    Dismissal
             %tbody
               - @enrollments_by_day[day].each do |enrollment|
                 %tr
@@ -69,10 +69,6 @@
                   - if !@filter[:dismissal] && !@filter[:teacher]
                     %td
                       = enrollment.dismissal_to_s
-          - else
-            %tr
-              %td.centered(colspan=6)
-                None
 
 - content_for :js do
   :javascript

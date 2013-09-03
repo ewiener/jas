@@ -58,7 +58,7 @@ class StudentsController < ApplicationController
     end
 
     if @student.save
-      redirect_to semester_students_path, :notice => "#{@student.first_name} #{@student.last_name} was successfully added to the database."
+      redirect_to student_path(@student), :notice => "#{@student.first_name} #{@student.last_name} was successfully added to the database."
     else
       flash[:warning] = @student.errors
       flash[:student] = params[:student] # Save fields so the user doesn't have to re-enter everything again

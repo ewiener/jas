@@ -22,7 +22,8 @@ class Semester < ActiveRecord::Base
   attr_accessor :dates_with_no_classes_day,
                 :individual_dates_with_no_classes,
                 :num_days_by_day_of_week,
-                :days_off_by_day_of_week
+                :days_off_by_day_of_week,
+                :district_surcharge
 
   validates :name, :presence => true
   validate :valid_start_date
@@ -43,11 +44,8 @@ class Semester < ActiveRecord::Base
   	self.dates_with_no_classes ||= []
   	calc_individual_days_off
   	calc_data_by_day_of_week
-  	#init_reports
-  end
-  
-  after_create do
-  	#init_reports
+  	# TODO - get this from the database
+  	self.district_surcharge = 0.04
   end
   
   def reports
@@ -57,6 +55,10 @@ class Semester < ActiveRecord::Base
   
   def find_report(id)
   	self.reports.find {|report| report.id == id}
+  end
+
+  def find_report_by_name(name)
+  	self.reports.find {|report| report.name == name}
   end
 
   private
@@ -270,9 +272,10 @@ class Semester < ActiveRecord::Base
 	  	@reports = [
 	  		InstructorFeeReport.new(self, 1),
 	  		ScholarshipReport.new(self, 2),
-	  		RefundReport.new(self, 3)
+	  		RefundReport.new(self, 3),
+	  		BalanceReport.new(self, 4)
   	  ]
-  	else
+  	elsif @reports.nil?
   		@reports = []
     end
   end

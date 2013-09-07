@@ -60,6 +60,6 @@
               Total Fee
           %td
             %b
-              - if (student.grand_total)
-                = "$" + number_with_precision(student.grand_total, :precision => 2)
+              - if student.total_fee
+                = "$" + number_with_precision(student.total_fee, :precision => 2)
           %td

@@ -23,10 +23,19 @@ module ApplicationHelper
   def dollar_amount(val, options = {})
   	dollar_amount = ""
     if val
-       dollar_amount << "$" + number_with_precision(val, :precision => 2)
+       dollar_amount << "-" if val < 0 
+       dollar_amount << "$" + number_with_precision(val.abs, :precision => 2)
        dollar_amount << "<sup>*</sup>" if options[:starred]
     end
     return dollar_amount.html_safe
+  end
+  
+  def format_percentage(val)
+  	percentage = ""
+  	if val
+  		percentage << number_with_precision(val * 100, :precision => 0) << "%"
+  	end
+  	return percentage.html_safe
   end
   
   def page_title(sub_title)

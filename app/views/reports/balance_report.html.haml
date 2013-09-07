@@ -1,0 +1,97 @@
+-# This file is app/views/reports/balance_report.html.haml
+!!! 5
+
+- content_for :title, report_index_heading(@report)
+
+- content_for :css do
+  :sass
+    td.indented
+      padding-left: 30px !important
+    td.muted
+      a,
+      a:hover
+        color: #999999
+      a
+        text-decoration: underline
+
+.row
+  .span12
+    .module-heading
+      .module-heading-title= @report.name
+
+    .module-content   
+      %table.data-table.full-width
+        %tbody
+          %tr
+            %td{style: "width:25%;"}
+              %b Total revenue
+            %td.right-aligned{style: "width:25%;"}
+              %b= dollar_amount(@report.total_revenue)
+            %td{style: "width:50%;"}
+          %tr
+            %td.indented
+              Total fees due
+            %td.right-aligned
+              = dollar_amount(@report.total_student_fee)
+            %td.muted
+              = "(#{dollar_amount(@report.total_student_class_fee)} class fees + "
+              = "#{dollar_amount(@report.total_student_registration_fee)} registration fees)"
+          %tr
+            %td.indented
+              Total lottery refund
+            %td.right-aligned
+              = link_to dollar_amount(-@report.total_student_refund), report_path(@semester.find_report_by_name("Refund Report").id)
+            %td.muted
+              = "(#{dollar_amount(@report.total_student_class_refund)} class fee refund + "
+              = "#{dollar_amount(@report.total_student_registration_refund)} registration refund)"
+          %tr
+            %td.indented
+              Total registration fees waved
+            %td.right-aligned
+              = dollar_amount(-@report.total_student_registration_fee_waived)
+            %td
+          %tr
+            %td(colspan=3)
+              &nbsp;
+          %tr
+            %td
+              %b Total expenses
+            %td.right-aligned
+              %b= dollar_amount(@report.total_expenses)
+            %td
+          %tr
+            %td.indented
+              Total fees owed instructors
+            %td.right-aligned
+              = link_to dollar_amount(@report.total_instructor_fee), report_path(@semester.find_report_by_name("Instructor Fee Report").id)
+            %td.muted
+              = "(#{dollar_amount(@report.total_student_class_fee - @report.total_student_class_refund)} from student fees + "
+              = link_to dollar_amount(@report.total_scholarship_amount), report_path(@semester.find_report_by_name("Scholarship Report").id)
+              = " from scholarships)"
+          %tr
+            %td.indented
+              Total instructor scholarships
+            %td.right-aligned
+              = dollar_amount(-@report.total_teacher_scholarship_amount)
+            %td
+          %tr
+            %td.indented
+              BUSD surcharge
+            %td.right-aligned
+              = dollar_amount(@report.district_surcharge_amount)
+            %td.muted
+              = "#{format_percentage(@report.district_surcharge_factor)} of instructor fees"
+          %tr
+            %td(colspan=3)
+              &nbsp;
+          %tr
+            %td
+              %b Balance
+            %td.right-aligned
+              %b= dollar_amount(@report.balance)
+            %td
+
+- content_for :js do
+  :javascript
+
+

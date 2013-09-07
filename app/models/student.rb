@@ -44,13 +44,16 @@ class Student < ActiveRecord::Base
   	GRADES
   end
   
-  def grand_total
-    total = 0
-    if enrollments.count > 0
-      total += enrollments.inject(0) { |sum, enrollment| sum + enrollment.amount_due }
-      total += semester.fee
-    end
-    return total
+  def total_fee
+  	class_fee + registration_fee
+  end
+  
+  def class_fee
+  	enrollments.inject(0) { |sum, enrollment| sum + enrollment.amount_due }
+  end
+  
+  def registration_fee
+  	enrollments.count ? semester.fee : 0
   end
   
   def enrolled?

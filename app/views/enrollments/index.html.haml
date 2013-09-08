@@ -26,6 +26,10 @@
               = link_to d[:name], semester_enrollments_path(@semester, :filter_dismissal => d[:id]), :tabindex => '-1' 
       %li.module-heading-form
         = form_tag url_for(params.merge(view_by_grade: nil)), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
+          - if @filter[:teacher]
+            = hidden_field_tag :filter_teacher, @filter[:teacher].id
+          - if @filter[:dismissal]
+            = hidden_field_tag :filter_dismissal, @filter[:dismissal][:id]
           = label_tag 'view_by_grade', :class => 'checkbox' do
             = check_box_tag 'view_by_grade', '1', params[:view_by_grade]
             View by grade

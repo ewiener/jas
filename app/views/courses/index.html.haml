@@ -8,6 +8,8 @@
     %ul.module-heading-tabs
       %li.module-heading-tab{active_if(@filter.empty?)}
         = link_to "All", semester_courses_path(@semester)
+      %li.module-heading-tab{active_if(@filter[:enrollment] == 'full')}
+        = link_to "Full", semester_courses_path(@semester, :filter_enrollment => 'full')
       %li.module-heading-tab{active_if(@filter[:enrollment] == 'overenrolled')}
         = link_to "Overenrolled", semester_courses_path(@semester, :filter_enrollment => 'overenrolled')
       %li.module-heading-tab{active_if(@filter[:enrollment] == 'underenrolled')}
@@ -51,7 +53,7 @@
                 %td
                   - if course.classroom
                     = course.classroom.name
-                %td.course-enrolled{:class => course.overenrolled? || course.underenrolled? ? "warning" : ""}
+                %td.course-enrolled{:class => course.overenrolled? ? "error" : (course.underenrolled? ? "warning" : (course.full? ? "info" : ""))}
                   = course.num_valid_enrollments
                   - if course.class_min_max_range && !course.class_min_max_range.blank?
                     &nbsp;

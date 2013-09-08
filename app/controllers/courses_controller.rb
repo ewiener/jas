@@ -19,6 +19,9 @@ class CoursesController  < ApplicationController
     elsif (params[:filter_enrollment] == 'underenrolled')
     	@courses = @courses.select{|course| course.underenrolled?}
     	@filter[:enrollment] = 'underenrolled'
+    elsif (params[:filter_enrollment] == 'full')
+    	@courses = @courses.select{|course| course.full?}
+    	@filter[:enrollment] = 'full'
     end
   end
   

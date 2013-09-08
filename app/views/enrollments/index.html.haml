@@ -24,14 +24,24 @@
           - @all_dismissals.each do |d|
             %li
               = link_to d[:name], semester_enrollments_path(@semester, :filter_dismissal => d[:id]), :tabindex => '-1' 
-      %li.module-heading-action
+      %li.module-heading-form
+        = form_tag url_for(params.merge(view_by_grade: nil)), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
+          = label_tag 'view_by_grade', :class => 'checkbox' do
+            = check_box_tag 'view_by_grade', '1', params[:view_by_grade]
+            View by grade
     %h4.print-heading-sub
       = enrollment_index_heading(@filter)
+      
+    - columns = 6
 
     .module-content   
       %table.data-table.full-width
         %thead
           %tr
+            - if @view[:by_grade]
+              - columns = 7
+              %td
+                Grade
             %td
               First Name
             %td
@@ -49,12 +59,15 @@
         - days.each do |day|
           %tbody
             %tr.success
-              %td.centered(colspan=6)
+              %td.centered{:colspan => columns}
                 %b= day.to_s.capitalize
           - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
             %tbody
               - @enrollments_by_day[day].each do |enrollment|
                 %tr
+                  - if @view[:by_grade]
+                    %td
+                      = enrollment.student.grade
                   %td
                     = link_to enrollment.student.first_name, student_path(enrollment.student)
                   %td
@@ -65,12 +78,17 @@
                     = enrollment.course.time_range
                   %td
                     - if enrollment.course.classroom
-                      = link_to enrollment.course.classroom.name, classroom_path(enrollment.course.classroom)
+                      = link_to truncate(enrollment.course.classroom.name, length: 13, separator: ' '), classroom_path(enrollment.course.classroom)
                   - if !@filter[:dismissal] && !@filter[:teacher]
                     %td
                       = enrollment.dismissal_to_s
 
 - content_for :js do
   :javascript
+    $(function() {
+      $('#view_by_grade').click(function(){
+        $('#filter-form').submit();
+      });
+    });
 
 

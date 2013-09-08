@@ -19,8 +19,18 @@ class EnrollmentsController < ApplicationController
     if (params[:filter_dismissal])
     	@filter[:dismissal] = dismissals[params[:filter_dismissal].to_i]
     end
+    
+    @view = Hash.new
+    if (params[:view_by_grade])
+    	@view[:by_grade] = true
+    end
 
-    @enrollments = @semester.enrollments.enrolled.with_teacher(params[:filter_teacher]).with_dismissal(params[:filter_dismissal]).by_course_day_and_student_name
+    @enrollments = @semester.enrollments.enrolled.with_teacher(params[:filter_teacher]).with_dismissal(params[:filter_dismissal])
+    if @view[:by_grade]
+    	@enrollments = @enrollments.by_course_day_and_grade_and_student_name
+    else
+      @enrollments = @enrollments.by_course_day_and_student_name
+    end
     
     @enrollments_by_day = Hash.new { |hash, key| hash[key] = Array.new }
     @enrollments.each do |enrollment|

@@ -37,7 +37,7 @@ class BalanceReport < Report
         @total_instructor_fee += enrollment.course.total_fee
       else
         @total_student_class_refund += enrollment.total_fee
-				if processed_disenrolled_students[enrollment.student] && !enrollment.student.enrolled?
+				if !processed_disenrolled_students[enrollment.student] && !enrollment.student.enrolled?
 					# They're not enrolled in any other classes and this is the first instance
 					# of the student in the report, so add the session reg fee to the total
 					@total_student_registration_refund += @semester.fee

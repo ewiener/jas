@@ -281,108 +281,104 @@ class Semester < ActiveRecord::Base
   end
 
   public
-  #Transfers instructors, students, and courses from one semester to another semester
-  def import(semester_to_import)
-    if not semester_to_import
-      errors.add(:semester_to_import,"Was given a nil semester to import.")
-      return false
-    end
+  # Copies instructors, students, classrooms and courses from 'semester' to this semester
+  def import(semester)
+    return false if !semester
+    
+	  imported_objs = {
+    	classrooms: Hash.new,
+    	courses: Hash.new,
+    	instructors: Hash.new,
+    	students: Hash.new
+    }
+	
+    begin
+	    ActiveRecord::Base.transaction do
+	      semester.courses.each do |course|
+	      	import_course(course, imported_objs) 
+	      end
+	      semester.instructors.each do |instructor|
+	      	import_instructor(instructor, imported_objs)
+	      end
+	      semester.classrooms.each do |classroom|
+	      	import_classroom(classroom, imported_objs)
+	      end
+	      semester.students.each do |student|
+	      	import_student(student, imported_objs)
+	      end
+	    end
+	  rescue Exception => ex
+	  	logger.error("Failed importing session #{semester.name}: #{ex.message}")
+	  	errors.add(:base, "Failed to import session #{semester.name}")
+    	return false	  	
+	  end
+	  
+	  return true
+  end
 
-    failure = false
-    error_message = nil
-    #raise ActiveRecord::Rollback
-
-    ActiveRecord::Base.transaction do
-      instructors = Instructor.find_all_by_semester_id(semester_to_import.id)
-      classrooms = Classroom.find_all_by_semester_id(semester_to_import.id)
-      students = Student.find_all_by_semester_id(semester_to_import.id)
-      courses = Course.find_all_by_semester_id(semester_to_import.id)
-
-      instructors_cloned = Hash.new
-      classrooms_cloned = Hash.new
-      courses.each do |oldcourse|
-        newcourse = oldcourse.dup
-        oldclassroom = Classroom.find_by_id(oldcourse.classroom_id)
-        oldinstructor = Instructor.find_by_id(oldcourse.instructor_id)
-        raise ActiveRecord::Rollback unless duplicate_classroom_for_course(newcourse, oldclassroom,classrooms_cloned)
-        raise ActiveRecord::Rollback unless duplicate_instructor_for_course(newcourse,oldinstructor,instructors_cloned)
-        newcourse.semester_id = self.id
-        raise ActiveRecord::Rollback unless newcourse.save
+  private
+  def import_course(course, imported_objs)
+  	return nil if !course
+  	
+    new_course = imported_objs[:courses][course.id]
+    if !new_course  	
+	    new_course = course.dup
+      new_course.semester = self
+      if course.classroom
+        new_course.classroom = import_classroom(course.classroom, imported_objs)
       end
-
-      instructors.each do |instructor|
-        if instructors_cloned[instructor.id];next;end
-        raise ActiveRecord::Rollback unless duplicate_instructor(instructor)
+      if course.instructor
+        new_course.instructor = import_instructor(course.instructor, imported_objs)
       end
-
-      classrooms.each do |classroom|
-        if classrooms_cloned[classroom.id];next;end
-        raise ActiveRecord::Rollback unless duplicate_classroom(classroom,classrooms_cloned)
-      end
-
-      students.each do |student|
-        raise ActiveRecord::Rollback unless duplicate_student(student,classrooms_cloned)
-      end
+      new_course.save!
+      imported_objs[:courses][course.id] = new_course
     end
+    return new_course
   end
 
   private
-  #Copies classroom for new course
-  def duplicate_classroom_for_course(newcourse, oldclassroom, classrooms_cloned)
-    if classrooms_cloned[oldclassroom.id]
-      newcourse.classroom_id = classrooms_cloned[oldclassroom.id]
-    else
-      newclassroom = oldclassroom.dup
-      newclassroom.semester_id = self.id
-      return false unless newclassroom.save
-      newcourse.classroom_id = newclassroom.id
-      classrooms_cloned[oldclassroom.id] = newclassroom.id
+  def import_classroom(classroom, imported_objs)
+  	return nil if !classroom
+  	
+  	new_classroom = imported_objs[:classrooms][classroom.id]
+    if !new_classroom
+      new_classroom = classroom.dup
+      new_classroom.semester = self
+      new_classroom.save!
+      imported_objs[:classrooms][classroom.id] = new_classroom
     end
-    return true
+    return new_classroom
   end
 
   private
-  #Copies instructor for new course
-  def duplicate_instructor_for_course(newcourse, oldinstructor, instructors_cloned)
-    if instructors_cloned[oldinstructor.id]
-      newcourse.instructor_id = instructors_cloned[oldinstructor.id]
-    else
-      newinstructor = oldinstructor.dup
-      newinstructor.semester_id = self.id
-      return false unless newinstructor.save
-      newcourse.instructor_id = newinstructor.id
-      instructors_cloned[oldinstructor.id] = newinstructor.id
+  def import_instructor(instructor, imported_objs)
+  	return nil if !instructor
+ 
+    new_instructor = imported_objs[:instructors][instructor.id] 	
+    if !new_instructor
+      new_instructor = instructor.dup
+      new_instructor.semester = self
+      new_instructor.save!
+      imported_objs[:instructors][instructor.id] = new_instructor
     end
-    return true
+    return new_instructor
   end
 
   private
-  #Copies classroom to semester
-  def duplicate_classroom(oldclassroom,classrooms_cloned)
-    newclassroom = oldclassroom.dup
-    newclassroom.semester_id = self.id
-    return false unless newclassroom.save
-    classrooms_cloned[oldclassroom.id] = newclassroom.id
-    return true
-  end
+  def import_student(student, imported_objs)
+  	return nil if !student
 
-  private
-  #Copies instructor to semester
-  def duplicate_instructor(oldinstructor)
-    newinstructor = oldinstructor.dup
-    newinstructor.semester_id = self.id
-    return false unless newinstructor.save
-    return true
-  end
-
-  private
-  #Copies student to semester
-  def duplicate_student(oldstudent, classrooms_cloned)
-    newstudent = oldstudent.dup
-    newstudent.semester_id = self.id
-    newstudent.classroom_id = classrooms_cloned[oldstudent.id]
-    return false unless newstudent.save
-    return true
+    new_student = imported_objs[:students][student.id]
+    if !new_student  	
+	    new_student = student.dup
+	    new_student.semester = self
+	    if student.classroom
+	      new_student.classroom = import_classroom(student.classroom, imported_objs)
+	    end
+      new_student.save!
+      imported_objs[:students][student.id] = new_student
+    end
+    return new_student
   end
 end
 

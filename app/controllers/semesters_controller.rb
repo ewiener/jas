@@ -52,7 +52,7 @@ class SemestersController < ApplicationController
     @semester = Semester.find(params[:id])
     return unless valid_semester?(@semester)
     
-    @semesters = Semester.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
+    @semesters = @semester.program.semesters.all.delete_if{|sem| sem == @semester}.sort_by{|semester| semester.start_date_as_date}.reverse
   end
 
   def create
@@ -108,17 +108,15 @@ class SemestersController < ApplicationController
     @semester = Semester.find(params[:id])
     return unless valid_semester?(@semester)
 
-    if params[:import_semester_id]
-      semester_to_import = Semester.find(params[:import_semester_id])
-      return unless valid_semester?(semester_to_import, semester_path(@semester), "Invalid import semester")
-      if @semester.import(semester_to_import)
-        flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
-      else
-      	flash[:warning] = @semester.errors
-      end
+    semester_to_import = Semester.find(params[:import_semester_id])
+    return unless valid_semester?(semester_to_import, semester_path(@semester), "Invalid import semester")
+    
+    if @semester.import(semester_to_import)
+      flash[:notice] = "Successfully imported #{semester_to_import.name} into #{@semester.name}"
     else
-      flash[:warning] = [[:import_semester_id, "The semester id of the semester to import was not found."]]
+    	flash[:warning] = @semester.errors
     end
+
     redirect_to semester_path(@semester)
   end
 

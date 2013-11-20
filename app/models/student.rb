@@ -35,6 +35,10 @@ class Student < ActiveRecord::Base
       '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
     end
   end
+  
+  def name
+  	full_name
+  end
 
   def full_name
   	"#{first_name} #{last_name}"

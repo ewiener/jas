@@ -26,6 +26,10 @@ class Instructor < ActiveRecord::Base
   def has_courses?
   	courses.count > 0
   end
+  
+  def name
+  	full_name_first_last
+  end
 
   #Returns last_name, first_name or just first_name if no last_name exists
   def full_name_last_first

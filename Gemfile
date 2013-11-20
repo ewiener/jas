@@ -9,7 +9,7 @@ gem 'rails', '3.2.15'
 
 gem 'haml-rails'
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.3.1'
 gem 'sass-rails',   '~> 3.2.3'
 
 gem 'rdoc'

@@ -15,4 +15,3 @@
 //= require bootstrap
 //= require jquery-tablesorter
 //= require jquery.print-preview
-

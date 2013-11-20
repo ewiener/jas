@@ -69,5 +69,7 @@ module Ptast
 
     # Don't force ssl in the development environment
     config.force_ssl = false
+    
+    config.assets.initialize_on_precompile = false
   end
 end

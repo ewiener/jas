@@ -19,7 +19,7 @@
     .module-heading
       .module-heading-title= @report.name
 
-    .module-content   
+    .module-content
       %table.data-table.full-width
         %tbody
           %tr
@@ -48,7 +48,7 @@
             %td.indented
               Total registration fees waved
             %td.right-aligned
-              = dollar_amount(-@report.total_student_registration_fee_waived)
+              = link_to dollar_amount(-@report.total_student_registration_fee_waived), semester_path(@semester)
             %td
           %tr
             %td(colspan=3)
@@ -72,7 +72,7 @@
             %td.indented
               Total instructor scholarships
             %td.right-aligned
-              = dollar_amount(-@report.total_teacher_scholarship_amount)
+              = link_to dollar_amount(-@report.total_instructor_scholarship_amount), semester_path(@semester)
             %td
           %tr
             %td.indented

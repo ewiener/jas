@@ -17,13 +17,15 @@ class Semester < ActiveRecord::Base
                   :lottery_deadline,
                   :registration_deadline,
                   :fee,
-                  :dates_with_no_classes_day
-                  
+                  :dates_with_no_classes_day,
+                  :district_surcharge,
+                  :registration_fees_waived,
+                  :instructor_scholarships
+
   attr_accessor :dates_with_no_classes_day,
                 :individual_dates_with_no_classes,
                 :num_days_by_day_of_week,
-                :days_off_by_day_of_week,
-                :district_surcharge
+                :days_off_by_day_of_week
 
   validates :name, :presence => true
   validate :valid_start_date
@@ -31,7 +33,7 @@ class Semester < ActiveRecord::Base
   validate :start_date_before_end_date
   validate :valid_lottery_date
   validate :valid_registration_date
-  
+
   after_validation do
   	self.start_date = start_date_as_date.strftime("%m/%d/%Y")
     self.end_date = end_date_as_date.strftime("%m/%d/%Y")
@@ -39,20 +41,18 @@ class Semester < ActiveRecord::Base
     calc_individual_days_off
     calc_data_by_day_of_week
   end
-  
+
   after_initialize do
   	self.dates_with_no_classes ||= []
   	calc_individual_days_off
   	calc_data_by_day_of_week
-  	# TODO - get this from the database
-  	self.district_surcharge = 0.04
   end
-  
+
   def reports
   	init_reports
   	@reports
   end
-  
+
   def find_report(id)
   	self.reports.find {|report| report.id == id}
   end
@@ -201,14 +201,14 @@ class Semester < ActiveRecord::Base
       if not self.save
       	return false
       end
-      
+
       # Update holidays and counts by day of week
     	calc_individual_days_off
       calc_data_by_day_of_week
     end
     return true
   end
-  
+
   private
   def calc_individual_days_off
   	individual_dates = []
@@ -243,7 +243,7 @@ class Semester < ActiveRecord::Base
     end
     return dates
   end
- 
+
   def calc_data_by_day_of_week
     count_by_day = Hash.new(0)
     days_off_by_day = Hash.new { |hash, key| hash[key] = Array.new }
@@ -266,7 +266,7 @@ class Semester < ActiveRecord::Base
     self.num_days_by_day_of_week = count_by_day
     self.days_off_by_day_of_week = days_off_by_day
   end
-  
+
   def init_reports
   	if self.id && (@reports.nil? || @reports.empty?)
 	  	@reports = [
@@ -284,18 +284,20 @@ class Semester < ActiveRecord::Base
   # Copies instructors, students, classrooms and courses from 'semester' to this semester
   def import(semester)
     return false if !semester
-    
+
+    self.district_surcharge = semester.district_surcharge
+
 	  imported_objs = {
     	classrooms: Hash.new,
     	courses: Hash.new,
     	instructors: Hash.new,
     	students: Hash.new
     }
-	
+
     begin
 	    ActiveRecord::Base.transaction do
 	      semester.courses.each do |course|
-	      	import_course(course, imported_objs) 
+	      	import_course(course, imported_objs)
 	      end
 	      semester.instructors.each do |instructor|
 	      	import_instructor(instructor, imported_objs)
@@ -310,18 +312,18 @@ class Semester < ActiveRecord::Base
 	  rescue Exception => ex
 	  	logger.error("Failed importing session #{semester.name}: #{ex.message}")
 	  	errors.add(:base, "Failed to import session #{semester.name}")
-    	return false	  	
+    	return false
 	  end
-	  
+
 	  return true
   end
 
   private
   def import_course(course, imported_objs)
   	return nil if !course
-  	
+
     new_course = imported_objs[:courses][course.id]
-    if !new_course  	
+    if !new_course
 	    new_course = course.dup
       new_course.semester = self
       if course.classroom
@@ -339,7 +341,7 @@ class Semester < ActiveRecord::Base
   private
   def import_classroom(classroom, imported_objs)
   	return nil if !classroom
-  	
+
   	new_classroom = imported_objs[:classrooms][classroom.id]
     if !new_classroom
       new_classroom = classroom.dup
@@ -353,8 +355,8 @@ class Semester < ActiveRecord::Base
   private
   def import_instructor(instructor, imported_objs)
   	return nil if !instructor
- 
-    new_instructor = imported_objs[:instructors][instructor.id] 	
+
+    new_instructor = imported_objs[:instructors][instructor.id]
     if !new_instructor
       new_instructor = instructor.dup
       new_instructor.semester = self
@@ -369,7 +371,7 @@ class Semester < ActiveRecord::Base
   	return nil if !student
 
     new_student = imported_objs[:students][student.id]
-    if !new_student  	
+    if !new_student
 	    new_student = student.dup
 	    new_student.semester = self
 	    if student.classroom

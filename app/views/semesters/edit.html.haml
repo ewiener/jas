@@ -39,6 +39,22 @@
                   %span.add-on $
                   = text_field :semester, :fee, :value => sprintf("%0.2f", @semester.fee || 0), :class => "span1"
             .control-group
+              = label :semester, :district_surcharge, 'District surcharge', :class => "control-label"
+              .controls
+                = text_field :semester, :district_surcharge, :value => sprintf("%0.2f", @semester.district_surcharge || 0), :class => "span1"
+            .control-group
+              = label :semester, :registration_fees_waived, 'Registration fees waived', :class => "control-label"
+              .controls
+                .input-prepend
+                  %span.add-on $
+                  = text_field :semester, :registration_fees_waived, :value => sprintf("%0.2f", @semester.registration_fees_waived || 0), :class => "span1"
+            .control-group
+              = label :semester, :instructor_scholarships, 'Instructor scholarships', :class => "control-label"
+              .controls
+                .input-prepend
+                  %span.add-on $
+                  = text_field :semester, :instructor_scholarships, :value => sprintf("%0.2f", @semester.instructor_scholarships || 0), :class => "span1"
+            .control-group
               .controls
                 = submit_tag 'Update', :class => "btn btn-warning"
                 = link_to 'Cancel', semester_path(@semester), :class => "btn btn-info"
@@ -60,9 +76,9 @@
                   = text_field :semester, :dates_with_no_classes_day, {:placeholder => "11/23/12 or 11/23/12-11/24/12"}
                 %td
                   = submit_tag 'Add Holiday', :class => "btn btn-info"
-                  
+
           %hr
-      
+
           = form_tag import_semester_path(@semester), :method => :put, :class => "form-horizontal" do
             = select_tag :import_semester_id, options_from_collection_for_select(@semesters, :id, :name),:class => "course_select"
             = submit_tag 'Import', :class => 'btn btn-info'

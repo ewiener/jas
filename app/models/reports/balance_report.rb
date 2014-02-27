@@ -2,34 +2,34 @@ class BalanceReport < Report
 	attr_reader :total_revenue
 	attr_reader :total_student_fee, :total_student_class_fee, :total_student_registration_fee
 	attr_reader :total_student_registration_fee_waived
-	
+
 	attr_reader :total_expenses
 	attr_reader :total_student_refund, :total_student_class_refund, :total_student_registration_refund
 	attr_reader :total_instructor_fee
-	attr_reader :total_teacher_scholarship_amount
+	attr_reader :total_instructor_scholarship_amount
 	attr_reader :district_surcharge_amount
 	attr_reader :district_surcharge_factor
-	
+
 	attr_reader :total_scholarship_amount
 
 	attr_reader :balance
-	
+
 	def name
 		"Balance Report"
 	end
-	
+
 	private
 	def init_report
 		@total_student_fee = @total_student_class_fee = @total_student_registration_fee = 0
 		@total_student_refund = @total_student_class_refund = @total_student_registration_refund = 0
-		@total_student_registration_fee_waived = 0
+		@total_student_registration_fee_waived = @semester.registration_fees_waived || 0
 		@total_instructor_fee = 0
-		@total_teacher_scholarship_amount = 0
+		@total_instructor_scholarship_amount = @semester.instructor_scholarships || 0
 		@total_scholarship_amount = 0
 		@balance = 0
 
     processed_disenrolled_students = Hash.new
-    
+
     @semester.enrollments.each do |enrollment|
       @total_student_class_fee += enrollment.total_fee
       if enrollment.enrolled?
@@ -46,16 +46,18 @@ class BalanceReport < Report
       end
     end
     @semester.students.each do |student|
-      @total_student_registration_fee += student.registration_fee
+      if student.enrolled?
+        @total_student_registration_fee += student.registration_fee
+      end
     end
     @total_student_fee = @total_student_class_fee + @total_student_registration_fee
     @total_student_refund = @total_student_class_refund + @total_student_registration_refund
-    
-    @district_surcharge_factor = @semester.district_surcharge
+
+    @district_surcharge_factor = @semester.district_surcharge || 0
     @district_surcharge_amount = @total_instructor_fee * @district_surcharge_factor
-    
+
     @total_revenue = @total_student_fee - @total_student_refund - @total_student_registration_fee_waived
-    @total_expenses = @total_instructor_fee - @total_teacher_scholarship_amount + @district_surcharge_amount
-    @balance = @total_revenue - @total_expenses 
+    @total_expenses = @total_instructor_fee - @total_instructor_scholarship_amount + @district_surcharge_amount
+    @balance = @total_revenue - @total_expenses
 	end
 end

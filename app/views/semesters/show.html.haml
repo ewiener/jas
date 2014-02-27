@@ -9,7 +9,7 @@
       .module-heading-title #{@semester.name}
       .module-heading-action
         = link_to "Edit", edit_semester_path
-        
+
     .module-content
       .row
         .span5
@@ -39,6 +39,21 @@
                 Lottery deadline:
               %td.attribute-value
                 = @semester.lottery_deadline
+            %tr
+              %td.attribute-label
+                District surcharge:
+              %td.attribute-value
+                = sprintf "%0.2f", @semester.district_surcharge || 0
+            %tr
+              %td.attribute-label
+                Registration fees waived:
+              %td.attribute-value
+                = sprintf "$%0.2f", @semester.registration_fees_waived || 0
+            %tr
+              %td.attribute-label
+                Instructor scholarships:
+              %td.attribute-value
+                = sprintf "$%0.2f", @semester.instructor_scholarships || 0
 
         .span5.offset1
           %table.table.table-striped{:id=>"table_days_off"}
@@ -54,12 +69,12 @@
               %tr
                 %td
                   None
-         
+
 .row
   .span12.module
     = link_to home_of_semester_path, :class => 'btn btn-primary btn-large' do
-      Manage Session &raquo;  
-                  
+      Manage Session &raquo;
+
 
 - content_for :js do
   :javascript

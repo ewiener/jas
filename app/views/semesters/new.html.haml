@@ -7,39 +7,44 @@
   .span6.module#semester-edit
     .module-heading
       .module-heading-title New Session
-      
+
     .module-content
       = form_tag program_semesters_path, :method => :post, :class => "form-horizontal" do
-        .control-group 
+        .control-group
           = label :semester, :name, 'Name:', :class => "control-label"
           .controls
             = text_field :semester, :name
-    
+
         .control-group
           = label :semester, :start_date, 'Start date', :class => "control-label"
           .controls
             = text_field :semester, :start_date, :placeholder => "e.g. 8/15/2012"
-    
+
         .control-group
           = label :semester, :end_date, 'End date', :class => "control-label"
           .controls
             = text_field :semester, :end_date, :placeholder => "e.g. 12/21/2012"
-    
+
         .control-group
           = label :semester, :registration_deadline, 'Registration deadline', :class => "control-label"
           .controls
             = text_field :semester, :registration_deadline, :placeholder => "e.g. 7/30/2012"
-    
+
         .control-group
           = label :semester, :lottery_deadline, 'Lottery deadline', :class => "control-label"
           .controls
             = text_field :semester, :lottery_deadline, :placeholder => "e.g. 8/5/2012"
-    
+
         .control-group
           = label :semester, :fee, 'Registration fee ($)', :class => "control-label"
           .controls
             = text_field :semester, :fee
-    
+
+        .control-group
+          = label :semester, :fee, 'District surcharge', :class => "control-label"
+          .controls
+            = text_field :semester, :fee, :placeholder => "0.00"
+
         .control-group
           .controls
             = submit_tag 'Create', :class => "btn btn-info"

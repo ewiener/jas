@@ -80,7 +80,7 @@
             %td.right-aligned
               = dollar_amount(@report.district_surcharge_amount)
             %td.muted
-              = "#{format_percentage(@report.district_surcharge_factor)} of instructor fees"
+              = link_to "#{format_percentage(@report.district_surcharge_factor)} of instructor fees", semester_path(@semester)
           %tr
             %td(colspan=3)
               &nbsp;

@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   protect_from_forgery
   layout "main"
-  
+
   def site_section
   	:students_section
   end
@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
   def index
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
-    
+
     @students = @semester.students.by_name
     @filter = Hash.new
 
@@ -21,7 +21,7 @@ class StudentsController < ApplicationController
     	@filter[:enrolled] = 'false'
     end
   end
-  
+
   def show
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
@@ -35,9 +35,9 @@ class StudentsController < ApplicationController
   def new
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
-    
+
     @student = flash.key?(:student) ? Student.new(flash[:student]) : Student.new
-    
+
     @classrooms = @semester.classrooms.with_teacher.by_grade_and_teacher
   end
 
@@ -46,7 +46,7 @@ class StudentsController < ApplicationController
     return unless valid_semester?(@semester)
 
     @student = @semester.students.build(params[:student])
-    
+
     @classroom = params[:classroom] && !params[:classroom].empty? ? Classroom.find(params[:classroom]) : nil
     if @classroom
       @student.classroom = @classroom
@@ -72,7 +72,7 @@ class StudentsController < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
-    
+
     @classrooms = @semester.classrooms.with_teacher.by_grade_and_teacher
   end
 
@@ -82,7 +82,7 @@ class StudentsController < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
-    
+
     @student.assign_attributes(params[:student])
 
     @classroom = Classroom.find(params[:classroom])
@@ -94,7 +94,7 @@ class StudentsController < ApplicationController
       redirect_to edit_student_path
     end
 
-    if @student.save 
+    if @student.save
       redirect_to student_path(@student), :notice => "#{@student.first_name} #{@student.last_name}'s information was successfully updated."
     else
       flash[:warning] = @student.errors
@@ -106,7 +106,7 @@ class StudentsController < ApplicationController
   def destroy
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
-    
+
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
 
@@ -118,7 +118,7 @@ class StudentsController < ApplicationController
 
     redirect_to semester_students_path(@semester)
   end
-  
+
   def index_enrollments
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
@@ -127,10 +127,10 @@ class StudentsController < ApplicationController
     return unless valid_semester?(@semester)
 
 	  @enrollments = @student.enrollments.by_course_day_and_course_name
-	  
+
   	render 'students/enrollments/index'
   end
-  
+
   def show_enrollment
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
@@ -140,13 +140,13 @@ class StudentsController < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
-    
+
     @enrollment = @student.find_enrollment(@course)
     return unless valid_enrollment?(@enrollment)
- 
+
   	render 'students/enrollments/show'
   end
-  
+
   def new_enrollment
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
@@ -154,13 +154,18 @@ class StudentsController < ApplicationController
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @student.semester
     return unless valid_semester?(@semester)
 
-    @classes = @semester.courses.by_day_and_name.reject { |course| @student.has_enrollment(course) } 
+    @classes = @semester.courses.by_day_and_name.reject { |course| @student.has_enrollment(course) }
+    if @student.grade == 'K'
+      @classes = @classes.select { |course| course.allows_kindergarten }
+    else
+      @classes = @classes.reject { |course| course.only_kindergarten }
+    end
 
     @enrollment = flash.key?(:enrollment) ? Enrollment.new(flash[:enrollment]) : Enrollment.new
 
   	render 'students/enrollments/new'
   end
-  
+
   def edit_enrollment
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
@@ -170,19 +175,19 @@ class StudentsController < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
-    
+
     @enrollment = @student.find_enrollment(@course)
     return unless valid_enrollment?(@enrollment)
 
-    @classes = @semester.courses.by_day_and_name.reject { |course| @student.has_enrollment(course) } 
+    @classes = @semester.courses.by_day_and_name.reject { |course| @student.has_enrollment(course) }
 
   	render 'students/enrollments/edit'
   end
-  
+
   def create_enrollment
     @student = Student.find(params[:id])
     return unless valid_student?(@student)
-    
+
     @course = params[:enrollment][:course_id].present? ? Course.find(params[:enrollment][:course_id]) : nil
     return unless valid_course?(@course, student_path(@student))
 
@@ -210,11 +215,11 @@ class StudentsController < ApplicationController
     end
     redirect_to student_path
   end
-  
+
   def destroy_enrollment
     @student = Student.find_by_id params[:id]
     return unless valid_student?(@student)
-    
+
     @course = Course.find(params[:course_id])
     return unless valid_course?(@course)
 

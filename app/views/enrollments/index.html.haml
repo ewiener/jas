@@ -15,7 +15,7 @@
         %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
           - @all_teachers.each do |t|
             %li
-              = link_to t.teacher_with_grade, semester_enrollments_path(@semester, :filter_teacher => t.id), :tabindex => '-1' 
+              = link_to t.teacher_with_grade, semester_enrollments_path(@semester, :filter_teacher => t.id), :tabindex => '-1'
       %li.module-heading-tab.dropdown{active_if(@filter[:dismissal])}
         = link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
           #{@filter[:dismissal] ? @filter[:dismissal][:name] : "By Dismissal"}
@@ -23,74 +23,82 @@
         %ul.dropdown-menu(role="menu" aria-labelledby="dropdown")
           - @all_dismissals.each do |d|
             %li
-              = link_to d[:name], semester_enrollments_path(@semester, :filter_dismissal => d[:id]), :tabindex => '-1' 
+              = link_to d[:name], semester_enrollments_path(@semester, :filter_dismissal => d[:id]), :tabindex => '-1'
       %li.module-heading-form
-        = form_tag url_for(params.merge(view_by_grade: nil)), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
+        - form_params = params.merge(view_by_student: nil, view_by_grade: nil, hide_class_time_and_room: nil)
+        = form_tag url_for(form_params), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
           - if @filter[:teacher]
             = hidden_field_tag :filter_teacher, @filter[:teacher].id
           - if @filter[:dismissal]
             = hidden_field_tag :filter_dismissal, @filter[:dismissal][:id]
-          = label_tag 'view_by_grade', :class => 'checkbox' do
+          = label_tag 'view_by_student', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'view_by_student', '1', params[:view_by_student]
+            View by student
+          &nbsp;&nbsp;
+          = label_tag 'view_by_grade', :class => 'checkbox filter-checkbox' do
             = check_box_tag 'view_by_grade', '1', params[:view_by_grade]
             View by grade
+          &nbsp;&nbsp;
+          = label_tag 'view_disenrolled', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'view_disenrolled', '1', params[:view_disenrolled]
+            Include disenrolled
+          &nbsp;&nbsp;
+          = label_tag 'hide_class_time_and_room', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'hide_class_time_and_room', '1', params[:hide_class_time_and_room]
+            Hide class time and room
+
     %h4.print-heading-sub
       = enrollment_index_heading(@filter)
-      
-    - columns = 6
 
-    .module-content   
+    - columns = 3
+
+    .module-content
       %table.data-table.full-width
         %thead
           %tr
             - if @view[:by_grade]
-              - columns = 7
+              - columns = columns + 1
               %td
                 Grade
             %td
               First Name
             %td
               Last Name
+            - if @view[:by_student]
+              - columns = columns + 1
+              %td
+                Day
             %td
               Class
-            %td
-              Time
-            %td
-              Room
+            - if !params[:hide_class_time_and_room]
+              - columns = columns + 2
+              %td
+                Time
+              %td
+                Room
             - if !@filter[:dismissal] && !@filter[:teacher]
+              - columns = columns + 1
               %td
                 Dismissal
         %tbody
-        - days.each do |day|
-          %tbody
-            %tr.success
-              %td.centered{:colspan => columns}
-                %b= day.to_s.capitalize
-          - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
+        - if @view[:by_student]
+          - @enrollments.each do |enrollment|
+            = render partial: 'enrollment_row', locals: { enrollment: enrollment }
+        - else
+          - days.each do |day|
             %tbody
-              - @enrollments_by_day[day].each do |enrollment|
-                %tr
-                  - if @view[:by_grade]
-                    %td
-                      = enrollment.student.grade
-                  %td
-                    = link_to enrollment.student.first_name, student_path(enrollment.student)
-                  %td
-                    = link_to enrollment.student.last_name, student_path(enrollment.student)
-                  %td
-                    = link_to enrollment.course.name_with_grade_level, course_path(enrollment.course)
-                  %td
-                    = enrollment.course.time_range
-                  %td
-                    - if enrollment.course.classroom
-                      = link_to truncate(enrollment.course.classroom.name, length: 13, separator: ' '), classroom_path(enrollment.course.classroom)
-                  - if !@filter[:dismissal] && !@filter[:teacher]
-                    %td
-                      = enrollment.dismissal_to_s
+              %tr.success
+                %td.centered{:colspan => columns}
+                  %b= day.to_s.capitalize
+            - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
+              %tbody
+                - @enrollments_by_day[day].each do |enrollment|
+                  = render partial: 'enrollment_row', locals: { enrollment: enrollment }
 
 - content_for :js do
   :javascript
     $(function() {
-      $('#view_by_grade').click(function(){
+      $('.filter-checkbox').click(function(){
         $('#filter-form').submit();
       });
     });

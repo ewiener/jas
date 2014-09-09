@@ -36,7 +36,7 @@ class Course < ActiveRecord::Base
                   :classroom_id,
                   :instructor,
                   :classroom
-                  
+
   attr_accessor :number_of_classes,
                 :holidays
 
@@ -50,12 +50,12 @@ class Course < ActiveRecord::Base
   validates :course_fee, :numericality => true, :allow_nil => true
   #validates :instructor
   #validates :classroom
-  
+
   after_validation :calc_number_of_classes_and_holidays
   after_initialize :calc_number_of_classes_and_holidays
-  
+
   scope :by_day_and_name, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
-  
+
   def total_fee
   	self.course_fee.to_i + (self.number_of_classes.to_i * self.fee_per_meeting.to_i) + self.fee_for_additional_materials.to_i
   end
@@ -71,7 +71,7 @@ class Course < ActiveRecord::Base
   	daysarr << 'Sunday' if sunday
   	daysarr
   end
-  
+
   def days_of_week
   	daysarr = Array.new
   	daysarr << 1 if monday
@@ -83,24 +83,28 @@ class Course < ActiveRecord::Base
   	daysarr << 7 if sunday
   	daysarr
   end
-  
+
   def abbrev_days
   	days.map {|day| Date.parse(day).strftime("%a")}
   end
-  	
+
+  def abbrev_days_as_string
+    abbrev_days.join(",")
+  end
+
   #Returns array with number of students in course and class_max.
   def class_how_full?
     return [self.students.count, self.class_max]
   end
-  
+
   def num_total_enrollments
   	return enrollments.count
   end
-  
+
   def num_valid_enrollments
   	return enrollments.enrolled.count
   end
-  
+
   def full?
   	return self.class_max && self.num_valid_enrollments == self.class_max
   end
@@ -108,19 +112,19 @@ class Course < ActiveRecord::Base
   def overenrolled?
   	return self.class_max && self.num_valid_enrollments > self.class_max
   end
-  
+
   def overenrolled_by
   	return self.class_max ? [self.num_valid_enrollments - self.class_max, 0].max : 0
   end
-  
+
   def underenrolled?
   	return self.class_min && self.num_valid_enrollments < self.class_min
   end
-  
+
   def underenrolled_by
   	return self.class_min ? [self.class_min - self.num_valid_enrollments, 0].max : 0
   end
-  
+
   def name_with_grade_level
 		course_name = String.new(self.name)
 		if self.grade_range && !self.grade_range.empty?
@@ -128,12 +132,12 @@ class Course < ActiveRecord::Base
 		end
 		return course_name
 	end
-	
+
 	def name_with_day_and_grade_level
 		days = abbrev_days.map {|day| day.upcase}.join(",")
 		course_name = "#{days}: #{name_with_grade_level}"
 	end
-	
+
 	def time_range
 		if self.start_time || self.end_time
 		  "#{self.start_time} - #{self.end_time}"
@@ -141,7 +145,7 @@ class Course < ActiveRecord::Base
 			""
 	  end
 	end
-	
+
 	def class_min_max_range
 		if self.class_min || self.class_max
 		  "#{self.class_min} - #{self.class_max}"
@@ -167,5 +171,15 @@ class Course < ActiveRecord::Base
 	  end
     self.number_of_classes = num_classes
     self.holidays = dates_without_classes
+  end
+
+  # special case method to check if the grade range includes kindergarten
+  def allows_kindergarten
+    self.grade_range.include? 'K'
+  end
+
+  # special case method to check if the grade range is only kindergarten
+  def only_kindergarten
+    self.grade_range == 'K'
   end
 end

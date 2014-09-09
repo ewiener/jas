@@ -13,10 +13,6 @@
       = yield(:css)
     = csrf_meta_tags
     = yield(:head)
-    :javascript
-      $(function() {
-        $('a.print-preview').printPreview();
-      }
   %body
     = render :partial => 'partial/navbar', :locals => {:semester => @semester}
     %header
@@ -32,6 +28,6 @@
       $(function() {
         $('a.print-preview').printPreview();
         $(".data-table").tablesorter();
-        $('a.disabled').click(function() { return false; });     
+        $('a.disabled').click(function() { return false; });
       });
     = yield(:js)

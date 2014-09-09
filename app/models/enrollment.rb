@@ -15,22 +15,23 @@ class Enrollment < ActiveRecord::Base
   validate :course_id_is_valid
   validate :student_id_is_valid
   validate :student_not_already_enrolled
-  
+
   scope :enrolled, where(:enrolled => true)
   scope :disenrolled, where(:enrolled => false)
   scope :by_course_day_and_course_name, joins(:course).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
   scope :by_course_day_and_course_name_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc, last_name asc, first_name asc")
   scope :by_course_day_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, last_name asc, first_name asc")
   scope :by_course_day_and_grade_and_student_name, joins(:student).order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, case when grade = 'K' then '0' else grade end asc, last_name asc, first_name asc")
+  scope :by_student_name_and_course_day, joins(:student).order("last_name asc, first_name asc, sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
+  scope :by_grade_and_student_name_and_course_day, joins(:student).order("case when grade = 'K' then '0' else grade end asc, last_name asc, first_name asc, sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
   scope :by_student_name, joins(:student).order("last_name asc, first_name asc")
-  
   scope :with_teacher, lambda {|teacher| teacher.present? ? where(:students => {:classroom_id => teacher}) : {}}
   scope :with_dismissal, lambda {|dismissal| dismissal.present? ? where(:dismissal => dismissal) : {}}
 
   DISMISSAL = ["Pick Up","JAZ","BEARS","Walk"]
   SCHOLARSHIP = ["None", "Full", "Partial"]
   STATUS = ["Enrolled", "Disenrolled"]
-  
+
   after_initialize do
 	  if self.new_record?
       self.scholarship ||= 0
@@ -38,7 +39,7 @@ class Enrollment < ActiveRecord::Base
       self.enrolled ||= true
 	  end
 	end
-	
+
 	after_validation do
 		if SCHOLARSHIP[self.scholarship] == "Full"
 			self.scholarship_amount = course.total_fee
@@ -46,15 +47,15 @@ class Enrollment < ActiveRecord::Base
 		  self.scholarship_amount = 0
 		end
 	end
-	
+
 	def total_fee
   	course.total_fee.to_i - scholarship_amount.to_i
   end
-    
+
   def amount_due
     enrolled ? total_fee : 0
   end
-  
+
   def has_scholarship?
   	self.scholarship > 0
   end
@@ -117,15 +118,15 @@ class Enrollment < ActiveRecord::Base
   def scholarship_to_s
     if self.scholarship && self.scholarship < SCHOLARSHIP.length
     	return SCHOLARSHIP[self.scholarship]
-    end	
+    end
   end
-  
+
   def dismissal_to_s
     if self.dismissal && self.dismissal < DISMISSAL.length
     	return DISMISSAL[self.dismissal]
     end
   end
-  
+
   public
   def enrolled_to_s
     return self.enrolled ? STATUS[0] : STATUS[1]

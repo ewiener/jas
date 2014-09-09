@@ -1,0 +1,22 @@
+%tr
+  - if @view[:by_grade]
+    %td
+      = strikeout_if(enrollment.student.grade, !enrollment.enrolled)
+  %td
+    = link_to strikeout_if(enrollment.student.first_name, !enrollment.enrolled), student_path(enrollment.student)
+  %td
+    = link_to strikeout_if(enrollment.student.last_name, !enrollment.enrolled), student_path(enrollment.student)
+  - if @view[:by_student]
+    %td
+      = strikeout_if(enrollment.course.abbrev_days_as_string, !enrollment.enrolled)
+  %td
+    = link_to strikeout_if(enrollment.course.name_with_grade_level, !enrollment.enrolled), course_path(enrollment.course)
+  - if !params[:hide_class_time_and_room]
+    %td
+      = strikeout_if(enrollment.course.time_range, !enrollment.enrolled)
+    %td
+      - if enrollment.course.classroom
+        = link_to strikeout_if(truncate(enrollment.course.classroom.name, !enrollment.enrolled), length: 13, separator: ' '), classroom_path(enrollment.course.classroom)
+  - if !@filter[:dismissal] && !@filter[:teacher]
+    %td
+      = strikeout_if(enrollment.dismissal_to_s, !enrollment.enrolled)

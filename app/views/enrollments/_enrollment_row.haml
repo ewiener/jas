@@ -16,7 +16,7 @@
       = strikeout_if(enrollment.course.time_range, !enrollment.enrolled)
     %td
       - if enrollment.course.classroom
-        = link_to strikeout_if(truncate(enrollment.course.classroom.name, !enrollment.enrolled), length: 13, separator: ' '), classroom_path(enrollment.course.classroom)
+        = link_to strikeout_if(truncate(enrollment.course.classroom.name, length: 13, separator: ' '), !enrollment.enrolled), classroom_path(enrollment.course.classroom)
   - if !@filter[:dismissal] && !@filter[:teacher]
     %td
       = strikeout_if(enrollment.dismissal_to_s, !enrollment.enrolled)

@@ -14,6 +14,7 @@ class Student < ActiveRecord::Base
                   :parent_name,
                   :parent_email,
                   :health_alert,
+                  :notes,
                   :classroom_id,
                   :classroom
 
@@ -23,7 +24,7 @@ class Student < ActiveRecord::Base
   validates_format_of :parent_phone, :with => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :allow_blank => true
   validates_format_of :parent_phone2, :with => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :allow_blank => true
   validates :grade, :inclusion => { :in => GRADES, :message => 'must be one of ' + GRADES.join(",")}, :allow_blank => true
-  
+
   scope :by_name, order("last_name asc, first_name asc")
 
   #Formats number
@@ -35,7 +36,7 @@ class Student < ActiveRecord::Base
       '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
     end
   end
-  
+
   def name
   	full_name
   end
@@ -43,27 +44,27 @@ class Student < ActiveRecord::Base
   def full_name
   	"#{first_name} #{last_name}"
   end
-  
+
   def allowable_grades
   	GRADES
   end
-  
+
   def total_fee
   	class_fee + registration_fee
   end
-  
+
   def class_fee
   	enrollments.inject(0) { |sum, enrollment| sum + enrollment.amount_due }
   end
-  
+
   def registration_fee
   	enrollments.count ? semester.fee : 0
   end
-  
+
   def enrolled?
   	num_valid_enrollments > 0
   end
-  
+
   def num_valid_enrollments
   	enrollments.enrolled.count
   end
@@ -71,11 +72,11 @@ class Student < ActiveRecord::Base
   def find_enrollment(course)
   	enrollments.where(:course_id => course.id).first
   end
-  
+
   def has_enrollment(course)
   	enrollments.where(:course_id => course.id).any?
   end
-  
+
   def create_enrollment(attrs)
   	enrollments.create(attrs)
   end

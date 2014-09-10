@@ -12,11 +12,18 @@
         = link_to "Enrolled", semester_students_path(@semester, :filter_enrolled => 'true')
       %li.module-heading-tab{active_if(@filter[:enrolled] == 'false')}
         = link_to "Not Enrolled", semester_students_path(@semester, :filter_enrolled => 'false')
+      %li.module-heading-form
+        - form_params = params.merge(show_notes: nil)
+        = form_tag url_for(form_params), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
+          = label_tag 'show_notes', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'show_notes', '1', params[:show_notes]
+            Show notes
+
       %li.module-heading-action
         = link_to "+ Add Student", new_semester_student_path
     %h3.print-heading-sub
       = student_index_heading(@filter)
-      
+
     .module-content
       %table.data-table.full-width#students
         %thead
@@ -31,8 +38,11 @@
               Teacher
             %td
               Classes
+            - if params[:show_notes]
+              %td
+                Notes
             %td.action
-              
+
         %tbody
           - if !@students.empty?
             - @students.each do |student|
@@ -47,6 +57,9 @@
                   = student.classroom ? link_to(student.classroom.teacher, classroom_path(student.classroom)) : ""
                 %td
                   = student.num_valid_enrollments
+                - if params[:show_notes]
+                  %td
+                    = truncate(student.notes, length: 30)
                 %td.action
                   = link_to edit_student_path(student), :class => "edit-delete" do
                     %i.icon-pencil
@@ -57,7 +70,11 @@
             %tr
               %td.centered(colspan=6)
                 None
-                          
+
 - content_for :js do
   :javascript
-    
+    $(function() {
+      $('.filter-checkbox').click(function(){
+        $('#filter-form').submit();
+      });
+    });

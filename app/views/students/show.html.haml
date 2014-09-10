@@ -8,7 +8,7 @@
     .module-heading
       .module-heading-title= @student.full_name
       .module-heading-action= link_to 'Edit', edit_student_path
-      
+
     .module-content
       %table.attribute-table
         %tr
@@ -42,19 +42,24 @@
             Health Alert:
           %td.attribute-value
             = @student.health_alert
+        %tr
+          %td.attribute-label
+            Admin Notes:
+          %td.attribute-value
+            = @student.notes
 
   .span6.offset1.module#student-enrollments
     .module#enrollment-list
       = render :partial => 'students/enrollments/list', :locals => {:semester => @semester, :student => @student, :enrollments => @enrollments}
     .module#enrollment-detail
-    
+
 - content_for :js do
   :javascript
       $(function() {
         $('body').on('click', '#scholarship-none', function() {
           $("#scholarship-amount-group").hide();
           $("#scholarship-amount").prop("disabled",true);
-        }); 
+        });
         $('body').on('click', '#scholarship-full', function() {
           $("#scholarship-amount-group").hide();
           $("#scholarship-amount").prop("disabled",true);

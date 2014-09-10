@@ -7,51 +7,56 @@
   .span5.module#student-edit
     .module-heading
       .module-heading-title Edit Student
-  
+
     .module-content
       = form_tag student_path(@student), :class =>"form-horizontal", :method => :put do
         .control-group
           = label :student, :first_name, 'First name', :class => "control-label"
           .controls
             = text_field :student, :first_name
-            
+
         .control-group
           = label :student, :last_name, 'Last name', :class => "control-label"
           .controls
             = text_field :student, :last_name
-    
+
         .control-group
           = label :student, :grade, 'Grade', :class => "control-label"
           .controls
             = select_tag "student[grade]", grade_options_for_select(@student.allowable_grades, @student.grade),
                 :prompt => 'Select Grade'
-    
+
         .control-group
           = label :classroom, 'Teacher', :class => "control-label"
           .controls
-            = select_tag :classroom, options_from_collection_for_select(@classrooms, :id, :teacher_with_grade, @student.classroom_id), 
+            = select_tag :classroom, options_from_collection_for_select(@classrooms, :id, :teacher_with_grade, @student.classroom_id),
                 :prompt => 'Select Teacher', :class => "course_select"
-    
+
         .control-group
           = label :student, :parent_phone, 'Parent phone', :class => "control-label"
           .controls
             = phone_field :student, :parent_phone
-    
+
         .control-group
           = label :student, :parent_phone2, 'Parent phone 2', :class => "control-label"
           .controls
             = phone_field :student, :parent_phone2
-    
+
         .control-group
           = label :student, :parent_email, 'Parent email', :class => "control-label"
           .controls
             = email_field :student, :parent_email
-    
+
         .control-group
           = label :student, :health_alert, 'Health alert', :class => "control-label"
           .controls
             = text_area :student, :health_alert, :rows => 5
-    
+
+        .control-group
+          = label :student, :notes, 'Admin notes', :class => "control-label"
+          .controls
+            = text_area :student, :notes, :rows => 3
+
         .control-group
           .controls
             = submit_tag 'Update', :class => "btn btn-warning"
@@ -86,7 +91,7 @@
         $("#enrollment_submit").removeClass("btn-warning");
       });
       $(".enrollment-editx").click(function(event) {
-      
+
         event.preventDefault();
         $courseId = $(this).attr("id").split("_")[2];
         alert($courseId);
@@ -104,7 +109,7 @@
         $("#enrollment_submit").val("Edit "+$courseName);
         $("#enrollment_submit").removeClass("btn-info");
         $("#enrollment_submit").addClass("btn-warning");
-  
+
       });
       $("#enrollment_course_idx").change(function(event) {
         $tmp = $("#enrollment_course_"+$(this).val());

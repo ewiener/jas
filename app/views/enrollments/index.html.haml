@@ -81,19 +81,19 @@
               %td
                 Dismissal
         %tbody
-        - if @view[:by_student]
-          - @enrollments.each do |enrollment|
-            = render partial: 'enrollment_row', locals: { enrollment: enrollment }
-        - else
-          - days.each do |day|
-            %tbody
-              %tr.success
-                %td.centered{:colspan => columns}
-                  %b= day.to_s.capitalize
-            - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
+          - if @view[:by_student]
+            - @enrollments.each do |enrollment|
+              = render partial: 'enrollment_row', locals: { enrollment: enrollment }
+          - else
+            - days.each do |day|
               %tbody
-                - @enrollments_by_day[day].each do |enrollment|
-                  = render partial: 'enrollment_row', locals: { enrollment: enrollment }
+                %tr.success
+                  %td.centered{:colspan => columns}
+                    %b= day.to_s.capitalize
+              - if @enrollments_by_day[day] && @enrollments_by_day[day].length > 0
+                %tbody
+                  - @enrollments_by_day[day].each do |enrollment|
+                    = render partial: 'enrollment_row', locals: { enrollment: enrollment }
 
 - content_for :js do
   :javascript

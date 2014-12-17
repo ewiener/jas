@@ -39,8 +39,7 @@
                     = link_to 'Sessions', program_semesters_path(current_program), :tabindex => '-1'
                   %li
                     = link_to 'Users', program_users_path(current_program), :tabindex => '-1'
-                
+
         %ul.nav.pull-right
           %li#navbar-user_session
             = link_to "Logout #{current_user.username}", logout_path
- 

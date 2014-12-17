@@ -1,0 +1,34 @@
+.row
+  .span6
+    .module-heading
+      .module-heading-title= @invoice.name
+
+    .module-content
+      = form_tag invoice_path(@invoice), :method => :put, :class =>"form-horizontal" do
+        .control-group
+          = label :invoice, :name, 'Invoice Period', :class => "control-label"
+          .controls
+            = text_field :invoice, :name, :class => "span4", :id => "name"
+
+        .control-group
+          = label :invoice, :amount, 'Amount', :class => "control-label"
+          .controls
+            .input-prepend
+              %span.add-on $
+              = text_field :invoice, :amount, :value => sprintf("%0.2f", @invoice.amount.to_f), :class => "span1", :id => "amount"
+
+        .control-group
+          = label :invoice, :submitted_at, 'Submitted On', :class => "control-label"
+          .controls
+            = text_field :invoice, :submitted_at, :class => "span2", :id => "submitted_at"
+
+        .control-group
+          = label :invoice, :notes, 'Notes', :class => "control-label"
+          .controls
+            = text_area :invoice, :notes, :rows => 3, :class => "span4", :id => "notes"
+
+        .control-group
+          .controls
+            = submit_tag 'Update', :id => "invoice_submit", :class => "btn btn-warning"
+            = link_to 'Cancel', instructor_path(@invoice.instructor), :id => "invoice_cancel", :class => "btn btn-info"
+

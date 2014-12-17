@@ -7,10 +7,10 @@
   .span5.module#class-edit
     .module-heading
       .module-heading-title Edit Class
-  
+
     .module-content
       = form_tag course_path(@course), :method => "put", :class =>"form-horizontal" do
-        .control-group 
+        .control-group
           = label :course, :name, 'Name', :class => "control-label"
           .controls
             = text_field :course, :name
@@ -18,7 +18,7 @@
         .control-group
           = label :temp, :instructor_id, 'Instructor', :class => "control-label"
           .controls
-            = select_tag "course[instructor_id]", options_from_collection_for_select(@instructors, :id, :full_name_first_last, @course.instructor_id), 
+            = select_tag "course[instructor_id]", options_from_collection_for_select(@instructors, :id, :full_name_first_last, @course.instructor_id),
                 :prompt => 'Select Instructor', :class => "course_select"
 
         .control-group
@@ -49,7 +49,7 @@
           = label :course, :start_time, 'Start time', :class => "control-label"
           .controls
             = text_field :course, :start_time, :placeholder => "e.g. 3:00PM"
-        
+
         .control-group
           = label :course, :end_time, 'End time', :class => "control-label"
           .controls
@@ -58,7 +58,7 @@
         .control-group
           = label :temp, :location, 'Room', :class => "control-label"
           .controls
-            = select_tag "course[classroom_id]", options_from_collection_for_select(@classrooms, :id, :name, @course.classroom_id), 
+            = select_tag "course[classroom_id]", options_from_collection_for_select(@classrooms, :id, :name, @course.classroom_id),
                 :prompt => 'Select Room', :class => "course_select"
 
         .control-group
@@ -96,6 +96,11 @@
             .input-prepend
               %span.add-on $
               = text_field :course, :fee_for_additional_materials, :value => sprintf("%0.2f", @course.fee_for_additional_materials), :class => "span1"
+
+        .control-group
+          = label :course, :instructor_scholarships, 'Instructor scholarships', :class => "control-label"
+          .controls
+            = text_field :course, :instructor_scholarships, :class => "span1"
 
         .control-group
           .controls

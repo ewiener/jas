@@ -24,7 +24,7 @@ class BalanceReport < Report
 		@total_student_refund = @total_student_class_refund = @total_student_registration_refund = 0
 		@total_student_registration_fee_waived = @semester.registration_fees_waived || 0
 		@total_instructor_fee = 0
-		@total_instructor_scholarship_amount = @semester.instructor_scholarships || 0
+		@total_instructor_scholarship_amount = 0
 		@total_scholarship_amount = 0
 		@balance = 0
 
@@ -48,6 +48,11 @@ class BalanceReport < Report
     @semester.students.each do |student|
       if student.enrolled?
         @total_student_registration_fee += student.registration_fee
+      end
+    end
+    @semester.courses.each do |course|
+      if course.num_valid_enrollments > 0 && course.instructor_scholarships.to_i > 0
+        @total_instructor_scholarship_amount = @total_instructor_scholarship_amount + course.total_fee * course.instructor_scholarships.to_i
       end
     end
     @total_student_fee = @total_student_class_fee + @total_student_registration_fee

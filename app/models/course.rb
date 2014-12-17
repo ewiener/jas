@@ -35,7 +35,8 @@ class Course < ActiveRecord::Base
                   :instructor_id,
                   :classroom_id,
                   :instructor,
-                  :classroom
+                  :classroom,
+                  :instructor_scholarships
 
   attr_accessor :number_of_classes,
                 :holidays
@@ -57,7 +58,7 @@ class Course < ActiveRecord::Base
   scope :by_day_and_name, order("sunday desc, monday desc, tuesday desc, wednesday desc, thursday desc, friday desc, saturday desc, name asc")
 
   def total_fee
-  	self.course_fee.to_i + (self.number_of_classes.to_i * self.fee_per_meeting.to_i) + self.fee_for_additional_materials.to_i
+  	((self.course_fee.to_f + (self.number_of_classes.to_i * self.fee_per_meeting.to_f) + self.fee_for_additional_materials.to_f) * 100).to_i / 100
   end
 
   def days

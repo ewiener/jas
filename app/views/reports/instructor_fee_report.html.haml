@@ -17,13 +17,25 @@
             %td
               Class
             %td.right-aligned
-              Cost/Student
+              Mtgs
             %td.right-aligned
-              Students
+              $/Mtg
             %td.right-aligned
-              Scholarships
+              Addl $
+            %td.right-aligned
+              $/Stdnt
+            %td.right-aligned
+              Stdnts
+            %td.right-aligned
+              PTA Schol.
+            %td.right-aligned
+              Instr. Schol.
+            %td.right-aligned
+              Bill. Stdnts
             %td.right-aligned
               Total Due
+            %td.right-aligned
+              Invoiced
         %tbody
           - if @report.instructors.length > 0
             - @report.instructors.each do |instructor_data|
@@ -31,16 +43,29 @@
                 %td(colspan=2)
                   = link_to instructor_data.instructor.full_name_first_last, instructor_path(instructor_data.instructor)
                 %td
-                %td
                 %td.right-aligned
-                  %b Total
+                %td.right-aligned
+                %td.right-aligned
+                %td.right-aligned
+                %td.right-aligned
+                %td.right-aligned
+                  %b= instructor_data.total_instructor_scholarships
+                %td.right-aligned
                 %td.right-aligned
                   %b= dollar_amount(instructor_data.total_fee)
+                %td.right-aligned
+                  %b= dollar_amount(instructor_data.total_invoiced)
               - instructor_data.courses.each do |course_data|
                 %tr
                   %td
                   %td
                     = link_to course_data.course.name_with_day_and_grade_level, course_path(course_data.course)
+                  %td.right-aligned
+                    = course_data.course.number_of_classes
+                  %td.right-aligned
+                    = dollar_amount(course_data.course.fee_per_meeting)
+                  %td.right-aligned
+                    = dollar_amount(course_data.course.fee_for_additional_materials)
                   %td.right-aligned
                     = dollar_amount(course_data.course.total_fee)
                   %td.right-aligned
@@ -48,19 +73,33 @@
                   %td.right-aligned
                     = course_data.num_scholarships
                   %td.right-aligned
+                    = course_data.num_instructor_scholarships
+                  %td.right-aligned
+                    = course_data.num_billable_students
+                  %td.right-aligned
                     = dollar_amount(course_data.total_fee)
+                  %td.right-aligned
             %tr
-              %td(colspan=6)
+              %td(colspan=12)
                 &nbsp;
           %tr
             %td
+              %b Grand Total
+            %td
+            %td
+            %td
             %td
             %td
             %td
             %td.right-aligned
-              %b Grand Total
+              %b= @report.total_scholarships
+            %td.right-aligned
+              %b= @report.total_instructor_scholarships
+            %td
             %td.right-aligned
               %b= dollar_amount(@report.total_fee)
+            %td.right-aligned
+              %b= dollar_amount(@report.total_invoiced)
 
 - content_for :js do
   :javascript

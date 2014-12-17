@@ -6,6 +6,7 @@ class Semester < ActiveRecord::Base
   has_many :instructors, :dependent => :destroy
   has_many :classrooms, :dependent => :destroy
   has_many :enrollments, :through => :courses
+  has_many :invoices, :through => :instructors
   belongs_to :program
 
   serialize :dates_with_no_classes

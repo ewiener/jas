@@ -1,0 +1,48 @@
+-# This file is app/views/invoices/semester_index.html.haml
+!!! 5
+
+- content_for :title, invoice_index_heading(@filter)
+
+.row
+  .span12
+    .module-heading
+      .module-heading-title Instructor Invoices
+
+    .module-content
+      %table.data-table.full-width
+        %thead
+          %tr
+            %td
+              Instructor
+            %td
+              Invoice Period
+            %td
+              Submitted On
+            %td
+              Amount
+        %tbody
+          - if @invoices && @invoices.length > 0
+            - @invoices.each do |invoice|
+              %tr
+                %td
+                  = link_to invoice.instructor.name, instructor_path(invoice.instructor)
+                %td
+                  = invoice.name
+                %td
+                  = invoice.submitted_at
+                %td
+                  = dollar_amount(invoice.amount)
+          - else
+            %tr
+              %td.centered(colspan=4)
+                None
+
+- content_for :js do
+  :javascript
+    $(function() {
+      $('.filter-checkbox').click(function(){
+        $('#filter-form').submit();
+      });
+    });
+
+

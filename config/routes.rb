@@ -11,6 +11,7 @@ Ptast::Application.routes.draw do
 	  	member do
 	  		get 'switch'
 	  		get 'home', :as => 'home_of'
+        get 'invoices', :to => 'invoices#semester_index', :as => 'invoices_for'
 	  		put 'import'
 	  		delete 'days_off', :action => :delete_days_off, :as => 'days_off_for'
 	  	end
@@ -21,7 +22,9 @@ Ptast::Application.routes.draw do
 	      end
 	    end
 	    resources :classrooms
-	    resources :instructors
+	    resources :instructors, :shallow => true do
+        resources :invoices
+      end
 	    resources :students do
 	      member do
 	      	get 'index_enrollments', :as => 'enrollments_for'

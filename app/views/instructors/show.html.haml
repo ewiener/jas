@@ -8,7 +8,7 @@
     .module-heading
       .module-heading-title= @instructor.full_name_first_last
       .module-heading-action= link_to 'Edit', edit_instructor_path
-      
+
     .module-content
       %table.attribute-table
         %tr
@@ -35,6 +35,9 @@
   .span6.offset1#instructor-classes
     .module#class-list
       = render :partial => 'courses_by_instructor', :locals => {:semester => @semester, :instructor => @instructor}
+    .module#invoice-list
+      = render :partial => 'invoices/list', :locals => {:semester => @semester, :instructor => @instructor, :invoices => @instructor.invoices}
+    .module#invoice-detail
 
 - content_for :js do
   :javascript

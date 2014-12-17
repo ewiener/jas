@@ -1,6 +1,7 @@
 class Instructor < ActiveRecord::Base
 
   has_many :courses
+  has_many :invoices, :dependent => :destroy
   has_many :classrooms, :through => :courses
   belongs_to :semester
   has_many :students, :through => :courses
@@ -22,11 +23,11 @@ class Instructor < ActiveRecord::Base
   def can_be_deleted?
   	!has_courses?
   end
-  
+
   def has_courses?
   	courses.count > 0
   end
-  
+
   def name
   	full_name_first_last
   end
@@ -51,5 +52,9 @@ class Instructor < ActiveRecord::Base
       digits = digits.join
       '(%s) %s-%s' % [ digits[0,3], digits[3,3], digits[6,4] ]
     end
+  end
+
+  def total_invoiced_amount
+    invoices.inject(0) { |sum, invoice| sum + invoice.amount }
   end
 end

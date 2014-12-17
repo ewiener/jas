@@ -1,0 +1,30 @@
+.row
+  .span6
+    .module-heading
+      .module-heading-title= @invoice.name
+      .module-heading-action
+        = link_to "Edit", "#",
+            :onclick => "$('#invoice-detail').load('#{edit_invoice_path(@invoice)} #main')"
+    .module-content
+      %table.attribute-table
+        %tr
+          %td.attribute-label
+            Name:
+          %td.attribute-value
+            = @invoice.name
+        %tr
+          %td.attribute-label
+            Amount:
+          %td.attribute-value
+            = dollar_amount(@invoice.amount)
+        %tr
+          %td.attribute-label
+            Submitted On:
+          %td.attribute-value
+            = @invoice.submitted_at
+        %tr
+          %td.attribute-label
+            Notes:
+          %td.attribute-value
+            = @invoice.notes
+

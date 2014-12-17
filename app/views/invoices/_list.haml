@@ -1,0 +1,53 @@
+.module-heading
+  .module-heading-title Invoices
+  .module-heading-action
+    = link_to "+ Add Invoice", "#",
+        :onclick => "$('#invoice-detail').load('#{new_instructor_invoice_path(instructor)} #main')"
+
+.module-content
+  %table.data-table.full-width
+    %thead
+      %tr
+        %td
+          Invoice Period
+        %td
+          Submitted On
+        %td
+          Amount
+        %td.action
+
+    %tbody
+      - if invoices && invoices.length > 0
+        - invoices.each_with_index do |invoice, index|
+          %tr
+            %td
+              = link_to invoice.name, "#",
+                  :class => "invoice-edit", :id => "invoice_index_#{invoice.id}_link",
+                  :onclick => "$('#invoice-detail').load('#{invoice_path(invoice)} #main')"
+            %td
+              = invoice.submitted_at
+            %td
+              = dollar_amount(invoice.amount)
+            %td.action
+              = link_to "#",
+                  :class => "edit-delete", :id => "invoice_index_#{invoice.id}_link",
+                  :onclick => "$('#invoice-detail').load('#{edit_invoice_path(invoice)} #main')" do
+                %i.icon-pencil
+              = link_to invoice_path(invoice), :method => :delete, :class => "edit-delete",
+                  :data => { :confirm => "Are you sure you want to delete this invoice?" } do
+                %i.icon-trash
+      - else
+        %tr
+          %td.centered(colspan=4)
+            None
+    - if invoices && invoices.length > 0
+      %tfoot
+        %tr
+          %td
+          %td
+            %b
+              Total
+          %td
+            %b
+              = dollar_amount(instructor.total_invoiced_amount)
+          %td

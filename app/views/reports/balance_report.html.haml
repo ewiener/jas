@@ -63,7 +63,7 @@
             %td.indented
               Total fees owed instructors
             %td.right-aligned
-              = link_to dollar_amount(@report.total_instructor_fee), report_path(@semester.find_report_by_name("Instructor Fee Report").id)
+              = link_to dollar_amount(@report.total_instructor_fee), report_path(@semester.find_report_by_name("Instructor Report").id)
             %td.muted
               = "(#{dollar_amount(@report.total_student_class_fee - @report.total_student_class_refund)} from student fees + "
               = link_to dollar_amount(@report.total_scholarship_amount), report_path(@semester.find_report_by_name("Scholarship Report").id)
@@ -72,7 +72,7 @@
             %td.indented
               Total instructor scholarships
             %td.right-aligned
-              = link_to dollar_amount(-@report.total_instructor_scholarship_amount), semester_path(@semester)
+              = link_to dollar_amount(-@report.total_instructor_scholarship_amount), report_path(@semester.find_report_by_name("Instructor Report").id)
             %td
           %tr
             %td.indented

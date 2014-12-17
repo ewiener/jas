@@ -7,44 +7,44 @@
   .span5.module#instructor-edit
     .module-heading
       .module-heading-title Edit Instructor
-  
+
     .module-content
       = form_tag instructor_path(@instructor), :method => "put", :class =>"form-horizontal" do
-        %div.control-group 
+        .control-group
           = label :instructor, :first_name, 'First name', :class => "control-label"
-          %div.controls
+          .controls
             = text_field :instructor, :first_name
 
-        %div.control-group 
+        .control-group
           = label :instructor, :last_name, 'Last name', :class => "control-label"
-          %div.controls
+          .controls
             = text_field :instructor, :last_name
 
-        %div.control-group
+        .control-group
           = label :instructor, :email, 'Email', :class => "control-label"
-          %div.controls
+          .controls
             = text_field :instructor, :email
 
-        %div.control-group
+        .control-group
           = label :instructor, :phone, 'Phone number', :class => "control-label"
-          %div.controls
+          .controls
             = text_field :instructor, :phone
 
-        %div.control-group
+        .control-group
           = label :instructor, :address, 'Address', :class => "control-label"
-          %div.controls
+          .controls
             = text_area :instructor, :address, :rows => 5
 
-        %div.control-group
+        .control-group
           = label :instructor, :bio, 'Biography', :class => "control-label"
-          %div.controls
+          .controls
             = text_area :instructor, :bio, :rows => 5
 
-        %div.control-group
-          %div.controls
+        .control-group
+          .controls
             = submit_tag 'Update', :class => "btn btn-warning"
             = link_to 'Cancel', instructor_path, :class => "btn btn-info"
-            
+
 - content_for :js do
   :javascript
 

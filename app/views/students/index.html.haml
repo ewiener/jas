@@ -13,8 +13,13 @@
       %li.module-heading-tab{active_if(@filter[:enrolled] == 'false')}
         = link_to "Not Enrolled", semester_students_path(@semester, :filter_enrolled => 'false')
       %li.module-heading-form
-        - form_params = params.merge(show_notes: nil)
-        = form_tag url_for(form_params), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
+        - form_params = params.merge(show_notes: nil, show_fees: nil)
+        = form_tag semester_students_path(@semester), :method => 'get', :class => 'form-inline', :id => 'filter-form' do
+          = hidden_field_tag 'filter_enrolled', params[:filter_enrolled]
+          = label_tag 'show_fees', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'show_fees', '1', params[:show_fees]
+            Show fees paid
+          &nbsp;
           = label_tag 'show_notes', :class => 'checkbox filter-checkbox' do
             = check_box_tag 'show_notes', '1', params[:show_notes]
             Show notes
@@ -38,6 +43,9 @@
               Teacher
             %td
               Classes
+            - if params[:show_fees]
+              %td
+                Fees Paid
             - if params[:show_notes]
               %td
                 Notes
@@ -57,6 +65,9 @@
                   = student.classroom ? link_to(student.classroom.teacher, classroom_path(student.classroom)) : ""
                 %td
                   = student.num_valid_enrollments
+                - if params[:show_fees]
+                  %td
+                    = dollar_amount(student.total_fee)
                 - if params[:show_notes]
                   %td
                     = truncate(student.notes, length: 30)

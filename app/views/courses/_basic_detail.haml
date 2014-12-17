@@ -2,7 +2,7 @@
   .module-heading
     .module-heading-title= course.name_with_day_and_grade_level
     .module-heading-action= link_to 'Edit', edit_course_path(course)
-    
+
   .module-content
     %table.attribute-table.print-bigger
       %tr
@@ -21,7 +21,7 @@
         %td.attribute-label
           Day:
         %td.attribute-value
-          = course.days.join(", ")     
+          = course.days.join(", ")
       %tr
         %td.attribute-label
           Time:
@@ -63,10 +63,15 @@
         %td.attribute-value
           %b
             #{sprintf("$%0.2f", course.total_fee)}
+      %tr
+        %td.attribute-label
+          Instructor scholarships:
+        %td.attribute-value
+          %b
+            = course.instructor_scholarships
 
-    %br    
+    %br
     %p.noprint
       Description:
       %br
       = course.description
-    

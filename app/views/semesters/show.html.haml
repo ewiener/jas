@@ -49,11 +49,6 @@
                 Registration fees waived:
               %td.attribute-value
                 = sprintf "$%0.2f", @semester.registration_fees_waived || 0
-            %tr
-              %td.attribute-label
-                Instructor scholarships:
-              %td.attribute-value
-                = sprintf "$%0.2f", @semester.instructor_scholarships || 0
 
         .span5.offset1
           %table.table.table-striped{:id=>"table_days_off"}

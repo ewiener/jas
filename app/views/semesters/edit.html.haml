@@ -49,12 +49,6 @@
                   %span.add-on $
                   = text_field :semester, :registration_fees_waived, :value => sprintf("%0.2f", @semester.registration_fees_waived || 0), :class => "span1"
             .control-group
-              = label :semester, :instructor_scholarships, 'Instructor scholarships', :class => "control-label"
-              .controls
-                .input-prepend
-                  %span.add-on $
-                  = text_field :semester, :instructor_scholarships, :value => sprintf("%0.2f", @semester.instructor_scholarships || 0), :class => "span1"
-            .control-group
               .controls
                 = submit_tag 'Update', :class => "btn btn-warning"
                 = link_to 'Cancel', semester_path(@semester), :class => "btn btn-info"

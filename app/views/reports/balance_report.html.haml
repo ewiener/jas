@@ -55,9 +55,9 @@
               &nbsp;
           %tr
             %td
-              %b Total expenses
+              %b Total expenses (Projected)
             %td.right-aligned
-              %b= dollar_amount(@report.total_expenses)
+              %b= dollar_amount(@report.total_expenses_proj)
             %td
           %tr
             %td.indented
@@ -78,7 +78,7 @@
             %td.indented
               BUSD surcharge
             %td.right-aligned
-              = dollar_amount(@report.district_surcharge_amount)
+              = dollar_amount(@report.district_surcharge_amount_proj)
             %td.muted
               = link_to "#{format_percentage(@report.district_surcharge_factor)} of instructor fees", semester_path(@semester)
           %tr
@@ -86,9 +86,37 @@
               &nbsp;
           %tr
             %td
-              %b Balance
+              %b Total expenses (Actual)
             %td.right-aligned
-              %b= dollar_amount(@report.balance)
+              %b= dollar_amount(@report.total_expenses_actual)
+            %td
+          %tr
+            %td.indented
+              Total invoiced amount
+            %td.right-aligned
+              = link_to dollar_amount(@report.total_instructor_invoiced_amount), report_path(@semester.find_report_by_name("Instructor Report").id)
+            %td
+          %tr
+            %td.indented
+              BUSD surcharge
+            %td.right-aligned
+              = dollar_amount(@report.district_surcharge_amount_actual)
+            %td.muted
+              = link_to "#{format_percentage(@report.district_surcharge_factor)} of instructor fees", semester_path(@semester)
+          %tr
+            %td(colspan=3)
+              &nbsp;
+          %tr
+            %td
+              %b Balance (Projected)
+            %td.right-aligned
+              %b= dollar_amount(@report.balance_proj)
+            %td
+          %tr
+            %td
+              %b Balance (Actual)
+            %td.right-aligned
+              %b= dollar_amount(@report.balance_actual)
             %td
 
 - content_for :js do

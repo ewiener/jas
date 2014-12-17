@@ -59,7 +59,7 @@ class BalanceReport < Report
     @total_student_refund = @total_student_class_refund + @total_student_registration_refund
 
     @district_surcharge_factor = @semester.district_surcharge || 0
-    @district_surcharge_amount = @total_instructor_fee * @district_surcharge_factor
+    @district_surcharge_amount = (@total_instructor_fee - @total_instructor_scholarship_amount) * @district_surcharge_factor
 
     @total_revenue = @total_student_fee - @total_student_refund - @total_student_registration_fee_waived
     @total_expenses = @total_instructor_fee - @total_instructor_scholarship_amount + @district_surcharge_amount

@@ -46,6 +46,10 @@
           = label_tag 'hide_class_time_and_room', :class => 'checkbox filter-checkbox' do
             = check_box_tag 'hide_class_time_and_room', '1', params[:hide_class_time_and_room]
             Hide class time and room
+          &nbsp;&nbsp;
+          = label_tag 'view_fees', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'view_fees', '1', params[:view_fees]
+            Show fees
 
     %h4.print-heading-sub
       = enrollment_index_heading(@filter)
@@ -80,6 +84,10 @@
               - columns = columns + 1
               %td
                 Dismissal
+            - if params[:view_fees]
+              - columns = columns + 1
+              %td
+                Total fees
         %tbody
           - if @view[:by_student]
             - @enrollments.each do |enrollment|

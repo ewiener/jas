@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby "2.1.1"
+ruby "2.2.2"
 
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.22'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,8 +14,10 @@ gem 'sass-rails',   '~> 3.2.3'
 
 gem 'rdoc'
 
+gem 'pg'
+
 group :production do
-  gem 'pg'
+  #gem 'pg'
   gem 'authlogic'
 end
 
@@ -31,7 +33,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'simplecov'
-  gem 'sqlite3'
+  #gem 'sqlite3'
   gem 'authlogic'
 end
 

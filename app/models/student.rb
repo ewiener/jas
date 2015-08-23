@@ -4,7 +4,7 @@ class Student < ActiveRecord::Base
   has_many :enrollments, :dependent => :destroy
   has_many :courses, :through => :enrollments
 
-  GRADES = ["K","1","2","3","4","5"]
+  GRADES = ["TK","K","1","2","3","4","5"]
 
   attr_accessible :first_name,
                   :last_name,

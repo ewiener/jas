@@ -1,7 +1,7 @@
 class CoursesController  < ApplicationController
   protect_from_forgery
   layout "main"
-  
+
   def site_section
   	:courses_section
   end
@@ -9,7 +9,7 @@ class CoursesController  < ApplicationController
   def index
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
-    
+
     @courses = @semester.courses.by_day_and_name
     @filter = Hash.new
 
@@ -22,9 +22,12 @@ class CoursesController  < ApplicationController
     elsif (params[:filter_enrollment] == 'full')
     	@courses = @courses.select{|course| course.full?}
     	@filter[:enrollment] = 'full'
+    elsif (params[:filter_enrollment] == 'open')
+      @courses = @courses.select{|course| course.open?}
+      @filter[:enrollment] = 'open'
     end
   end
-  
+
   def show
     @course = Course.find(params[:id])
     return unless valid_course?(@course)
@@ -36,17 +39,17 @@ class CoursesController  < ApplicationController
   def new
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester)
-    
+
     @instructors = @semester.instructors.by_name
     @classrooms = @semester.classrooms.by_name
-    
+
     @course = flash.key?(:course) ? Course.new(flash[:course]) : Course.new
   end
 
   def create
     @semester = Semester.find(params[:semester_id])
     return unless valid_semester?(@semester, semester_courses_path)
-    
+
     @course = @semester.courses.create(params[:course])
     if not @course.new_record?
     	redirect_to semester_courses_path, :notice => "Successfully created #{@course.name}."
@@ -74,7 +77,7 @@ class CoursesController  < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
-    
+
     if @course.update_attributes(params[:course])
       redirect_to course_path(@course), :notice => "#{@course.name} was successfully updated."
     else
@@ -90,13 +93,13 @@ class CoursesController  < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester)
-    
+
     if @course.destroy
       flash[:notice] = "#{@course.name} was successfully deleted."
     else
       flash[:warning] = @course.errors
     end
-    
+
     redirect_to semester_courses_path(@semester)
   end
 
@@ -107,7 +110,7 @@ class CoursesController  < ApplicationController
 
     @semester = params.include?(:semester_id) ? Semester.find(params[:semester_id]) : @course.semester
     return unless valid_semester?(@semester, :no_redirect)
-        
+
     class_meetings = 0
     class_meetings_by_day = @semester.specific_days_in_semester
     params.each do |d, value|
@@ -117,7 +120,7 @@ class CoursesController  < ApplicationController
         class_meetings += class_meetings_by_day[day_of_week]
       end
     end
- 
+
     render :json => class_meetings.to_json
   end
 
@@ -125,6 +128,6 @@ class CoursesController  < ApplicationController
     course = Course.find(params[:id])
     return unless valid_course(course, :no_redirect)
     render :json => course.total_fee.to_json
-  end  
+  end
 
 end

@@ -46,7 +46,7 @@
           %td.attribute-label
             Admin Notes:
           %td.attribute-value
-            = @student.notes
+            = @student.notes && @student.notes.gsub(/\r|\n/, "<br>").html_safe
 
   .span6.offset1.module#student-enrollments
     .module#enrollment-list

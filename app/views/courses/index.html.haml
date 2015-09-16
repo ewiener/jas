@@ -8,6 +8,8 @@
     %ul.module-heading-tabs
       %li.module-heading-tab{active_if(@filter.empty?)}
         = link_to "All", semester_courses_path(@semester)
+      %li.module-heading-tab{active_if(@filter[:enrollment] == 'open')}
+        = link_to "Open", semester_courses_path(@semester, :filter_enrollment => 'open')
       %li.module-heading-tab{active_if(@filter[:enrollment] == 'full')}
         = link_to "Full", semester_courses_path(@semester, :filter_enrollment => 'full')
       %li.module-heading-tab{active_if(@filter[:enrollment] == 'overenrolled')}
@@ -18,7 +20,7 @@
         = link_to "+ Add Class", new_semester_course_path
     %h3.print-heading-sub
       = course_index_heading(@filter)
-              
+
     .module-content
       %table.data-table.full-width#classes
         %thead
@@ -61,7 +63,7 @@
                 %td.action
                   = link_to edit_course_path(course), :class => "edit-delete" do
                     %i.icon-pencil
-                  = link_to course_path(course), :method => :delete, :class => "edit-delete", 
+                  = link_to course_path(course), :method => :delete, :class => "edit-delete",
                       :data => { :confirm => "Are you sure you want to delete \"#{course.name}\"?  Doing so will also delete all the enrollments for students that are associated with this course.  Are you really sure you want to delete \"#{course.name}\" course and all enrollments of students thare are associated with it?" } do
                     %i.icon-trash
           - else

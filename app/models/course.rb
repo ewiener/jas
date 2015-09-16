@@ -110,6 +110,10 @@ class Course < ActiveRecord::Base
     return enrollments.enrolled.with_scholarship.count
   end
 
+  def open?
+    return self.class_max && self.num_valid_enrollments < self.class_max
+  end
+
   def full?
   	return self.class_max && self.num_valid_enrollments == self.class_max
   end

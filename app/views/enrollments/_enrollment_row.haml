@@ -23,3 +23,6 @@
   - if params[:view_fees]
     %td
       = dollar_amount(enrollment.student.total_fee)
+  - if params[:view_date]
+    %td
+      = format_date_YMD(enrollment.updated_at)

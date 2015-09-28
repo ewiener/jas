@@ -38,6 +38,10 @@ module ApplicationHelper
   	return percentage.html_safe
   end
 
+  def format_date_YMD(date)
+    date.strftime("%Y-%m-%d")
+  end
+
   def strikeout_if(text, strike)
     strike ? "<strike>#{text}</strike>".html_safe : text
   end

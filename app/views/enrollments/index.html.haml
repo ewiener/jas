@@ -50,6 +50,10 @@
           = label_tag 'view_fees', :class => 'checkbox filter-checkbox' do
             = check_box_tag 'view_fees', '1', params[:view_fees]
             Show fees
+          &nbsp;&nbsp;
+          = label_tag 'view_date', :class => 'checkbox filter-checkbox' do
+            = check_box_tag 'view_date', '1', params[:view_date]
+            Show date
 
     %h4.print-heading-sub
       = enrollment_index_heading(@filter)
@@ -88,6 +92,10 @@
               - columns = columns + 1
               %td
                 Total fees
+            - if params[:view_date]
+              - columns = columns + 1
+              %td
+                Date
         %tbody
           - if @view[:by_student]
             - @enrollments.each do |enrollment|
